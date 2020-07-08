@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.providers",
+    package = "com.elsa.providers",
 )
 
 android_resource(
     name = "res",
-    package = "com.providers",
+    package = "com.elsa.providers",
     res = "src/main/res",
 )
 

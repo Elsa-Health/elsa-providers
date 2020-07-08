@@ -1,4 +1,4 @@
-package com.providers;
+package com.elsa.providers;
 
 import com.facebook.react.ReactActivity;
 

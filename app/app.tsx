@@ -9,12 +9,72 @@ import { NavigationContainerRef } from "@react-navigation/native"
 import { contains } from "ramda"
 import { enableScreens } from "react-native-screens"
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from "react-native-safe-area-context"
+import EStyleSheet from "react-native-extended-stylesheet"
+import { Provider as PaperProvider, DefaultTheme } from "react-native-paper"
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
 
 import { RootNavigator, exitRoutes, setRootNavigation } from "./navigation"
 import { useBackButtonHandler } from "./navigation/use-back-button-handler"
-import { RootStore, RootStoreProvider, setupRootStore } from "./models/root-store"
+import { RootStore, RootStoreProvider, setupRootStore, initialUser } from "./models/root-store"
 import * as storage from "./utils/storage"
 import getActiveRouteName from "./navigation/get-active-routename"
+
+function authListener(rootStore: RootStore) {
+    auth().onAuthStateChanged(user => {
+        if (user) {
+            firestore()
+                .collection("providers")
+                .doc(user.uid)
+                .onSnapshot(snap => {
+                    if (snap.exists) {
+                        const user = { id: snap.id, ...snap.data() }
+                        rootStore.account.setUser({
+                            ...initialUser,
+                            ...user,
+                            loading: false,
+                            authenticated: true,
+                        })
+
+                        // @ts-ignore
+                        if (user.role === "clinician") {
+                            // @ts-ignore
+                            rootStore.loadCenterAppointments(user.hospitalId)
+                        }
+                        // setAccount()
+                        // self.loading = false
+                        // console.log("USER: ", user)
+                        // self = { ...initialUser, ...user, loading: false }
+                    } else {
+                        rootStore.account.setUser({
+                            ...initialUser,
+                            loading: false,
+                            authenticated: false,
+                        })
+                        auth().signOut()
+                    }
+                })
+        } else {
+            rootStore.account.setUser({ ...initialUser, loading: false, authenticated: false })
+        }
+    })
+}
+
+const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: "#3498db",
+        accent: "#f1c40f",
+    },
+}
+
+// Initialize the extended-stylesheets
+EStyleSheet.build({
+    // always call EStyleSheet.build() even if you don't use global variables!
+    // $textColor: "#0275d8",
+})
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -26,9 +86,9 @@ enableScreens()
  * that we haven't gotten around to replacing yet.
  */
 YellowBox.ignoreWarnings([
-  "componentWillMount is deprecated",
-  "componentWillReceiveProps is deprecated",
-  "Require cycle:",
+    "componentWillMount is deprecated",
+    "componentWillReceiveProps is deprecated",
+    "Require cycle:",
 ])
 
 /**
@@ -45,84 +105,90 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
  * This is the root component of our app.
  */
 const App: React.FunctionComponent<{}> = () => {
-  const navigationRef = useRef<NavigationContainerRef>()
-  const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
-  const [initialNavigationState, setInitialNavigationState] = useState()
-  const [isRestoringNavigationState, setIsRestoringNavigationState] = useState(true)
+    const navigationRef = useRef<NavigationContainerRef>()
+    const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
+    const [initialNavigationState, setInitialNavigationState] = useState()
 
-  setRootNavigation(navigationRef)
-  useBackButtonHandler(navigationRef, canExit)
+    // CHANGE THE BOTTOM TO DETERMINE WHETHER TO PERSIST NAVIGATION STATE OR NOT
+    const [isRestoringNavigationState, setIsRestoringNavigationState] = useState(false)
 
-  /**
-   * Keep track of state changes
-   * Track Screens
-   * Persist State
-   */
-  const routeNameRef = useRef()
-  const onNavigationStateChange = state => {
-    const previousRouteName = routeNameRef.current
-    const currentRouteName = getActiveRouteName(state)
+    setRootNavigation(navigationRef)
+    useBackButtonHandler(navigationRef, canExit)
 
-    if (previousRouteName !== currentRouteName) {
-      // track screens.
-      __DEV__ && console.tron.log(currentRouteName)
-    }
+    /**
+     * Keep track of state changes
+     * Track Screens
+     * Persist State
+     */
+    const routeNameRef = useRef()
+    const onNavigationStateChange = state => {
+        const previousRouteName = routeNameRef.current
+        const currentRouteName = getActiveRouteName(state)
 
-    // Save the current route name for later comparision
-    routeNameRef.current = currentRouteName
-
-    // Persist state to storage
-    storage.save(NAVIGATION_PERSISTENCE_KEY, state)
-  }
-
-  useEffect(() => {
-    ;(async () => {
-      setupRootStore().then(setRootStore)
-    })()
-  }, [])
-
-  useEffect(() => {
-    const restoreState = async () => {
-      try {
-        const state = await storage.load(NAVIGATION_PERSISTENCE_KEY)
-
-        if (state) {
-          setInitialNavigationState(state)
+        if (previousRouteName !== currentRouteName) {
+            // track screens.
+            __DEV__ && console.tron.log(currentRouteName)
         }
-      } finally {
-        setIsRestoringNavigationState(false)
-      }
+
+        // Save the current route name for later comparision
+        routeNameRef.current = currentRouteName
+
+        // Persist state to storage
+        storage.save(NAVIGATION_PERSISTENCE_KEY, state)
     }
 
-    if (isRestoringNavigationState) {
-      restoreState()
+    useEffect(() => {
+        ;(async () => {
+            setupRootStore().then(setRootStore)
+        })()
+    }, [])
+
+    useEffect(() => {
+        const restoreState = async () => {
+            try {
+                const state = await storage.load(NAVIGATION_PERSISTENCE_KEY)
+
+                if (state) {
+                    setInitialNavigationState(state)
+                }
+            } finally {
+                setIsRestoringNavigationState(false)
+            }
+        }
+
+        if (isRestoringNavigationState) {
+            restoreState()
+        }
+    }, [isRestoringNavigationState])
+
+    // Before we show the app, we have to wait for our state to be ready.
+    // In the meantime, don't render anything. This will be the background
+    // color set in native by rootView's background color.
+    //
+    // This step should be completely covered over by the splash screen though.
+    //
+    // You're welcome to swap in your own component to render if your boot up
+    // sequence is too slow though.
+    if (!rootStore) {
+        return null
     }
-  }, [isRestoringNavigationState])
 
-  // Before we show the app, we have to wait for our state to be ready.
-  // In the meantime, don't render anything. This will be the background
-  // color set in native by rootView's background color.
-  //
-  // This step should be completely covered over by the splash screen though.
-  //
-  // You're welcome to swap in your own component to render if your boot up
-  // sequence is too slow though.
-  if (!rootStore) {
-    return null
-  }
+    authListener(rootStore)
 
-  // otherwise, we're ready to render the app
-  return (
-    <RootStoreProvider value={rootStore}>
-      <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-        <RootNavigator
-          ref={navigationRef}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
-      </SafeAreaProvider>
-    </RootStoreProvider>
-  )
+    // otherwise, we're ready to render the app
+    return (
+        <RootStoreProvider value={rootStore}>
+            <PaperProvider theme={theme}>
+                <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+                    <RootNavigator
+                        ref={navigationRef}
+                        initialState={initialNavigationState}
+                        onStateChange={onNavigationStateChange}
+                    />
+                </SafeAreaProvider>
+            </PaperProvider>
+        </RootStoreProvider>
+    )
 }
 
 export default App

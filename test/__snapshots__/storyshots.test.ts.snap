@@ -127,12 +127,17 @@ exports[`Storyshots Button Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 9,
-                    "paddingHorizontal": 12,
-                  }
+                  Array [
+                    Object {
+                      "color": "#ffffff",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 9,
+                      "paddingHorizontal": 12,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Click It
@@ -243,12 +248,17 @@ exports[`Storyshots Button Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 9,
-                    "paddingHorizontal": 12,
-                  }
+                  Array [
+                    Object {
+                      "color": "#ffffff",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 9,
+                      "paddingHorizontal": 12,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Click It
@@ -359,12 +369,17 @@ exports[`Storyshots Button Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#a511dc",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 20,
-                    "paddingHorizontal": 12,
-                  }
+                  Array [
+                    Object {
+                      "color": "#a511dc",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 20,
+                      "paddingHorizontal": 12,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Click It
@@ -517,12 +532,17 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
               <Text
                 numberOfLines={1}
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "paddingLeft": 8,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "paddingLeft": 8,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Toggle me
@@ -655,12 +675,17 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
               <Text
                 numberOfLines={1}
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "paddingLeft": 8,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "paddingLeft": 8,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Always on
@@ -783,12 +808,17 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
               <Text
                 numberOfLines={1}
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "paddingLeft": 8,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "paddingLeft": 8,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Always off
@@ -942,12 +972,17 @@ exports[`Storyshots Checkbox Styling 1`] = `
                 <Text
                   numberOfLines={0}
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   We’re an App Design & Development Team. Experts in mobile & web technologies. We create beautiful, functional mobile apps and websites. 
@@ -1075,12 +1110,17 @@ exports[`Storyshots Checkbox Styling 1`] = `
                 <Text
                   numberOfLines={1}
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   Hello there!
@@ -1205,12 +1245,17 @@ exports[`Storyshots Checkbox Styling 1`] = `
                 <Text
                   numberOfLines={1}
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   Outline is the box frame
@@ -1335,12 +1380,17 @@ exports[`Storyshots Checkbox Styling 1`] = `
                 <Text
                   numberOfLines={1}
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   Fill er up
@@ -1465,12 +1515,17 @@ exports[`Storyshots Checkbox Styling 1`] = `
                 <Text
                   numberOfLines={1}
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   Check it twice
@@ -1601,11 +1656,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Hello! I am at the top
@@ -1623,11 +1683,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officia quo rerum impedit asperiores hic ex quae, quam dolores vel odit doloribus, tempore atque deserunt possimus incidunt, obcaecati numquam officiis.
@@ -1645,11 +1710,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 9,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 9,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 ...one more thing
@@ -1668,11 +1738,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 🎉 Footers!
@@ -1769,11 +1844,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 My borders are still there, but they are clear. This causes the text to still align properly due to the box model of flexbox.
@@ -1791,11 +1871,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 I'm round
@@ -1814,11 +1899,16 @@ exports[`Storyshots FormRow Assembled 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 I'm square and have a custom style.
@@ -1948,22 +2038,32 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Curved borders at the top.
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Nothing below
@@ -2061,11 +2161,16 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 No curves and empty at the bottom.
@@ -2164,22 +2269,32 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Curved at the bottom
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Line at the top.
@@ -2277,11 +2392,16 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Curves all around.
@@ -2378,11 +2498,16 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Curves nowhere.
@@ -2479,11 +2604,16 @@ exports[`Storyshots FormRow Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Curves nowhere.
@@ -2610,11 +2740,16 @@ exports[`Storyshots FormRow Styling 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#1d1d1d",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#1d1d1d",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Array style.
@@ -2742,10 +2877,15 @@ exports[`Storyshots Header Behavior 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
+                    "borderBottomColor": "#939AA4",
+                    "borderBottomWidth": 3,
                     "flexDirection": "row",
                     "justifyContent": "flex-start",
-                    "paddingBottom": 24,
-                    "paddingHorizontal": 16,
+                    "marginBottom": 16,
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                    "paddingBottom": 8,
+                    "paddingHorizontal": 4,
                     "paddingTop": 24,
                   }
                 }
@@ -2753,7 +2893,7 @@ exports[`Storyshots Header Behavior 1`] = `
                 <View
                   style={
                     Object {
-                      "width": 32,
+                      "width": 0,
                     }
                   }
                 />
@@ -2761,18 +2901,23 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "flex": 1,
-                      "justifyContent": "center",
+                      "justifyContent": "flex-start",
                     }
                   }
                 >
                   <Text
                     style={
-                      Object {
-                        "color": "#ffffff",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "textAlign": "center",
-                      }
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "textAlign": "center",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ]
                     }
                   >
                     demoScreen.howTo.test
@@ -2781,7 +2926,7 @@ exports[`Storyshots Header Behavior 1`] = `
                 <View
                   style={
                     Object {
-                      "width": 32,
+                      "width": 0,
                     }
                   }
                 />
@@ -2879,10 +3024,15 @@ exports[`Storyshots Header Behavior 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
+                    "borderBottomColor": "#939AA4",
+                    "borderBottomWidth": 3,
                     "flexDirection": "row",
                     "justifyContent": "flex-start",
-                    "paddingBottom": 24,
-                    "paddingHorizontal": 16,
+                    "marginBottom": 16,
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                    "paddingBottom": 8,
+                    "paddingHorizontal": 4,
                     "paddingTop": 24,
                   }
                 }
@@ -2928,18 +3078,23 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "flex": 1,
-                      "justifyContent": "center",
+                      "justifyContent": "flex-start",
                     }
                   }
                 >
                   <Text
                     style={
-                      Object {
-                        "color": "#ffffff",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "textAlign": "center",
-                      }
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "textAlign": "center",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ]
                     }
                   >
                     demoScreen.howTo.test
@@ -2948,7 +3103,7 @@ exports[`Storyshots Header Behavior 1`] = `
                 <View
                   style={
                     Object {
-                      "width": 32,
+                      "width": 0,
                     }
                   }
                 />
@@ -3046,10 +3201,15 @@ exports[`Storyshots Header Behavior 1`] = `
                 style={
                   Object {
                     "alignItems": "center",
+                    "borderBottomColor": "#939AA4",
+                    "borderBottomWidth": 3,
                     "flexDirection": "row",
                     "justifyContent": "flex-start",
-                    "paddingBottom": 24,
-                    "paddingHorizontal": 16,
+                    "marginBottom": 16,
+                    "marginLeft": 4,
+                    "marginRight": 4,
+                    "paddingBottom": 8,
+                    "paddingHorizontal": 4,
                     "paddingTop": 24,
                   }
                 }
@@ -3057,7 +3217,7 @@ exports[`Storyshots Header Behavior 1`] = `
                 <View
                   style={
                     Object {
-                      "width": 32,
+                      "width": 0,
                     }
                   }
                 />
@@ -3065,18 +3225,23 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "flex": 1,
-                      "justifyContent": "center",
+                      "justifyContent": "flex-start",
                     }
                   }
                 >
                   <Text
                     style={
-                      Object {
-                        "color": "#ffffff",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "textAlign": "center",
-                      }
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "textAlign": "center",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ]
                     }
                   >
                     demoScreen.howTo.test
@@ -4163,11 +4328,16 @@ exports[`Storyshots Text Passing Content 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Heyo!
@@ -4263,22 +4433,32 @@ exports[`Storyshots Text Passing Content 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 common.ok.test
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 common.cancel.test
@@ -4374,11 +4554,16 @@ exports[`Storyshots Text Passing Content 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Passing strings as children.
@@ -4474,23 +4659,33 @@ exports[`Storyshots Text Passing Content 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                  
                 Hello 
                 <Text
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "fontWeight": "bold",
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "fontWeight": "bold",
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   bolded
@@ -4618,23 +4813,33 @@ exports[`Storyshots Text Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Hello!
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "paddingTop": 10,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "paddingTop": 10,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Check out
@@ -4647,23 +4852,33 @@ exports[`Storyshots Text Style Presets 1`] = `
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "paddingTop": 10,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "paddingTop": 10,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 The quick brown fox jumped over the slow lazy dog.
               </Text>
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 $123,456,789.00
@@ -4759,12 +4974,17 @@ exports[`Storyshots Text Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                    "fontWeight": "bold",
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Osnap! I'm puffy.
@@ -4860,12 +5080,17 @@ exports[`Storyshots Text Style Presets 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 24,
-                    "fontWeight": "bold",
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 24,
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Behold!
@@ -4996,23 +5221,33 @@ exports[`Storyshots Text Styling 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#ffffff",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 15,
-                  }
+                  Array [
+                    Object {
+                      "color": "#333",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                  
                 Hello 
                 <Text
                   style={
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "fontWeight": "bold",
-                    }
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "fontWeight": "bold",
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                    ]
                   }
                 >
                   bolded
@@ -5139,11 +5374,16 @@ exports[`Storyshots TextField Labelling 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Name
@@ -5157,7 +5397,7 @@ exports[`Storyshots TextField Labelling 1`] = `
                 style={
                   Object {
                     "backgroundColor": "#ffffff",
-                    "color": "#ffffff",
+                    "color": "#333",
                     "fontFamily": "Montserrat",
                     "fontSize": 18,
                     "minHeight": 44,
@@ -5256,11 +5496,16 @@ exports[`Storyshots TextField Labelling 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 storybook.field.test
@@ -5274,7 +5519,7 @@ exports[`Storyshots TextField Labelling 1`] = `
                 style={
                   Object {
                     "backgroundColor": "#ffffff",
-                    "color": "#ffffff",
+                    "color": "#333",
                     "fontFamily": "Montserrat",
                     "fontSize": 18,
                     "minHeight": 44,
@@ -5392,11 +5637,16 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Name
@@ -5426,11 +5676,16 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
             </View>
             <Text
               style={
-                Object {
-                  "color": "#939AA4",
-                  "fontFamily": "Montserrat",
-                  "fontSize": 9,
-                }
+                Array [
+                  Object {
+                    "color": "#939AA4",
+                    "fontFamily": "Montserrat",
+                    "fontSize": 9,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                ]
               }
             >
               * attention designers:  i am so sorry
@@ -5556,11 +5811,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 First Name
@@ -5573,7 +5833,7 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                 style={
                   Object {
                     "backgroundColor": "#ffffff",
-                    "color": "#ffffff",
+                    "color": "#333",
                     "fontFamily": "Montserrat",
                     "fontSize": 18,
                     "minHeight": 44,
@@ -5593,11 +5853,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Last Name
@@ -5610,7 +5875,7 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                 style={
                   Object {
                     "backgroundColor": "#ffffff",
-                    "color": "#ffffff",
+                    "color": "#333",
                     "fontFamily": "Montserrat",
                     "fontSize": 18,
                     "minHeight": 44,
@@ -5709,11 +5974,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Name
@@ -5742,11 +6012,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             </View>
             <Text
               style={
-                Object {
-                  "color": "#939AA4",
-                  "fontFamily": "Montserrat",
-                  "fontSize": 9,
-                }
+                Array [
+                  Object {
+                    "color": "#939AA4",
+                    "fontFamily": "Montserrat",
+                    "fontSize": 9,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                ]
               }
             >
               * attention designers:  i am so sorry
@@ -5842,11 +6117,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             >
               <Text
                 style={
-                  Object {
-                    "color": "#939AA4",
-                    "fontFamily": "Montserrat",
-                    "fontSize": 13,
-                  }
+                  Array [
+                    Object {
+                      "color": "#939AA4",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
                 }
               >
                 Name
@@ -5875,11 +6155,16 @@ exports[`Storyshots TextField Style Overrides 1`] = `
             </View>
             <Text
               style={
-                Object {
-                  "color": "#939AA4",
-                  "fontFamily": "Montserrat",
-                  "fontSize": 9,
-                }
+                Array [
+                  Object {
+                    "color": "#939AA4",
+                    "fontFamily": "Montserrat",
+                    "fontSize": 9,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                ]
               }
             >
               * attention designers:  i am so sorry
