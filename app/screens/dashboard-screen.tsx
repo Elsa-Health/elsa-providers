@@ -1,7 +1,7 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, TouchableOpacity, View, Image } from "react-native"
-import { ParamListBase } from "@react-navigation/native"
+import { ParamListBase,useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
@@ -20,23 +20,25 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
     return (
         <Screen style={ROOT} preset="scroll">
             <Header headerText="Elsa Health Assistant" />
-
             <View style={{ padding: 10 }}>
                 <DashboardItem
                     title="New Patient Assesment"
                     iconSource={require("../assets/icons/ASK-A-DOCTOR.png")}
                     actionText="Begin Symptom Assesment"
                     description="Assess your patients health situation using the Elsa suite of Tools."
+                    route="client-present"
                 />
                 <DashboardItem
                     title="Have a question about a disease?"
                     actionText="Visit Library"
                     description="The Elsa library provides information about each of the diseases we cover."
+                    route="disease-library"
                 />
                 <DashboardItem
                     title="Having a problem? Enjoying Something?"
                     actionText="Report Problem / Feedback"
                     description="Please leave feedback and we will be sure to fix whatever you are having a problem with."
+                    route="feedback"
                 />
             </View>
         </Screen>
@@ -47,7 +49,8 @@ interface DashboardItemProps {
     title: string
     description: string
     actionText: string
-    iconSource?: any
+    iconSource?: any,
+    route?:string
 }
 
 const DashboardItem: React.FC<DashboardItemProps> = ({
@@ -55,7 +58,14 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
     description,
     iconSource,
     actionText,
+    route
 }) => {
+    const navigation=useNavigation()
+    
+    const navigateTo=()=>{
+        if(route) navigation.navigate(route)
+        return
+    }
     return (
         <Card style={{ marginTop: 20 }}>
             <Card.Title title={title} />
@@ -82,17 +92,17 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                         </View>
                     </View>
                 ) : (
-                    <Text text={description} />
-                )}
+                        <Text text={description} />
+                    )}
             </Card.Content>
             <Card.Actions>
-                <Button onPress={() => {}} style={{ alignContent: "center" }} mode="text">
+                <Button onPress={navigateTo}
+                    contentStyle={{ flexDirection: 'row-reverse', paddingLeft: 8 }}
+                    mode="text"
+                    icon={() => <Icon name="arrow-forward" size={18} style={{ color: color.primary }} />}
+
+                >
                     <Text text={actionText} color="primary" size="small" />
-                    {/* <Icon name="arrow-forward" color={col or.primary} /> */}
-                    <Text style={{ alignSelf: "center" }} color="primary" size="h5">
-                        {" "}
-                        ⟶
-                    </Text>
                 </Button>
             </Card.Actions>
         </Card>

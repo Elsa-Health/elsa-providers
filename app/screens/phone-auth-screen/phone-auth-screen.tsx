@@ -1,9 +1,9 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, StatusBar, View, Image, Alert, Dimensions } from "react-native"
+import { ViewStyle, StatusBar, View, Image, Alert, Dimensions,TouchableOpacity, Text as RNText } from "react-native"
 import EStyleSheet from "react-native-extended-stylesheet"
 import { TextInput, Button, Title, ActivityIndicator, Colors } from "react-native-paper"
-import { ParamListBase, StackActions } from "@react-navigation/native"
+import { ParamListBase, StackActions, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import auth from "@react-native-firebase/auth"
 import { Screen, Text } from "../../components"
@@ -18,8 +18,9 @@ export interface PhoneAuthScreenProps {
 
 const ROOT: ViewStyle = {
     backgroundColor: color.background,
-    // flex: 1,
-    height,
+    flex: 1,
+    // height,
+
     // backgroundColor: "red",
 }
 const ACTIVITY_INDICATOR: ViewStyle = {
@@ -28,21 +29,23 @@ const ACTIVITY_INDICATOR: ViewStyle = {
 
 const styles = EStyleSheet.create({
     logo: {
-        width: "50%", // 80% of screen width
-        height: "20%",
-        marginTop: "50%",
-        marginBottom: "5%",
+        width: 164,
+        height: 141,
         alignSelf: "center",
+        marginBottom: 47
     },
     input: {
-        padding: 15,
-        paddingTop: 30,
-        paddingBottom: 5,
+        height: 44,
+        width: "100%",
+        backgroundColor: "#E5E5E5",
+        marginTop: 13,  //value to be fixed
+
     },
     button: {
+        backgroundColor: color.primary,
         marginTop: 15,
-        marginRight: 15,
-        marginLeft: 15,
+        borderRadius: 5,
+        height: 44
     },
 })
 
@@ -63,6 +66,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
     const [confirm, setConfirm] = React.useState(null)
     const [state, setstate] = React.useState({ ...initialState })
     const [loading, setloading] = React.useState(false)
+    const navigation = useNavigation()
 
     const toggleView = () =>
         setstate({
@@ -80,6 +84,10 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
     //     setConfirm(confirmation)
     // }
 
+    const authAndNavigate = () => {
+        // Alert.alert("About to", "Navigating deeper")
+        navigation.navigate('dashboard')
+    }
     const sendAuthMessage = () => {
         auth()
             .signInWithPhoneNumber(state.telephone)
@@ -102,7 +110,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
         } catch (error) {
             console.log("Invalid code.", error)
             hasError = true
-            alert("Invalid code")
+            Alert.alert("Invalid code")
         }
         if (!hasError) {
             // return props.navigation.dispatch(
@@ -155,53 +163,85 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
     }
     return (
         <Screen style={ROOT} testID="container" preset="scroll">
-            <StatusBar backgroundColor="white" />
+            <StatusBar backgroundColor="black" />
+            <View style={{ flex: 1, alignContent: "center", justifyContent: "center", paddingLeft: 12, paddingRight: 12 }}>
+                <Image style={styles.logo} source={require("./logo.png")} resizeMode="contain" />
+                <Text size="h4" tx="phoneAuthScreen.title" align="center" />
+                {state.view === "phone-number" ? (
+                    <React.Fragment>
+                        <TextInput
+                            // value={state.telephone}
+                            // onChangeText={text => setstate({ ...state, telephone: text })}
+                            mode="flat"
+                            keyboardType="phone-pad"
+                            placeholder="Email or Username"
+                            style={styles.input}
+                            underlineColor="transparent"
+                        />
 
-            <Image style={styles.logo} source={require("./logo.png")} resizeMode="contain" />
+                        <TextInput
+                            // value={state.telephone}
+                            // onChangeText={text => setstate({ ...state, telephone: text })}
+                            mode="flat"
+                            keyboardType="phone-pad"
+                            placeholder="Password"
+                            style={styles.input}
+                            underlineColor="transparent"
+                        />
 
-            <Text size="h2" tx="phoneAuthScreen.title" align="center" />
+                        <View style={{ flexDirection: "row-reverse",marginTop:8 }}>
+                            <TouchableOpacity
+                                onPress={() => console.log('Pressed')}
+                            >
+                                <Text size="small">
+                                    Forgot Password ?
+                                </Text>
 
-            {state.view === "phone-number" ? (
-                <React.Fragment>
-                    <TextInput
-                        value={state.telephone}
-                        onChangeText={text => setstate({ ...state, telephone: text })}
-                        mode="outlined"
-                        keyboardType="phone-pad"
-                        label="Namba ya simu"
-                        style={styles.input}
-                    />
+                            </TouchableOpacity>
+                        </View>
+                        <Button
+                            mode="contained"
+                            onPress={authAndNavigate}
+                            loading={loading}
+                            style={[styles.button, { elevation: 0 }]}
+                            uppercase={false}
+                        >
+                            <Text color="white">Login</Text>
+                        </Button>
 
-                    <Button
-                        mode="contained"
-                        onPress={sendAuthMessage}
-                        loading={loading}
-                        style={styles.button}
-                    >
-                        <Text color="white">Tuma Uthibitisho</Text>
-                    </Button>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                    <TextInput
-                        value={state.activationCode}
-                        keyboardType="number-pad"
-                        onChangeText={text => setstate({ ...state, activationCode: text })}
-                        mode="outlined"
-                        label="Kodi ya uthibitisho"
-                        style={styles.input}
-                    />
+                        {/* Following component to be styled */}
+                        <View style={{ bottom: 0, marginTop: 20 }}>
+                            {/* the bellow component to be written */}
+                            <RNText style={{ fontSize: 12, textAlign: "center" }}>Built by Inspired Ideas LLC</RNText>
+                        </View>
 
-                    <Button
-                        mode="contained"
-                        onPress={() => authenticate(confirm)}
-                        loading={loading}
-                        style={styles.button}
-                    >
-                        <Text color="white">Thibitisha</Text>
-                    </Button>
-                </React.Fragment>
-            )}
+                    </React.Fragment>
+                ) : (
+                        <React.Fragment>
+                            <TextInput
+                                value={state.activationCode}
+                                keyboardType="number-pad"
+                                onChangeText={text => setstate({ ...state, activationCode: text })}
+                                mode="outlined"
+                                label="Kodi ya uthibitisho"
+                                style={styles.input}
+                            />
+
+                            <Button
+                                mode="contained"
+                                onPress={() => authenticate(confirm)}
+                                loading={loading}
+                                style={styles.button}
+                            >
+                                <Text color="white">Thibitisha</Text>
+                            </Button>
+                        </React.Fragment>
+                    )}
+
+
+            </View>
+
+
         </Screen>
     )
 })

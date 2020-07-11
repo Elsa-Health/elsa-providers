@@ -18,7 +18,7 @@ const styles = EStyleSheet.create({
         fontSize: "2rem",
     },
     h4: {
-        fontSize: "2rem",
+        fontSize: "1.6rem",
     },
     h5: {
         fontSize: "1.4rem",

@@ -59,23 +59,23 @@ export const AssessmentQuestionsScreen: React.FunctionComponent<AssessmentQuesti
                         style={ACTIVITY_INDICATOR}
                     />
                 ) : (
-                    <View style={{ padding: 10 }}>
-                        {assessment.nextNodes.map(node => (
-                            <AssessmentQuestion
-                                key={node}
-                                symptom={node}
-                                question={getQuestion(node, "eng")}
-                            />
-                        ))}
-                        <Button
-                            style={{ margin: 10, marginBottom: 20 }}
-                            onPress={submit}
-                            mode="contained"
-                        >
-                            <Text color="white">Next</Text>
-                        </Button>
-                    </View>
-                )}
+                        <View style={{ padding: 10 }}>
+                            {assessment.nextNodes.map(node => (
+                                <AssessmentQuestion
+                                    key={node}
+                                    symptom={node}
+                                    question={getQuestion(node, "eng")}
+                                />
+                            ))}
+                            <Button
+                                style={{ margin: 10, marginBottom: 20 }}
+                                onPress={submit}
+                                mode="contained"
+                            >
+                                <Text color="white">Next</Text>
+                            </Button>
+                        </View>
+                    )}
             </Screen>
         )
     },
@@ -128,17 +128,20 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
                             value="present"
                             status={status === "present" ? "checked" : "unchecked"}
                             onPress={() => assessment.patient.setSymptom(symptom, "present")}
+                            color={color.primary}
                         />
                         <Text>Yes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => assessment.patient.setSymptom(symptom, "absent")}
                         style={styles.booleanOption}
+
                     >
                         <RadioButton
                             value="absent"
                             status={status === "absent" ? "checked" : "unchecked"}
                             onPress={() => assessment.patient.setSymptom(symptom, "absent")}
+                            color={color.primary}
                         />
                         <Text>No</Text>
                     </TouchableOpacity>

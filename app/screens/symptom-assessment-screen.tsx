@@ -1,0 +1,186 @@
+import * as React from "react"
+import { observer } from "mobx-react-lite"
+import { ViewStyle, View, TouchableOpacity } from "react-native"
+import { ParamListBase, useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "react-native-screens/native-stack"
+import { Screen, Text, Header } from "../components"
+import { RadioButton, TextInput, Checkbox, Button } from 'react-native-paper'
+// import { useStores } from "../models/root-store"
+import { color } from "../theme"
+import EStyleSheet from "react-native-extended-stylesheet"
+import { AssessmentQuestion } from "./assessment-questions-screen"
+import { lastIndexOf } from "lodash"
+
+
+
+export interface SymptomAssessmentScreenProps {
+  navigation: NativeStackNavigationProp<ParamListBase>
+}
+
+
+const ROOT: ViewStyle = {
+}
+
+const styles = EStyleSheet.create({
+  questionWrapper: {
+    marginTop: 10,
+    marginBottom: 35,
+  },
+  booleanOptionsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  booleanOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: "10%",
+  },
+  radioOption: {
+    flexDirection: "row",
+    marginTop: 10,
+    alignItems: "center",
+    marginRight: "15%",
+    width: "90%",
+  },
+})
+
+
+export const GeneralAssessmentQuestion = ({ question }: { question: string }) => {
+
+  return (
+    <View style={{ marginVertical: 20 }}>
+      <Text size="h6">{question}</Text>
+
+      <View style={styles.booleanOptionsContainer}>
+        <TouchableOpacity
+          onPress={() => { }}
+          style={styles.booleanOption}
+        >
+          <RadioButton
+            value="present"
+            status={"unchecked"}
+            onPress={() => { }}
+            color={color.primary}
+          />
+          <Text>Male</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => { }}
+          style={styles.booleanOption}
+
+        >
+          <RadioButton
+            value="absent"
+            status={"checked"}
+            onPress={() => { }}
+            color={color.primary}
+          />
+          <Text>Female</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+const sampleSymptoms=['Cough', 'Fever/ High temperature', 'Difficulty breathing',
+'Chest pain',
+'Abnormal vaginal discharge',
+]
+
+const SymptomsList = () => {
+  return (
+    <React.Fragment>
+      {sampleSymptoms.map((symptom, index) => (
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 12 }} key={index}>
+          <Text size="h6">{symptom}</Text>
+          <Checkbox
+            status={'checked'}
+            onPress={() => {
+            }}
+            color={color.primary}
+          />
+
+
+
+        </View>))
+
+      }
+    </React.Fragment>
+  )
+}
+
+const sampleAssessmentQuestions = [
+  'Does the client feel more fatigued or tired than usual?',
+  'Has the client had difficulty breathing for more than 3 days?',
+  'Does the client have a loss of appetite? ',
+  'Does the client have white patches on the back of their throat or inside their mouth?'
+]
+
+export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentScreenProps> = observer((props) => {
+  // const { someStore } = useStores()
+  const [displayIndex, setDisplayIndex] = React.useState(0)
+  const [lastIndex,setLastIndex]=React.useState(1)
+  const navigation=useNavigation()
+
+  return (
+    <Screen style={ROOT} preset="scroll">
+      <Header headerText="Symptom Assesessment" />
+      <View style={{ padding: 10 }}>
+        {displayIndex === 0 &&
+          <View>
+            <Text size="h6">Please input the following information about your client.</Text>
+            <GeneralAssessmentQuestion question="Gender" />
+            <Text size="h6">Age</Text>
+            <TextInput
+              placeholder="Start typing..."
+              mode="flat"
+              value={""}
+              onChangeText={text => { }}
+              underlineColor="transparent"
+              theme={{ colors: { primary: color.primary } }}
+            />
+
+            <Text size="h6">Presenting Symptoms</Text>
+            <Text size="small">Does the client have any of the following symptoms? Please check all that apply. </Text>
+            <SymptomsList />
+            <View>
+              <Button
+                style={[{ paddingVertical: 8, paddingHorizontal: 46, marginTop: 12, backgroundColor: color.primary, alignSelf: "flex-end" }, { elevation: 0 }]}
+                onPress={() => { setDisplayIndex(displayIndex + 1) }}
+                uppercase={false}
+              ><Text style={{ color: "white" }}>Next</Text></Button>
+
+            </View>
+          </View>
+        }
+        {displayIndex === 1 &&
+          <View>
+            <Text size="small">Please input the following information about your client. </Text>
+            {/* <AssessmentQuestion question={/> */}
+            {sampleAssessmentQuestions.map((question, index) => (
+              <AssessmentQuestion question={question} key={index} />
+            ))}
+            <View>
+              <Button
+                style={[{ paddingVertical: 8, paddingHorizontal: 46, marginTop: 12, backgroundColor: color.primary, alignSelf: "flex-end" }, { elevation: 0 }]}
+                onPress={() => {
+                  if (lastIndex===displayIndex) {
+                    console.log("Reached the last index")
+                    navigation.navigate('assessment-summary')
+                  } else {
+                    setDisplayIndex(displayIndex + 1)
+                  }
+
+                }}
+                uppercase={false}
+              ><Text style={{ color: "white" }}>Next</Text></Button>
+
+            </View>
+          </View>
+        }
+
+      </View>
+    </Screen>
+  )
+})
