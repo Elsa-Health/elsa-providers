@@ -6,7 +6,7 @@ import { Checkbox, Button, TextInput } from 'react-native-paper'
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 
 export interface ClientFeedbackScreenProps {
   navigation: NativeStackNavigationProp<ParamListBase>
@@ -29,7 +29,7 @@ const ClientRecommendation = ({ sampleRecommendations }: { sampleRecommendations
   return (
     <View>
       {sampleRecommendations.map((recommendation, index) => (
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 12 }} key={index}>
+        <View style={[style.contentTextVerticalSpacing,{ flexDirection: "row", justifyContent: "space-between"}]} key={index}>
           <Text style={{ textAlignVertical: "center" }}>{recommendation}</Text>
           <Checkbox
             status={'checked'}
@@ -48,15 +48,15 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
   // const { someStore } = useStores()
   return (
     <Screen style={ROOT} preset="scroll">
-      <Header headerText="Assessment Summary" />
+      <Header headerText="Assessment Feedback" />
       <View style={{ padding: 10 }}>
-        <Text>Please indicate which next steps you provided to the patient in order to complete this symptom assessment.</Text>
-        <Text style={{ marginTop: 12, fontWeight: "bold" }}>I provided the following recommendations:</Text>
+        <Text style={style.bodyContent}>Please indicate which next steps you provided to the patient in order to complete this symptom assessment.</Text>
+        <Text style={[style.contentTextVerticalSpacing,style.contentHeader]}>I provided the following recommendations:</Text>
         <View style={{ flex: 1 }}>
           <ClientRecommendation sampleRecommendations={sampleRecommendations} />
         </View>
-        <View>
-          <Text>Please indicate which tests: </Text>
+        <View style={style.contentTextVerticalSpacing}>
+          <Text style={style.bodyContent}>Please indicate which tests: </Text>
           <TextInput
             placeholder="Start typing..."
             mode="flat"
@@ -64,7 +64,9 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
             // numberOfLines={4}
             value={""}
             onChangeText={text => { }}
+
             underlineColor="transparent"
+            style={[style.headerTextContentVerticalSpacing,style.input]}
             theme={{ colors: { primary: color.primary } }}
           />
         </View>
@@ -72,8 +74,8 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
           <ClientRecommendation sampleRecommendations={sampleRecommendations2} />
         </View>
 
-        <View>
-          <Text>Please indicate which medication </Text>
+        <View style={style.contentTextVerticalSpacing}>
+          <Text style={style.bodyContent}>Please indicate which medication </Text>
           <TextInput
             placeholder="Start typing..."
             mode="flat"
@@ -81,13 +83,14 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
             // numberOfLines={4}
             value={""}
             onChangeText={text => { }}
+            style={[style.headerTextContentVerticalSpacing,style.input]}
             underlineColor="transparent"
             theme={{ colors: { primary: color.primary } }}
           />
         </View>
 
-        <View>
-          <Text>Please add any additional notes.  </Text>
+        <View style={style.contentTextVerticalSpacing}>
+          <Text style={style.bodyContent}>Please add any additional notes.  </Text>
           <TextInput
             placeholder="Start typing..."
             mode="flat"
@@ -96,12 +99,13 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
             value={""}
             onChangeText={text => { }}
             underlineColor="transparent"
+            style={[style.headerTextContentVerticalSpacing]}
             theme={{ colors: { primary: color.primary } }}
           />
         </View>
-        <View>
+        <View style={style.contentTextVerticalSpacing}>
           <Button
-            style={{ marginTop: 12, paddingHorizontal: 46, paddingVertical: 8, borderRadius: 5, backgroundColor: color.primary, alignSelf: "flex-end" }}
+            style={[style.buttonFilled,{paddingHorizontal:46, alignSelf: "flex-end" }]}
             onPress={() => { }}
             uppercase={false}
           ><Text style={{ color: "white" }}>Submit</Text></Button>

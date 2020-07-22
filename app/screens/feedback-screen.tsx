@@ -8,13 +8,13 @@ import {
 } from "react-native"
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header, Button } from "../components"
+import { Screen, Text, Header } from "../components"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 import { AssessmentQuestion } from './assessment-questions-screen'
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
-import { TextInput } from "react-native-paper"
+import { color, style } from "../theme"
+import { TextInput, Button } from "react-native-paper"
 
 
 export interface FeedbackScreenProps {
@@ -59,9 +59,7 @@ class Rating extends React.Component<{}> {
       );
     }
     return (
-      <View style={styles.MainContainer}>
-        <View style={styles.childView}>{React_Native_Rating_Bar}</View>
-      </View>
+      <View style={[styles.childView, style.contentTextVerticalSpacing]}>{React_Native_Rating_Bar}</View>
     );
   }
 }
@@ -69,14 +67,15 @@ class Rating extends React.Component<{}> {
 export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = observer((props) => {
   // const { someStore } = useStores()
   return (
+
     <Screen style={ROOT} preset="scroll">
       <Header headerText="Feedback" />
       <View style={{ padding: 10 }}>
-        <Text size="h6">If you would like to provide feedback or report an error, please do so here.</Text>
-        <Text size="h6" style={{ marginTop: 16 }}>Overall, what is your experience with the application.</Text>
+        <Text style={style.bodyContent}>If you would like to provide feedback or report an error, please do so here.</Text>
+        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]} >Overall, what is your experience with the application.</Text>
         <Rating />
         <AssessmentQuestion question="Are you reporting an error or problem?" />
-        <Text size="h6" style={{ marginTop: 16 }}>Please describe your error or problem.</Text>
+        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>Please describe your error or problem.</Text>
         <TextInput
           placeholder="Start typing..."
           mode="flat"
@@ -85,10 +84,11 @@ export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = obse
           value={""}
           onChangeText={text => { }}
           underlineColor="transparent"
+          style={[style.headerTextContentVerticalSpacing]}
           theme={{ colors: { primary: color.primary } }}
         />
 
-        <Text size="h6" style={{ marginTop: 16 }}>Please add any additional notes.</Text>
+        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>Please add any additional notes.</Text>
         <TextInput
           placeholder="Start typing..."
           mode="flat"
@@ -97,12 +97,14 @@ export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = obse
           value={""}
           onChangeText={text => { }}
           underlineColor="transparent"
+          style={[style.headerTextContentVerticalSpacing]}
           theme={{ colors: { primary: color.primary } }}
         />
 
-        <View>
+        <View style={style.contentTextVerticalSpacing}>
           <Button
-            style={{ marginTop: 12, paddingHorizontal: 46, paddingVertical: 15, borderRadius: 5, backgroundColor: color.primary, alignSelf: "flex-end" }}
+            style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
+            uppercase={false}
             onPress={() => { }}
           ><Text style={{ color: "white" }}>Submit</Text></Button>
         </View>
@@ -113,16 +115,10 @@ export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = obse
 
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-  },
+
   childView: {
     justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 30,
   },
   button: {
     justifyContent: 'center',

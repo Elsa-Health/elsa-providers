@@ -55,6 +55,7 @@
     "react-native-safe-area-view": "1.0.0",
     "react-native-screens": "^2.5.0",
     "react-native-splash-screen": "3.2.0",
+    "react-native-sticky-parallax-header": "^0.3.0",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^6.6.0",
     "reactotron-mst": "^3.1.1",

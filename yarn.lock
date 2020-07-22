@@ -10642,6 +10642,13 @@ react-native-splash-screen@3.2.0:
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
 
+react-native-sticky-parallax-header@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-sticky-parallax-header/-/react-native-sticky-parallax-header-0.3.0.tgz#3ad7779f444e4b6f18276b74463564872c0a978f"
+  integrity sha512-npkwMrz0WxedqHH3fKZDTR6XFxTwvTZXJ12g8IuSUjy5Mebmli9d6gD5atQj9TYI+7aNRybhgMWE+9tu8Uo4Eg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-svg@^12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.0.tgz#acfe48c35cd5fca3d5fd767abae0560c36cfc03d"

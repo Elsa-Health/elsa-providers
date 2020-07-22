@@ -6,7 +6,7 @@ import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 
 
 export interface ClientPresentScreenProps {
@@ -38,11 +38,11 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
         {isClientConfirmed
           ?
           <View>
-            <Text size="h6" style={{ fontWeight: "bold" }}> AfyaTek Program - Client Consent Form</Text>
+            <Text style={style.contentHeader}>AfyaTek Program - Client Consent Form</Text>
             {messageList.map((message, i) => (
-              <Text size="h6" style={{ marginTop: 12 }} key={i} >{message}</Text>
+              <Text style={[style.bodyContent,style.contentTextVerticalSpacing]} key={i} >{message}</Text>
             ))}
-            <View style={{ flexDirection: "row", marginTop: 12 }}>
+            <View style={{ flex:1,flexDirection: "row", marginTop: 24 }}>
               <Checkbox
                 status={checked ? 'checked' : 'unchecked'}
                 onPress={() => {
@@ -50,17 +50,17 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
                 }}
                 color={color.primary}
               />
-              <View style={{flex:1}}>
-                <Text size="h6">I, the client, agree to participate in this study and understand the information described to me above.</Text>
+              <View >
+                <Text style={style.bodyContent}>I, the client, agree to participate in this study and understand the information described to me above.</Text>
               </View>
 
             </View>
             <Button
               mode="contained"
               onPress={() => {
-                navigation.navigate("symptom-assessment") 
+                navigation.navigate("symptom-assessment")
               }}
-              style={[{ paddingVertical: 8, marginTop: 12, backgroundColor: color.primary }, { elevation: 0 }]}
+              style={style.buttonFilled}
               uppercase={false}
             ><Text style={{ color: "white" }}>Continue</Text>
             </Button>
@@ -68,7 +68,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
             <Button
               mode="outlined"
               onPress={() => { navigation.goBack() }}
-              style={[{ paddingVertical: 8, marginTop: 12, borderColor: color.primary }, { elevation: 0 }]}
+              style={style.buttonOutline}
               uppercase={false}
             ><Text style={{ color: color.primary }}>Client is not present</Text>
             </Button>
@@ -79,15 +79,15 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
             </View>
 
             {/* fonts range to be updated  */}
-            <Text size="h6" style={{ fontWeight: "bold" }} >Please confirm the following</Text>
-            <Text size="h6" >Is the client for whom you are completing this symptom assessment for present in your ADDO now/ during the time of the assessment?</Text>
+            <Text style={style.contentHeader} >Please confirm the following</Text>
+            <Text style={style.bodyContent}>Is the client for whom you are completing this symptom assessment for present in your ADDO now/ during the time of the assessment?</Text>
             <Button
               mode="contained"
               onPress={() => {
                 setIsClientConfirmed(true)
-                setTitle("Client Consent") 
+                setTitle("Client Consent")
               }}
-              style={[{ paddingVertical: 8, marginTop: 12, backgroundColor: color.primary }, { elevation: 0 }]}
+              style={style.buttonFilled}
               uppercase={false}
             ><Text style={{ color: "white" }}>Client is present</Text>
             </Button>
@@ -95,7 +95,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
             <Button
               mode="outlined"
               onPress={() => { navigation.goBack() }}
-              style={[{ paddingVertical: 8, marginTop: 12, borderColor: color.primary }, { elevation: 0 }]}
+              style={style.buttonOutline}
               uppercase={false}
             ><Text style={{ color: color.primary }}>Client is not present</Text>
             </Button>

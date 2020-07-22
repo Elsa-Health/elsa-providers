@@ -5,7 +5,7 @@ import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 import _ from "lodash"
 import EStyleSheet from "react-native-extended-stylesheet"
 import { RadioButton, Button, ActivityIndicator, Colors } from "react-native-paper"
@@ -87,14 +87,10 @@ interface AssessmentQuestionProps {
 }
 
 const styles = EStyleSheet.create({
-    questionWrapper: {
-        marginTop: 10,
-        marginBottom: 35,
-    },
+  
     booleanOptionsContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 10,
     },
     booleanOption: {
         flexDirection: "row",
@@ -116,10 +112,9 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
 
         const status = assessment.patient.symptoms[symptom]
         return (
-            <View style={{ marginVertical: 20 }}>
-                <Text size="h6">{question}</Text>
-
-                <View style={styles.booleanOptionsContainer}>
+            <View style={style.contentTextVerticalSpacing}>
+                <Text style={style.bodyContent}>{question}</Text>
+                <View style={[style.headerTextContentVerticalSpacing,styles.booleanOptionsContainer]}>
                     <TouchableOpacity
                         onPress={() => assessment.patient.setSymptom(symptom, "present")}
                         style={styles.booleanOption}
@@ -128,9 +123,10 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
                             value="present"
                             status={status === "present" ? "checked" : "unchecked"}
                             onPress={() => assessment.patient.setSymptom(symptom, "present")}
+                            
                             color={color.primary}
                         />
-                        <Text>Yes</Text>
+                        <Text style={style.bodyContent}>Yes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => assessment.patient.setSymptom(symptom, "absent")}
@@ -143,7 +139,7 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
                             onPress={() => assessment.patient.setSymptom(symptom, "absent")}
                             color={color.primary}
                         />
-                        <Text>No</Text>
+                        <Text style={style.bodyContent}>No</Text>
                     </TouchableOpacity>
                 </View>
             </View>

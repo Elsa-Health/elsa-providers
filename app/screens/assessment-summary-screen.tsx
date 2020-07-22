@@ -6,7 +6,7 @@ import { ParamListBase,useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 
 export interface AssessmentSummaryScreenProps {
   navigation: NativeStackNavigationProp<ParamListBase>
@@ -35,16 +35,16 @@ const NextSteps = () => {
   return (
     <React.Fragment>
       {sampleNextSteps.map((step, index) => (
-        <View style={{ marginTop: 12 }} key={index}>
+        <View style={style.contentTextVerticalSpacing} key={index}>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ height: 30, width: 30, backgroundColor: color.primary, borderRadius: 30 / 2, alignItems: "center", justifyContent: "center" }}>
-              <Text style={{ color: "white", textAlign: "center" }}>{index + 1}</Text>
+              <Text style={[style.bodyContent,{ color: "white", textAlign: "center" }]}>{index + 1}</Text>
             </View>
             <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={{ fontWeight: "bold" }}>{step.title}</Text>
+              <Text style={[style.contentHeader]}>{step.title}</Text>
             </View>
           </View>
-          <Text style={{ marginTop: 12 }}>{step.description}</Text>
+          <Text style={style.headerTextContentVerticalSpacing}>{step.description}</Text>
         </View>
       ))
       }
@@ -64,17 +64,17 @@ export const AssessmentSummaryScreen: React.FunctionComponent<AssessmentSummaryS
         <View style={{ backgroundColor: "#e5e5e5", height: 200 }}>
         </View>
         <View style={{}}>
-          <Text size="h6">It is most likely that your client has </Text>
-          <Text size="h6" style={{ color: color.primary }}>{"Pneumonia"}</Text>
+          <Text style={style.bodyContent}>It is most likely that your client has </Text>
+          <Text size="h6" style={[style.bodyContent,{ color: color.primary }]}>{"Pneumonia"}</Text>
         </View>
 
         <View style={{ marginTop: 12 }}>
-          <Text size="h5" style={{ fontWeight: "bold" }}>Next Steps</Text>
+          <Text size="h5" style={style.contentHeader}>Next Steps</Text>
           <Text>Please utilize these next steps for your client.</Text>
           <NextSteps />
           <View>
             <Button
-              style={{ marginTop: 12, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 5, backgroundColor: color.primary}}
+              style={style.buttonFilled}
               onPress={() => {
                 navigation.navigate("client-feedback")
                }}

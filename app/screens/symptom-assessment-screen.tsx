@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 import { RadioButton, TextInput, Checkbox, Button } from 'react-native-paper'
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 import EStyleSheet from "react-native-extended-stylesheet"
 import { AssessmentQuestion } from "./assessment-questions-screen"
 import { lastIndexOf } from "lodash"
@@ -29,7 +29,6 @@ const styles = EStyleSheet.create({
   booleanOptionsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
   },
   booleanOption: {
     flexDirection: "row",
@@ -49,21 +48,21 @@ const styles = EStyleSheet.create({
 export const GeneralAssessmentQuestion = ({ question }: { question: string }) => {
 
   return (
-    <View style={{ marginVertical: 20 }}>
-      <Text size="h6">{question}</Text>
+    <View style={style.contentTextVerticalSpacing}>
+      <Text style={style.contentHeader}>{question}</Text>
 
-      <View style={styles.booleanOptionsContainer}>
+      <View style={[styles.booleanOptionsContainer,style.bodyContent,style.headerTextContentVerticalSpacing]}>
         <TouchableOpacity
           onPress={() => { }}
           style={styles.booleanOption}
         >
           <RadioButton
             value="present"
-            status={"unchecked"}
+            status={"unchecked"} 
             onPress={() => { }}
             color={color.primary}
           />
-          <Text>Male</Text>
+          <Text style={style.bodyContent}>Male</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => { }}
@@ -76,24 +75,24 @@ export const GeneralAssessmentQuestion = ({ question }: { question: string }) =>
             onPress={() => { }}
             color={color.primary}
           />
-          <Text>Female</Text>
+          <Text style={style.bodyContent}>Female</Text>
         </TouchableOpacity>
       </View>
     </View>
   )
 }
 
-const sampleSymptoms=['Cough', 'Fever/ High temperature', 'Difficulty breathing',
-'Chest pain',
-'Abnormal vaginal discharge',
+const sampleSymptoms = ['Cough', 'Fever/ High temperature', 'Difficulty breathing',
+  'Chest pain',
+  'Abnormal vaginal discharge',
 ]
 
 const SymptomsList = () => {
   return (
     <React.Fragment>
       {sampleSymptoms.map((symptom, index) => (
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 12 }} key={index}>
-          <Text size="h6">{symptom}</Text>
+        <View style={[style.contentTextVerticalSpacing,{ flexDirection: "row", justifyContent: "space-between"}]} key={index}>
+          <Text style={style.bodyContent}>{symptom}</Text>
           <Checkbox
             status={'checked'}
             onPress={() => {
@@ -120,8 +119,8 @@ const sampleAssessmentQuestions = [
 export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentScreenProps> = observer((props) => {
   // const { someStore } = useStores()
   const [displayIndex, setDisplayIndex] = React.useState(0)
-  const [lastIndex,setLastIndex]=React.useState(1)
-  const navigation=useNavigation()
+  const [lastIndex, setLastIndex] = React.useState(1)
+  const navigation = useNavigation()
 
   return (
     <Screen style={ROOT} preset="scroll">
@@ -129,24 +128,25 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
       <View style={{ padding: 10 }}>
         {displayIndex === 0 &&
           <View>
-            <Text size="h6">Please input the following information about your client.</Text>
+            <Text style={style.bodyContent}>Please input the following information about your client.</Text>
             <GeneralAssessmentQuestion question="Gender" />
-            <Text size="h6">Age</Text>
+            <Text style={style.contentHeader}>Age</Text>
             <TextInput
               placeholder="Start typing..."
               mode="flat"
               value={""}
               onChangeText={text => { }}
               underlineColor="transparent"
+              style={[style.input,style.bodyContent,style.headerTextContentVerticalSpacing]}
               theme={{ colors: { primary: color.primary } }}
             />
 
-            <Text size="h6">Presenting Symptoms</Text>
-            <Text size="small">Does the client have any of the following symptoms? Please check all that apply. </Text>
+            <Text style={[style.contentHeader,style.contentTextVerticalSpacing]}>Presenting Symptoms</Text>
+            <Text style={[style.bodyContent,style.headerTextContentVerticalSpacing]}>Does the client have any of the following symptoms? Please check all that apply. </Text>
             <SymptomsList />
             <View>
               <Button
-                style={[{ paddingVertical: 8, paddingHorizontal: 46, marginTop: 12, backgroundColor: color.primary, alignSelf: "flex-end" }, { elevation: 0 }]}
+                style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
                 onPress={() => { setDisplayIndex(displayIndex + 1) }}
                 uppercase={false}
               ><Text style={{ color: "white" }}>Next</Text></Button>
@@ -163,9 +163,9 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
             ))}
             <View>
               <Button
-                style={[{ paddingVertical: 8, paddingHorizontal: 46, marginTop: 12, backgroundColor: color.primary, alignSelf: "flex-end" }, { elevation: 0 }]}
+                style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
                 onPress={() => {
-                  if (lastIndex===displayIndex) {
+                  if (lastIndex === displayIndex) {
                     console.log("Reached the last index")
                     navigation.navigate('assessment-summary')
                   } else {

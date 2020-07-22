@@ -3,8 +3,9 @@ import { View, ViewStyle, TextStyle } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { HeaderProps } from "./header.props"
 import { Button } from "../button/button"
-import { Text } from "../text/text"
+
 // import { Icon } from "../icon/icon"
+import {Text} from 'react-native-paper'
 
 import { spacing, color } from "../../theme"
 import { translate } from "../../i18n/"
@@ -24,7 +25,7 @@ const ROOT: ViewStyle = {
     borderBottomWidth: 1,
     borderBottomColor: color.palette.lighterGrey,
 }
-const TITLE: TextStyle = { textAlign: "center" }
+const TITLE: TextStyle = { fontSize:24}
 const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "flex-start" }
 const LEFT: ViewStyle = { width: 0 }
 const RIGHT: ViewStyle = { width: 0 }
@@ -60,7 +61,7 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
                         <View style={LEFT} />
                     )}
                 <View style={TITLE_MIDDLE}>
-                    <Text style={{ ...TITLE, ...titleStyle }} size="h4" text={header} />
+                    <Text style={[{ ...TITLE, ...titleStyle }]}>{header}</Text> 
                 </View>
                 {rightIcon ? (
                     <Button preset="link" onPress={onRightPress}>

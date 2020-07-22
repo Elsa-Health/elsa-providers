@@ -6,7 +6,7 @@ import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 
 export interface DiseaseLibraryScreenProps {
   navigation: NativeStackNavigationProp<ParamListBase>
@@ -46,6 +46,7 @@ const DiseaseListItem = ({item}:{item:any}) => {
     <>
     <List.Item
       title={item.title}
+      titleStyle={style.bodyContent}
       right={props => <List.Icon {...props} icon="chevron-right" />}
     />
     <Divider/>
@@ -76,7 +77,7 @@ export const DiseaseLibraryScreen: React.FunctionComponent<DiseaseLibraryScreenP
 
           </View>
           <View style={{ flex: 1 }}>
-            <Text>The Disease Library is a collection of information for you to read and share with your clients. It will help inform you about each of the diseases in the Elsa Health Assistant.</Text>
+            <Text style={style.bodyContent}>The Disease Library is a collection of information for you to read and share with your clients. It will help inform you about each of the diseases in the Elsa Health Assistant.</Text>
           </View>
         </View>
         <View style={{

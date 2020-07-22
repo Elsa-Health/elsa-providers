@@ -1,6 +1,8 @@
-import React from "react"
+import React,{useEffect,useState} from "react"
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
+import auth from '@react-native-firebase/auth';
+
 import {
     PhoneAuthScreen,
     AppointmentsListScreen,
@@ -26,6 +28,25 @@ import { PrimaryParamList } from "./types"
 const Stack = createNativeStackNavigator<PrimaryParamList>()
 
 export function PrimaryNavigator() {
+
+     // Set an initializing state whilst Firebase connects
+//   const [initializing, setInitializing] = useState(true);
+//   const [user, setUser] = useState();
+
+//   // Handle user state changes
+//   function onAuthStateChanged(user) {
+//     setUser(user);
+//     console.log("User is Logged in here ",user)
+//     if (initializing) setInitializing(false);
+//   }
+
+//   useEffect(() => {
+//     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+//     return subscriber; // unsubscribe on unmount
+//   }, []);
+
+//   if (initializing) return null;
+
     return (
         <Stack.Navigator
             screenOptions={{

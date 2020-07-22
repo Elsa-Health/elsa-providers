@@ -1,11 +1,11 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, TouchableOpacity, View, Image } from "react-native"
+import { ViewStyle, TouchableOpacity, View, Image} from "react-native"
 import { ParamListBase,useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 import { Card, Button } from "react-native-paper"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
@@ -68,12 +68,12 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
     }
     return (
         <Card style={{ marginTop: 20 }}>
-            <Card.Title title={title} />
+            <Card.Title title={title} titleStyle={style.contentHeader} />
             <Card.Content>
                 {iconSource ? (
                     <View style={{ flexDirection: "row" }}>
                         <View style={{ flex: 3 }}>
-                            <Text text={description} />
+                            <Text text={description} style={style.bodyContent}/>
                         </View>
                         <View
                             style={{
