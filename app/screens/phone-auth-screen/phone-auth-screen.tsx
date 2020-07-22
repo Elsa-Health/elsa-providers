@@ -1,8 +1,8 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, StatusBar, View, Image, Alert, Dimensions, TouchableOpacity, Text as RNText } from "react-native"
+import { ViewStyle, StatusBar, View, Image, Alert, Dimensions, Text as RNText, TouchableOpacity } from "react-native"
 import EStyleSheet from "react-native-extended-stylesheet"
-import { TextInput, Button, Title, ActivityIndicator, Colors } from "react-native-paper"
+import { TextInput, Button, Title, ActivityIndicator, Colors, Text as PaperText } from "react-native-paper"
 import { ParamListBase, StackActions, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import auth from "@react-native-firebase/auth"
@@ -19,7 +19,7 @@ export interface PhoneAuthScreenProps {
 const ROOT: ViewStyle = {
     backgroundColor: color.background,
     flex: 1,
-    height:height,
+    height: height - (StatusBar.currentHeight)
     // backgroundColor: "red",
 }
 const ACTIVITY_INDICATOR: ViewStyle = {
@@ -28,8 +28,8 @@ const ACTIVITY_INDICATOR: ViewStyle = {
 
 const styles = EStyleSheet.create({
     logo: {
-        width: 164*0.8,
-        height: 141*0.8,
+        width: 164 * 0.8,
+        height: 141 * 0.8,
         alignSelf: "center",
         marginBottom: 20
     },
@@ -126,7 +126,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                 loading: false,
             })
 
-            
+
             setloading(false)
         } catch (error) {
             setloading(false)
@@ -166,7 +166,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
         )
     }
 
-    
+
 
     if (account.authenticated && account.role === "clinician") {
         // navigate to routes of clinicians at the facilities
@@ -252,8 +252,8 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                             keyboardType="phone-pad"
                             placeholder="Namba ya simu"
                             style={style.input}
-                            underlineColor="transparent"  
-                            theme={{colors: { primary: color.primary}}}
+                            underlineColor="transparent"
+                            theme={{ colors: { primary: color.primary } }}
                         />
 
                         <Button
@@ -261,7 +261,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                             onPress={sendAuthMessage}
                             color="white"
                             loading={loadingVeriricationCode}
-                            
+
                             style={style.buttonFilled}
                             uppercase={false}
                         >
@@ -270,16 +270,25 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                     </React.Fragment>
                 ) : (
                         <React.Fragment>
+                            <PaperText style={style.contentTextVerticalSpacing}>
+                                <PaperText>Namba ya uthibitisho imetumwa kwenye namba  </PaperText>
+                                <PaperText style={{ fontWeight: "bold" }}>{state.telephone}.   </PaperText>
+                                <PaperText style={{ color: color.primary }}
+                                    onPress={() => {
+                                        setstate({ ...state, view: "phone-number" })
+                                    }}
+                                >Badili Namba</PaperText>
+
+                            </PaperText>
                             <TextInput
                                 value={state.activationCode}
                                 keyboardType="number-pad"
                                 onChangeText={text => setstate({ ...state, activationCode: text })}
                                 mode="flat"
-                                placeholder="Kodi ya uthibitisho"
-                                
+                                placeholder="Namba ya uthibitisho"
                                 style={styles.input}
-                                underlineColor="transparent"  
-                                theme={{colors: { primary: color.primary}}}
+                                underlineColor="transparent"
+                                theme={{ colors: { primary: color.primary } }}
                             />
 
                             <Button
