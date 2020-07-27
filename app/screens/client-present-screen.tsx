@@ -32,8 +32,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
   const [title, setTitle] = React.useState("Confirmation");
   const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText={title} />
+    <Screen style={ROOT} preset="scroll" title={title}>
       <View style={{ padding: 10 }}>
         {isClientConfirmed
           ?

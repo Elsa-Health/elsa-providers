@@ -1,14 +1,20 @@
 import * as React from "react"
-import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, View,ViewStyle } from "react-native"
+import {
+    KeyboardAvoidingView, Platform, ScrollView, StatusBar,
+    View, ViewStyle,
+    Text
+} from "react-native"
 import { useSafeArea } from "react-native-safe-area-context"
 import { ScreenProps } from "./screen.props"
 import { isNonScrolling, offsets, presets } from "./screen.presets"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { color } from "../../theme"
+import { Header } from "../"
+import { Title } from "react-native-paper"
 
 const isIos = Platform.OS === "ios"
 
-const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection:"row-reverse" }
+const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection: "row-reverse" }
 
 function ScreenWithoutScrolling(props: ScreenProps) {
     const insets = useSafeArea()
@@ -44,7 +50,13 @@ function ScreenWithScrolling(props: ScreenProps) {
         >
             <StatusBar backgroundColor={color.black} barStyle={props.statusBar || "light-content"} />
             <View style={[preset.outer, backgroundStyle, insetStyle]}>
-               
+                {props.title === "auth" ?
+                    null
+                    :
+                    <View style={{ height: 80 }}>
+                        <Header headerText={props.title} />
+                    </View>
+                }
                 <ScrollView
                     style={[preset.outer, backgroundStyle]}
                     contentContainerStyle={[preset.inner, style]}

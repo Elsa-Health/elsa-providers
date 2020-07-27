@@ -69,8 +69,7 @@ const DiseaseList = () => {
 export const DiseaseLibraryScreen: React.FunctionComponent<DiseaseLibraryScreenProps> = observer((props) => {
   // const { someStore } = useStores()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText="Disease Library" />
+    <Screen style={ROOT} preset="scroll" title="Disease Library">
       <View style={{ padding: 10 }}>
         <View style={{ flex: 1, flexDirection: "row" }}>
           <View style={{ flex: 1, marginRight: 12, marginTop: 5, backgroundColor: "#e5e5e5", height: 150 }}>

@@ -47,8 +47,7 @@ const ClientRecommendation = ({ sampleRecommendations }: { sampleRecommendations
 export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenProps> = observer((props) => {
   // const { someStore } = useStores()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText="Assessment Feedback" />
+    <Screen style={ROOT} preset="scroll" title="Assessment Feedback">
       <View style={{ padding: 10 }}>
         <Text style={style.bodyContent}>Please indicate which next steps you provided to the patient in order to complete this symptom assessment.</Text>
         <Text style={[style.contentTextVerticalSpacing,style.contentHeader]}>I provided the following recommendations:</Text>

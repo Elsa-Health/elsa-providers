@@ -68,8 +68,7 @@ export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = obse
   // const { someStore } = useStores()
   return (
 
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText="Feedback" />
+    <Screen style={ROOT} preset="scroll" title="Feedback">
       <View style={{ padding: 10 }}>
         <Text style={style.bodyContent}>If you would like to provide feedback or report an error, please do so here.</Text>
         <Text style={[style.bodyContent, style.contentTextVerticalSpacing]} >Overall, what is your experience with the application.</Text>

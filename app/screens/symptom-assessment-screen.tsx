@@ -51,14 +51,14 @@ export const GeneralAssessmentQuestion = ({ question }: { question: string }) =>
     <View style={style.contentTextVerticalSpacing}>
       <Text style={style.contentHeader}>{question}</Text>
 
-      <View style={[styles.booleanOptionsContainer,style.bodyContent,style.headerTextContentVerticalSpacing]}>
+      <View style={[styles.booleanOptionsContainer, style.bodyContent, style.headerTextContentVerticalSpacing]}>
         <TouchableOpacity
           onPress={() => { }}
           style={styles.booleanOption}
         >
           <RadioButton
             value="present"
-            status={"unchecked"} 
+            status={"unchecked"}
             onPress={() => { }}
             color={color.primary}
           />
@@ -91,7 +91,7 @@ const SymptomsList = () => {
   return (
     <React.Fragment>
       {sampleSymptoms.map((symptom, index) => (
-        <View style={[style.contentTextVerticalSpacing,{ flexDirection: "row", justifyContent: "space-between"}]} key={index}>
+        <View style={[style.contentTextVerticalSpacing, { flexDirection: "row", justifyContent: "space-between" }]} key={index}>
           <Text style={style.bodyContent}>{symptom}</Text>
           <Checkbox
             status={'checked'}
@@ -99,9 +99,6 @@ const SymptomsList = () => {
             }}
             color={color.primary}
           />
-
-
-
         </View>))
 
       }
@@ -123,8 +120,7 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
   const navigation = useNavigation()
 
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText="Symptom Assesessment" />
+    <Screen style={ROOT} preset="scroll" title="Symptom Assesessment">
       <View style={{ padding: 10 }}>
         {displayIndex === 0 &&
           <View>
@@ -137,12 +133,12 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
               value={""}
               onChangeText={text => { }}
               underlineColor="transparent"
-              style={[style.input,style.bodyContent,style.headerTextContentVerticalSpacing]}
+              style={[style.input, style.bodyContent, style.headerTextContentVerticalSpacing]}
               theme={{ colors: { primary: color.primary } }}
             />
 
-            <Text style={[style.contentHeader,style.contentTextVerticalSpacing]}>Presenting Symptoms</Text>
-            <Text style={[style.bodyContent,style.headerTextContentVerticalSpacing]}>Does the client have any of the following symptoms? Please check all that apply. </Text>
+            <Text style={[style.contentHeader, style.contentTextVerticalSpacing]}>Presenting Symptoms</Text>
+            <Text style={[style.bodyContent, style.headerTextContentVerticalSpacing]}>Does the client have any of the following symptoms? Please check all that apply. </Text>
             <SymptomsList />
             <View>
               <Button

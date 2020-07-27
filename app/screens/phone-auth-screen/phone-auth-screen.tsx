@@ -190,7 +190,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
         // props.navigation.navigate("respiratory-presentation")
     }
     return (
-        <Screen style={ROOT} testID="container" preset="scroll">
+        <Screen style={ROOT} testID="container" preset="scroll" title="auth">
             <StatusBar backgroundColor="black" />
             <View style={{ flex: 1, alignContent: "center", justifyContent: "center", paddingLeft: 12, paddingRight: 12 }}>
                 <Image style={styles.logo} source={require("./logo.png")} resizeMode="contain" />

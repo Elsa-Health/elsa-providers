@@ -18,8 +18,7 @@ const ROOT: ViewStyle = {}
 export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = observer(props => {
     // const { someStore } = useStores()
     return (
-        <Screen style={ROOT} preset="scroll">
-            <Header headerText="Elsa Health Assistant" />
+        <Screen style={ROOT} preset="scroll" title="Elsa Health Assistant">
             <View style={{ padding: 10 }}>
                 <DashboardItem
                     title="New Patient Assesment"

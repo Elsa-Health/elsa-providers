@@ -57,9 +57,7 @@ export const AssessmentSummaryScreen: React.FunctionComponent<AssessmentSummaryS
   // const { someStore } = useStores()
   const navigation=useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header headerText="Assessment Summary" />
-
+    <Screen style={ROOT} preset="scroll" title="Assessment Summary">
       <View style={{ padding: 10 }}>
         <View style={{ backgroundColor: "#e5e5e5", height: 200 }}>
         </View>
