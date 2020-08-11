@@ -1,10 +1,10 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View } from "react-native"
-import {Button} from 'react-native-paper'
-import { ParamListBase,useNavigation } from "@react-navigation/native"
+import { Button, Text } from 'react-native-paper'
+import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen, Header } from "../components"
 // import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
 
@@ -14,7 +14,7 @@ export interface AssessmentSummaryScreenProps {
 
 
 const ROOT: ViewStyle = {
-}  
+}
 
 const sampleNextSteps = [
   {
@@ -38,13 +38,13 @@ const NextSteps = () => {
         <View style={style.contentTextVerticalSpacing} key={index}>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ height: 30, width: 30, backgroundColor: color.primary, borderRadius: 30 / 2, alignItems: "center", justifyContent: "center" }}>
-              <Text style={[style.bodyContent,{ color: "white", textAlign: "center" }]}>{index + 1}</Text>
+              <Text style={[style.bodyContent, { color: "white", textAlign: "center" }]}>{index + 1}</Text>
             </View>
             <View style={{ flex: 1, marginLeft: 12 }}>
               <Text style={[style.contentHeader]}>{step.title}</Text>
             </View>
           </View>
-          <Text style={style.headerTextContentVerticalSpacing}>{step.description}</Text>
+          <Text style={[style.bodyContent,style.headerTextContentVerticalSpacing]}>{step.description}</Text>
         </View>
       ))
       }
@@ -55,7 +55,7 @@ const NextSteps = () => {
 
 export const AssessmentSummaryScreen: React.FunctionComponent<AssessmentSummaryScreenProps> = observer((props) => {
   // const { someStore } = useStores()
-  const navigation=useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll" title="Assessment Summary">
       <View style={{ padding: 10 }}>
@@ -63,21 +63,22 @@ export const AssessmentSummaryScreen: React.FunctionComponent<AssessmentSummaryS
         </View>
         <View style={{}}>
           <Text style={style.bodyContent}>It is most likely that your client has </Text>
-          <Text size="h6" style={[style.bodyContent,{ color: color.primary }]}>{"Pneumonia"}</Text>
+          <Text style={[style.bodyContent, { color: color.primary }]}>{"Pneumonia"}</Text>
         </View>
 
         <View style={{ marginTop: 12 }}>
-          <Text size="h5" style={style.contentHeader}>Next Steps</Text>
-          <Text>Please utilize these next steps for your client.</Text>
+          <Text  style={style.contentHeader}>Next Steps</Text>
+          <Text style={style.bodyContent}>Please utilize these next steps for your client.</Text>
           <NextSteps />
           <View>
+            {/* this component is not supposed to be there */}
             <Button
               style={style.buttonFilled}
               onPress={() => {
                 navigation.navigate("client-feedback")
-               }}
+              }}
               uppercase={false}
-            ><Text style={{ color: "white" }}>To Client Feedback</Text></Button>
+            ><Text style={style.buttonText}>To Client Feedback</Text></Button>
           </View>
         </View>
 

@@ -1,12 +1,12 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View } from "react-native"
-import { Button, Checkbox } from 'react-native-paper'
+import { Button, Checkbox,Text } from 'react-native-paper'
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen,Header } from "../components"
 // import { useStores } from "../models/root-store"
-import { color, style } from "../theme"
+import { color, style, md } from "../theme"
 
 
 export interface ClientPresentScreenProps {
@@ -61,7 +61,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
               }}
               style={style.buttonFilled}
               uppercase={false}
-            ><Text style={{ color: "white" }}>Continue</Text>
+            ><Text style={style.buttonText}>Continue</Text>
             </Button>
 
             <Button
@@ -69,7 +69,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
               onPress={() => { navigation.goBack() }}
               style={style.buttonOutline}
               uppercase={false}
-            ><Text style={{ color: color.primary }}>Client is not present</Text>
+            ><Text style={{ color: color.primary,fontSize: md ? 18 : 14 }}>Client is not present</Text>
             </Button>
           </View>
           :
@@ -88,7 +88,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
               }}
               style={style.buttonFilled}
               uppercase={false}
-            ><Text style={{ color: "white" }}>Client is present</Text>
+            ><Text style={style.buttonText}>Client is present</Text>
             </Button>
 
             <Button
@@ -96,7 +96,7 @@ export const ClientPresentScreen: React.FunctionComponent<ClientPresentScreenPro
               onPress={() => { navigation.goBack() }}
               style={style.buttonOutline}
               uppercase={false}
-            ><Text style={{ color: color.primary }}>Client is not present</Text>
+            ><Text style={{ color: color.primary,fontSize: md ? 18 : 14 }}>Client is not present</Text>
             </Button>
           </View>
         }

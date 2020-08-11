@@ -8,7 +8,7 @@ import { useSafeArea } from "react-native-safe-area-context"
 import { ScreenProps } from "./screen.props"
 import { isNonScrolling, offsets, presets } from "./screen.presets"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { color } from "../../theme"
+import { color, md, style } from "../../theme"
 import { Header } from "../"
 import { Title } from "react-native-paper"
 
@@ -19,7 +19,7 @@ const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection: "row-reverse" }
 function ScreenWithoutScrolling(props: ScreenProps) {
     const insets = useSafeArea()
     const preset = presets.fixed
-    const style = props.style || {}
+    const styles = props.style || {}
     const backgroundStyle = props.backgroundColor ? { backgroundColor: props.backgroundColor } : {}
     const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top, paddingHorizontal: 16 }
 
@@ -30,7 +30,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             keyboardVerticalOffset={offsets[props.keyboardOffset || "none"]}
         >
             <StatusBar backgroundColor="white" barStyle={props.statusBar || "light-content"} />
-            <View style={[preset.inner, style, insetStyle]}>{props.children}</View>
+            <View style={[preset.inner, styles, insetStyle,style.mainContainerPadding]}>{props.children}</View>
         </KeyboardAvoidingView>
     )
 }
@@ -38,7 +38,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 function ScreenWithScrolling(props: ScreenProps) {
     const insets = useSafeArea()
     const preset = presets.scroll
-    const style = props.style || {}
+    const styles = props.style || {}
     const backgroundStyle = props.backgroundColor ? { backgroundColor: props.backgroundColor } : {}
     const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top }
 
@@ -53,13 +53,15 @@ function ScreenWithScrolling(props: ScreenProps) {
                 {props.title === "auth" ?
                     null
                     :
-                    <View style={{ height: 80 }}>
+                    <View style={{ height: md?"auto":80 }}>
                         <Header headerText={props.title} />
                     </View>
                 }
                 <ScrollView
                     style={[preset.outer, backgroundStyle]}
-                    contentContainerStyle={[preset.inner, style]}
+                    contentContainerStyle={[preset.inner, styles,
+                    style.mainContainerPadding
+                    ]}
                 >
                     {props.children}
                 </ScrollView>

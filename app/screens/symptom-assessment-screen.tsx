@@ -3,8 +3,8 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle, View, TouchableOpacity } from "react-native"
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
-import { RadioButton, TextInput, Checkbox, Button } from 'react-native-paper'
+import { Screen, Header } from "../components"
+import { RadioButton, TextInput, Checkbox, Button ,Text} from 'react-native-paper'
 // import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
 import EStyleSheet from "react-native-extended-stylesheet"
@@ -148,14 +148,14 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
                 style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
                 onPress={() => { setDisplayIndex(displayIndex + 1) }}
                 uppercase={false}
-              ><Text style={{ color: "white" }}>Next</Text></Button>
+              ><Text style={style.buttonText}>Next</Text></Button>
 
             </View>
           </View>
         }
         {displayIndex === 1 &&
           <View>
-            <Text size="small">Please input the following information about your client. </Text>
+            <Text style={style.bodyContent} >Please input the following information about your client. </Text>
             {/* <AssessmentQuestion question={/> */}
             {sampleAssessmentQuestions.map((question, index) => (
               <AssessmentQuestion question={question} key={index} />
@@ -173,7 +173,7 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
 
                 }}
                 uppercase={false}
-              ><Text style={{ color: "white" }}>Next</Text></Button>
+              ><Text style={style.buttonText}>Next</Text></Button>
 
             </View>
           </View>

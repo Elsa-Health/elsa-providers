@@ -8,13 +8,13 @@ import {
 } from "react-native"
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen, Header } from "../components"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 import { AssessmentQuestion } from './assessment-questions-screen'
 // import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
-import { TextInput, Button } from "react-native-paper"
+import { TextInput, Button, Text } from "react-native-paper"
 
 
 export interface FeedbackScreenProps {
@@ -105,7 +105,7 @@ export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = obse
             style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
             uppercase={false}
             onPress={() => { }}
-          ><Text style={{ color: "white" }}>Submit</Text></Button>
+          ><Text style={style.buttonText}>Submit</Text></Button>
         </View>
       </View>
     </Screen>

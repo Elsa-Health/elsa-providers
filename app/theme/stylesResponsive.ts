@@ -9,11 +9,10 @@ const {
 } = Dimensions.get("window");
 const colWidth = 100 / 12;
 
-const xs = width > 0 && width < 418;
-const sm = width > 417 && width < 768;
-const md = width > 767 && width < 1024;
-const lg = width > 1023;
-
+export const xs = width > 0 && width < 418;
+export const sm = width > 417 && width < 768;
+export const md = width > 767 && width < 1024;
+export const lg = width > 1023;
 
 export const stylesResponsive = StyleSheet.create(
 

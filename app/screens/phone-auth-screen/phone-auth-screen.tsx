@@ -2,13 +2,13 @@ import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, StatusBar, View, Image, Alert, Dimensions, Text as RNText, TouchableOpacity } from "react-native"
 import EStyleSheet from "react-native-extended-stylesheet"
-import { TextInput, Button, Title, ActivityIndicator, Colors, Text as PaperText } from "react-native-paper"
+import { TextInput, Button, Title, ActivityIndicator, Colors, Text  } from "react-native-paper"
 import { ParamListBase, StackActions, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import auth from "@react-native-firebase/auth"
-import { Screen, Text, Row, Col } from "../../components"
+import { Screen, Row, Col } from "../../components"
 import { useStores } from "../../models/root-store"
-import { color, style } from "../../theme"
+import { color, style, md } from "../../theme"
 
 const { height } = Dimensions.get("window")
 
@@ -190,11 +190,11 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
         // props.navigation.navigate("respiratory-presentation")
     }
     return (
-        <Screen style={ROOT} testID="container" preset="scroll" title="auth">
+        <Screen style={[ROOT]} testID="container" preset="scroll" title="auth">
             <StatusBar backgroundColor="black" />
-            <View style={{ flex: 1, alignContent: "center", justifyContent: "center", paddingLeft: 12, paddingRight: 12 }}>
+            <View style={{ flex: 1, alignContent: "center", justifyContent: "center" }}>
                 <Image style={styles.logo} source={require("./logo.png")} resizeMode="contain" />
-                <Text size="h4" tx="phoneAuthScreen.title" align="center" />
+                <Text>Elsa Health Assistant</Text>
                 {state.view === "phone-number" ? (
                     // <React.Fragment>
                     //     <TextInput
@@ -265,23 +265,23 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                             style={style.buttonFilled}
                             uppercase={false}
                         >
-                            <Text color="white" style={style.buttonText}>Send Code</Text>
+                            <Text style={style.buttonText}>Send Code</Text>
                         </Button>
 
 
                     </React.Fragment>
                 ) : (
                         <React.Fragment>
-                            <PaperText style={[style.contentTextVerticalSpacing, style.bodyContent]}>
-                                <PaperText>Verification code sent to number  </PaperText>
-                                <PaperText style={{ fontWeight: "bold" }}>{state.telephone}.   </PaperText>
-                                <PaperText style={{ color: color.primary }}
+                            <Text style={[style.contentTextVerticalSpacing, style.bodyContent]}>
+                                <Text>Verification code sent to number  </Text>
+                                <Text style={{ fontWeight: "bold" }}>{state.telephone}.   </Text>
+                                <Text style={{ color: color.primary }}
                                     onPress={() => {
                                         setstate({ ...state, view: "phone-number" })
                                     }}
-                                >Change Number</PaperText>
+                                >Change Number</Text>
 
-                            </PaperText>
+                            </Text>
                             <TextInput
                                 value={state.activationCode}
                                 keyboardType="number-pad"
@@ -301,7 +301,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                                 style={style.buttonFilled}
                                 uppercase={false}
                             >
-                                <Text color="white" style={style.buttonText}>Thibitisha</Text>
+                                <Text style={style.buttonText}>Thibitisha</Text>
                             </Button>
                         </React.Fragment>
                     )}

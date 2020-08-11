@@ -2,9 +2,9 @@ import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View } from "react-native"
 import { ParamListBase } from "@react-navigation/native"
-import { Checkbox, Button, TextInput } from 'react-native-paper'
+import { Checkbox, Button, TextInput,Text } from 'react-native-paper'
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen, Header } from "../components"
 // import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
 
@@ -30,7 +30,7 @@ const ClientRecommendation = ({ sampleRecommendations }: { sampleRecommendations
     <View>
       {sampleRecommendations.map((recommendation, index) => (
         <View style={[style.contentTextVerticalSpacing,{ flexDirection: "row", justifyContent: "space-between"}]} key={index}>
-          <Text style={{ textAlignVertical: "center" }}>{recommendation}</Text>
+          <Text style={style.bodyContent}>{recommendation}</Text>
           <Checkbox
             status={'checked'}
             onPress={() => {
@@ -107,7 +107,7 @@ export const ClientFeedbackScreen: React.FunctionComponent<ClientFeedbackScreenP
             style={[style.buttonFilled,{paddingHorizontal:46, alignSelf: "flex-end" }]}
             onPress={() => { }}
             uppercase={false}
-          ><Text style={{ color: "white" }}>Submit</Text></Button>
+          ><Text style={style.buttonText}>Submit</Text></Button>
         </View>
       </View>
     </Screen>

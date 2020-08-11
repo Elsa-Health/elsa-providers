@@ -1,10 +1,10 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, FlatList } from "react-native"
+import { ViewStyle, View, FlatList,Text } from "react-native"
 import { List, Divider } from 'react-native-paper'
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen, Header } from "../components"
 // import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
 

@@ -1,24 +1,30 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, TouchableOpacity, View, Image} from "react-native"
-import { ParamListBase,useNavigation } from "@react-navigation/native"
+import { ViewStyle, TouchableOpacity, View, Image } from "react-native"
+import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import {
+    Screen,
+    //  Text, 
+    Header
+} from "../components"
 // import { useStores } from "../models/root-store"
-import { color, style } from "../theme"
-import { Card, Button } from "react-native-paper"
+import { color, style, md } from "../theme"
+import { Card, Button, FAB, Text } from "react-native-paper"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 export interface DashboardScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
 }
 
-const ROOT: ViewStyle = {}
+const ROOT: ViewStyle = {
+    flex: 1
+}
 
 export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = observer(props => {
     // const { someStore } = useStores()
     return (
-        <Screen style={ROOT} preset="scroll" title="Elsa Health Assistant">
+        <Screen style={[ROOT]} preset="scroll" title="Elsa Health Assistant">
             <View style={{ padding: 10 }}>
                 <DashboardItem
                     title="New Patient Assesment"
@@ -27,19 +33,49 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
                     description="Assess your patients health situation using the Elsa suite of Tools."
                     route="client-present"
                 />
+
                 <DashboardItem
-                    title="Have a question about a disease?"
-                    actionText="Visit Library"
-                    description="The Elsa library provides information about each of the diseases we cover."
+                    title="Risk of Non-Adherence"
+                    // iconSource={require("../assets/icons/ASK-A-DOCTOR.png")}
+                    actionText="Assess Adherence"
+                    description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
+                    route="client-present"
+                />
+
+                <DashboardItem
+                    title="Risk of Drug Resistance"
+                    // iconSource={require("../assets/icons/ASK-A-DOCTOR.png")}
+                    actionText="Assess Risk of Drug Resistance"
+                    description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
+                    route="client-present"
+                />
+
+                <DashboardItem
+                    title="Elsa Library"
+                    actionText="Visit Elsa Library"
+                    description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
                     route="disease-library"
                 />
                 <DashboardItem
-                    title="Having a problem? Enjoying Something?"
-                    actionText="Report Problem / Feedback"
-                    description="Please leave feedback and we will be sure to fix whatever you are having a problem with."
+                    title="Feedback/ Report Problem"
+                    actionText="Report Problem/ Feedback"
+                    description="Please provide feedback about your experience to help improve the Elsa Health Assistant."
                     route="feedback"
                 />
             </View>
+            <FAB
+                style={{
+                    position: "absolute",
+                    right: md ? 36 : 12,
+                    bottom: md ? 36 : 12,
+                    height: md ? 60 : 40,
+                    width: md ? 60 : 40,
+                    backgroundColor: color.primary
+                }}
+
+                icon="plus"
+                onPress={() => console.log('Pressed')}
+            />
         </Screen>
     )
 })
@@ -49,7 +85,7 @@ interface DashboardItemProps {
     description: string
     actionText: string
     iconSource?: any,
-    route?:string
+    route?: string
 }
 
 const DashboardItem: React.FC<DashboardItemProps> = ({
@@ -59,20 +95,20 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
     actionText,
     route
 }) => {
-    const navigation=useNavigation()
-    
-    const navigateTo=()=>{
-        if(route) navigation.navigate(route)
+    const navigation = useNavigation()
+
+    const navigateTo = () => {
+        if (route) navigation.navigate(route)
         return
     }
     return (
         <Card style={{ marginTop: 20 }}>
-            <Card.Title title={title} titleStyle={style.contentHeader} />
+            <Card.Title title={title} titleStyle={[style.contentHeader,{fontSize:md?22:18}]} />
             <Card.Content>
                 {iconSource ? (
                     <View style={{ flexDirection: "row" }}>
                         <View style={{ flex: 3 }}>
-                            <Text text={description} style={style.bodyContent}/>
+                            <Text style={[style.bodyContent]}>{description}</Text>
                         </View>
                         <View
                             style={{
@@ -91,7 +127,7 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                         </View>
                     </View>
                 ) : (
-                        <Text text={description} />
+                        <Text style={[style.bodyContent]}>{description} </Text>
                     )}
             </Card.Content>
             <Card.Actions>
@@ -101,7 +137,7 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                     icon={() => <Icon name="arrow-forward" size={18} style={{ color: color.primary }} />}
 
                 >
-                    <Text text={actionText} color="primary" size="small" />
+                    <Text style={{color:color.primary}}>{actionText}</Text>
                 </Button>
             </Card.Actions>
         </Card>
