@@ -194,7 +194,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
             <StatusBar backgroundColor="black" />
             <View style={{ flex: 1, alignContent: "center", justifyContent: "center" }}>
                 <Image style={styles.logo} source={require("./logo.png")} resizeMode="contain" />
-                <Text>Elsa Health Assistant</Text>
+                <Text style={{textAlign:"center",fontSize: md ? 32 : 28,paddingVertical:md?18:12}}>Elsa Health Assistant</Text>
                 {state.view === "phone-number" ? (
                     // <React.Fragment>
                     //     <TextInput

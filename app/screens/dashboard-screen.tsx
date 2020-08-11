@@ -137,7 +137,7 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                     icon={() => <Icon name="arrow-forward" size={18} style={{ color: color.primary }} />}
 
                 >
-                    <Text style={{color:color.primary}}>{actionText}</Text>
+                    <Text style={[style.buttonText,{color:color.primary}]}>{actionText}</Text>
                 </Button>
             </Card.Actions>
         </Card>
