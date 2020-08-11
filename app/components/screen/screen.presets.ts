@@ -33,6 +33,7 @@ export const presets = {
       alignItems: "stretch",
       height: "100%",
       width: "100%",
+      
     } as ViewStyle,
   },
 

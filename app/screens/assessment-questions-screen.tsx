@@ -3,12 +3,12 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle, View, TouchableOpacity } from "react-native"
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Text, Header } from "../components"
+import { Screen, Header } from "../components"
 import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, style } from "../theme"
 import _ from "lodash"
 import EStyleSheet from "react-native-extended-stylesheet"
-import { RadioButton, Button, ActivityIndicator, Colors } from "react-native-paper"
+import { RadioButton, Button, ActivityIndicator, Colors,Text } from "react-native-paper"
 import { getQuestion } from "../common/questions"
 
 export interface AssessmentQuestionsScreenProps {
@@ -59,23 +59,23 @@ export const AssessmentQuestionsScreen: React.FunctionComponent<AssessmentQuesti
                         style={ACTIVITY_INDICATOR}
                     />
                 ) : (
-                    <View style={{ padding: 10 }}>
-                        {assessment.nextNodes.map(node => (
-                            <AssessmentQuestion
-                                key={node}
-                                symptom={node}
-                                question={getQuestion(node, "eng")}
-                            />
-                        ))}
-                        <Button
-                            style={{ margin: 10, marginBottom: 20 }}
-                            onPress={submit}
-                            mode="contained"
-                        >
-                            <Text color="white">Next</Text>
-                        </Button>
-                    </View>
-                )}
+                        <View style={{ padding: 10 }}>
+                            {assessment.nextNodes.map(node => (
+                                <AssessmentQuestion
+                                    key={node}
+                                    symptom={node}
+                                    question={getQuestion(node, "eng")}
+                                />
+                            ))}
+                            <Button
+                                style={{ margin: 10, marginBottom: 20 }}
+                                onPress={submit}
+                                mode="contained"
+                            >
+                                <Text color="white">Next</Text>
+                            </Button>
+                        </View>
+                    )}
             </Screen>
         )
     },
@@ -87,14 +87,10 @@ interface AssessmentQuestionProps {
 }
 
 const styles = EStyleSheet.create({
-    questionWrapper: {
-        marginTop: 10,
-        marginBottom: 35,
-    },
+  
     booleanOptionsContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 10,
     },
     booleanOption: {
         flexDirection: "row",
@@ -116,10 +112,9 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
 
         const status = assessment.patient.symptoms[symptom]
         return (
-            <View style={{ marginVertical: 20 }}>
-                <Text size="h6">{question}</Text>
-
-                <View style={styles.booleanOptionsContainer}>
+            <View style={style.contentTextVerticalSpacing}>
+                <Text style={style.bodyContent}>{question}</Text>
+                <View style={[style.headerTextContentVerticalSpacing,styles.booleanOptionsContainer]}>
                     <TouchableOpacity
                         onPress={() => assessment.patient.setSymptom(symptom, "present")}
                         style={styles.booleanOption}
@@ -128,19 +123,23 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = observer(
                             value="present"
                             status={status === "present" ? "checked" : "unchecked"}
                             onPress={() => assessment.patient.setSymptom(symptom, "present")}
+                            
+                            color={color.primary}
                         />
-                        <Text>Yes</Text>
+                        <Text style={style.bodyContent}>Yes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => assessment.patient.setSymptom(symptom, "absent")}
                         style={styles.booleanOption}
+
                     >
                         <RadioButton
                             value="absent"
                             status={status === "absent" ? "checked" : "unchecked"}
                             onPress={() => assessment.patient.setSymptom(symptom, "absent")}
+                            color={color.primary}
                         />
-                        <Text>No</Text>
+                        <Text style={style.bodyContent}>No</Text>
                     </TouchableOpacity>
                 </View>
             </View>

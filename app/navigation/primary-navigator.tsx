@@ -1,10 +1,10 @@
-import React from "react"
+import React,{useEffect,useState} from "react"
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
+import auth from '@react-native-firebase/auth';
+
 import {
     PhoneAuthScreen,
-    WelcomeScreen,
-    DemoScreen,
     AppointmentsListScreen,
     AppointmentExtendedScreen,
     Covid19PresentationScreen,
@@ -16,19 +16,44 @@ import {
     CompletedFollowUpSubscriptionScreen,
     AppointmentPersonScreen,
     DashboardScreen,
+    FeedbackScreen,
+    ClientPresentScreen,
+    SymptomAssessmentScreen,
+    AssessmentSummaryScreen,
+    ClientFeedbackScreen,
+    DiseaseLibraryScreen
 } from "../screens"
 import { PrimaryParamList } from "./types"
 
 const Stack = createNativeStackNavigator<PrimaryParamList>()
 
 export function PrimaryNavigator() {
+
+     // Set an initializing state whilst Firebase connects
+//   const [initializing, setInitializing] = useState(true);
+//   const [user, setUser] = useState();
+
+//   // Handle user state changes
+//   function onAuthStateChanged(user) {
+//     setUser(user);
+//     console.log("User is Logged in here ",user)
+//     if (initializing) setInitializing(false);
+//   }
+
+//   useEffect(() => {
+//     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+//     return subscriber; // unsubscribe on unmount
+//   }, []);
+
+//   if (initializing) return null;
+
     return (
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
                 gestureEnabled: true,
             }}
-            initialRouteName="dashboard"
+            initialRouteName="phone-auth"
         >
             <Stack.Screen name="phone-auth" component={PhoneAuthScreen} />
             <Stack.Screen name="dashboard" component={DashboardScreen} />
@@ -41,6 +66,12 @@ export function PrimaryNavigator() {
             <Stack.Screen name="hospital-recommendation" component={HospitalRecommendationScreen} />
             <Stack.Screen name="follow-up-registration" component={FollowUpRegistrationScreen} />
             <Stack.Screen name="completed-referral" component={CompletedReferralScreen} />
+            <Stack.Screen name="feedback" component={FeedbackScreen} />
+            <Stack.Screen name="client-present" component={ClientPresentScreen} />
+            <Stack.Screen name="symptom-assessment" component={SymptomAssessmentScreen} />
+            <Stack.Screen name="assessment-summary" component={AssessmentSummaryScreen} />
+            <Stack.Screen name="client-feedback" component={ClientFeedbackScreen} />
+            <Stack.Screen name="disease-library" component={DiseaseLibraryScreen} />
             <Stack.Screen
                 name="completed-follow-up-subscription"
                 component={CompletedFollowUpSubscriptionScreen}

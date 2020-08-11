@@ -215,12 +215,12 @@ const AccountModel = types
     .actions(self => ({
         setUser(account: UserAccount) {
             const {
-                id,
-                username,
-                telephone,
-                role,
-                hospitalId,
-                hospitalName,
+                id="",
+                username="",
+                telephone="",
+                role="chw",
+                hospitalId="",
+                hospitalName="",
                 authenticated = false,
                 loading = false,
             } = account

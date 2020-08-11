@@ -141,3 +141,42 @@ For Visual Studio Code users, there is a handy extension that makes it easy to l
 ## Premium Support
 
 [Ignite CLI](https://infinite.red/ignite), [Ignite Andross](https://github.com/infinitered/ignite-andross), and [Ignite Bowser](https://github.com/infinitered/ignite-bowser), as open source projects, are free to use and always will be. [Infinite Red](https://infinite.red/) offers premium Ignite support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
+
+# Responsive
+
+Refer to the Row and Col components as defined in Components folder, Adding responsive to the app is similar to bootstrap way of handling grids.
+
+
+Current Breakpoints 
+
+xs = width > 0 && width < 418;
+sm = width > 417 && width < 768;
+md = width > 767 && width < 1024;
+lg = width > 1023;
+
+
+## Usage of Responsive System
+
+```jsx
+
+    <Row>
+
+        <Col xs={6} sm={4} md={3} lg={3}>
+            ----
+        </Col>
+
+        <Col xs={6} sm={4} md={3} lg={3}>
+            ----
+        </Col>
+
+        <Col xs={6} sm={4} md={3} lg={3}>
+            -----
+        </Col>
+
+        <Col xs={6} sm={4} md={3} lg={3}>
+            ----
+        </Col>
+
+    </Row>
+    
+```
