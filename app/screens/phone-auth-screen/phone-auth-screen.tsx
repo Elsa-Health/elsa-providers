@@ -6,7 +6,7 @@ import { TextInput, Button, Title, ActivityIndicator, Colors, Text as PaperText 
 import { ParamListBase, StackActions, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import auth from "@react-native-firebase/auth"
-import { Screen, Text } from "../../components"
+import { Screen, Text, Row, Col } from "../../components"
 import { useStores } from "../../models/root-store"
 import { color, style } from "../../theme"
 
@@ -248,9 +248,10 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                         <TextInput
                             value={state.telephone}
                             onChangeText={text => setstate({ ...state, telephone: text })}
-                            mode="flat"
+                            mode="outlined"
+                            label="Phone Number"
                             keyboardType="phone-pad"
-                            placeholder="Namba ya simu"
+                            // placeholder="Namba ya simu"
                             style={style.input}
                             underlineColor="transparent"
                             theme={{ colors: { primary: color.primary } }}
@@ -261,31 +262,32 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                             onPress={sendAuthMessage}
                             color="white"
                             loading={loadingVeriricationCode}
-
                             style={style.buttonFilled}
                             uppercase={false}
                         >
-                            <Text color="white" style={style.buttonText}>Tuma Uthibitisho</Text>
+                            <Text color="white" style={style.buttonText}>Send Code</Text>
                         </Button>
+
+
                     </React.Fragment>
                 ) : (
                         <React.Fragment>
-                            <PaperText style={style.contentTextVerticalSpacing}>
-                                <PaperText>Namba ya uthibitisho imetumwa kwenye namba  </PaperText>
+                            <PaperText style={[style.contentTextVerticalSpacing, style.bodyContent]}>
+                                <PaperText>Verification code sent to number  </PaperText>
                                 <PaperText style={{ fontWeight: "bold" }}>{state.telephone}.   </PaperText>
                                 <PaperText style={{ color: color.primary }}
                                     onPress={() => {
                                         setstate({ ...state, view: "phone-number" })
                                     }}
-                                >Badili Namba</PaperText>
+                                >Change Number</PaperText>
 
                             </PaperText>
                             <TextInput
                                 value={state.activationCode}
                                 keyboardType="number-pad"
                                 onChangeText={text => setstate({ ...state, activationCode: text })}
-                                mode="flat"
-                                placeholder="Namba ya uthibitisho"
+                                mode="outlined"
+                                label="Enter code"
                                 style={styles.input}
                                 underlineColor="transparent"
                                 theme={{ colors: { primary: color.primary } }}

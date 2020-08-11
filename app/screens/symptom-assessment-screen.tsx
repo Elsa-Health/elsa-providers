@@ -10,6 +10,7 @@ import { color, style } from "../theme"
 import EStyleSheet from "react-native-extended-stylesheet"
 import { AssessmentQuestion } from "./assessment-questions-screen"
 import { lastIndexOf } from "lodash"
+import { useStores } from "../models/root-store"
 
 
 
@@ -118,7 +119,9 @@ export const SymptomAssessmentScreen: React.FunctionComponent<SymptomAssessmentS
   const [displayIndex, setDisplayIndex] = React.useState(0)
   const [lastIndex, setLastIndex] = React.useState(1)
   const navigation = useNavigation()
+  const { assessment } = useStores()
 
+  console.log("Assessment :",assessment.patient.symptoms)
   return (
     <Screen style={ROOT} preset="scroll" title="Symptom Assesessment">
       <View style={{ padding: 10 }}>

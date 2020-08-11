@@ -1,3 +1,5 @@
+require("../app/components/col/col.story")
+require("../app/components/row/row.story")
 require("../app/components/text/text.story")
 require("../app/components/button/button.story")
 require("../app/components/form-row/form-row.story")

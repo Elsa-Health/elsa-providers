@@ -35,16 +35,16 @@ const buttonOutline:ViewStyle={
 }
 
 const contentHeader:TextStyle={
-    fontSize:15,
+    fontSize:18,
     fontWeight:"bold"
 }
 
 const bodyContent:TextStyle={
-    fontSize:14
+    fontSize:16
 }
 
 const buttonText:TextStyle={
-    fontSize:12
+    fontSize:14
 }
 
 export const style={
