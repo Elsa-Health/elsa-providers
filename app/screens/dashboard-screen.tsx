@@ -23,6 +23,8 @@ const ROOT: ViewStyle = {
 
 export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = observer(props => {
     // const { someStore } = useStores()
+    const navigation=useNavigation();
+
     return (
         <Screen style={[ROOT]} preset="scroll" title="Elsa Health Assistant">
             <View style={{ padding: 10 }}>
@@ -74,7 +76,7 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
                 }}
 
                 icon="plus"
-                onPress={() => console.log('Pressed')}
+                onPress={() => navigation.navigate("client-present")}
             />
         </Screen>
     )

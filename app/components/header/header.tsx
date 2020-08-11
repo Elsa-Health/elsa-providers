@@ -5,7 +5,7 @@ import { HeaderProps } from "./header.props"
 import { Button } from "../button/button"
 
 // import { Icon } from "../icon/icon"
-import {Text} from 'react-native-paper'
+import { Text } from 'react-native-paper'
 
 import { spacing, color, md } from "../../theme"
 import { translate } from "../../i18n/"
@@ -25,11 +25,11 @@ const ROOT: ViewStyle = {
     borderBottomWidth: 1,
     borderBottomColor: color.palette.lighterGrey,
 }
-const TITLE: TextStyle = { fontSize: md ? 28 : 24,}
+const TITLE: TextStyle = { fontSize: md ? 28 : 24, }
 const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "flex-start" }
 const LEFT: ViewStyle = { width: 0 }
 const RIGHT: ViewStyle = { width: 0 }
-const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection:"row-reverse" }
+const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection: "row-reverse" }
 
 /**
  * Header that appears on many screens. Will hold navigation buttons and screen title.
@@ -49,10 +49,10 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
 
     return (
         <View style={{}}>
-            <View style={{...RIGHT_ICON_CONTAINER,paddingHorizontal:md?36:12,paddingTop:md?18:12}} >
-                <Icon name="menu" size={32}  color={color.black} />
+            <View style={{ ...RIGHT_ICON_CONTAINER, paddingHorizontal: md ? 36 : 12, paddingTop: md ? 18 : 12 }} >
+                <Icon name="menu" size={32} color={color.black} />
             </View>
-            <View style={{ ...ROOT, ...style,paddingHorizontal:md?36:12 }}>
+            <View style={{ ...ROOT, ...style, paddingHorizontal: md ? 36 : 12 }}>
                 {leftIcon ? (
                     <Button preset="link" onPress={onLeftPress}>
                         <Icon icon={leftIcon} />
@@ -61,7 +61,7 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
                         <View style={LEFT} />
                     )}
                 <View style={TITLE_MIDDLE}>
-                    <Text style={[{ ...TITLE, ...titleStyle }]}>{header}</Text> 
+                    <Text style={[{ ...TITLE, ...titleStyle }]}>{header}</Text>
                 </View>
                 {rightIcon ? (
                     <Button preset="link" onPress={onRightPress}>
