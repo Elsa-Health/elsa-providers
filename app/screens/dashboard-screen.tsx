@@ -25,6 +25,16 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
     // const { someStore } = useStores()
     const navigation=useNavigation();
 
+    //determine previleges and give the approprivate route
+    //for the dashboard item
+    const getRoute=()=>{
+
+        // other codes here
+
+        // return "client-present"
+        // return "".toString()
+    }
+
     return (
         <Screen style={[ROOT]} preset="scroll" title="Elsa Health Assistant">
             <View style={{ padding: 10 }}>
@@ -33,7 +43,7 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
                     iconSource={require("../assets/icons/ASK-A-DOCTOR.png")}
                     actionText="Begin Symptom Assesment"
                     description="Assess your patients health situation using the Elsa suite of Tools."
-                    route="client-present"
+                    route="ctc-qrcode-scan-screen"
                 />
 
                 <DashboardItem
@@ -76,7 +86,7 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
                 }}
 
                 icon="plus"
-                onPress={() => navigation.navigate("client-present")}
+                onPress={() => navigation.navigate("ctc-qrcode-scan-screen")}
             />
         </Screen>
     )
