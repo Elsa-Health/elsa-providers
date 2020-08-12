@@ -37,7 +37,6 @@
     "i18n-js": "^3.0.11",
     "lodash": "^4.17.15",
     "lodash.throttle": "4.1.1",
-    "material-bread": "^0.2.10",
     "mobx": "^4.15.4",
     "mobx-react-lite": "^1.4.1",
     "mobx-state-tree": "^3.14.1",

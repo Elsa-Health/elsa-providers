@@ -23,7 +23,11 @@ import {
     ClientFeedbackScreen,
     DiseaseLibraryScreen,
     CtcQrcodeScanScreen,
-    CtcNewPatientScreen
+    CtcNewPatientScreen,
+    CtcPatientAssessmentScreen,
+    CtcAssessmentQuestionsScreen,
+    CtcAssessmentSummaryScreen,
+    CtcAssessmentFeedbackScreen
 } from "../screens"
 import { PrimaryParamList } from "./types"
 
@@ -78,8 +82,13 @@ export function PrimaryNavigator() {
             {/* CTC WORKFLOW SCREENS  */}
             <Stack.Screen name="ctc-qrcode-scan-screen" component={CtcQrcodeScanScreen} />
             <Stack.Screen name="ctc-new-patient-screen" component={CtcNewPatientScreen} />
+            <Stack.Screen name="ctc-assessment-screen" component={CtcPatientAssessmentScreen} />
+            <Stack.Screen name="ctc-assessment-questions-screen" component={CtcAssessmentQuestionsScreen} />
 
+            <Stack.Screen name="ctc-assessment-summary-screen" component={CtcAssessmentSummaryScreen} />
+            <Stack.Screen name="ctc-assessment-feedback-screen" component={CtcAssessmentFeedbackScreen} />
 
+            
             <Stack.Screen
                 name="completed-follow-up-subscription"
                 component={CompletedFollowUpSubscriptionScreen}
