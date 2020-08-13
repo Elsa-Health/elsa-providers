@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { ViewStyle, View } from "react-native"
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Text, TextInput, RadioButton, Divider, Button } from "react-native-paper"
@@ -95,32 +95,36 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                 />
                             </Col>
 
-                            <Col md={6}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="WHO Clinical Stage"
-                                    mode="dialog">
-                                    <Item label="WHO Clinical Stage" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                            <Col md={6} colStyles={style.contentTextVerticalSpacing}>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="WHO Clinical Stage"
+                                        mode="dialog">
+                                        <Item label="WHO Clinical Stage" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
-                            <Col md={6}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="Functional Status"
-                                    mode="dialog">
-                                    <Item label="Functional Status" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                            <Col md={6} colStyles={style.contentTextVerticalSpacing}>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="Functional Status"
+                                        mode="dialog">
+                                        <Item label="Functional Status" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={6} colStyles={style.contentTextVerticalSpacing}>
@@ -270,17 +274,19 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="Relevant Co-Medications"
-                                    mode="dialog">
-                                    <Item label="Relevant Co-Medications" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="Relevant Co-Medications"
+                                        mode="dialog">
+                                        <Item label="Relevant Co-Medications" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}></Col>
@@ -387,17 +393,19 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={12} colStyles={{}}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="ARV Combination Regimen"
-                                    mode="dialog">
-                                    <Item label="ARV Combination Regimen" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="ARV Combination Regimen"
+                                        mode="dialog">
+                                        <Item label="ARV Combination Regimen" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={12} colStyles={{}}>
@@ -413,18 +421,20 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                 />
                             </Col>
 
-                            <Col md={12} colStyles={{}}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="ARV Adherence Status"
-                                    mode="dialog">
-                                    <Item label="ARV Adherence Status" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                            <Col md={12} colStyles={style.contentTextVerticalSpacing}>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="ARV Adherence Status"
+                                        mode="dialog">
+                                        <Item label="ARV Adherence Status" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
 

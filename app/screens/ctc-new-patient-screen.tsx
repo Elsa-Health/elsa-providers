@@ -94,7 +94,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
         const [value2, setValue2] = React.useState('red');
 
         const [state, setState] = React.useState({
-            maritalStatus: "", month: "", year: "", day: "",arvStage:""
+            maritalStatus: "", month: "", year: "", day: "", arvStage: ""
         })
 
         console.log("Year ", yearNumbers)
@@ -168,52 +168,56 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                             underlineColor="transparent"
                                             theme={{ colors: { primary: color.primary } }}
                                         /> */}
+                                        <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                            <Picker
+                                                // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                                selectedValue={state.month}
+                                                // onValueChange={(v) => setValue2(v)}
+                                                accessibilityLabel="Month"
+                                                onValueChange={(v) => setState({ ...state, month: v })}
+                                                mode="dialog">
 
-                                        <Picker
-                                            style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                            selectedValue={state.month}
-                                            // onValueChange={(v) => setValue2(v)}
-                                            accessibilityLabel="Month"
-                                            onValueChange={(v) => setState({ ...state, month: v })}
-                                            mode="dialog">
-
-                                            <Item label="Month" value={0} />
-                                            {monthNames.map((item, index) => (
-                                                <Item label={item} value={index + 1} />
-                                            ))}
+                                                <Item label="Month" value={0} />
+                                                {monthNames.map((item, index) => (
+                                                    <Item label={item} value={index + 1} />
+                                                ))}
 
 
-                                        </Picker>
-
+                                            </Picker>
+                                        </View>
 
                                     </Col>
                                     <Col md={4}>
-                                        <Picker
-                                            style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                            selectedValue={state.day}
-                                            // onValueChange={(v) => setValue2(v)}
-                                            accessibilityLabel="Day"
-                                            onValueChange={(v) => setState({ ...state, day: v })}
-                                            mode="dialog">
+                                        <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                            <Picker
+                                                // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                                selectedValue={state.day}
+                                                // onValueChange={(v) => setValue2(v)}
+                                                accessibilityLabel="Day"
+                                                onValueChange={(v) => setState({ ...state, day: v })}
+                                                mode="dialog">
 
-                                            <Item label="Day" value={0} />
-                                            {daysNumbers.map((item, index) => (
-                                                <Item label={item + ""} value={index + 1} />
-                                            ))}
-                                        </Picker>
+                                                <Item label="Day" value={0} />
+                                                {daysNumbers.map((item, index) => (
+                                                    <Item label={item + ""} value={index + 1} />
+                                                ))}
+                                            </Picker>
+                                        </View>
                                     </Col>
                                     <Col md={4}>
-                                        <Picker
-                                            style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                            selectedValue={state.year}
-                                            onValueChange={(v) => setState({ ...state, year: v })}
-                                            accessibilityLabel="Year"
-                                            mode="dialog">
-                                            <Item label="Year" value="year" />
-                                            {yearNumbers.map((item, index) => (
-                                                <Item label={item + ""} value={index + 1} />
-                                            ))}
-                                        </Picker>
+                                        <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                            <Picker
+                                                // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                                selectedValue={state.year}
+                                                onValueChange={(v) => setState({ ...state, year: v })}
+                                                accessibilityLabel="Year"
+                                                mode="dialog">
+                                                <Item label="Year" value="year" />
+                                                {yearNumbers.map((item, index) => (
+                                                    <Item label={item + ""} value={index + 1} />
+                                                ))}
+                                            </Picker>
+                                        </View>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -228,17 +232,19 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
 
                         <Row rowStyles={style.contentTextVerticalSpacing}>
                             <Col md={12}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.maritalStatus}
-                                    onValueChange={(v) => setState({ ...state, maritalStatus: v })}
-                                    accessibilityLabel="Marital Status"
-                                    mode="dialog">
-                                    <Item label="Marital Status" value={0} />
-                                    {maritalStates.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, {  color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.maritalStatus}
+                                        onValueChange={(v) => setState({ ...state, maritalStatus: v })}
+                                        accessibilityLabel="Marital Status"
+                                        mode="dialog">
+                                        <Item label="Marital Status" value={0} />
+                                        {maritalStates.map((item, index) => (
+                                            <Item label={item} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
                             <Col md={12}>
                                 <TextInput
@@ -249,6 +255,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                     label="District Of Residence"
                                     style={style.input}
                                     underlineColor="#FF0000"
+
                                     // underlineColorAndroid="#FF0000"
                                     theme={{ colors: { primary: color.primary, text: "#A8A8A8", underlineColor: '#A8A8A8' } }}
                                 />
@@ -396,100 +403,112 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.month}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Month"
-                                    onValueChange={(v) => setState({ ...state, month: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.month}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Month"
+                                        onValueChange={(v) => setState({ ...state, month: v })}
+                                        mode="dialog">
 
-                                    <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                        <Item label="Month" value={0} />
+                                        {monthNames.map((item, index) => (
+                                            <Item label={item} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
 
 
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.day}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Day"
-                                    onValueChange={(v) => setState({ ...state, day: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.day}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Day"
+                                        onValueChange={(v) => setState({ ...state, day: v })}
+                                        mode="dialog">
 
-                                    <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                        <Item label="Day" value={0} />
+                                        {daysNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.year}
-                                    onValueChange={(v) => setState({ ...state, year: v })}
-                                    accessibilityLabel="Year"
-                                    mode="dialog">
-                                    <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.year}
+                                        onValueChange={(v) => setState({ ...state, year: v })}
+                                        accessibilityLabel="Year"
+                                        mode="dialog">
+                                        <Item label="Year" value="year" />
+                                        {yearNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
                                 <Text style={style.contentHeader}>Date Confirmed HIV+</Text>
                             </Col>
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.month}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Month"
-                                    onValueChange={(v) => setState({ ...state, month: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.month}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Month"
+                                        onValueChange={(v) => setState({ ...state, month: v })}
+                                        mode="dialog">
 
-                                    <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                        <Item label="Month" value={0} />
+                                        {monthNames.map((item, index) => (
+                                            <Item label={item} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.day}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Day"
-                                    onValueChange={(v) => setState({ ...state, day: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.day}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Day"
+                                        onValueChange={(v) => setState({ ...state, day: v })}
+                                        mode="dialog">
 
-                                    <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                        <Item label="Day" value={0} />
+                                        {daysNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.year}
-                                    onValueChange={(v) => setState({ ...state, year: v })}
-                                    accessibilityLabel="Year"
-                                    mode="dialog">
-                                    <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.year}
+                                        onValueChange={(v) => setState({ ...state, year: v })}
+                                        accessibilityLabel="Year"
+                                        mode="dialog">
+                                        <Item label="Year" value="year" />
+                                        {yearNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
@@ -534,66 +553,71 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.month}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Month"
-                                    onValueChange={(v) => setState({ ...state, month: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.month}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Month"
+                                        onValueChange={(v) => setState({ ...state, month: v })}
+                                        mode="dialog">
 
-                                    <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
-
-
+                                        <Item label="Month" value={0} />
+                                        {monthNames.map((item, index) => (
+                                            <Item label={item} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.day}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Day"
-                                    onValueChange={(v) => setState({ ...state, day: v })}
-                                    mode="dialog">
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.day}
+                                        // onValueChange={(v) => setValue2(v)}
+                                        accessibilityLabel="Day"
+                                        onValueChange={(v) => setState({ ...state, day: v })}
+                                        mode="dialog">
 
-                                    <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                        <Item label="Day" value={0} />
+                                        {daysNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={4}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.year}
-                                    onValueChange={(v) => setState({ ...state, year: v })}
-                                    accessibilityLabel="Year"
-                                    mode="dialog">
-                                    <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                                <View style={{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
+                                        selectedValue={state.year}
+                                        onValueChange={(v) => setState({ ...state, year: v })}
+                                        accessibilityLabel="Year"
+                                        mode="dialog">
+                                        <Item label="Year" value="year" />
+                                        {yearNumbers.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
-
-                            <Col md={12}>
-                                <Picker
-                                    style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="WHO Stage at Start of ARVs"
-                                    mode="dialog">
-                                    <Item label="WHO Stage at Start of ARVs" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
+                            <Col md={12} colStyles={style.contentTextVerticalSpacing}>
+                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                    <Picker
+                                        // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
+                                        selectedValue={state.arvStage}
+                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        accessibilityLabel="WHO Stage at Start of ARVs"
+                                        mode="dialog">
+                                        <Item label="WHO Stage at Start of ARVs" value="0" />
+                                        {arvStages.map((item, index) => (
+                                            <Item label={item + ""} value={index + 1} />
+                                        ))}
+                                    </Picker>
+                                </View>
                             </Col>
 
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
