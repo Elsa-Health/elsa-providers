@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        height: 44,
+        // height: 44,
         width: "100%",
-        backgroundColor: "#E5E5E5",
-        marginTop: 12,  //value to be fixed
+        // backgroundColor: "#E5E5E5",
+        // marginTop: 12,  //value to be fixed
     }
     ,
     button: {
