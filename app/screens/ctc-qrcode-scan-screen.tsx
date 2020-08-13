@@ -34,7 +34,6 @@ const ScanWindow = () => {
     return (
         <View style={{ flex: 1, width: "100%" }}>
 
-
             <QRCodeScanner
                 onRead={onSuccess}
                 flashMode={RNCamera.Constants.FlashMode.torch}
@@ -69,12 +68,15 @@ export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenPro
                             </Col>
                         </Row>
                         <Row rowStyles={style.contentTextVerticalSpacing}>
-                            <Col md={12}>
+                            {/* MarginTop to prevent the cammera from blocking any top content */}
+                            <Col md={12} colStyles={{paddingTop:100}}>
                                 <View
                                     style={{
                                         // flex:1,
-                                        height: 700,
-                                        backgroundColor: color.offWhiteBackground,
+                                        //Setting height manually to fit the tablet space
+                                        height:880
+
+                                        // backgroundColor: color.offWhiteBackground,
                                     }}
                                 >
                                     <ScanWindow />
