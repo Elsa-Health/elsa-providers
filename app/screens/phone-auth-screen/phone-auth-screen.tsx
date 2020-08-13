@@ -252,7 +252,7 @@ export const PhoneAuthScreen: React.FunctionComponent<PhoneAuthScreenProps> = ob
                             label="Phone Number"
                             keyboardType="phone-pad"
                             // placeholder="Namba ya simu"
-                            style={style.input}
+                            style={[style.input]}
                             underlineColor="transparent"
                             theme={{ colors: { primary: color.primary } }}
                         />

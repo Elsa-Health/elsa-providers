@@ -20,10 +20,12 @@ import { RootStore, RootStoreProvider, setupRootStore, initialUser } from "./mod
 import * as storage from "./utils/storage"
 import getActiveRouteName from "./navigation/get-active-routename"
 
+
 function authListener(rootStore: RootStore) {
     auth().onAuthStateChanged(user => {
         if (user) {
             firestore()
+
                 .collection("providers")
                 .doc(user.uid)
                 .onSnapshot(snap => {
@@ -138,7 +140,7 @@ const App: React.FunctionComponent<{}> = () => {
     }
 
     useEffect(() => {
-        ;(async () => {
+        ; (async () => {
             setupRootStore().then(setRootStore)
         })()
     }, [])
@@ -179,13 +181,15 @@ const App: React.FunctionComponent<{}> = () => {
     return (
         <RootStoreProvider value={rootStore}>
             <PaperProvider theme={theme}>
-                <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-                    <RootNavigator
-                        ref={navigationRef}
-                        initialState={initialNavigationState}
-                        onStateChange={onNavigationStateChange}
-                    />
-                </SafeAreaProvider>
+                
+                    <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+                        <RootNavigator
+                            ref={navigationRef}
+                            initialState={initialNavigationState}
+                            onStateChange={onNavigationStateChange}
+                        />
+                    </SafeAreaProvider>
+              
             </PaperProvider>
         </RootStoreProvider>
     )

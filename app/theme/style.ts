@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        // height: 44,
+        height: 60,
         width: "100%",
-        // backgroundColor: "#E5E5E5",
+        backgroundColor: "#E5E5E5",
+        color:"#A8A8A8",
+        borderWidth:0,
+        borderColor:"#E5E5E5"
         // marginTop: 12,  //value to be fixed
     }
     ,

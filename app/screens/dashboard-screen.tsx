@@ -40,10 +40,10 @@ export const DashboardScreen: React.FunctionComponent<DashboardScreenProps> = ob
         <Screen style={[ROOT]} preset="scroll" title="Elsa Health Assistant">
             <View style={{ padding: 0 }}>
                 <DashboardItem
-                    title="New Patient Assesment"
+                    title="New Patient Assessment"
                     // iconSource={require("../assets/icons/ASK-A-DOCTOR.png")}
                     icon={<DrugsNurse width="130" height="130" />}
-                    actionText="Begin New Assesment"
+                    actionText="Begin New Assessment"
                     description="Assess your patients’ symptoms to understand more about their health and receive valuable insights for next steps to take."
                     route="ctc-qrcode-scan-screen"
                 />
