@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import {
     ViewStyle, View,
@@ -14,6 +14,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 
 import { color, style } from "../theme"
+import { useStores } from "../models/root-store"
 
 export interface CtcQrcodeScanScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -25,9 +26,14 @@ const ROOT: ViewStyle = {
 }
 
 const ScanWindow = () => {
+    const { assessment } = useStores()
 
+    console.log("Assessment store is here ", assessment)
     const onSuccess = e => {
-        console.log("Code run already : ", e)
+        // console.log("Code run already : ", e.data)
+        //settnig scan complete and setting the value of qr code here
+        assessment.setQrCodeComplete(true)
+        assessment.setQrCode(e.data)
     };
 
 
@@ -36,12 +42,17 @@ const ScanWindow = () => {
 
             <QRCodeScanner
                 onRead={onSuccess}
+                showMarker={true}
                 flashMode={RNCamera.Constants.FlashMode.torch}
                 // containerStyle={{
                 //     height:700,width:"100%"
                 // }}
                 cameraStyle={{
                     height: 700, width: "100%"
+                }}
+
+                markerStyle={{
+                    borderColor: color.primary
                 }}
 
 
@@ -54,9 +65,26 @@ const ScanWindow = () => {
 
 export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = observer(
     (props) => {
+
         // const { someStore } = useStores()
+        const { assessment } = useStores()
+
         const navigation = useNavigation()
         const [scanComplete, setScanComplete] = useState(false)
+
+        useEffect(() => {
+            setScanComplete(false)
+        }, [])
+
+        const onSuccess = e => {
+            // console.log("Code run already : ", e.data)
+            //settnig scan complete and setting the value of qr code here
+            // assessment.setQrCodeComplete(true)
+            setScanComplete(true)
+            assessment.setQrCode(e.data)
+        };
+
+
 
         return (
             <Screen style={ROOT} preset="scroll" title="Scan QR Code">
@@ -69,17 +97,37 @@ export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenPro
                         </Row>
                         <Row rowStyles={style.contentTextVerticalSpacing}>
                             {/* MarginTop to prevent the cammera from blocking any top content */}
-                            <Col md={12} colStyles={{paddingTop:100}}>
+                            <Col md={12} colStyles={{ paddingTop: 100 }}>
                                 <View
                                     style={{
                                         // flex:1,
                                         //Setting height manually to fit the tablet space
-                                        height:880
+                                        height: 880
 
                                         // backgroundColor: color.offWhiteBackground,
                                     }}
                                 >
-                                    <ScanWindow />
+                                    <View style={{ flex: 1, width: "100%" }}>
+
+                                        <QRCodeScanner
+                                            onRead={onSuccess}
+                                            showMarker={true}
+                                            flashMode={RNCamera.Constants.FlashMode.torch}
+                                            // containerStyle={{
+                                            //     height:700,width:"100%"
+                                            // }}
+                                            cameraStyle={{
+                                                height: 700, width: "100%"
+                                            }}
+
+                                            markerStyle={{
+                                                borderColor: color.primary
+                                            }}
+
+
+                                        />
+
+                                    </View>
 
                                 </View>
                             </Col>
@@ -115,8 +163,13 @@ export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenPro
                                             // flex:1,
                                             height: 700,
                                             backgroundColor: color.offWhiteBackground,
+                                            justifyContent:"center",
+                                            
                                         }}
-                                    ></View>
+                                    >
+
+                                        <Text style={{textAlign:"center"}}>To Be Replaced with QR Image as in Design</Text>
+                                    </View>
                                 </Col>
                             </Row>
                             <Row rowStyles={style.contentTextVerticalSpacing}>
@@ -153,8 +206,8 @@ export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenPro
                                             { fontWeight: "bold" },
                                         ]}
                                     >
-                                        Number: 12345-39-499583
-                                </Text>
+                                        Number: {assessment.qrcode}
+                                    </Text>
                                     <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>
                                         Patient registered.
                                 </Text>
