@@ -136,6 +136,7 @@ android {
         versionCode 1
         multiDexEnabled true
         versionName "0.1.0"
+        missingDimensionStrategy 'react-native-camera', 'general' 
     }
     splits {
         abi {
