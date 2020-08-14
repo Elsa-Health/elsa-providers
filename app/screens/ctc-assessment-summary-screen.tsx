@@ -1,6 +1,6 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView } from "react-native"
+import { ViewStyle, ScrollView,Dimensions } from "react-native"
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Text, TextInput, RadioButton, Divider, Button } from "react-native-paper"
@@ -8,6 +8,37 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 import { Screen, Row, Col } from "../components"
 // import { useStores } from "../models/root-store"
 import { color, style, md } from "../theme"
+
+import {
+    BarChart,
+} from "react-native-chart-kit";
+
+const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 1,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 1,
+    // backgroundColor: "#FFFFFF",
+    fillShadowGradient:"#E5E5E5",
+    fillShadowGradientOpacity:1,
+    color: (opacity = 1) => `#F3F3F3`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 1.5,
+    useShadowColorFromDataset: false // optional
+};
+
+const screenWidth = Dimensions.get("window").width-72; //minus 72 for left and right padding (36*2)
+
+//data for bar chat
+
+const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+        {
+            data: [20, 45, 28, 80, 99, 43]
+        }
+    ]
+};
 
 export interface CtcAssessmentSummaryScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -40,7 +71,18 @@ const DiseaseAssesmentCTC = () => {
                         backgroundColor: color.offWhiteBackground,
                     },
                 ]}
-            ></Col>
+            >
+                <BarChart
+                    style={{}}
+                    data={data}
+                    width={screenWidth}
+                    height={400}
+                    yAxisLabel=""
+                    chartConfig={chartConfig}
+                    verticalLabelRotation={0}
+                />
+
+            </Col>
             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                 <Text style={[style.bodyContent, {}]}>
                     It is most likely that your patient has{" "}
@@ -72,7 +114,17 @@ const RisksAssesmentCTC = ({ risk }) => {
                         backgroundColor: color.offWhiteBackground,
                     },
                 ]}
-            ></Col>
+            >
+                 <BarChart
+                    style={{}}
+                    data={data}
+                    width={screenWidth}
+                    height={400}
+                    yAxisLabel="" //label here
+                    chartConfig={chartConfig}
+                    verticalLabelRotation={0}
+                />
+            </Col>
             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                 <Text style={[style.bodyContent, {}]}>
                     {risk.riskMessage}{" "}
@@ -100,7 +152,7 @@ const nextStepsDummy = [
     { what: "Dispense medication." },
 ]
 
-const NextStepsCTC = ({}) => {
+const NextStepsCTC = ({ }) => {
     return (
         <>
             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
@@ -225,3 +277,4 @@ export const CtcAssessmentSummaryScreen: React.FunctionComponent<CtcAssessmentSu
         )
     },
 )
+
