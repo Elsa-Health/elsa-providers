@@ -6,10 +6,12 @@ import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Text, TextInput, RadioButton, Divider, Button } from "react-native-paper"
 import { Screen, Row, Col } from "../components"
 // import { useStores } from "../models/root-store"
+import _ from "lodash"
 import { color, style, md } from "../theme"
 import { friendlyFormatDate, fullFormatDate } from "../common/utils"
-import { Picker } from '@react-native-community/picker';
-const Item = Picker.Item as any;
+import { Picker } from "@react-native-community/picker"
+import SearchAndSelectBar from "../components/search-and-select-bar/search-and-select-bar"
+const Item = Picker.Item as any
 
 export interface CtcPatientAssessmentScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -19,13 +21,93 @@ const ROOT: ViewStyle = {
     flex: 1,
 }
 
-
-const arvStages = [
-    'Stage 1',
-    'Stage 2',
-    'Stage 3',
-    'Stage 4',
+const arvStages = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"]
+const functionalStages = ["working", "bedridden", "ambulatory"]
+const currentMedication = ["antibiotics", "antimalarials", "diuretics"]
+const comninations = [
+    "ARV Combination Program",
+    "Treatment Naive",
+    "1a = d4T, 3TC, NVP (pediatric patients)",
+    "1a (30) = d4T (30), 3TC, NVP",
+    "1a (30) L = d4T (30), 3TC, NVP loading dose",
+    "1a (40) = d4T (40), 3TC, NVP",
+    "1a (40) L = d4T (40), 3TC, NVP loading dose",
+    "1b = ZDV, 3TC, NVP",
+    "1c = ZDV, 3TC, EFV",
+    "1d (30) = d4T (30), 3TC, EFV",
+    "1d (40) = d4T (40), 3TC, EFV",
+    "2a = ABC, ddl, LPV/r",
+    "2b = ABC, ddl, SQV/r",
+    "2c - ABC, ddl, NFV",
+    "99 - Other (Specify)",
 ]
+const symptomSet = [
+    "Abdominal pain",
+    "Burning",
+    "Numb",
+    "Tingling",
+    "Dizziness",
+    "Nightmare ",
+    "Cough",
+    "Dyspnoea",
+    "Diarrhoea",
+    "Fatigue",
+    "Fever",
+    "Headache",
+    "Jaundice",
+    "Nausea",
+    "Skin rash",
+    "Urethral discharge",
+    "Weight loss",
+    "Malaise",
+    "Stiff neck",
+    "Photophobia",
+    "Vomiting",
+    "Coma",
+    "Visual loss",
+    "Hearing loss",
+    "Lethargy",
+    "Confusion",
+    "Altered mental status",
+    "Focal neurological deficit",
+    "Diastolic hypertension",
+    "Seizures",
+    "Non productive cough",
+    "Eye pain",
+    "Decreased visual acuity",
+    "Dark coloured urine",
+    "Clay coloured stools",
+    "Chills",
+    "Chest pain",
+    "Tachypneoa",
+    "Hypoxia after extertion",
+]
+const knownConditions = [
+    "Diabetes",
+    "Hypertension",
+    "Tuberculosis",
+    "HIV Encephalopathy",
+    "Genital ulcer disease",
+    "IRIS",
+    "Karposi Saccoma",
+    "Molluscum",
+    "Osephageal candidiasis",
+    "Partoid enlargement",
+    "Pelvic inflammatory disease",
+    "Papular pruritic eruptions",
+    "Oral thrush",
+    "Vaginal thrush",
+    "Ulcer",
+    "Zoster",
+    "Pneumonia",
+    "Pneumocystis pneumonia",
+    "Dementia",
+    "Cryptococcal meningitis",
+    "Anaemia",
+    "Depression",
+    "Anxiety",
+]
+const adhStatus = ["Good", "Poor", "N/A"]
 
 export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAssessmentScreenProps> = observer(
     (props) => {
@@ -34,8 +116,47 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
         const [value, setValue] = React.useState("male")
         const [displayIndex, setDisplayIndex] = React.useState(0)
         const [state, setState] = React.useState({
-            maritalStatus: "", month: "", year: "", day: "", arvStage: ""
+            maritalStatus: "",
+            month: "",
+            year: "",
+            day: "",
+            arvStage: "",
+            pregnant: "false",
+            cotrim: "false",
+            diflucan: "false",
+            currentMedication: "antibiotics",
+            combination: "ARV Combination Program",
+            adhStatus: "Good",
+            functionalStage: "working",
+            presentingSymptoms: [],
+            conditions: [],
         })
+
+        const toggleSymptom = (symptom: string) => {
+            const sym = [...state.presentingSymptoms]
+            if (sym.includes(symptom)) {
+                updateState(
+                    "presentingSymptoms",
+                    sym.filter((sy) => sy !== symptom),
+                )
+            } else {
+                updateState("presentingSymptoms", [...sym, symptom])
+            }
+        }
+        const toggleCondition = (condition: string) => {
+            const cond = [...state.conditions]
+            if (cond.includes(condition)) {
+                updateState(
+                    "conditions",
+                    cond.filter((sy) => sy !== condition),
+                )
+            } else {
+                updateState("conditions", [...cond, condition])
+            }
+        }
+        const updateState = (name: string, value: any) => {
+            setState({ ...state, [name]: value })
+        }
 
         return (
             <Screen style={ROOT} preset="scroll" title="Patient Assessment">
@@ -72,7 +193,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             <Col md={6}>
                                 <TextInput
                                     // value={state.activationCode}
-                                    keyboardType="number-pad"
+                                    keyboardType="decimal-pad"
                                     // onChangeText={text => setstate({ ...state, activationCode: text })}
                                     mode="outlined"
                                     label="Weight (kgs)"
@@ -85,7 +206,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             <Col md={6}>
                                 <TextInput
                                     // value={state.activationCode}
-                                    keyboardType="number-pad"
+                                    keyboardType="decimal-pad"
                                     // onChangeText={text => setstate({ ...state, activationCode: text })}
                                     mode="outlined"
                                     label="Height/Length (cm)"
@@ -96,13 +217,25 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={6} colStyles={style.contentTextVerticalSpacing}>
-                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                <View
+                                    style={[
+                                        {
+                                            backgroundColor: "#F3F3F3",
+                                            borderColor: "#A8A8A8",
+                                            borderWidth: 0.5,
+                                            color: "rgba(0, 0, 0, 0.32)",
+                                            paddingVertical: 4,
+                                            paddingHorizontal: 4,
+                                        },
+                                    ]}
+                                >
                                     <Picker
                                         // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
                                         selectedValue={state.arvStage}
                                         onValueChange={(v) => setState({ ...state, arvStage: v })}
                                         accessibilityLabel="WHO Clinical Stage"
-                                        mode="dialog">
+                                        mode="dialog"
+                                    >
                                         <Item label="WHO Clinical Stage" value="0" />
                                         {arvStages.map((item, index) => (
                                             <Item label={item + ""} value={index + 1} />
@@ -112,16 +245,34 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={6} colStyles={style.contentTextVerticalSpacing}>
-                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                <View
+                                    style={[
+                                        {
+                                            backgroundColor: "#F3F3F3",
+                                            borderColor: "#A8A8A8",
+                                            borderWidth: 0.5,
+                                            color: "rgba(0, 0, 0, 0.32)",
+                                            paddingVertical: 4,
+                                            paddingHorizontal: 4,
+                                        },
+                                    ]}
+                                >
                                     <Picker
                                         // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                        selectedValue={state.arvStage}
-                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        selectedValue={state.functionalStage}
+                                        onValueChange={(v) =>
+                                            setState({ ...state, functionalStage: v })
+                                        }
                                         accessibilityLabel="Functional Status"
-                                        mode="dialog">
+                                        mode="dialog"
+                                    >
                                         <Item label="Functional Status" value="0" />
-                                        {arvStages.map((item, index) => (
-                                            <Item label={item + ""} value={index + 1} />
+                                        {functionalStages.map((item, index) => (
+                                            <Item
+                                                label={_.upperFirst(item + "")}
+                                                key={item}
+                                                value={index + 1}
+                                            />
                                         ))}
                                     </Picker>
                                 </View>
@@ -132,15 +283,15 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
                             <Col md={6} colStyles={style.contentTextVerticalSpacing}>
                                 <RadioButton.Group
-                                    onValueChange={(value) => setValue(value)}
-                                    value={value}
+                                    onValueChange={(value) => updateState("pregnant", value)}
+                                    value={state.pregnant}
                                 >
                                     <Row>
                                         <Col md={6}>
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="male"
+                                                        value={"true"}
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -154,7 +305,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="female"
+                                                        value={"false"}
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -169,7 +320,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
                                 <TextInput
                                     // value={state.activationCode}
-                                    keyboardType="number-pad"
+                                    keyboardType="default"
                                     // onChangeText={text => setstate({ ...state, activationCode: text })}
                                     mode="outlined"
                                     label="If yes, expected date of delivery."
@@ -274,16 +425,34 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                <View
+                                    style={[
+                                        {
+                                            backgroundColor: "#F3F3F3",
+                                            borderColor: "#A8A8A8",
+                                            borderWidth: 0.5,
+                                            color: "rgba(0, 0, 0, 0.32)",
+                                            paddingVertical: 4,
+                                            paddingHorizontal: 4,
+                                        },
+                                    ]}
+                                >
                                     <Picker
                                         // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                        selectedValue={state.arvStage}
-                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        selectedValue={state.currentMedication}
+                                        onValueChange={(v) =>
+                                            setState({ ...state, currentMedication: v })
+                                        }
                                         accessibilityLabel="Relevant Co-Medications"
-                                        mode="dialog">
+                                        mode="dialog"
+                                    >
                                         <Item label="Relevant Co-Medications" value="0" />
-                                        {arvStages.map((item, index) => (
-                                            <Item label={item + ""} value={index + 1} />
+                                        {currentMedication.map((item, index) => (
+                                            <Item
+                                                label={_.upperFirst(item + "")}
+                                                key={item}
+                                                value={index + 1}
+                                            />
                                         ))}
                                     </Picker>
                                 </View>
@@ -299,15 +468,15 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
 
                             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                                 <RadioButton.Group
-                                    onValueChange={(value) => setValue(value)}
-                                    value={value}
+                                    onValueChange={(value) => updateState("cotrim", value)}
+                                    value={state.cotrim}
                                 >
                                     <Row>
                                         <Col md={2}>
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="male"
+                                                        value="true"
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -321,7 +490,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="female"
+                                                        value="false"
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -342,15 +511,15 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
 
                             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                                 <RadioButton.Group
-                                    onValueChange={(value) => setValue(value)}
-                                    value={value}
+                                    onValueChange={(value) => updateState("diflucan", value)}
+                                    value={state.diflucan}
                                 >
                                     <Row>
                                         <Col md={2}>
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="male"
+                                                        value="true"
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -364,7 +533,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                             <Row>
                                                 <Col md={4}>
                                                     <RadioButton
-                                                        value="female"
+                                                        value="false"
                                                         color={color.primary}
                                                     />
                                                 </Col>
@@ -393,16 +562,30 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={12} colStyles={{}}>
-                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                <View
+                                    style={[
+                                        {
+                                            backgroundColor: "#F3F3F3",
+                                            borderColor: "#A8A8A8",
+                                            borderWidth: 0.5,
+                                            color: "rgba(0, 0, 0, 0.32)",
+                                            paddingVertical: 4,
+                                            paddingHorizontal: 4,
+                                        },
+                                    ]}
+                                >
                                     <Picker
                                         // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                        selectedValue={state.arvStage}
-                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        selectedValue={state.combination}
+                                        onValueChange={(v) =>
+                                            setState({ ...state, combination: v })
+                                        }
                                         accessibilityLabel="ARV Combination Regimen"
-                                        mode="dialog">
-                                        <Item label="ARV Combination Regimen" value="0" />
-                                        {arvStages.map((item, index) => (
-                                            <Item label={item + ""} value={index + 1} />
+                                        mode="dialog"
+                                    >
+                                        {/* <Item label="ARV Combination Regimen" value="0" /> */}
+                                        {comninations.map((item, index) => (
+                                            <Item label={item} key={item} value={index} />
                                         ))}
                                     </Picker>
                                 </View>
@@ -422,21 +605,32 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
 
                             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
-                                <View style={[{ backgroundColor: "#F3F3F3", borderColor: "#A8A8A8", borderWidth: 0.5, color: "rgba(0, 0, 0, 0.32)", paddingVertical: 4, paddingHorizontal: 4 }]}>
+                                <View
+                                    style={[
+                                        {
+                                            backgroundColor: "#F3F3F3",
+                                            borderColor: "#A8A8A8",
+                                            borderWidth: 0.5,
+                                            color: "rgba(0, 0, 0, 0.32)",
+                                            paddingVertical: 4,
+                                            paddingHorizontal: 4,
+                                        },
+                                    ]}
+                                >
                                     <Picker
                                         // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                        selectedValue={state.arvStage}
-                                        onValueChange={(v) => setState({ ...state, arvStage: v })}
+                                        selectedValue={state.adhStatus}
+                                        onValueChange={(v) => setState({ ...state, adhStatus: v })}
                                         accessibilityLabel="ARV Adherence Status"
-                                        mode="dialog">
+                                        mode="dialog"
+                                    >
                                         <Item label="ARV Adherence Status" value="0" />
-                                        {arvStages.map((item, index) => (
-                                            <Item label={item + ""} value={index + 1} />
+                                        {adhStatus.map((item, index) => (
+                                            <Item label={item + ""} key={adhStatus} value={index} />
                                         ))}
                                     </Picker>
                                 </View>
                             </Col>
-
 
                             <Col md={12} colStyles={[{}]}>
                                 <Button
@@ -455,156 +649,168 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                             </Col>
                         </>
                     ) : (
-                            <>
-                                <Col md={12} colStyles={style.contentTextVerticalSpacing}>
-                                    <Text style={style.contentHeader}>Known Current Conditions</Text>
-                                </Col>
+                        <>
+                            <Col md={12} colStyles={style.contentTextVerticalSpacing}>
+                                <Text style={style.contentHeader}>Known Current Conditions</Text>
+                            </Col>
 
-                                <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                    <Text
-                                        style={[
-                                            style.bodyContent,
-                                            { color: "#7B7B7B", fontStyle: "italic" },
-                                        ]}
-                                    >
-                                        Please indicate any new known conditions the patient has at the
+                            <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
+                                <Text
+                                    style={[
+                                        style.bodyContent,
+                                        { color: "#7B7B7B", fontStyle: "italic" },
+                                    ]}
+                                >
+                                    Please indicate any new known conditions the patient has at the
                                     time of this visit:{" "}
-                                    </Text>
-                                </Col>
+                                </Text>
+                            </Col>
 
-                                <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                    <Row>
-                                        <Col md={2}>
-                                            <Button
-                                                mode="outlined"
-                                                onPress={() => { }}
-                                                style={style.buttonOutline}
-                                                uppercase={false}
+                            <SearchAndSelectBar
+                                options={knownConditions}
+                                toggleOption={(condition) => toggleCondition(condition)}
+                                selectedOptions={state.conditions}
+                            />
+
+                            {/* <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
+                                <Row>
+                                    <Col md={2}>
+                                        <Button
+                                            mode="outlined"
+                                            onPress={() => {}}
+                                            style={style.buttonOutline}
+                                            uppercase={false}
+                                        >
+                                            <Text
+                                                style={{
+                                                    color: color.primary,
+                                                    fontSize: md ? 18 : 14,
+                                                }}
                                             >
-                                                <Text
-                                                    style={{
-                                                        color: color.primary,
-                                                        fontSize: md ? 18 : 14,
-                                                    }}
-                                                >
-                                                    Anemia
+                                                Anemia
                                             </Text>
-                                            </Button>
-                                        </Col>
+                                        </Button>
+                                    </Col>
 
-                                        <Col md={2}>
-                                            <Button
-                                                mode="outlined"
-                                                onPress={() => { }}
-                                                style={style.buttonOutline}
-                                                uppercase={false}
+                                    <Col md={2}>
+                                        <Button
+                                            mode="outlined"
+                                            onPress={() => {}}
+                                            style={style.buttonOutline}
+                                            uppercase={false}
+                                        >
+                                            <Text
+                                                style={{
+                                                    color: color.primary,
+                                                    fontSize: md ? 18 : 14,
+                                                }}
                                             >
-                                                <Text
-                                                    style={{
-                                                        color: color.primary,
-                                                        fontSize: md ? 18 : 14,
-                                                    }}
-                                                >
-                                                    Cough
+                                                Cough
                                             </Text>
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </Col>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Col>
 
-                                <Col md={12} colStyles={{}}>
-                                    <TextInput
-                                        // value={state.activationCode}
-                                        keyboardType="number-pad"
-                                        // onChangeText={text => setstate({ ...state, activationCode: text })}
-                                        mode="outlined"
-                                        label="Search..."
-                                        style={style.input}
-                                        underlineColor="transparent"
-                                        theme={{ colors: { primary: color.primary } }}
-                                    />
-                                </Col>
+                            <Col md={12} colStyles={{}}>
+                                <TextInput
+                                    // value={state.activationCode}
+                                    keyboardType="number-pad"
+                                    // onChangeText={text => setstate({ ...state, activationCode: text })}
+                                    mode="outlined"
+                                    label="Search..."
+                                    style={style.input}
+                                    underlineColor="transparent"
+                                    theme={{ colors: { primary: color.primary } }}
+                                />
+                            </Col> */}
 
-                                <Col md={12} colStyles={{ marginVertical: 32 }}>
-                                    <Divider
-                                        style={[
-                                            {
-                                                backgroundColor: color.offWhiteBackground,
-                                                marginHorizontal: md ? -36 : -12,
-                                            },
-                                        ]}
-                                    />
-                                </Col>
+                            <Col md={12} colStyles={{ marginVertical: 32 }}>
+                                <Divider
+                                    style={[
+                                        {
+                                            backgroundColor: color.offWhiteBackground,
+                                            marginHorizontal: md ? -36 : -12,
+                                        },
+                                    ]}
+                                />
+                            </Col>
 
-                                <Col md={12} colStyles={style.contentTextVerticalSpacing}>
-                                    <Text style={style.contentHeader}>Presenting Symptoms</Text>
-                                </Col>
+                            <Col md={12} colStyles={style.contentTextVerticalSpacing}>
+                                <Text style={style.contentHeader}>Presenting Symptoms</Text>
+                            </Col>
 
-                                <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                    <Text
-                                        style={[
-                                            style.bodyContent,
-                                            { color: "#7B7B7B", fontStyle: "italic" },
-                                        ]}
-                                    >
-                                        Please indicate any new symptoms the patient has:{" "}
-                                    </Text>
-                                </Col>
+                            <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
+                                <Text
+                                    style={[
+                                        style.bodyContent,
+                                        { color: "#7B7B7B", fontStyle: "italic" },
+                                    ]}
+                                >
+                                    Please indicate any new symptoms the patient has:{" "}
+                                </Text>
+                            </Col>
 
-                                <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
-                                    <Row>
-                                        <Col md={2}>
-                                            <Button
-                                                mode="outlined"
-                                                onPress={() => { }}
-                                                style={style.buttonOutline}
-                                                uppercase={false}
+                            <SearchAndSelectBar
+                                options={symptomSet}
+                                toggleOption={(symptom) => toggleSymptom(symptom)}
+                                selectedOptions={state.presentingSymptoms}
+                            />
+
+                            {/* <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
+                                <Row>
+                                    <Col md={2}>
+                                        <Button
+                                            mode="outlined"
+                                            onPress={() => {}}
+                                            style={style.buttonOutline}
+                                            uppercase={false}
+                                        >
+                                            <Text
+                                                style={{
+                                                    color: color.primary,
+                                                    fontSize: md ? 18 : 14,
+                                                }}
                                             >
-                                                <Text
-                                                    style={{
-                                                        color: color.primary,
-                                                        fontSize: md ? 18 : 14,
-                                                    }}
-                                                >
-                                                    Anemia
+                                                Anemia
                                             </Text>
-                                            </Button>
-                                        </Col>
+                                        </Button>
+                                    </Col>
 
-                                        <Col md={2}>
-                                            <Button
-                                                mode="outlined"
-                                                onPress={() => { }}
-                                                style={style.buttonOutline}
-                                                uppercase={false}
+                                    <Col md={2}>
+                                        <Button
+                                            mode="outlined"
+                                            onPress={() => {}}
+                                            style={style.buttonOutline}
+                                            uppercase={false}
+                                        >
+                                            <Text
+                                                style={{
+                                                    color: color.primary,
+                                                    fontSize: md ? 18 : 14,
+                                                }}
                                             >
-                                                <Text
-                                                    style={{
-                                                        color: color.primary,
-                                                        fontSize: md ? 18 : 14,
-                                                    }}
-                                                >
-                                                    Cough
+                                                Cough
                                             </Text>
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </Col>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Col> */}
 
-                                <Col md={12} colStyles={{}}>
-                                    <TextInput
-                                        // value={state.activationCode}
-                                        keyboardType="number-pad"
-                                        // onChangeText={text => setstate({ ...state, activationCode: text })}
-                                        mode="outlined"
-                                        label="Search..."
-                                        style={style.input}
-                                        underlineColor="transparent"
-                                        theme={{ colors: { primary: color.primary } }}
-                                    />
-                                </Col>
+                            {/* <Col md={12} colStyles={{}}>
+                                <TextInput
+                                    // value={state.activationCode}
+                                    keyboardType="number-pad"
+                                    // onChangeText={text => setstate({ ...state, activationCode: text })}
+                                    mode="outlined"
+                                    label="Search..."
+                                    style={style.input}
+                                    underlineColor="transparent"
+                                    theme={{ colors: { primary: color.primary } }}
+                                />
+                            </Col> */}
 
-                                {/* <Col md={12} colStyles={{ marginVertical: 32 }}>
+                            {/* <Col md={12} colStyles={{ marginVertical: 32 }}>
                                     <Divider
                                         style={[
                                             {
@@ -660,9 +866,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                     </Picker>
                                 </Col> */}
 
-
-
-                                {/* <Col md={12} colStyles={style.contentTextVerticalSpacing}>
+                            {/* <Col md={12} colStyles={style.contentTextVerticalSpacing}>
                                     <Text style={style.contentHeader}>Test Information</Text>
                                 </Col>
 
@@ -726,24 +930,24 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                                     </Picker>
                                 </Col> */}
 
-                                <Col md={12} colStyles={[{}]}>
-                                    <Button
-                                        style={[
-                                            style.buttonFilled,
-                                            { paddingHorizontal: 46, alignSelf: "flex-end" },
-                                        ]}
-                                        onPress={() => {
-                                            //navigate here
-                                            // setDisplayIndex(1)
-                                            navigation.navigate("ctc-assessment-questions-screen")
-                                        }}
-                                        uppercase={false}
-                                    >
-                                        <Text style={style.buttonText}>Next</Text>
-                                    </Button>
-                                </Col>
-                            </>
-                        )}
+                            <Col md={12} colStyles={[{}]}>
+                                <Button
+                                    style={[
+                                        style.buttonFilled,
+                                        { paddingHorizontal: 46, alignSelf: "flex-end" },
+                                    ]}
+                                    onPress={() => {
+                                        //navigate here
+                                        // setDisplayIndex(1)
+                                        navigation.navigate("ctc-assessment-questions-screen")
+                                    }}
+                                    uppercase={false}
+                                >
+                                    <Text style={style.buttonText}>Next</Text>
+                                </Button>
+                            </Col>
+                        </>
+                    )}
                 </Row>
             </Screen>
         )

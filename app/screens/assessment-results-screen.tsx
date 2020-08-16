@@ -54,7 +54,7 @@ const dummyNextSteps = [
 // TODO: on back press, go back to home page.
 
 export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsScreenProps> = observer(
-    props => {
+    (props) => {
         const { assessment } = useStores()
         const topDiagnoses = assessment.topDiagnoses(4)
 
@@ -88,9 +88,11 @@ export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsS
                     <View style={{ marginTop: 20 }}>
                         <Button
                             mode="contained"
-                            onPress={() => props.navigation.navigate("hospital-recommendation", {
-                                symptoms: assessment.patient.symptoms
-                            })}
+                            onPress={() =>
+                                props.navigation.navigate("hospital-recommendation", {
+                                    symptoms: assessment.patient.symptoms,
+                                })
+                            }
                             style={{ marginVertical: 6 }}
                         >
                             <Text color="white">Refer to hospital</Text>
@@ -129,17 +131,21 @@ const chartConfig = {
     barPercentage: 0.5,
 }
 
-const DiseaseDistribution: React.FC<{ diagnoses: any[] }> = ({ diagnoses }) => {
+export const DiseaseDistribution: React.FC<{
+    diagnoses: any[]
+    height?: number
+    hideMessage: boolean
+}> = ({ diagnoses, height = 220, hideMessage = false }) => {
     const labels = []
     const data = []
-    diagnoses.forEach(diag => {
+    diagnoses.forEach((diag) => {
         labels.push(diag.name)
         data.push(diag.p)
     })
 
     const dx = _.sortBy(diagnoses, ["p"]).reverse()[0]
     return (
-        <View style={{ marginVertical: 10, marginBottom: 14 }}>
+        <View style={{ marginVertical: 10, marginBottom: -14 }}>
             <BarChart
                 style={{
                     backgroundColor: color.palette.white,
@@ -151,31 +157,34 @@ const DiseaseDistribution: React.FC<{ diagnoses: any[] }> = ({ diagnoses }) => {
                     datasets: [{ data }],
                 }}
                 width={width - 20}
-                height={220}
+                height={height}
                 yAxisLabel=""
                 fromZero
                 yAxisSuffix="%"
+                showValuesOnTopOfBars
                 horizontalLabelRotation={0}
                 chartConfig={{
                     backgroundColor: "white",
                     backgroundGradientFrom: "#fff",
                     backgroundGradientTo: "#fff",
-                    decimalPlaces: 1,
-                    barPercentage: 1,
+                    decimalPlaces: 2,
+                    barPercentage: 1.6,
                     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 }}
                 verticalLabelRotation={0}
             />
-            {!!dx && (
-                <Text size="h6" style={{ marginTop: 10 }}>
-                    Based on the information provided the most likely condition is{" "}
-                    {_.upperFirst(dx.name)}
+            {!hideMessage && !!dx && (
+                <Text size="h5" style={{ marginTop: -30 }}>
+                    It is most likely that your patient has{" "}
+                    <Text size="h5" style={{ color: color.primary }}>
+                        {_.upperFirst(dx.name)}
+                    </Text>
                 </Text>
             )}
 
-            <Text size="h6" style={{ marginTop: 10, fontWeight: "bold" }}>
+            {/* <Text size="h6" style={{ marginTop: 10, fontWeight: "bold" }}>
                 The patients risk of COVID-19 is HIGH. Refer Patient.
-            </Text>
+            </Text> */}
         </View>
     )
 }

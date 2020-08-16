@@ -1,13 +1,15 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView } from "react-native"
+import { ViewStyle, ScrollView, View } from "react-native"
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Text, TextInput, RadioButton, Divider, Button } from "react-native-paper"
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
+import _ from "lodash"
 import { Screen, Row, Col } from "../components"
 // import { useStores } from "../models/root-store"
 import { color, style, md } from "../theme"
+import { DiseaseDistribution } from "."
 
 export interface CtcAssessmentSummaryScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -17,7 +19,7 @@ const ROOT: ViewStyle = {
     flex: 1,
 }
 
-const DiseaseAssesmentCTC = () => {
+const DiseaseAssesmentCTC = ({}) => {
     return (
         <>
             <Col md={12} colStyles={style.contentTextVerticalSpacing}>
@@ -31,7 +33,7 @@ const DiseaseAssesmentCTC = () => {
                 </Text>
             </Col>
 
-            <Col
+            {/* <Col
                 md={12}
                 colStyles={[
                     style.headerTextContentVerticalSpacing,
@@ -40,13 +42,47 @@ const DiseaseAssesmentCTC = () => {
                         backgroundColor: color.offWhiteBackground,
                     },
                 ]}
-            ></Col>
-            <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
+            ></Col> */}
+            <View style={{ height: 25 }} />
+            <DiseaseDistribution
+                height={500}
+                diagnoses={_.sortBy(
+                    [
+                        {
+                            diag: "Cryptococcal Meningitis",
+                            p: (Math.random() * 100).toFixed(2),
+                            name: "Cryptococcal Meningitis",
+                        },
+                        {
+                            diag: "Toxoplasmosis",
+                            p: (Math.random() * 100).toFixed(2),
+                            name: "Toxoplasmosis",
+                        },
+                        {
+                            diag: "Pneumocystis Pneumonia",
+                            p: (Math.random() * 100).toFixed(2),
+                            name: "Pneumocystis Pneumonia",
+                        },
+                        {
+                            diag: "Hepatitis B",
+                            p: (Math.random() * 100).toFixed(2),
+                            name: "Hepatitis B",
+                        },
+                        {
+                            diag: "Tuberculosis",
+                            p: (Math.random() * 100).toFixed(2),
+                            name: "Tuberculosis",
+                        },
+                    ],
+                    ["p"],
+                ).reverse()}
+            />
+            {/* <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                 <Text style={[style.bodyContent, {}]}>
                     It is most likely that your patient has{" "}
                     <Text style={{ color: color.primary }}> Pneumocistis Pneumonia..</Text>
                 </Text>
-            </Col>
+            </Col> */}
             <FullWidthDivider />
         </>
     )
@@ -63,7 +99,7 @@ const RisksAssesmentCTC = ({ risk }) => {
                 <Text style={[style.bodyContent, { fontStyle: "italic" }]}>{risk.subtitle} </Text>
             </Col>
 
-            <Col
+            {/* <Col
                 md={12}
                 colStyles={[
                     style.headerTextContentVerticalSpacing,
@@ -72,7 +108,8 @@ const RisksAssesmentCTC = ({ risk }) => {
                         backgroundColor: color.offWhiteBackground,
                     },
                 ]}
-            ></Col>
+            ></Col> */}
+            <DiseaseDistribution height={500} diagnoses={risk.data} hideMessage={true} />
             <Col md={12} colStyles={style.headerTextContentVerticalSpacing}>
                 <Text style={[style.bodyContent, {}]}>
                     {risk.riskMessage}{" "}
@@ -182,6 +219,10 @@ const riskyDummyData = [
         subtitle: "Based on our assessment, this shows the liklihood of non-adherence.",
         riskMessage: "The patient’s risk of non-adherence is",
         riskValue: "75%",
+        data: [
+            { name: "Non Adherence", p: 75 },
+            { name: "Adherence", p: 25 },
+        ],
         warning:
             "Your patient does not understand their regimen and is sharing their medication with their family/ friends. Improving these will ensure that patient is more likely to adhere.",
     },
@@ -190,6 +231,10 @@ const riskyDummyData = [
         subtitle: "Based on our assessment, this shows the liklihood of drug resistance.",
         riskMessage: "The patient’s risk of drug resistance is ",
         riskValue: "75%",
+        data: [
+            { name: "Resistance", p: 25 },
+            { name: "No Resistance", p: 75 },
+        ],
         warning:
             "It is not likely that your patient is experiencing HIV drug resistance. Please recommend they see a healthcare provider if they have any symptoms or side effects.",
     },
