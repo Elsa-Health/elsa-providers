@@ -1,8 +1,12 @@
 import * as React from "react"
 import {
-    KeyboardAvoidingView, Platform, ScrollView, StatusBar,
-    View, ViewStyle,
-    Text
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StatusBar,
+    View,
+    ViewStyle,
+    Text,
 } from "react-native"
 import { useSafeArea } from "react-native-safe-area-context"
 import { ScreenProps } from "./screen.props"
@@ -30,7 +34,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             keyboardVerticalOffset={offsets[props.keyboardOffset || "none"]}
         >
             <StatusBar backgroundColor="white" barStyle={props.statusBar || "light-content"} />
-            <View style={[preset.inner, styles, insetStyle,style.mainContainerPadding]}>{props.children}</View>
+            <View style={[preset.inner, styles, insetStyle, style.mainContainerPadding]}>
+                {props.children}
+            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -48,20 +54,20 @@ function ScreenWithScrolling(props: ScreenProps) {
             behavior={isIos ? "padding" : null}
             keyboardVerticalOffset={offsets[props.keyboardOffset || "none"]}
         >
-            <StatusBar backgroundColor={color.black} barStyle={props.statusBar || "light-content"} />
+            <StatusBar
+                backgroundColor={color.black}
+                barStyle={props.statusBar || "light-content"}
+            />
             <View style={[preset.outer, backgroundStyle, insetStyle]}>
-                {props.title === "auth" ?
-                    null
-                    :
-                    <View style={{ height: md?"auto":80 }}>
+                {props.title === "auth" ? null : (
+                    <View style={{ height: md ? "auto" : 80 }}>
                         <Header headerText={props.title} />
                     </View>
-                }
+                )}
                 <ScrollView
                     style={[preset.outer, backgroundStyle]}
-                    contentContainerStyle={[preset.inner, styles,
-                    style.mainContainerPadding
-                    ]}
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={[preset.inner, styles, style.mainContainerPadding]}
                 >
                     {props.children}
                 </ScrollView>

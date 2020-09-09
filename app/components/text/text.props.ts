@@ -46,10 +46,15 @@ export interface TextProps extends TextProperties {
     /**
      * Colors the text can take
      */
-    color?: "white" | "primary"
+    color?: "white" | "primary" | "gray" | "angry"
 
     /**
-     * Colors the text can take
+     * Whether the text is italic or not
      */
     italic?: boolean
+
+    /**
+     * Whether the text is bold or not
+     */
+    bold?: boolean
 }

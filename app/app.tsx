@@ -19,6 +19,7 @@ import { useBackButtonHandler } from "./navigation/use-back-button-handler"
 import { RootStore, RootStoreProvider, setupRootStore, initialUser } from "./models/root-store"
 import * as storage from "./utils/storage"
 import getActiveRouteName from "./navigation/get-active-routename"
+import { color } from "./theme"
 
 
 function authListener(rootStore: RootStore) {
@@ -67,7 +68,7 @@ const theme = {
     roundness: 2,
     colors: {
         ...DefaultTheme.colors,
-        primary: "#3498db",
+        primary: color.primary,
         accent: "#f1c40f",
     },
 }
@@ -181,7 +182,6 @@ const App: React.FunctionComponent<{}> = () => {
     return (
         <RootStoreProvider value={rootStore}>
             <PaperProvider theme={theme}>
-                
                     <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
                         <RootNavigator
                             ref={navigationRef}
@@ -189,7 +189,6 @@ const App: React.FunctionComponent<{}> = () => {
                             onStateChange={onNavigationStateChange}
                         />
                     </SafeAreaProvider>
-              
             </PaperProvider>
         </RootStoreProvider>
     )

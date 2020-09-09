@@ -31,13 +31,15 @@
     "@react-native-firebase/auth": "^8.3.1",
     "@react-native-firebase/firestore": "^7.5.1",
     "@react-navigation/native": "^5.1.5",
+    "@react-navigation/stack": "^5.9.0",
+    "@testing-library/react-native": "^7.0.2",
     "@types/react-native-vector-icons": "^6.4.5",
     "apisauce": "1.1.2",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "i18n-js": "^3.7.1",
     "lodash": "^4.17.15",
     "lodash.throttle": "4.1.1",
-    "mobx": "^5.15.5",
+    "mobx": "^5.15.6",
     "mobx-react-lite": "^2.0.7",
     "mobx-state-tree": "^3.17.2",
     "ramda": "^0.27.0",
@@ -58,6 +60,7 @@
     "react-native-safe-area-context": "^3.1.4",
     "react-native-safe-area-view": "1.1.1",
     "react-native-screens": "^2.10.1",
+    "react-native-sectioned-multi-select": "renrizzolo/react-native-sectioned-multi-select#185/head",
     "react-native-splash-screen": "3.2.0",
     "react-native-sticky-parallax-header": "^0.3.0",
     "react-native-svg": "^12.1.0",
@@ -66,7 +69,7 @@
     "reactotron-mst": "^3.1.1",
     "reactotron-react-native": "^5.0.0",
     "validate.js": "0.13.1",
-    "zustand": "^2.2.4"
+    "zustand": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -77,6 +80,7 @@
     "@storybook/addon-storyshots": "^6.0.5",
     "@storybook/react-native": "^5.3.17",
     "@storybook/react-native-server": "^5.3.17",
+    "@testing-library/jest-native": "^3.3.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "26.0.9",
     "@types/lodash": "^4.14.159",
@@ -110,10 +114,16 @@
     "react-test-renderer": "16.13.1",
     "rimraf": "3.0.2",
     "solidarity": "3.0.0",
-    "typescript": "3.9.7"
+    "typescript": "4.0.2"
   },
   "jest": {
     "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "./__mocks__/mockFirebase.ts",
+      "./__mocks__/mockRNPermissions.ts",
+      "./__mocks__/mockRNNavigation.ts"
+    ],
     "setupFiles": [
       "<rootDir>/node_modules/react-native/jest/setup.js",
       "<rootDir>/test/setup.ts"

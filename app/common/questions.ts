@@ -16,7 +16,7 @@ const questionMaps: QuestionMapping[] = [
         question: { eng: "Do you have a fever?", sw: "Una homa?" },
     },
     {
-        nodes: ["vomitting"],
+        nodes: ["vomiting"],
         question: { eng: "Are you vomiting?", sw: "Unatakipa?" },
     },
     {
@@ -540,7 +540,8 @@ const questionMaps: QuestionMapping[] = [
 ]
 
 export function getQuestion(nodeName: string, language: "eng" | "sw" = "eng"): string {
-    const nodeMap = questionMaps.find(qn => qn.nodes.includes(nodeName))
+    const nodeMap = questionMaps.find((qn) => qn.nodes.includes(nodeName))
+    console.log("getQuestion: ", nodeName, nodeMap?.question)
     if (nodeMap) {
         return nodeMap.question[language]
     }
@@ -548,7 +549,7 @@ export function getQuestion(nodeName: string, language: "eng" | "sw" = "eng"): s
 }
 
 export function getNodeGroup(nodeName: string) {
-    const nodeMap = questionMaps.find(qn => qn.nodes.includes(nodeName))
+    const nodeMap = questionMaps.find((qn) => qn.nodes.includes(nodeName))
     if (nodeMap) {
         return nodeMap.nodes
     }
@@ -559,5 +560,9 @@ export function getRelevantNextQuestions(
     nodes: string[] = [],
     language: "eng" | "sw" = "eng",
 ): string[] {
-    return nodes.map(nodeName => getQuestion(nodeName, language))
+    return nodes.map((nodeName) => getQuestion(nodeName, language))
 }
+
+const respiratoryQuestions = questionMaps
+
+export { respiratoryQuestions }

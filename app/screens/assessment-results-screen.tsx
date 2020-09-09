@@ -113,6 +113,7 @@ export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsS
 
 const data = {
     labels: ["Pneumonia", "Tuberculosis", "Sinusitis", "COPD"],
+    // labels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
     datasets: [
         {
             data: [90, 35, 15, 9],
@@ -134,7 +135,7 @@ const chartConfig = {
 export const DiseaseDistribution: React.FC<{
     diagnoses: any[]
     height?: number
-    hideMessage: boolean
+    hideMessage?: boolean
 }> = ({ diagnoses, height = 220, hideMessage = false }) => {
     const labels = []
     const data = []

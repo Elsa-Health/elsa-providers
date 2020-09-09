@@ -24,7 +24,7 @@ const styles = EStyleSheet.create({
         fontSize: "1.4rem",
     },
     h6: {
-        fontSize: "1.2rem",
+        fontSize: "1.15rem",
     },
     small: {
         fontSize: "0.8rem",
@@ -50,8 +50,17 @@ const styles = EStyleSheet.create({
     primary: {
         color: color.primary,
     },
+    gray: {
+        color: color.dim,
+    },
+    angry: {
+        color: color.error,
+    },
     italic: {
         fontStyle: "italic",
+    },
+    bold: {
+        fontWeight: "bold",
     },
 })
 
@@ -73,6 +82,7 @@ export function Text(props: TextProps) {
         align = "left",
         color = "default",
         italic,
+        bold,
         ...rest
     } = props
 
@@ -85,7 +95,14 @@ export function Text(props: TextProps) {
     return (
         <ReactNativeText
             {...rest}
-            style={[style, styles[color], styles[size], styles[align], italic && styles.italic]}
+            style={[
+                style,
+                styles[color],
+                styles[size],
+                styles[align],
+                italic && styles.italic,
+                bold && styles.bold,
+            ]}
         >
             {content}
         </ReactNativeText>

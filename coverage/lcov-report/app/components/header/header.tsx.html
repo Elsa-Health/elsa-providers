@@ -7,7 +7,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../../../sort-arrow-sprite.png);
@@ -24,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
@@ -45,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -123,7 +124,26 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,6 +167,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -169,6 +190,18 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,38 +224,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as React from "react"
-import { View, ViewStyle, TextStyle } from "react-native"
+import { View, ViewStyle, TextStyle, StatusBar } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { HeaderProps } from "./header.props"
 import { Button } from "../button/button"
-import { Text } from "../text/text"
-import { Icon } from "../icon/icon"
-import { spacing, color } from "../../theme"
+&nbsp;
+// import { Icon } from "../icon/icon"
+import { Text } from "react-native-paper"
+&nbsp;
+import { spacing, color, md } from "../../theme"
 import { translate } from "../../i18n/"
 import { palette } from "../../theme/palette"
 &nbsp;
 // static styles
 const ROOT: ViewStyle = {
     flexDirection: "row",
-    paddingHorizontal: spacing[1],
+    paddingHorizontal: spacing[0],
     alignItems: "center",
-    paddingTop: spacing[5],
+    paddingTop: spacing[0],
     paddingBottom: spacing[2],
     marginBottom: spacing[4],
-    marginRight: spacing[1],
-    marginLeft: spacing[1],
+    marginRight: spacing[2],
+    marginLeft: spacing[2],
     justifyContent: "flex-start",
-    borderBottomWidth: 3,
-    borderBottomColor: color.palette.lightGrey,
+    borderBottomWidth: 1,
+    borderBottomColor: color.palette.lighterGrey,
 }
-const TITLE: TextStyle = { textAlign: "center" }
+const TITLE: TextStyle = { fontSize: md ? <span class="branch-0 cbranch-no" title="branch not covered" >28 </span>: 24 }
 const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "flex-start" }
 const LEFT: ViewStyle = { width: 0 }
 const RIGHT: ViewStyle = { width: 0 }
+const RIGHT_ICON_CONTAINER: ViewStyle = { flexDirection: "row-reverse" }
 &nbsp;
 /**
  * Header that appears on many screens. Will hold navigation buttons and screen title.
  */
-export const Header: React.FunctionComponent&lt;HeaderProps&gt; = props =&gt; {
+export const Header: React.FunctionComponent&lt;HeaderProps&gt; = (props) =&gt; {
     const {
         onLeftPress,
         onRightPress,
@@ -236,24 +273,36 @@ export const Header: React.FunctionComponent&lt;HeaderProps&gt; = props =&gt; {
     const header = headerText || (headerTx &amp;&amp; translate(headerTx)) || <span class="branch-3 cbranch-no" title="branch not covered" >""</span>
 &nbsp;
     return (
-        &lt;View style={{ ...ROOT, ...style }}&gt;
-            {leftIcon ? (
-                &lt;Button preset="link" onPress={onLeftPress}&gt;
-                    &lt;Icon icon={leftIcon} /&gt;
-                &lt;/Button&gt;
-            ) : (
-                &lt;View style={LEFT} /&gt;
-            )}
-            &lt;View style={TITLE_MIDDLE}&gt;
-                &lt;Text style={{ ...TITLE, ...titleStyle }} size="h3" text={header} /&gt;
+        &lt;View style={{}}&gt;
+            &lt;StatusBar backgroundColor="white" /&gt;
+            &lt;View
+                style={{
+                    ...RIGHT_ICON_CONTAINER,
+                    paddingHorizontal: md ? <span class="branch-0 cbranch-no" title="branch not covered" >36 </span>: 12,
+                    paddingTop: md ? <span class="branch-0 cbranch-no" title="branch not covered" >18 </span>: 12,
+                }}
+            &gt;
+                &lt;Icon name="menu" size={32} color={color.black} /&gt;
             &lt;/View&gt;
-            {rightIcon ? (
-                &lt;Button preset="link" onPress={onRightPress}&gt;
-                    &lt;Icon icon={rightIcon} /&gt;
-                &lt;/Button&gt;
-            ) : (
-                &lt;View style={RIGHT} /&gt;
-            )}
+            &lt;View style={{ ...ROOT, ...style, paddingHorizontal: md ? <span class="branch-0 cbranch-no" title="branch not covered" >24 </span>: 12 }}&gt;
+                {leftIcon ? (
+                    &lt;Button preset="link" onPress={onLeftPress}&gt;
+                        &lt;Icon icon={leftIcon} /&gt;
+                    &lt;/Button&gt;
+                ) : (
+                    &lt;View style={LEFT} /&gt;
+                )}
+                &lt;View style={TITLE_MIDDLE}&gt;
+                    &lt;Text style={[{ ...TITLE, ...titleStyle }]}&gt;{header}&lt;/Text&gt;
+                &lt;/View&gt;
+                {rightIcon ? (
+                    &lt;Button preset="link" onPress={onRightPress}&gt;
+                        &lt;Icon icon={rightIcon} /&gt;
+                    &lt;/Button&gt;
+                ) : (
+                    &lt;View style={RIGHT} /&gt;
+                )}
+            &lt;/View&gt;
         &lt;/View&gt;
     )
 }
@@ -264,7 +313,7 @@ export const Header: React.FunctionComponent&lt;HeaderProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 11 2020 12:41:15 GMT+0300 (East Africa Time)
+                at Tue Aug 18 2020 22:53:01 GMT+0300 (East Africa Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -3,71 +3,45 @@ import { observer } from "mobx-react-lite"
 import {
     ViewStyle,
     View,
-    // Text,
+    Dimensions,
     TouchableOpacity,
+    StyleSheet,
+    Alert,
+    ToastAndroid,
 } from "react-native"
 import { ParamListBase, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Text, Button } from "react-native-paper"
+import { Button, ActivityIndicator } from "react-native-paper"
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
-import { Screen, Row, Col } from "../components"
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import { Screen, Row, Col, Text } from "../components"
 import QRCodeScanner from "react-native-qrcode-scanner"
 import { RNCamera } from "react-native-camera"
 
 import { color, style } from "../theme"
 import { useStores } from "../models/root-store"
-import useStore, { PatientFile } from "../models/ctc-store"
+import useStore, { PatientFile, useVisitStore } from "../models/ctc-store"
+import Spacer from "../components/spacer/spacer"
+import { palette } from "../theme/palette"
+import { Api } from "../services/api"
 
 export interface CtcQrcodeScanScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
 }
 
-const ROOT: ViewStyle = {
-    flex: 1,
-    // backgroundColor: "red"
-}
-
-const ScanWindow = () => {
-    const { assessment } = useStores()
-
-    console.log("Assessment store is here ", assessment)
-    const onSuccess = (e) => {
-        // console.log("Code run already : ", e.data)
-        //settnig scan complete and setting the value of qr code here
-        assessment.setQrCodeComplete(true)
-        assessment.setQrCode(e.data)
-    }
-
-    return (
-        <View style={{ flex: 1, width: "100%" }}>
-            <QRCodeScanner
-                onRead={onSuccess}
-                showMarker={true}
-                flashMode={RNCamera.Constants.FlashMode.torch}
-                // containerStyle={{
-                //     height:700,width:"100%"
-                // }}
-                cameraStyle={{
-                    height: 700,
-                    width: "100%",
-                }}
-                markerStyle={{
-                    borderColor: color.primary,
-                }}
-            />
-        </View>
-    )
-}
+const { width, height } = Dimensions.get("window")
 
 export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = observer(
     (props) => {
-        // const { someStore } = useStores()
-        const { assessment } = useStores()
-        const patient: PatientFile = useStore((state) => state.patient)
-        const updatePatient = useStore((state) => state.updatePatient)
+        const [code, setCode] = useState("")
 
         const navigation = useNavigation()
         const [scanComplete, setScanComplete] = useState(false)
+        const [loadingFile, setLoadingFile] = useState(false)
+
+        const [fileExists, setFileExists] = useState(null)
+
+        const resetVisitStore = useVisitStore((state) => state.resetVisitStore)
 
         useEffect(() => {
             setScanComplete(false)
@@ -75,157 +49,222 @@ export const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenPro
 
         // console.log(patient)
 
-        const onSuccess = (e) => {
-            // console.log("Code run already : ", e.data)
-            //settnig scan complete and setting the value of qr code here
-            // assessment.setQrCodeComplete(true)
+        const onSuccess = async (data) => {
+            setCode(data)
+            setLoadingFile(true)
+
+            const api = new Api()
+            const file = await api.getCTCPatientFile(data)
+
+            if (file === null) {
+                setFileExists(false)
+            } else {
+                setFileExists(true)
+            }
+            setLoadingFile(false)
             setScanComplete(true)
-            updatePatient("code", e.data)
-            // assessment.setQrCode(e.data)
+            resetVisitStore()
+            console.warn("File", file)
+        }
+
+        const createNewFileAndNavigate = (route: string) => {
+            const api = new Api()
+
+            return api
+                .createMinimalCTCFile(code)
+                .then((res) => {
+                    ToastAndroid.show(
+                        "New incomplete file has been created for this patient",
+                        ToastAndroid.SHORT,
+                    )
+                    navigation.navigate(route)
+                })
+                .catch((error) => {
+                    // TODO: add crashylitcs and loggins support
+                    console.warn("There was an error creating a patient outline file", error)
+                })
+        }
+
+        const continueWithVisit = () => {
+            if (!fileExists) {
+                Alert.alert(
+                    "This patient does not currently have a file on record.",
+                    "Continuing with this visit will create a minimal file for the patient that can be updated at a later time.",
+                    [
+                        { text: "Abort", style: "cancel" },
+                        {
+                            text: "Continue",
+                            onPress: () => createNewFileAndNavigate("ctc-type-of-visit-screen"),
+                        },
+                    ],
+                )
+                return
+            }
+            // TODO: load this file into the global state
+            navigation.navigate("ctc-type-of-visit-screen")
+        }
+
+        const registerNewFile = () => {
+            createNewFileAndNavigate("ctc-new-patient-screen")
+        }
+
+        const goToUpdateFile = () => navigation.navigate("ctc-new-patient-screen")
+
+        if (!scanComplete) {
+            return (
+                <Screen preset="scroll" title="Scan QR Code">
+                    <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
+
+                    <CodeScannerView onScan={onSuccess} />
+
+                    {/* If the scan has happened, but we are loading the file from the server, show a spinner in the mean time */}
+                    {loadingFile && code.length > 2 && (
+                        <View
+                            style={{
+                                position: "absolute",
+                                justifyContent: "center",
+                                width,
+                                height: "100%",
+                                backgroundColor: "rgba(243, 245, 242, 0.85)",
+                            }}
+                        >
+                            <ActivityIndicator animating={true} color={color.primary} size={100} />
+                        </View>
+                    )}
+                </Screen>
+            )
         }
 
         return (
-            <Screen style={ROOT} preset="scroll" title="Scan QR Code">
-                {!scanComplete ? (
-                    <Row>
-                        <Row>
-                            <Col md={12}>
-                                <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
-                            </Col>
-                        </Row>
-                        <Row rowStyles={style.contentTextVerticalSpacing}>
-                            {/* MarginTop to prevent the cammera from blocking any top content */}
-                            <Col md={12} colStyles={{ paddingTop: 100 }}>
-                                <View
-                                    style={{
-                                        // flex:1,
-                                        //Setting height manually to fit the tablet space
-                                        height: 880,
+            <Screen preset="scroll" title="Scan QR Code">
+                <Row>
+                    <Col md={12}>
+                        <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
+                    </Col>
+                </Row>
+                <Row rowStyles={style.contentTextVerticalSpacing}>
+                    <Col md={12}>
+                        <View
+                            style={{
+                                paddingVertical: 100,
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <MaterialCommunityIcon
+                                name="qrcode-scan"
+                                color={palette.greyDarker}
+                                size={width / 2}
+                            />
+                        </View>
+                    </Col>
+                </Row>
+                <Row rowStyles={style.contentTextVerticalSpacing}>
+                    <Col md={12} colStyles={{ justifyContent: "center", alignItems: "center" }}>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "baseline",
+                            }}
+                        >
+                            <MaterialIcon
+                                name="check-circle"
+                                style={{ alignSelf: "center" }}
+                                size={22}
+                                color="green"
+                            />
+                            <Spacer horizontal size={4} />
+                            <Text size="h5">QR Code Scanned</Text>
+                        </View>
+                        <Text bold size="h5">
+                            Number: {code}
+                        </Text>
+                        <Text size="h5">
+                            Patient{" "}
+                            {fileExists ? "is already registered." : "is not currently registered."}
+                        </Text>
+                    </Col>
+                </Row>
 
-                                        // backgroundColor: color.offWhiteBackground,
-                                    }}
-                                >
-                                    <View style={{ flex: 1, width: "100%" }}>
-                                        <QRCodeScanner
-                                            onRead={onSuccess}
-                                            showMarker={true}
-                                            flashMode={RNCamera.Constants.FlashMode.torch}
-                                            // containerStyle={{
-                                            //     height:700,width:"100%"
-                                            // }}
-                                            cameraStyle={{
-                                                height: 700,
-                                                width: "100%",
-                                            }}
-                                            markerStyle={{
-                                                borderColor: color.primary,
-                                            }}
-                                        />
-                                    </View>
-                                </View>
-                            </Col>
-                        </Row>
-                        <Row rowStyles={style.contentTextVerticalSpacing}>
-                            <Col md={12}>
-                                <Button
-                                    style={[
-                                        style.buttonFilled,
-                                        { paddingHorizontal: 46, alignSelf: "flex-end" },
-                                    ]}
-                                    onPress={() => {
-                                        setScanComplete(true)
-                                    }}
-                                    uppercase={false}
-                                >
-                                    <Text style={style.buttonText}>Next</Text>
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Row>
-                ) : (
-                    <Row>
-                        <Row>
-                            <Col md={12}>
-                                <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
-                            </Col>
-                        </Row>
-                        <Row rowStyles={style.contentTextVerticalSpacing}>
-                            <Col md={12}>
-                                <View
-                                    style={{
-                                        // flex:1,
-                                        height: 700,
-                                        backgroundColor: color.offWhiteBackground,
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Text style={{ textAlign: "center" }}>
-                                        To Be Replaced with QR Image as in Design
-                                    </Text>
-                                </View>
-                            </Col>
-                        </Row>
-                        <Row rowStyles={style.contentTextVerticalSpacing}>
-                            <Col
-                                md={12}
-                                colStyles={{ justifyContent: "center", alignItems: "center" }}
+                <View style={styles.actionButtonsContainer}>
+                    {!fileExists ? (
+                        <>
+                            <Button
+                                mode="outlined"
+                                onPress={registerNewFile}
+                                style={styles.actionButtons}
+                                uppercase={false}
                             >
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "baseline",
-                                    }}
-                                >
-                                    <MaterialIcon
-                                        name="check-circle"
-                                        style={{ alignSelf: "center" }}
-                                        size={22}
-                                        color="green"
-                                    />
-                                    <Text
-                                        style={[
-                                            style.bodyContent,
-                                            style.contentTextVerticalSpacing,
-                                            { alignSelf: "center", marginLeft: 3 },
-                                        ]}
-                                    >
-                                        QR Code Scanned
-                                    </Text>
-                                </View>
-                                <Text
-                                    style={[
-                                        style.bodyContent,
-                                        style.contentTextVerticalSpacing,
-                                        { fontWeight: "bold" },
-                                    ]}
-                                >
-                                    Number: {patient.code}
+                                <Text color="primary" size="h6">
+                                    Register Patient
                                 </Text>
-                                <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>
-                                    Patient registered.
+                            </Button>
+                            <Spacer horizontal size={44} />
+                        </>
+                    ) : (
+                        // FIXME: This should maybe only show when the patient file is not completed
+                        <>
+                            <Button
+                                mode="outlined"
+                                onPress={goToUpdateFile}
+                                style={styles.actionButtons}
+                                uppercase={false}
+                            >
+                                <Text color="primary" size="h6">
+                                    Update Patient File
                                 </Text>
-                            </Col>
-                        </Row>
+                            </Button>
+                            <Spacer horizontal size={44} />
+                        </>
+                    )}
 
-                        <Row rowStyles={style.contentTextVerticalSpacing}>
-                            <Col md={12}>
-                                <Button
-                                    style={[
-                                        style.buttonFilled,
-                                        { paddingHorizontal: 46, alignSelf: "flex-end" },
-                                    ]}
-                                    onPress={() => {
-                                        navigation.navigate("ctc-new-patient-screen")
-                                    }}
-                                    uppercase={false}
-                                >
-                                    <Text style={style.buttonText}>Next</Text>
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Row>
-                )}
+                    <Button
+                        onPress={continueWithVisit}
+                        style={styles.actionButtons}
+                        uppercase={false}
+                        mode="contained"
+                    >
+                        <Text size="h6" color="white">
+                            Continue with Visit
+                        </Text>
+                    </Button>
+                </View>
             </Screen>
         )
     },
 )
+
+const styles = StyleSheet.create({
+    actionButtons: { paddingHorizontal: 30, paddingVertical: 5 },
+    actionButtonsContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 60,
+    },
+})
+
+interface CodeScannerViewProps {
+    onScan: (data: string) => void
+}
+
+const CodeScannerView: React.FC<CodeScannerViewProps> = ({ onScan }) => (
+    <QRCodeScanner
+        onRead={(e) => onScan(e.data)}
+        showMarker={true}
+        // flashMode={RNCamera.Constants.FlashMode.torch}
+        cameraProps={{ flashMode: "off" }}
+        // containerStyle={{
+        //     height:700,width:"100%"
+        // }}
+        containerStyle={{ height: height / 1.5 }}
+        cameraStyle={{
+            height: height / 1.5,
+            width: "100%",
+        }}
+        markerStyle={{
+            borderColor: color.primary,
+        }}
+    />
+)
+
+// TODO: Fetch the file from the server and persist it to the visit state

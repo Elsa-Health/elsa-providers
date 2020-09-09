@@ -11,8 +11,20 @@ import _ from "lodash"
 import { color, style, md } from "../theme"
 import SearchAndSelectBar from "../components/search-and-select-bar/search-and-select-bar"
 import { Picker } from "@react-native-community/picker"
-import useStore, { PatientFile } from "../models/ctc-store"
-const Item = Picker.Item as any
+import { PatientFile, useVisitStore } from "../models/ctc-store"
+import { pickerOptionsFromList } from "../common/utils"
+import CustomPicker from "../components/custom-picker/custom-picker"
+import { string } from "mobx-state-tree/dist/internal"
+import {
+    YEAR_NUMBERS,
+    DAY_NUMBERS,
+    ARV_STAGES,
+    MONTH_NAMES,
+    DRUG_ALLERGIES,
+    MARITIAL_STATUS,
+    DISTRICTS,
+} from "../common/constants"
+import ExtendedDatePicker from "../components/extended-date-picker/extended-date-picker"
 
 export interface CtcNewPatientScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -21,67 +33,6 @@ export interface CtcNewPatientScreenProps {
 const ROOT: ViewStyle = {
     flex: 1,
 }
-
-const symptomSet: string[] = [
-    "fever",
-    "dry cough",
-    "cough",
-    "jaundice",
-    "yellow eyes",
-    "dyspnoea",
-    "vomiting",
-    "headache",
-    "malaise",
-    "hearing loss",
-    "skin rash",
-    "visual loss",
-    "stiff neck",
-    "photophobia",
-]
-
-var monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-]
-
-const drugAllergySet: string[] = [
-    "asprin",
-    "sulfer drugs",
-    "penicillin",
-    "ibuprofen",
-    "chemotherapy drugs",
-]
-const maritalStates = ["Single", "Married", "Cohabiting", "Divorced/ Separated", "Widow/ Widowed"]
-
-const years = function (startYear) {
-    var currentYear = new Date().getFullYear(),
-        years = []
-    startYear = startYear || 1980
-    while (startYear <= currentYear) {
-        years.push(startYear++)
-    }
-    return years
-}
-
-//method to get all days in a month
-function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate()
-}
-
-const daysNumbers = Array.from(Array(daysInMonth(8, 2020)), (_, i) => i + 1)
-const yearNumbers = years(2019 - 30).reverse()
-
-const arvStages = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"]
 
 export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenProps> = observer(
     (props) => {
@@ -92,8 +43,8 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
         const [displayIndex, setDisplayIndex] = React.useState(0)
         const [selectedSymptoms, setSelectedSymptoms] = React.useState([])
 
-        const patient: PatientFile = useStore((state) => state.patient)
-        const updatePatient = useStore((state) => state.updatePatient)
+        const patient: PatientFile = useVisitStore((state) => state.patientFile)
+        const updatePatient = useVisitStore((state) => state.updatePatientFile)
 
         const [value2, setValue2] = React.useState("red")
 
@@ -103,13 +54,13 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
             year: "",
             day: "",
             arvStage: "",
+            ARVStartDate: null,
         })
 
         const [firstTest, setFirstTest] = React.useState({ month: "", year: "", day: "" })
         const [confirmedHIV, setConfirmedHIV] = React.useState({ month: "", year: "", day: "" })
         const [ARVStart, setARVStart] = React.useState({ month: "", year: "", day: "" })
 
-        console.warn("Year ", patient.sex)
         return (
             <Screen style={ROOT} preset="scroll" title="New Patient Information">
                 <Row>
@@ -119,7 +70,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                         </Text>
                     </Col>
                 </Row>
-                {displayIndex == 0 ? (
+                {displayIndex === 0 ? (
                     <Row>
                         <Row rowStyles={style.contentTextVerticalSpacing}>
                             <Col md={6}>
@@ -128,7 +79,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                             <Col md={6}>
                                 <RadioButton.Group
                                     onValueChange={(value) => updatePatient("sex", value)}
-                                    value={patient.sex}
+                                    value={patient?.sex || ""}
                                 >
                                     <Row>
                                         <Col md={6}>
@@ -179,7 +130,14 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                             underlineColor="transparent"
                                             theme={{ colors: { primary: color.primary } }}
                                         /> */}
-                                        <View
+                                        <CustomPicker
+                                            options={pickerOptionsFromList(MONTH_NAMES)}
+                                            defaultFirstItem="Month"
+                                            accessibilityLabel="Month"
+                                            selectedValue={state.month}
+                                            onChange={(v) => setState({ ...state, month: v })}
+                                        />
+                                        {/* <View
                                             style={{
                                                 backgroundColor: "#F3F3F3",
                                                 borderColor: "#A8A8A8",
@@ -200,14 +158,21 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                                 mode="dialog"
                                             >
                                                 <Item label="Month" value={0} />
-                                                {monthNames.map((item, index) => (
+                                                {MONTH_NAMES.map((item, index) => (
                                                     <Item label={item} value={index + 1} />
                                                 ))}
                                             </Picker>
-                                        </View>
+                                        </View> */}
                                     </Col>
                                     <Col md={4}>
-                                        <View
+                                        <CustomPicker
+                                            options={pickerOptionsFromList(MONTH_NAMES)}
+                                            defaultFirstItem="Month"
+                                            accessibilityLabel="Month"
+                                            selectedValue={state.month}
+                                            onChange={(v) => setState({ ...state, month: v })}
+                                        />
+                                        {/* <View
                                             style={{
                                                 backgroundColor: "#F3F3F3",
                                                 borderColor: "#A8A8A8",
@@ -228,14 +193,21 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                                 mode="dialog"
                                             >
                                                 <Item label="Day" value={0} />
-                                                {daysNumbers.map((item, index) => (
+                                                {DAY_NUMBERS.map((item, index) => (
                                                     <Item label={item + ""} value={index + 1} />
                                                 ))}
                                             </Picker>
-                                        </View>
+                                        </View> */}
                                     </Col>
                                     <Col md={4}>
-                                        <View
+                                        <CustomPicker
+                                            options={pickerOptionsFromList(YEAR_NUMBERS)}
+                                            defaultFirstItem="Year"
+                                            accessibilityLabel="Year"
+                                            selectedValue={state.year}
+                                            onChange={(v) => setState({ ...state, year: v })}
+                                        />
+                                        {/* <View
                                             style={{
                                                 backgroundColor: "#F3F3F3",
                                                 borderColor: "#A8A8A8",
@@ -255,11 +227,11 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                                 mode="dialog"
                                             >
                                                 <Item label="Year" value="year" />
-                                                {yearNumbers.map((item, index) => (
+                                                {YEAR_NUMBERS.map((item, index) => (
                                                     <Item label={item + ""} value={index + 1} />
                                                 ))}
                                             </Picker>
-                                        </View>
+                                        </View> */}
                                     </Col>
                                 </Row>
                                 <Row>
@@ -274,33 +246,26 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
 
                         <Row rowStyles={style.contentTextVerticalSpacing}>
                             <Col md={12}>
-                                <View
-                                    style={{
-                                        backgroundColor: "#F3F3F3",
-                                        borderColor: "#A8A8A8",
-                                        borderWidth: 0.5,
-                                        color: "rgba(0, 0, 0, 0.32)",
-                                        paddingVertical: 4,
-                                        paddingHorizontal: 4,
-                                    }}
-                                >
-                                    <Picker
-                                        // style={[, style.input, {  color: "rgba(0, 0, 0, 0.32)" }]}
-                                        selectedValue={state.maritalStatus}
-                                        onValueChange={(v) =>
-                                            setState({ ...state, maritalStatus: v })
-                                        }
-                                        accessibilityLabel="Marital Status"
-                                        mode="dialog"
-                                    >
-                                        <Item label="Marital Status" value={0} />
-                                        {maritalStates.map((item, index) => (
-                                            <Item label={item} value={index + 1} />
-                                        ))}
-                                    </Picker>
-                                </View>
+                                <CustomPicker
+                                    options={pickerOptionsFromList(MARITIAL_STATUS)}
+                                    accessibilityLabel="Marital Status"
+                                    label="Marital Status"
+                                    onChange={(v) => setState({ ...state, maritalStatus: v })}
+                                    selectedValue={state.maritalStatus}
+                                />
                             </Col>
-                            <Col md={12}>
+                            <Col md={12} marginTop={20}>
+                                <CustomPicker
+                                    options={pickerOptionsFromList(DISTRICTS)}
+                                    accessibilityLabel="District of Residence"
+                                    label="District of Residence"
+                                    // defaultFirstItem="Marital Status"
+                                    onChange={(v) => {}}
+                                    selectedValue={""}
+                                />
+                            </Col>
+
+                            {/* <Col md={12}>
                                 <TextInput
                                     // value={state.activationCode}
                                     keyboardType="default"
@@ -318,7 +283,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                         },
                                     }}
                                 />
-                            </Col>
+                            </Col> */}
                         </Row>
 
                         <Row rowStyles={{ marginVertical: 32 }}>
@@ -349,7 +314,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                 </Text>
                             </Col>
                             <SearchAndSelectBar
-                                options={drugAllergySet}
+                                options={DRUG_ALLERGIES}
                                 selectedOptions={selectedSymptoms}
                                 toggleOption={(symptom) => {
                                     if (selectedSymptoms.includes(symptom)) {
@@ -433,7 +398,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                     accessibilityLabel="Type of support"
                                     mode="dialog">
                                     <Item label="Type of support" value="0" />
-                                    {maritalStates.map((item, index) => (
+                                    {MARITIAL_STATUS.map((item, index) => (
                                         <Item label={item} value={index + 1} />
                                     ))}
                                 </Picker>
@@ -462,7 +427,14 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                         </Col>
 
                         <Col md={4}>
-                            <View
+                            <CustomPicker
+                                options={pickerOptionsFromList(MONTH_NAMES)}
+                                onChange={(v: string) => setFirstTest({ ...firstTest, month: v })}
+                                accessibilityLabel="Month"
+                                defaultFirstItem="Month"
+                                selectedValue={firstTest.month}
+                            />
+                            {/* <View
                                 style={{
                                     backgroundColor: "#F3F3F3",
                                     borderColor: "#A8A8A8",
@@ -481,15 +453,22 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                     mode="dialog"
                                 >
                                     <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
+                                    {MONTH_NAMES.map((item, index) => (
                                         <Item label={item} value={index + 1} />
                                     ))}
                                 </Picker>
-                            </View>
+                            </View> */}
                         </Col>
 
                         <Col md={4}>
-                            <View
+                            <CustomPicker
+                                options={pickerOptionsFromList(DAY_NUMBERS)}
+                                defaultFirstItem="Day"
+                                selectedValue={firstTest.day}
+                                accessibilityLabel="Day"
+                                onChange={(v) => setFirstTest({ ...firstTest, day: v })}
+                            />
+                            {/* <View
                                 style={{
                                     backgroundColor: "#F3F3F3",
                                     borderColor: "#A8A8A8",
@@ -500,23 +479,28 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                 }}
                             >
                                 <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
                                     selectedValue={firstTest.day}
-                                    // onValueChange={(v) => setValue2(v)}
                                     accessibilityLabel="Day"
                                     onValueChange={(v) => setFirstTest({ ...firstTest, day: v })}
                                     mode="dialog"
                                 >
                                     <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
+                                    {DAY_NUMBERS.map((item, index) => (
                                         <Item label={item + ""} value={index + 1} />
                                     ))}
                                 </Picker>
-                            </View>
+                            </View> */}
                         </Col>
 
                         <Col md={4}>
-                            <View
+                            <CustomPicker
+                                options={pickerOptionsFromList(YEAR_NUMBERS)}
+                                defaultFirstItem="Year"
+                                accessibilityLabel="Year"
+                                selectedValue={firstTest.year}
+                                onChange={(v) => setFirstTest({ ...firstTest, year: v })}
+                            />
+                            {/* <View
                                 style={{
                                     backgroundColor: "#F3F3F3",
                                     borderColor: "#A8A8A8",
@@ -527,107 +511,50 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                 }}
                             >
                                 <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
                                     selectedValue={firstTest.year}
                                     onValueChange={(v) => setFirstTest({ ...firstTest, year: v })}
                                     accessibilityLabel="Year"
                                     mode="dialog"
                                 >
                                     <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
+                                    {YEAR_NUMBERS.map((item, index) => (
                                         <Item label={item + ""} value={index + 1} />
                                     ))}
                                 </Picker>
-                            </View>
+                            </View> */}
                         </Col>
 
                         <Col md={12} colStyles={style.contentTextVerticalSpacing}>
                             <Text style={style.contentHeader}>Date Confirmed HIV+</Text>
                         </Col>
                         <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={confirmedHIV.month}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Month"
-                                    onValueChange={(v) =>
-                                        setConfirmedHIV({ ...confirmedHIV, month: v })
-                                    }
-                                    mode="dialog"
-                                >
-                                    <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
+                            <CustomPicker
+                                options={pickerOptionsFromList(MONTH_NAMES)}
+                                defaultFirstItem="Month"
+                                accessibilityLabel="Month"
+                                selectedValue={confirmedHIV.month}
+                                onChange={(v) => setConfirmedHIV({ ...confirmedHIV, month: v })}
+                            />
                         </Col>
 
                         <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={confirmedHIV.day}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Day"
-                                    onValueChange={(v) =>
-                                        setConfirmedHIV({ ...confirmedHIV, day: v })
-                                    }
-                                    mode="dialog"
-                                >
-                                    <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
+                            <CustomPicker
+                                options={pickerOptionsFromList(DAY_NUMBERS)}
+                                defaultFirstItem="Day"
+                                accessibilityLabel="Day"
+                                selectedValue={confirmedHIV.day}
+                                onChange={(v) => setConfirmedHIV({ ...confirmedHIV, day: v })}
+                            />
                         </Col>
 
                         <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={confirmedHIV.year}
-                                    onValueChange={(v) =>
-                                        setConfirmedHIV({ ...confirmedHIV, year: v })
-                                    }
-                                    accessibilityLabel="Year"
-                                    mode="dialog"
-                                >
-                                    <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
+                            <CustomPicker
+                                options={pickerOptionsFromList(YEAR_NUMBERS)}
+                                defaultFirstItem="Year"
+                                accessibilityLabel="Year"
+                                selectedValue={confirmedHIV.year}
+                                onChange={(v) => setConfirmedHIV({ ...confirmedHIV, year: v })}
+                            />
                         </Col>
 
                         <Col md={12} colStyles={style.contentTextVerticalSpacing}>
@@ -666,117 +593,21 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                                 </Row>
                             </RadioButton.Group>
                         </Col>
-
-                        <Col md={12} colStyles={style.contentTextVerticalSpacing}>
-                            <Text style={style.contentHeader}>Date Started on ARVs</Text>
-                        </Col>
-
-                        <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.month}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Month"
-                                    onValueChange={(v) => setARVStart({ ...ARVStart, month: v })}
-                                    mode="dialog"
-                                >
-                                    <Item label="Month" value={0} />
-                                    {monthNames.map((item, index) => (
-                                        <Item label={item} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
-                        </Col>
-
-                        <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.day}
-                                    // onValueChange={(v) => setValue2(v)}
-                                    accessibilityLabel="Day"
-                                    onValueChange={(v) => setARVStart({ ...ARVStart, day: v })}
-                                    mode="dialog"
-                                >
-                                    <Item label="Day" value={0} />
-                                    {daysNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
-                        </Col>
-
-                        <Col md={4}>
-                            <View
-                                style={{
-                                    backgroundColor: "#F3F3F3",
-                                    borderColor: "#A8A8A8",
-                                    borderWidth: 0.5,
-                                    color: "rgba(0, 0, 0, 0.32)",
-                                    paddingVertical: 4,
-                                    paddingHorizontal: 4,
-                                }}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }]}
-                                    selectedValue={state.year}
-                                    onValueChange={(v) => setARVStart({ ...ARVStart, year: v })}
-                                    accessibilityLabel="Year"
-                                    mode="dialog"
-                                >
-                                    <Item label="Year" value="year" />
-                                    {yearNumbers.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
+                        <Col md={12} marginVertical={10}>
+                            <ExtendedDatePicker
+                                label="Date Started on ARVs"
+                                onDateSet={(date) => setState({ ...state, ARVStartDate: date })}
+                            />
                         </Col>
 
                         <Col md={12} colStyles={style.contentTextVerticalSpacing}>
-                            <View
-                                style={[
-                                    {
-                                        backgroundColor: "#F3F3F3",
-                                        borderColor: "#A8A8A8",
-                                        borderWidth: 0.5,
-                                        color: "rgba(0, 0, 0, 0.32)",
-                                        paddingVertical: 4,
-                                        paddingHorizontal: 4,
-                                    },
-                                ]}
-                            >
-                                <Picker
-                                    // style={[, style.input, { backgroundColor: "#E5E5E5", color: "rgba(0, 0, 0, 0.32)" }, style.contentTextVerticalSpacing]}
-                                    selectedValue={state.arvStage}
-                                    onValueChange={(v) => setState({ ...state, arvStage: v })}
-                                    accessibilityLabel="WHO Stage at Start of ARVs"
-                                    mode="dialog"
-                                >
-                                    <Item label="WHO Stage at Start of ARVs" value="0" />
-                                    {arvStages.map((item, index) => (
-                                        <Item label={item + ""} value={index + 1} />
-                                    ))}
-                                </Picker>
-                            </View>
+                            <CustomPicker
+                                options={pickerOptionsFromList(ARV_STAGES)}
+                                defaultFirstItem="WHO Stage"
+                                accessibilityLabel="stage"
+                                selectedValue={state.arvStage}
+                                onChange={(v) => setState({ ...state, arvStage: v })}
+                            />
                         </Col>
 
                         <Col md={12} colStyles={style.contentTextVerticalSpacing}>

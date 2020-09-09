@@ -22,9 +22,18 @@ export type PrimaryParamList = {
     "ctc-qrcode-scan-screen": undefined
     "ctc-new-patient-screen": undefined
     "ctc-assessment-screen": undefined
+    "ctc-assessment-symptoms-screen": undefined
     "ctc-assessment-questions-screen": undefined
+    "ctc-patient-adherence-audit": undefined
     "ctc-assessment-summary-screen": undefined
     "ctc-assessment-feedback-screen": undefined
+    "diagnostic-test-recommendations": undefined
+    "ctc-medication-screen": undefined
+    "ctc-counseling-screen": undefined
+    "ctc-patient-file-screen": undefined
+    "ctc-type-of-visit-screen": undefined
+    "ctc-medication-only-visit-screen": undefined
+    "ctc-manage-patient-visit": undefined
     feedback: undefined
     dashboard: undefined
     demo: undefined
