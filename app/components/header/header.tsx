@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
 import { View, ViewStyle, TextStyle, StatusBar } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
@@ -22,8 +24,6 @@ const ROOT: ViewStyle = {
     marginRight: spacing[2],
     marginLeft: spacing[2],
     justifyContent: "flex-start",
-    borderBottomWidth: 1,
-    borderBottomColor: color.palette.lighterGrey,
 }
 const TITLE: TextStyle = { fontSize: md ? 28 : 24 }
 const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "flex-start" }
@@ -48,8 +48,20 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
     const header = headerText || (headerTx && translate(headerTx)) || ""
 
     return (
-        <View style={{}}>
-            <StatusBar backgroundColor="white" />
+        <View
+            style={{
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                // shadowOpacity: 0,
+                // shadowRadius:0,
+                elevation: 1,
+               
+            }}
+        >
+            <StatusBar backgroundColor={color.palette.black} />
             <View
                 style={{
                     ...RIGHT_ICON_CONTAINER,
@@ -68,7 +80,7 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
                     <View style={LEFT} />
                 )}
                 <View style={TITLE_MIDDLE}>
-                    <Text style={[{ ...TITLE, ...titleStyle }]}>{header}</Text>
+                    <Text style={{ ...TITLE, ...titleStyle }}>{header}</Text>
                 </View>
                 {rightIcon ? (
                     <Button preset="link" onPress={onRightPress}>
