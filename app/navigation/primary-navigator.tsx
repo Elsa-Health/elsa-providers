@@ -36,7 +36,8 @@ import {
     CTCPatientFile,
     VisitType,
     CTCMedicationOnlyRecord,
-    CTCManagePatientVisit
+    CTCManagePatientVisit,
+    ApplicationComponentsScreen,
 } from "../screens"
 import { PrimaryParamList } from "./types"
 
@@ -67,7 +68,8 @@ export function PrimaryNavigator() {
                 headerShown: false,
                 gestureEnabled: true,
             }}
-            initialRouteName="phone-auth"
+            // initialRouteName="phone-auth"
+            initialRouteName="application-components"
         >
             <Stack.Screen name="phone-auth" component={PhoneAuthScreen} />
             <Stack.Screen name="dashboard" component={DashboardScreen} />
@@ -127,6 +129,12 @@ export function PrimaryNavigator() {
                 name="completed-follow-up-subscription"
                 component={CompletedFollowUpSubscriptionScreen}
             />
+
+            <Stack.Screen
+                name="application-components"
+                component={ApplicationComponentsScreen}
+            />
+
             {/* <Stack.Screen name="welcome" component={WelcomeScreen} /> */}
         </Stack.Navigator>
     )

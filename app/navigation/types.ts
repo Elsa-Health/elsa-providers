@@ -33,7 +33,8 @@ export type PrimaryParamList = {
     "ctc-patient-file-screen": undefined
     "ctc-type-of-visit-screen": undefined
     "ctc-medication-only-visit-screen": undefined
-    "ctc-manage-patient-visit": undefined
+    "ctc-manage-patient-visit": undefined,
+    "application-components":undefined,
     feedback: undefined
     dashboard: undefined
     demo: undefined
