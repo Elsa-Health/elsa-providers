@@ -69,7 +69,7 @@ export function daysInMonth(month, year) {
 }
 
 export function getMonthNumber(month: string): number {
-    return MONTH_NAMES.map(name => name.toLowerCase()).indexOf(month.toLowerCase())
+    return MONTH_NAMES.map((name) => name.toLowerCase()).indexOf(month.toLowerCase())
 }
 
 export function getAdultBMI(height: number, weight: number): number {
@@ -159,4 +159,17 @@ export function labelToValue(item: string): string {
     if (typeof item !== "string") return item
     return _.kebabCase(item.toLowerCase())
     // return lowerCase(item).split(" ").join("-")
+}
+
+export function adjustColor(color: string, amount: number): string {
+    return (
+        "#" +
+        color
+            .replace(/^#/, "")
+            .replace(/../g, (color) =>
+                (
+                    "0" + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)
+                ).substr(-2),
+            )
+    )
 }

@@ -16,7 +16,7 @@ const authNavigator = () => {
                 headerShown: false,
                 gestureEnabled: true,
             }}
-            initialRouteName="phoneAuth"
+            initialRouteName="application-components"
         >
             <Stack.Screen name="phoneAuth" component={PhoneAuthScreen} />
             <Stack.Screen name="application-components" component={ApplicationComponentsScreen} />

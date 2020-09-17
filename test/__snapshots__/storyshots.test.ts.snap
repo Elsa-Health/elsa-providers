@@ -136,8 +136,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -258,8 +259,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -380,8 +382,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -544,8 +547,9 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -688,8 +692,9 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -822,8 +827,9 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -987,8 +993,9 @@ exports[`Storyshots Checkbox Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -1126,8 +1133,9 @@ exports[`Storyshots Checkbox Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -1262,8 +1270,9 @@ exports[`Storyshots Checkbox Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -1398,8 +1407,9 @@ exports[`Storyshots Checkbox Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -1534,8 +1544,9 @@ exports[`Storyshots Checkbox Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -1803,8 +1814,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -1832,8 +1844,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -1861,8 +1874,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -1891,8 +1905,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -1999,8 +2014,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2028,8 +2044,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2058,8 +2075,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2199,8 +2217,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2217,8 +2236,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2326,8 +2346,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2436,8 +2457,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2454,8 +2476,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2563,8 +2586,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2671,8 +2695,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2779,8 +2804,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -2917,8 +2943,9 @@ exports[`Storyshots FormRow Styling 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -3044,7 +3071,16 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={Object {}}
+                style={
+                  Object {
+                    "elevation": 1,
+                    "shadowColor": "#000",
+                    "shadowOffset": Object {
+                      "height": 2,
+                      "width": 0,
+                    },
+                  }
+                }
               >
                 <View
                   style={
@@ -3080,8 +3116,6 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "borderBottomColor": "#CDD4DA",
-                      "borderBottomWidth": 1,
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
                       "marginBottom": 16,
@@ -3117,11 +3151,9 @@ exports[`Storyshots Header Behavior 1`] = `
                             "fontWeight": "400",
                             "textAlign": "left",
                           },
-                          Array [
-                            Object {
-                              "fontSize": 24,
-                            },
-                          ],
+                          Object {
+                            "fontSize": 24,
+                          },
                         ]
                       }
                     >
@@ -3227,7 +3259,16 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={Object {}}
+                style={
+                  Object {
+                    "elevation": 1,
+                    "shadowColor": "#000",
+                    "shadowOffset": Object {
+                      "height": 2,
+                      "width": 0,
+                    },
+                  }
+                }
               >
                 <View
                   style={
@@ -3263,8 +3304,6 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "borderBottomColor": "#CDD4DA",
-                      "borderBottomWidth": 1,
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
                       "marginBottom": 16,
@@ -3336,11 +3375,9 @@ exports[`Storyshots Header Behavior 1`] = `
                             "fontWeight": "400",
                             "textAlign": "left",
                           },
-                          Array [
-                            Object {
-                              "fontSize": 24,
-                            },
-                          ],
+                          Object {
+                            "fontSize": 24,
+                          },
                         ]
                       }
                     >
@@ -3446,7 +3483,16 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={Object {}}
+                style={
+                  Object {
+                    "elevation": 1,
+                    "shadowColor": "#000",
+                    "shadowOffset": Object {
+                      "height": 2,
+                      "width": 0,
+                    },
+                  }
+                }
               >
                 <View
                   style={
@@ -3482,8 +3528,6 @@ exports[`Storyshots Header Behavior 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "borderBottomColor": "#CDD4DA",
-                      "borderBottomWidth": 1,
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
                       "marginBottom": 16,
@@ -3519,11 +3563,9 @@ exports[`Storyshots Header Behavior 1`] = `
                             "fontWeight": "400",
                             "textAlign": "left",
                           },
-                          Array [
-                            Object {
-                              "fontSize": 24,
-                            },
-                          ],
+                          Object {
+                            "fontSize": 24,
+                          },
                         ]
                       }
                     >
@@ -4753,8 +4795,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -4860,8 +4903,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -4878,8 +4922,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -4985,8 +5030,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5092,8 +5138,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5111,8 +5158,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -5250,8 +5298,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5269,8 +5318,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5294,8 +5344,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5312,8 +5363,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5420,8 +5472,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5528,8 +5581,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5670,8 +5724,9 @@ exports[`Storyshots Text Styling 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5689,8 +5744,9 @@ exports[`Storyshots Text Styling 1`] = `
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
-                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                      },
                     ]
                   }
                 >
@@ -5827,8 +5883,9 @@ exports[`Storyshots TextField Labelling 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -5951,8 +6008,9 @@ exports[`Storyshots TextField Labelling 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6094,8 +6152,9 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6135,8 +6194,9 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
                   undefined,
                   undefined,
                   undefined,
-                  undefined,
-                  undefined,
+                  Object {
+                    "fontFamily": "AvenirLTStd-Roman",
+                  },
                 ]
               }
             >
@@ -6272,8 +6332,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6316,8 +6377,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6439,8 +6501,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6479,8 +6542,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                   undefined,
                   undefined,
                   undefined,
-                  undefined,
-                  undefined,
+                  Object {
+                    "fontFamily": "AvenirLTStd-Roman",
+                  },
                 ]
               }
             >
@@ -6586,8 +6650,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     undefined,
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontFamily": "AvenirLTStd-Roman",
+                    },
                   ]
                 }
               >
@@ -6626,8 +6691,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                   undefined,
                   undefined,
                   undefined,
-                  undefined,
-                  undefined,
+                  Object {
+                    "fontFamily": "AvenirLTStd-Roman",
+                  },
                 ]
               }
             >

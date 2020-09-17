@@ -1,5 +1,4 @@
 export * from "./phone-auth-screen/phone-auth-screen"
-export * from "./welcome-screen/welcome-screen"
 export * from "./demo-screen/demo-screen"
 export * from "./appointments-list-screen"
 export * from "./appointment-extended-screen"

@@ -57,10 +57,14 @@ const styles = EStyleSheet.create({
         color: color.error,
     },
     italic: {
-        fontStyle: "italic",
+        // fontStyle: "italic",
+        fontFamily: "AvenirLTStd-LightOblique",
     },
     bold: {
-        fontWeight: "bold",
+        fontFamily: "AvenirLTStd-Heavy",
+    },
+    boldItalic: {
+        fontFamily: "AvenirLTStd-HeavyOblique",
     },
 })
 
@@ -91,6 +95,18 @@ export function Text(props: TextProps) {
     const content = i18nText || text || children
 
     const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
+    const fontFormat = () => {
+        if (bold && italic) {
+            return "AvenirLTStd-HeavyOblique"
+        }
+        if (bold) {
+            return "AvenirLTStd-Heavy"
+        }
+        if (italic) {
+            return "AvenirLTStd-Oblique"
+        }
+        return "AvenirLTStd-Roman"
+    }
 
     return (
         <ReactNativeText
@@ -100,8 +116,9 @@ export function Text(props: TextProps) {
                 styles[color],
                 styles[size],
                 styles[align],
-                italic && styles.italic,
-                bold && styles.bold,
+                { fontFamily: fontFormat() },
+                // italic && styles.italic,
+                // bold && styles.bold,
             ]}
         >
             {content}
