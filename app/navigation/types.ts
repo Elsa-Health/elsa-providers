@@ -1,5 +1,9 @@
 export type RootParamList = {
     primaryStack: undefined
+    CTCStack: undefined
+    ADDOStack: undefined
+    dispensaryStack: undefined
+    authStack: undefined
 }
 
 export type PrimaryParamList = {
@@ -33,8 +37,8 @@ export type PrimaryParamList = {
     "ctc-patient-file-screen": undefined
     "ctc-type-of-visit-screen": undefined
     "ctc-medication-only-visit-screen": undefined
-    "ctc-manage-patient-visit": undefined,
-    "application-components":undefined,
+    "ctc-manage-patient-visit": undefined
+    "application-components": undefined
     feedback: undefined
     dashboard: undefined
     demo: undefined
