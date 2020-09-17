@@ -113,7 +113,7 @@ export class Api {
      * Get the Adherence Score/Audit for a patient
      */
     requestHIVAdherenceAudit(adherenceAudit: AdherenceAudit): any | Promise<any> {
-        const riskData = [0, 0, 0, 0, 0, 0, 2, 0, 0, 5, 85]
+        const riskData = [0, 0, 0, 0, 0, 0, 2, 80, 0, 5, 2]
         return { data: riskData, mean: _.mean(riskData) / 10 }
     }
 

@@ -267,7 +267,7 @@ const AdherenceAnalysis: React.FC<AdherenceAnalysisProps> = ({}) => {
                     ],
                     datasets: [
                         {
-                            data: adherenceAudit.data,
+                            data: [0, 4, 1, 1, 3, 7, 21, 80, 50, 5, 2], //adherenceAudit.data,
                             strokeWidth: 2,
                             color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
                         },

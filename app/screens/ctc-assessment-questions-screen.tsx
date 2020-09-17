@@ -43,11 +43,12 @@ export const CtcAssessmentQuestionsScreen: React.FunctionComponent<CtcAssessment
                 _.uniq([...presentingSymptoms, ...presentSymptoms]),
                 absentSymptoms,
             )
-            const interestingSymptoms = getRelevantNextNodes(undefined, "male", observations, 8, 5)
+            const interestingSymptoms = getRelevantNextNodes(undefined, "male", observations, 5, 3)
             interestingSymptoms.forEach((symptom) => (observations[symptom] = "absent"))
 
             if (interestingSymptoms.length === 0) {
-                return navigation.navigate("ctc-assessment-summary-screen")
+                return navigation.navigate("ctc-patient-adherence-audit")
+                // return navigation.navigate("ctc-assessment-summary-screen")
             }
             setObservationState(observations)
             setInterestingSymptoms(interestingSymptoms)

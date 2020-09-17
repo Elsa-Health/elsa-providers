@@ -160,7 +160,7 @@ export const curiosityMappings: CuriosityNBMapping = {
         lethargy: 80,
         confusion: 60,
         "altered mental status": 80,
-        "focal neural deficit": 50,
+        "focal neurological deficit": 50,
         "diastolic hypertension": 40,
     },
     toxoplasmosis: {
@@ -183,7 +183,7 @@ export const curiosityMappings: CuriosityNBMapping = {
         nausea: 20,
         vomiting: 20,
         "yellow eyes": 80,
-        jaundice: 5,
+        // jaundice: 5,
         msm: 40,
         "multiple sexual partners": 30,
     },

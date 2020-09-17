@@ -296,7 +296,7 @@ const questionMaps: QuestionMapping[] = [
         },
     },
     {
-        nodes: ["jaundice"],
+        nodes: ["jaundice", "yellow eyes"],
         question: {
             eng:
                 "Does the patient have any yellowing of the skin or eyes, or has anyone told the patient that their eyes or skin look yellow?",
