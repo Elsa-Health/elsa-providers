@@ -36,7 +36,7 @@ export interface TextProps extends TextProperties {
     /**
      * One of the different sizes of text.
      */
-    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "small"
+    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "small" | "default"
 
     /**
      * One of the different alignments of text.

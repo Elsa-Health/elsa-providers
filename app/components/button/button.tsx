@@ -1,37 +1,59 @@
-import * as React from "react"
-import { TouchableOpacity } from "react-native"
+import React from "react"
+import { View, StyleSheet } from "react-native"
 import { Text } from "../text/text"
-import { viewPresets, textPresets } from "./button.presets"
-import { ButtonProps } from "./button.props"
-import { mergeAll, flatten } from "ramda"
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import { Button as PaperButton } from "react-native-paper"
+import { TextProps } from "../text/text.props"
+import Spacer from "../spacer/spacer"
 
-/**
- * For your text displaying needs.
- *
- * This component is a HOC over the built-in React Native one.
- */
-export function Button(props: ButtonProps) {
-  // grab the props
-  const {
-    preset = "primary",
-    tx,
-    text,
-    style: styleOverride,
-    textStyle: textStyleOverride,
-    children,
-    ...rest
-  } = props
+type PaperButtonProps = React.ComponentProps<typeof PaperButton>
 
-  const viewStyle = mergeAll(flatten([viewPresets[preset] || viewPresets.primary, styleOverride]))
-  const textStyle = mergeAll(
-    flatten([textPresets[preset] || textPresets.primary, textStyleOverride]),
-  )
-
-  const content = children || <Text tx={tx} text={text} style={textStyle} />
-
-  return (
-    <TouchableOpacity style={viewStyle} {...rest}>
-      {content}
-    </TouchableOpacity>
-  )
+type ButtonProps = Omit<PaperButtonProps, "children" | "color"> & {
+    withArrow?: boolean
+    backgroundColor?: string
+    labelSize?: TextProps["size"]
+    label: string
 }
+
+const Button: React.FC<ButtonProps> = ({
+    withArrow,
+    backgroundColor,
+    onPress,
+    label,
+    labelSize = "h6",
+    ...rest
+}) => {
+    return (
+        <View style={withArrow ? styles.containerRow : styles.containerColumn}>
+            <PaperButton
+                onPress={onPress}
+                uppercase={false}
+                style={backgroundColor ? { backgroundColor } : {}}
+                {...rest}
+            >
+                <Text
+                    style={styles.text}
+                    color={rest.mode === "contained" || backgroundColor ? "white" : "primary"}
+                    size={labelSize}
+                >
+                    {label}
+                </Text>
+
+                {withArrow && (
+                    <>
+                        <Spacer horizontal size={40} />{" "}
+                        <MaterialIcon name="arrow-right" size={20} />
+                    </>
+                )}
+            </PaperButton>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    containerColumn: { flexDirection: "column", paddingVertical: 6 },
+    containerRow: { flexDirection: "row", paddingVertical: 6 },
+    text: { marginRight: 40 },
+})
+
+export { Button }

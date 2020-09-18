@@ -1,10 +1,13 @@
 import React from "react"
 import { View, Image, StyleSheet } from "react-native"
-import { Card, Button, Text } from "react-native-paper"
+import { Card } from "react-native-paper"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 import { style, md, color } from "../../theme"
 import { useNavigation } from "@react-navigation/native"
+import { Text } from "../text/text"
+import Spacer from "../spacer/spacer"
+import { Button } from "../button/button"
 
 export interface DashboardItemProps {
     title: string
@@ -42,32 +45,33 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                         }
                     }
                 >
-                    <Card.Title
-                        title={title}
-                        titleStyle={[
-                            style.contentHeader,
-                            { fontSize: md ? 22 : 18, marginLeft: -16 },
-                        ]}
-                    />
-                    <Text style={style.bodyContent}>{description}</Text>
+                    <Text bold size="h5">
+                        {title}
+                    </Text>
+
+                    <Spacer size={10} />
+                    <Text>{description}</Text>
+
+                    <View style={{ flexDirection: "row" }}>
+                        <Button
+                            onPress={navigateTo}
+                            contentStyle={styles.cardAction}
+                            style={{ marginLeft: -15 }}
+                            labelSize="default"
+                            withArrow
+                            mode="text"
+                            label={actionText.toUpperCase()}
+                        />
+                    </View>
                 </View>
                 {hasIcon && (
-                    <View
-                        style={{
-                            flex: 1.4,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
+                    <View style={styles.imageContainer}>
                         {icon !== undefined ? (
                             icon
                         ) : (
                             <Image
                                 resizeMode="contain"
-                                style={{
-                                    width: "100%",
-                                    height: 100,
-                                }}
+                                style={styles.image}
                                 testID="itemImage"
                                 source={iconSource}
                             />
@@ -75,7 +79,7 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                     </View>
                 )}
             </Card.Content>
-            <Card.Actions>
+            {/* <Card.Actions>
                 <Button
                     onPress={navigateTo}
                     contentStyle={styles.cardAction}
@@ -83,18 +87,27 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                     icon={() => (
                         <Icon name="arrow-forward" size={18} style={{ color: color.primary }} />
                     )}
-                >
-                    <Text style={[style.buttonText, { color: color.primary }]}>{actionText}</Text>
-                </Button>
-            </Card.Actions>
+                    label={actionText.toUpperCase()}
+                />
+            </Card.Actions> */}
         </Card>
     )
 }
 
 const styles = StyleSheet.create({
-    cardAction: { flexDirection: "row-reverse", paddingLeft: 8 },
+    cardAction: { paddingLeft: 0, marginLeft: 0 },
     cardContent: { flexDirection: "row" },
-    containerCard: { marginTop: 20, padding: 0 },
+    containerCard: { marginTop: 16, padding: 0 },
+    image: {
+        height: 100,
+        width: "100%",
+    },
+    imageContainer: {
+        alignContent: "center",
+        alignItems: "center",
+        flex: 1.2,
+        justifyContent: "center",
+    },
 })
 
 export default DashboardItem

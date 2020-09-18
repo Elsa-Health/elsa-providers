@@ -103,47 +103,122 @@ exports[`Storyshots Button Style Presets 1`] = `
             }
           >
             <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FBA928",
-                  "borderRadius": 4,
-                  "justifyContent": "center",
-                  "opacity": 1,
-                  "paddingHorizontal": 8,
-                  "paddingVertical": 8,
+                  "flexDirection": "column",
+                  "paddingVertical": 6,
                 }
               }
             >
-              <Text
+              <View
+                preset="primary"
                 style={
-                  Array [
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 9,
-                      "paddingHorizontal": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "fontFamily": "AvenirLTStd-Roman",
-                    },
-                  ]
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "borderRadius": 4,
+                    "borderStyle": "solid",
+                    "borderWidth": 0,
+                    "elevation": 0,
+                    "minWidth": 64,
+                  }
                 }
+                text="Click It"
               >
-                Click It
-              </Text>
+                <View
+                  accessibilityRole="button"
+                  accessibilityState={
+                    Object {
+                      "disabled": undefined,
+                    }
+                  }
+                  accessible={true}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "overflow": "hidden",
+                      },
+                      Object {
+                        "borderRadius": 4,
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        Array [
+                          Object {
+                            "color": "#000000",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "textAlign": "left",
+                          },
+                          Array [
+                            Object {
+                              "letterSpacing": 1,
+                              "marginHorizontal": 16,
+                              "marginVertical": 9,
+                              "textAlign": "center",
+                            },
+                            undefined,
+                            false,
+                            Object {
+                              "color": "#6200ee",
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            Object {
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      <Text
+                        style={
+                          Array [
+                            Object {
+                              "color": "#333",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 15,
+                              "marginRight": 40,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            Object {
+                              "fontFamily": "AvenirLTStd-Roman",
+                            },
+                          ]
+                        }
+                      />
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
         </View>
@@ -226,47 +301,122 @@ exports[`Storyshots Button Style Presets 1`] = `
             }
           >
             <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FBA928",
-                  "borderRadius": 4,
-                  "justifyContent": "center",
-                  "opacity": 1,
-                  "paddingHorizontal": 8,
-                  "paddingVertical": 8,
+                  "flexDirection": "column",
+                  "paddingVertical": 6,
                 }
               }
             >
-              <Text
+              <View
+                preset="primary"
                 style={
-                  Array [
-                    Object {
-                      "color": "#ffffff",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 9,
-                      "paddingHorizontal": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "fontFamily": "AvenirLTStd-Roman",
-                    },
-                  ]
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "borderRadius": 4,
+                    "borderStyle": "solid",
+                    "borderWidth": 0,
+                    "elevation": 0,
+                    "minWidth": 64,
+                  }
                 }
+                text="Click It"
               >
-                Click It
-              </Text>
+                <View
+                  accessibilityRole="button"
+                  accessibilityState={
+                    Object {
+                      "disabled": true,
+                    }
+                  }
+                  accessible={true}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "overflow": "hidden",
+                      },
+                      Object {
+                        "borderRadius": 4,
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        Array [
+                          Object {
+                            "color": "#000000",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "textAlign": "left",
+                          },
+                          Array [
+                            Object {
+                              "letterSpacing": 1,
+                              "marginHorizontal": 16,
+                              "marginVertical": 9,
+                              "textAlign": "center",
+                            },
+                            undefined,
+                            false,
+                            Object {
+                              "color": "rgba(0, 0, 0, 0.32)",
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            Object {
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      <Text
+                        style={
+                          Array [
+                            Object {
+                              "color": "#333",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 15,
+                              "marginRight": 40,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            Object {
+                              "fontFamily": "AvenirLTStd-Roman",
+                            },
+                          ]
+                        }
+                      />
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
         </View>
@@ -349,47 +499,133 @@ exports[`Storyshots Button Style Presets 1`] = `
             }
           >
             <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FBA928",
-                  "borderRadius": 0,
-                  "justifyContent": "center",
-                  "opacity": 1,
-                  "paddingHorizontal": 8,
-                  "paddingVertical": 100,
+                  "flexDirection": "column",
+                  "paddingVertical": 6,
                 }
               }
             >
-              <Text
+              <View
+                preset="primary"
                 style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "borderRadius": 0,
+                    "borderStyle": "solid",
+                    "borderWidth": 0,
+                    "elevation": 0,
+                    "minWidth": 64,
+                    "paddingVertical": 100,
+                  }
+                }
+                text="Click It"
+                textStyle={
                   Array [
                     Object {
-                      "color": "#a511dc",
-                      "fontFamily": "Montserrat",
                       "fontSize": 20,
-                      "paddingHorizontal": 12,
                     },
-                    undefined,
-                    undefined,
-                    undefined,
                     Object {
-                      "fontFamily": "AvenirLTStd-Roman",
+                      "color": "#a511dc",
                     },
                   ]
                 }
               >
-                Click It
-              </Text>
+                <View
+                  accessibilityRole="button"
+                  accessibilityState={
+                    Object {
+                      "disabled": undefined,
+                    }
+                  }
+                  accessible={true}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "overflow": "hidden",
+                      },
+                      Object {
+                        "borderRadius": 4,
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        Array [
+                          Object {
+                            "color": "#000000",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "textAlign": "left",
+                          },
+                          Array [
+                            Object {
+                              "letterSpacing": 1,
+                              "marginHorizontal": 16,
+                              "marginVertical": 9,
+                              "textAlign": "center",
+                            },
+                            undefined,
+                            false,
+                            Object {
+                              "color": "#6200ee",
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            Object {
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      <Text
+                        style={
+                          Array [
+                            Object {
+                              "color": "#333",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 15,
+                              "marginRight": 40,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            Object {
+                              "fontFamily": "AvenirLTStd-Roman",
+                            },
+                          ]
+                        }
+                      />
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
         </View>
@@ -3316,47 +3552,121 @@ exports[`Storyshots Header Behavior 1`] = `
                   }
                 >
                   <View
-                    accessible={true}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
                     style={
                       Object {
-                        "alignItems": "flex-start",
-                        "borderRadius": 4,
-                        "justifyContent": "center",
-                        "opacity": 1,
-                        "paddingHorizontal": 0,
-                        "paddingVertical": 0,
+                        "flexDirection": "column",
+                        "paddingVertical": 6,
                       }
                     }
                   >
-                    <Text
-                      allowFontScaling={false}
-                      icon="back"
+                    <View
+                      preset="link"
                       style={
-                        Array [
-                          Object {
-                            "color": undefined,
-                            "fontSize": 12,
-                          },
-                          undefined,
-                          Object {
-                            "fontFamily": "Material Icons",
-                            "fontStyle": "normal",
-                            "fontWeight": "normal",
-                          },
-                          Object {},
-                        ]
+                        Object {
+                          "backgroundColor": "transparent",
+                          "borderColor": "transparent",
+                          "borderRadius": 4,
+                          "borderStyle": "solid",
+                          "borderWidth": 0,
+                          "elevation": 0,
+                          "minWidth": 64,
+                        }
                       }
                     >
-                      
-                    </Text>
+                      <View
+                        accessibilityRole="button"
+                        accessibilityState={
+                          Object {
+                            "disabled": undefined,
+                          }
+                        }
+                        accessible={true}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          Array [
+                            Object {
+                              "overflow": "hidden",
+                            },
+                            Object {
+                              "borderRadius": 4,
+                            },
+                          ]
+                        }
+                      >
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "alignItems": "center",
+                                "flexDirection": "row",
+                                "justifyContent": "center",
+                              },
+                              undefined,
+                            ]
+                          }
+                        >
+                          <Text
+                            numberOfLines={1}
+                            style={
+                              Array [
+                                Object {
+                                  "color": "#000000",
+                                  "fontFamily": "System",
+                                  "fontWeight": "400",
+                                  "textAlign": "left",
+                                },
+                                Array [
+                                  Object {
+                                    "letterSpacing": 1,
+                                    "marginHorizontal": 16,
+                                    "marginVertical": 9,
+                                    "textAlign": "center",
+                                  },
+                                  undefined,
+                                  false,
+                                  Object {
+                                    "color": "#6200ee",
+                                    "fontFamily": "System",
+                                    "fontWeight": "500",
+                                  },
+                                  Object {
+                                    "fontFamily": "System",
+                                    "fontWeight": "500",
+                                  },
+                                  undefined,
+                                ],
+                              ]
+                            }
+                          >
+                            <Text
+                              style={
+                                Array [
+                                  Object {
+                                    "color": "#333",
+                                    "fontFamily": "Montserrat",
+                                    "fontSize": 15,
+                                    "marginRight": 40,
+                                  },
+                                  undefined,
+                                  undefined,
+                                  undefined,
+                                  Object {
+                                    "fontFamily": "AvenirLTStd-Roman",
+                                  },
+                                ]
+                              }
+                            />
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
                   <View
                     style={
@@ -3573,47 +3883,121 @@ exports[`Storyshots Header Behavior 1`] = `
                     </Text>
                   </View>
                   <View
-                    accessible={true}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
                     style={
                       Object {
-                        "alignItems": "flex-start",
-                        "borderRadius": 4,
-                        "justifyContent": "center",
-                        "opacity": 1,
-                        "paddingHorizontal": 0,
-                        "paddingVertical": 0,
+                        "flexDirection": "column",
+                        "paddingVertical": 6,
                       }
                     }
                   >
-                    <Text
-                      allowFontScaling={false}
-                      icon="bullet"
+                    <View
+                      preset="link"
                       style={
-                        Array [
-                          Object {
-                            "color": undefined,
-                            "fontSize": 12,
-                          },
-                          undefined,
-                          Object {
-                            "fontFamily": "Material Icons",
-                            "fontStyle": "normal",
-                            "fontWeight": "normal",
-                          },
-                          Object {},
-                        ]
+                        Object {
+                          "backgroundColor": "transparent",
+                          "borderColor": "transparent",
+                          "borderRadius": 4,
+                          "borderStyle": "solid",
+                          "borderWidth": 0,
+                          "elevation": 0,
+                          "minWidth": 64,
+                        }
                       }
                     >
-                      
-                    </Text>
+                      <View
+                        accessibilityRole="button"
+                        accessibilityState={
+                          Object {
+                            "disabled": undefined,
+                          }
+                        }
+                        accessible={true}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          Array [
+                            Object {
+                              "overflow": "hidden",
+                            },
+                            Object {
+                              "borderRadius": 4,
+                            },
+                          ]
+                        }
+                      >
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "alignItems": "center",
+                                "flexDirection": "row",
+                                "justifyContent": "center",
+                              },
+                              undefined,
+                            ]
+                          }
+                        >
+                          <Text
+                            numberOfLines={1}
+                            style={
+                              Array [
+                                Object {
+                                  "color": "#000000",
+                                  "fontFamily": "System",
+                                  "fontWeight": "400",
+                                  "textAlign": "left",
+                                },
+                                Array [
+                                  Object {
+                                    "letterSpacing": 1,
+                                    "marginHorizontal": 16,
+                                    "marginVertical": 9,
+                                    "textAlign": "center",
+                                  },
+                                  undefined,
+                                  false,
+                                  Object {
+                                    "color": "#6200ee",
+                                    "fontFamily": "System",
+                                    "fontWeight": "500",
+                                  },
+                                  Object {
+                                    "fontFamily": "System",
+                                    "fontWeight": "500",
+                                  },
+                                  undefined,
+                                ],
+                              ]
+                            }
+                          >
+                            <Text
+                              style={
+                                Array [
+                                  Object {
+                                    "color": "#333",
+                                    "fontFamily": "Montserrat",
+                                    "fontSize": 15,
+                                    "marginRight": 40,
+                                  },
+                                  undefined,
+                                  undefined,
+                                  undefined,
+                                  Object {
+                                    "fontFamily": "AvenirLTStd-Roman",
+                                  },
+                                ]
+                              }
+                            />
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
                 </View>
               </View>

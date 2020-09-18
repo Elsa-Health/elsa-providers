@@ -5,8 +5,9 @@
 import React, { Children, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, TextStyle, TouchableOpacity, View, TouchableOpacityBase } from "react-native"
-import { Card, Button, TextInput } from "react-native-paper"
-import { Screen, Text, Row, Col, Notification } from "../components"
+import { FAB, TextInput } from "react-native-paper"
+import { Screen, Text, Row, Col, Notification, Button, Card, SymptomsPicker } from "../components"
+import DrugsNurse from "../assets/icons/drugs-nurse.svg"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, style as styles } from "../theme"
@@ -14,6 +15,7 @@ import { any } from "ramda"
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView } from "react-native-gesture-handler"
 import Spacer from "../components/spacer/spacer"
+import DashboardItem from "../components/dashboard-item/dashboard-item"
 
 const ROOT: ViewStyle = {
     // backgroundColor: color.palette.black,
@@ -27,35 +29,9 @@ const DEFAULTS: ViewStyle | TextStyle = {
 
 const SECTION: ViewStyle = {
     paddingVertical: 36,
-    // marginTop: 36,
-    // marginBottom: 36,
-    // borderTopColor: color.dim,
-    // borderTopWidth: 1,
-    // borderBottomColor: color.dim,
-    // borderBottomWidth: 1,
-}
-
-const CARD_STYLE: ViewStyle = {
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 2,
-    },
-    shadowOpacity: 0.1,
-    // shadowRadius: 3.84,
-    elevation: 1,
-    backgroundColor: color.palette.white,
-    ...DEFAULTS,
 }
 
 // TODO :  add changable style here
-function Panel({ children }) {
-    return (
-        <Card style={CARD_STYLE}>
-            <Card.Content>{children}</Card.Content>
-        </Card>
-    )
-}
 
 function Divider() {
     return <View style={{ backgroundColor: color.dim, width: "100%", height: 1 }} />
@@ -63,51 +39,6 @@ function Divider() {
 
 const longText =
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis perferendis, tempora hic possimus, voluptatum magnam ad neque nulla cum, unde dolores. A magni saepe dignissimos ratione accusamus recusandae error commodi!"
-
-type ElsaButtonProps = {
-    block: boolean
-    variation: string
-    withArrow: boolean
-    backgroundColor: string
-    color: string
-}
-
-//refactoring to specify the types is required
-
-//ommited color prop for now since we are having only buttons with two colros, white and primary color
-
-const ElsaButton = ({
-    block,
-    variation,
-    withArrow,
-    backgroundColor,
-    onPress = () => {
-        console.log("Non passed")
-    },
-    style,
-}) => {
-    //planning to figure out all the styles here
-    //to be refactored
-
-    return (
-        <Button
-            contentStyle={{ flexDirection: "row-reverse", paddingLeft: 8 }}
-            icon={withArrow ? "arrow-right" : null}
-            mode={variation}
-            onPress={onPress}
-            uppercase={false}
-            //vertical margin bellow is kept just for testing purpose only
-            style={[
-                variation === "outlined" ? { borderWidth: 1, borderColor: color.primary } : {},
-                { marginVertical: 8, ...style },
-            ]}
-        >
-            <Text color={variation === "contained" ? "white" : "primary"} size="h6">
-                Press Me
-            </Text>
-        </Button>
-    )
-}
 
 // currently using material icons only
 
@@ -181,55 +112,6 @@ function ElsaTextInput({
     )
 }
 
-/// TODO : add the expand logic
-function ElsaCard({ children, title, icon, expandable, tooltip = false }) {
-    const [expanded, setExpanded] = useState(false)
-    return (
-        <Panel>
-            <Row>
-                <Col md={1}>{icon && <Icon name={icon} size={36} color={color.primary} />}</Col>
-                <Col md={10} colStyles={{ justifyContent: "center" }}>
-                    <Text size="h5" bold italic>
-                        {title}
-                        {tooltip && (
-                            <Icon
-                                name="help"
-                                size={28}
-                                // eslint-disable-next-line react-native/no-inline-styles
-                                style={{
-                                    // backgroundColor: "yellow",
-                                    marginLeft: 100,
-                                }}
-                                color={color.primary}
-                            />
-                        )}
-                    </Text>
-                </Col>
-                {expandable && (
-                    <Col md={1}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setExpanded(!expanded)
-                                //expand the card more here
-                            }}
-                        >
-                            <Icon
-                                name={expanded ? "expand-less" : "expand-more"}
-                                size={36}
-                                color={color.primary}
-                            />
-                        </TouchableOpacity>
-                    </Col>
-                )}
-            </Row>
-            <Row>
-                <Col md={12} colStyles={{ marginTop: 8 }}>
-                    {children}
-                </Col>
-            </Row>
-        </Panel>
-    )
-}
 export const ApplicationComponentsScreen = () => {
     const demoOnpress = () => {
         console.log("on press clicked")
@@ -290,12 +172,57 @@ export const ApplicationComponentsScreen = () => {
 
                 <Col md={12} colStyles={SECTION}>
                     <Text size="h3">Buttons</Text>
-                    <ElsaButton variation="contained" withArrow={true} />
-                    <ElsaButton variation="contained" />
-                    <ElsaButton variation="outlined" withArrow={true} />
-                    <ElsaButton variation="outlined" />
-                    <ElsaButton variation="text" withArrow />
-                    <ElsaButton variation="text" onPress={demoOnpress} />
+                    <Button
+                        onPress={() => null}
+                        label="Button with Icon"
+                        labelSize="h6"
+                        mode="text"
+                        withArrow={true}
+                    />
+                    <Button
+                        onPress={() => null}
+                        label="Contained with Icon"
+                        labelSize="h6"
+                        mode="contained"
+                        withArrow={true}
+                    />
+                    <Button
+                        onPress={() => null}
+                        label="Contained full width"
+                        labelSize="h6"
+                        mode="contained"
+                    />
+                    <Button
+                        onPress={() => null}
+                        label="Outlined full width"
+                        labelSize="h6"
+                        mode="outlined"
+                    />
+                    <Button
+                        onPress={() => null}
+                        label="Text only full width"
+                        labelSize="h6"
+                        mode="text"
+                    />
+                    <Button
+                        onPress={() => null}
+                        label="Override styles"
+                        labelSize="h6"
+                        backgroundColor="green"
+                        mode="outlined"
+                    />
+
+                    <View style={{ flexDirection: "row" }}>
+                        <FAB icon="plus" />
+                        <Spacer horizontal size={20} />
+                        <FAB icon="tow-truck" />
+                        <Spacer horizontal size={20} />
+                        <FAB
+                            style={{ backgroundColor: color.white }}
+                            color={color.primary}
+                            icon="table-edit"
+                        />
+                    </View>
                 </Col>
 
                 <Divider />
@@ -334,10 +261,53 @@ export const ApplicationComponentsScreen = () => {
                         </Text>
                     </Notification>
                 </Col>
+
                 <Divider />
 
+                <Col md={12} colStyles={SECTION}>
+                    <Text size="h3">Cards</Text>
+                    <Card>
+                        <Text>I am just a simple panel</Text>
+                    </Card>
+
+                    <Card leftIcon="account" title="Card Title">
+                        <Text>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis ab
+                            adipisci magnam doloremque dolores mollitia? Autem, iure hic dicta
+                            tempore nisi praesentium quisquam quas ipsam debitis officia blanditiis
+                            odit saepe.
+                        </Text>
+                    </Card>
+
+                    <Card leftIcon="tow-truck" title="Collapsible Card" collapsible>
+                        <Text>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis ab
+                            adipisci magnam doloremque dolores mollitia? Autem, iure hic dicta
+                            tempore nisi praesentium quisquam quas ipsam debitis officia blanditiis
+                            odit saepe.
+                        </Text>
+                    </Card>
+
+                    <DashboardItem
+                        title="Main Dashboard Card"
+                        icon={<DrugsNurse width="130" height="130" />}
+                        actionText="Begin New Assessment"
+                        description="Assess your patients’ symptoms to understand more about their health and receive valuable insights for next steps to take."
+                        route="ctc-qrcode-scan-screen"
+                    />
+                </Col>
+
+                <Divider />
+
+                <Col md={12} colStyles={SECTION}>
+                    <Text size="h3">Symptoms Picker</Text>
+
+                    <SymptomsPicker />
+                </Col>
+
+                <Divider />
                 <Col md={12} colStyles={DEFAULTS}>
-                    <Panel>
+                    <Card>
                         <ElsaTextInput
                             label="Label"
                             placeholder="08282"
@@ -353,14 +323,14 @@ export const ApplicationComponentsScreen = () => {
                             multiline={true}
                             rows={5}
                         />
-                    </Panel>
+                    </Card>
                 </Col>
 
-                <Col md={12} colStyles={DEFAULTS}>
+                {/* <Col md={12} colStyles={DEFAULTS}>
                     <ElsaCard icon="email" expandable={false} title="Card Title">
                         <Text>Card content here</Text>
                     </ElsaCard>
-                </Col>
+                </Col> */}
             </Row>
         </Screen>
     )

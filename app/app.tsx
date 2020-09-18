@@ -21,15 +21,13 @@ import * as storage from "./utils/storage"
 import getActiveRouteName from "./navigation/get-active-routename"
 import { color } from "./theme"
 
-
 function authListener(rootStore: RootStore) {
-    auth().onAuthStateChanged(user => {
+    auth().onAuthStateChanged((user) => {
         if (user) {
             firestore()
-
                 .collection("providers")
                 .doc(user.uid)
-                .onSnapshot(snap => {
+                .onSnapshot((snap) => {
                     if (snap.exists) {
                         const user = { id: snap.id, ...snap.data() }
                         rootStore.account.setUser({
@@ -65,11 +63,11 @@ function authListener(rootStore: RootStore) {
 
 const theme = {
     ...DefaultTheme,
-    roundness: 2,
+    roundness: 5,
     colors: {
         ...DefaultTheme.colors,
         primary: color.primary,
-        accent: "#f1c40f",
+        accent: color.primary, // made this wa to allow the FAB to be primary color
     },
 }
 
@@ -124,7 +122,7 @@ const App: React.FunctionComponent<{}> = () => {
      * Persist State
      */
     const routeNameRef = useRef()
-    const onNavigationStateChange = state => {
+    const onNavigationStateChange = (state) => {
         const previousRouteName = routeNameRef.current
         const currentRouteName = getActiveRouteName(state)
 
@@ -141,7 +139,7 @@ const App: React.FunctionComponent<{}> = () => {
     }
 
     useEffect(() => {
-        ; (async () => {
+        ;(async () => {
             setupRootStore().then(setRootStore)
         })()
     }, [])
@@ -182,13 +180,13 @@ const App: React.FunctionComponent<{}> = () => {
     return (
         <RootStoreProvider value={rootStore}>
             <PaperProvider theme={theme}>
-                    <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-                        <RootNavigator
-                            ref={navigationRef}
-                            initialState={initialNavigationState}
-                            onStateChange={onNavigationStateChange}
-                        />
-                    </SafeAreaProvider>
+                <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+                    <RootNavigator
+                        ref={navigationRef}
+                        initialState={initialNavigationState}
+                        onStateChange={onNavigationStateChange}
+                    />
+                </SafeAreaProvider>
             </PaperProvider>
         </RootStoreProvider>
     )

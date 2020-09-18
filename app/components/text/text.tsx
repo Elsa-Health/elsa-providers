@@ -24,13 +24,13 @@ const styles = EStyleSheet.create({
         fontSize: "1.4rem",
     },
     h6: {
-        fontSize: "1.15rem",
+        fontSize: "1.2rem",
     },
     small: {
         fontSize: "0.8rem",
     },
     default: {
-        fontSize: "1rem",
+        fontSize: "1.09rem",
     },
     left: {
         textAlign: "left",
