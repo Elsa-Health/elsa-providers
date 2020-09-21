@@ -10,6 +10,7 @@ const SearchAndSelectBar: React.FC<SearchAndSelectBarProps> = ({
     options,
     selectedOptions,
     toggleOption,
+    hideSelectedOptions,
 }) => {
     const [searchString, setSearchString] = React.useState("")
     return (
@@ -22,28 +23,29 @@ const SearchAndSelectBar: React.FC<SearchAndSelectBarProps> = ({
                         marginBottom: 5,
                     }}
                 >
-                    {selectedOptions.map((option) => (
-                        <Button
-                            mode="outlined"
-                            key={option}
-                            onPress={() => toggleOption(option)}
-                            style={[style.buttonOutline, { marginRight: 10, marginTop: 10 }]}
-                            uppercase={false}
-                            icon={{
-                                source: "close",
-                                direction: "rtl",
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: color.primary,
-                                    fontSize: md ? 18 : 14,
+                    {!hideSelectedOptions &&
+                        selectedOptions.map((option) => (
+                            <Button
+                                mode="outlined"
+                                key={option}
+                                onPress={() => toggleOption(option)}
+                                style={[style.buttonOutline, { marginRight: 10, marginTop: 10 }]}
+                                uppercase={false}
+                                icon={{
+                                    source: "close",
+                                    direction: "rtl",
                                 }}
                             >
-                                {_.upperFirst(option)}
-                            </Text>
-                        </Button>
-                    ))}
+                                <Text
+                                    style={{
+                                        color: color.primary,
+                                        fontSize: md ? 18 : 14,
+                                    }}
+                                >
+                                    {_.upperFirst(option)}
+                                </Text>
+                            </Button>
+                        ))}
                 </View>
             </Col>
             <Col md={12}>

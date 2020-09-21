@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-color-literals */
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, ViewStyle } from "react-native"
 import { Text } from "../text/text"
 import { Picker } from "@react-native-community/picker"
 
@@ -13,6 +13,9 @@ interface CustomPickerProps {
     defaultFirstItem?: string
     defaultFirstItemValue?: string
     accessibilityLabel?: string
+    width?: number
+    height?: number
+    containerStyle?: ViewStyle
 }
 
 const CustomPickerNoMemo: React.FC<CustomPickerProps> = ({
@@ -24,6 +27,9 @@ const CustomPickerNoMemo: React.FC<CustomPickerProps> = ({
     accessibilityLabel = "",
     defaultFirstItem,
     defaultFirstItemValue,
+    width,
+    height,
+    containerStyle = {},
 }) => {
     return (
         <>
@@ -32,7 +38,14 @@ const CustomPickerNoMemo: React.FC<CustomPickerProps> = ({
                     {label}
                 </Text>
             )}
-            <View style={styles.pickerContainer}>
+            <View
+                style={[
+                    styles.pickerContainer,
+                    containerStyle,
+                    width && { width },
+                    height && { height },
+                ]}
+            >
                 <Picker
                     selectedValue={selectedValue}
                     onValueChange={onChange}
@@ -67,7 +80,7 @@ const styles = StyleSheet.create({
     pickerContainer: {
         backgroundColor: "#F3F3F3",
         borderColor: "#A8A8A8",
-        borderRadius: 1,
+        borderRadius: 5,
         borderWidth: 0.5,
         color: "rgba(0, 0, 0, 0.32)",
         paddingHorizontal: 4,
