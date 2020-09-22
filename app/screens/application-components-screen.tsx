@@ -56,26 +56,15 @@ function Icon({ name, color, size, style }) {
 // to be renamed when found right name now ËlsaTextInput
 // title for the inputs with some title in it
 
-// to be implemented by 16th morning
-function ElsaPicker() {
-    return null
-}
-
 function ElsaQuestion() {
-    return null
-}
-
-function ElsaDatePicker() {
-    return null
-}
-
-function ElsaSymptomSearch() {
     return null
 }
 
 function ElsaCheckBox() {
     return null
 }
+
+// Currently in this component when its not focused the theme return to default
 
 function ElsaTextInput({
     label = "",
@@ -85,8 +74,21 @@ function ElsaTextInput({
     keyboardType,
     multiline = false,
     rows = 1,
+    //  this to be renamed once good name for error or warning message is found
+    // also can be replaced if color for inputs are to be applied for error  or warning
+    notification = "",
+    error,
+    warning,
+
     onChangeText = () => {},
 }) {
+    // const [isErrorOrWarning, setIsErrorOrWarning] = useState(false)
+    const themeColor = (() => {
+        if (error) return color.error
+        if (warning) return color.warning
+        return color.primary
+    })()
+
     return (
         <View>
             {title && (
@@ -104,10 +106,34 @@ function ElsaTextInput({
                 multiline={multiline}
                 numberOfLines={rows}
                 // placeholder="Namba ya simu"
-                style={[!multiline && styles.input, style]}
+                style={[!multiline && styles.input, { borderColor: themeColor }, style]}
+                // option to show the them color
+
                 underlineColor="transparent"
-                theme={{ colors: { primary: color.primary } }}
+                // this can change if the are to be applied to the borders only
+                // currenly is the for example its error input, even the cursor changes to color.error color
+                // theme={{ colors: { primary: themeColor } }}
+                theme={{
+                    colors:
+                        error || warning
+                            ? { primary: themeColor, text: color.primary }
+                            : { primary: color.primary },
+                }}
             />
+
+            {/* optional if would love to display error message */}
+
+            {error || warning ? (
+                <Text
+                    size="small"
+                    style={{
+                        color: warning ? color.warning : color.error,
+                    }}
+                >
+                    <Icon name="info" style={{ marginTop: 12 }} size={12} color={themeColor} />
+                    {notification}
+                </Text>
+            ) : null}
         </View>
     )
 }
@@ -322,6 +348,24 @@ export const ApplicationComponentsScreen = () => {
                             title="Some Title"
                             multiline={true}
                             rows={5}
+                        />
+
+                        <ElsaTextInput
+                            label="Label"
+                            placeholder="08282"
+                            keyboardType="phone-pad"
+                            title="Some Title"
+                            error={true}
+                            notification="Some error message here"
+                        />
+
+                        <ElsaTextInput
+                            label="Label"
+                            placeholder="08282"
+                            keyboardType="phone-pad"
+                            title="Some Title"
+                            warning={true}
+                            notification="Some warning message in here"
                         />
                     </Card>
                 </Col>

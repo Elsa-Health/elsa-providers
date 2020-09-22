@@ -13,6 +13,7 @@ interface CardProps {
     title?: string
     titleSize?: TextProps["size"]
     leftIcon?: string
+    right?: string
     collapsible?: boolean
 }
 
@@ -22,6 +23,7 @@ const Card: React.FC<CardProps> = ({
     leftIcon,
     collapsible,
     children,
+    right,
 }) => {
     const [collapsed, setCollapsed] = React.useState(false)
     const rightCollapseIconName = collapsed ? "chevron-down" : "chevron-up"
@@ -57,8 +59,15 @@ const Card: React.FC<CardProps> = ({
                         />
                     )}
                     {title && (
-                        <Text bold size="h5">
-                            {title}
+                        <View style={{ flex: 1 }}>
+                            <Text bold size="h5">
+                                {title}
+                            </Text>
+                        </View>
+                    )}
+                    {right && (
+                        <Text size="h5">
+                            {right}
                         </Text>
                     )}
                 </View>

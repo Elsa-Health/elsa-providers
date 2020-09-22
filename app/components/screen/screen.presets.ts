@@ -48,6 +48,7 @@ export const presets = {
             height: "100%",
         } as ViewStyle,
         inner: {
+            // flex: 1,
             justifyContent: "flex-start",
             alignItems: "stretch",
             paddingBottom: 2,

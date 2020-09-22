@@ -11,6 +11,8 @@ import _, { differenceWith } from "lodash"
 import { Text } from "../text/text"
 import { getRelatedSymptoms, symptomDependencies, symptomDurationOptions } from "./symptomsNetwork"
 
+// when selecting cough it trows an error ???
+
 const SymptomsPicker: React.FC = () => {
     const [selectedSymptoms, setSelectedSymptoms] = React.useState([])
     const toggleSelectedSymptom = (symptom: string) => {
@@ -22,6 +24,8 @@ const SymptomsPicker: React.FC = () => {
     }
 
     const relatedSymptoms = getRelatedSymptoms(selectedSymptoms, 5)
+
+    console.log("related sytmptoms : ", selectedSymptoms)
     return (
         <View>
             <SearchAndSelectBar
@@ -62,14 +66,17 @@ const SymptomsPicker: React.FC = () => {
                 </Row>
             </Row>
 
-            {selectedSymptoms.map((symptom) => (
-                <SymptomFeatures
-                    key={`features-component__${symptom}`}
-                    label={_.upperFirst(symptom)}
-                    symptom={symptom}
-                    toggleSymptom={toggleSelectedSymptom}
-                />
-            ))}
+            {selectedSymptoms.map((symptom) => {
+                console.log("Symptom : ",symptom)
+                return (
+                    <SymptomFeatures
+                        key={`features-component__${symptom}`}
+                        label={_.upperFirst(symptom)}
+                        symptom={symptom}
+                        toggleSymptom={toggleSelectedSymptom}
+                    />
+                )
+            })}
         </View>
     )
 }
@@ -98,6 +105,8 @@ const SymptomFeatures: React.FC<SymptomFeaturesProps> = ({ label, symptom, toggl
             { cancelable: true },
         )
 
+    //  am lost in this codes, why do we need to do this while we are just displaying the symptom?
+    // 
     const symptomDependency = symptomDependencies.find(
         (dependencies) => dependencies.symptom === symptom,
     )

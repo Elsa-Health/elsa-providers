@@ -13,14 +13,21 @@ import { authNavigator } from "./auth-navigation"
 const Stack = createNativeStackNavigator<RootParamList>()
 
 const RootStack = () => {
+    console.log("inside root stack")
+
+    // auth here i assume
+    // when authenticated and checking for appropriate permissions then showing appropriate stack
+   
     return (
         <Stack.Navigator
+        
             screenOptions={{
                 headerShown: false,
                 gestureEnabled: true,
 
                 stackPresentation: "modal",
             }}
+            initialRouteName="CTCStack"
         >
             {/* Route for the Dispensary */}
             <Stack.Screen
