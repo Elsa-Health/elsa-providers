@@ -8,7 +8,11 @@ import VisitType from "../screens/ctc-workflow/VisitType"
 import ScanQRCode from "../screens/ctc-workflow/ScanQRCode"
 import PatientVisit from "../screens/ctc-workflow/PatientVisist"
 import PatientNewVisit from "../screens/ctc-workflow/PatientNewVisit"
-import { useRoute } from "@react-navigation/native"
+import AdherenceAssess from "../screens/ctc-workflow/AdherenceAssess"
+import AdherenceSummary from "../screens/ctc-workflow/AdherenceSummary"
+import MedicationOnlyVisit from "../screens/ctc-workflow/MedicationOnlyVisit"
+import MedicationVisit from "../screens/ctc-workflow/MedicationVisit"
+import Counseling from '../screens/ctc-workflow/Counseling'
 import { useRouteStore } from "../stores"
 
 type CTCParamList = {
@@ -17,6 +21,11 @@ type CTCParamList = {
     "ctc.ScanQRCode": undefined
     "ctc.PatientVisit": undefined
     "ctc.PatientNewVisit": undefined
+    "ctc.AdherenceAssess": undefined
+    "ctc.AdherenceSummary": undefined
+    "ctc.MedicationOnlyVisit": undefined
+    "ctc.MedicationVisit": undefined
+    "ctc.Counseling":undefined
     "application-components": undefined
 }
 
@@ -40,8 +49,13 @@ const CTCNavigator = () => {
             <Stack.Screen name="ctc.ScanQRCode" component={ScanQRCode} />
             <Stack.Screen name="ctc.PatientVisit" component={PatientVisit} />
             <Stack.Screen name="ctc.PatientNewVisit" component={PatientNewVisit} />
+            <Stack.Screen name="ctc.AdherenceAssess" component={AdherenceAssess} />
+            <Stack.Screen name="ctc.AdherenceSummary" component={AdherenceSummary} />
+            <Stack.Screen name="ctc.MedicationOnlyVisit" component={MedicationOnlyVisit} />
+            <Stack.Screen name="ctc.MedicationVisit" component={MedicationVisit} />
+            <Stack.Screen name="ctc.Counseling" component={Counseling} />
         </Stack.Navigator>
     )
-}
+} 
 
 export { CTCNavigator }
