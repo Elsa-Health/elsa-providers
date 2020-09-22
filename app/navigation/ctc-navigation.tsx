@@ -32,7 +32,7 @@ const CTCNavigator = () => {
                 headerShown: false,
                 gestureEnabled: true,
             }}
-            initialRouteName="ctc.Dashboard"
+            initialRouteName="application-components"
         >
             <Stack.Screen name="application-components" component={ApplicationComponentsScreen} />
             <Stack.Screen name="ctc.Dashboard" component={Dashboard} />

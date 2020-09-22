@@ -1,9 +1,4 @@
-// THIS File HOLDS ALL THE COMPONENTS
-// THE COMPONENTS ARE TO BE MOVED TO SEPARATE FILES AS SPECIFIED IN STYLE GUIDE
-// THEY ARE KEPT HERE TO SPEED UP DEVELOPEENT PROCESS
-
 import React from "react"
-
 import { View } from "react-native"
 import { TextInput as PaperTextInput } from "react-native-paper"
 import { Text } from "../"
@@ -13,8 +8,6 @@ import { color, style as styles } from "../../theme"
 
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 import { TextInputsProps } from "./text-input.props"
-
-// currently using material icons only
 
 function Icon({ name, color, size, style }) {
     return (
@@ -91,7 +84,7 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
                         color: warning ? color.warning : color.error,
                     }}
                 >
-                    <Icon name="info" style={{ marginTop: 12 }} size={12} color={themeColor} />
+                    <MaterialIcon name="info" style={{ marginTop: 100 }} size={12} color={themeColor} />
                     {notification}
                 </Text>
             ) : null}

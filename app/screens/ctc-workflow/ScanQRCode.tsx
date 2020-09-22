@@ -72,8 +72,6 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     }
 
     const createNewFileAndNavigate = (route: string) => {
-        
-
         const api = new Api()
 
         return api
@@ -246,15 +244,6 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     )
 })
 
-const styles = StyleSheet.create({
-    actionButtons: { paddingHorizontal: 30, paddingVertical: 5 },
-    actionButtonsContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 60,
-    },
-})
-
 interface CodeScannerViewProps {
     onScan: (data: string) => void
 }
@@ -265,19 +254,27 @@ const CodeScannerView: React.FC<CodeScannerViewProps> = ({ onScan }) => (
         showMarker={true}
         // flashMode={RNCamera.Constants.FlashMode.torch}
         cameraProps={{ flashMode: "on" }}
-        // containerStyle={{
-        //     height:700,width:"100%"
-        // }}
-        containerStyle={{ height: height / 1.5 }}
-        cameraStyle={{
-            height: height / 1.5,
-            width: "100%",
-        }}
+        containerStyle={styles.scannerContainer}
+        cameraStyle={styles.cameraStyle}
         markerStyle={{
             borderColor: color.primary,
         }}
     />
 )
+
+const styles = StyleSheet.create({
+    actionButtons: { paddingHorizontal: 30, paddingVertical: 5 },
+    actionButtonsContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 60,
+    },
+    cameraStyle: {
+        height: height / 1.5,
+        width: "100%",
+    },
+    scannerContainer: { height: height / 1.5 },
+})
 
 export default CtcQrcodeScanScreen
 // TODO: Fetch the file from the server and persist it to the visit state
