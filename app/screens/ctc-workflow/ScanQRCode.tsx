@@ -25,6 +25,7 @@ import Spacer from "../../components/spacer/spacer"
 import { palette } from "../../theme/palette"
 import { Api } from "../../services/api"
 import RadioQuestion from "../../components/radio-question/radio-question"
+import { useRouteStore } from "../../stores"
 
 export interface CtcQrcodeScanScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
@@ -43,7 +44,9 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     const [fileExists, setFileExists] = useState(null)
 
     const resetVisitStore = useVisitStore((state) => state.resetVisitStore)
+    const { setIsPatientNew, isPatientNew } = useRouteStore()
 
+    console.log("Zustand state : ", setIsPatientNew, " ", isPatientNew)
     useEffect(() => {
         setScanComplete(false)
     }, [])
@@ -69,6 +72,8 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     }
 
     const createNewFileAndNavigate = (route: string) => {
+        
+
         const api = new Api()
 
         return api
@@ -87,6 +92,8 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     }
 
     const continueWithVisit = () => {
+        setIsPatientNew(false)
+
         if (!fileExists) {
             Alert.alert(
                 "This patient does not currently have a file on record.",
@@ -106,7 +113,8 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     }
 
     const registerNewFile = () => {
-        createNewFileAndNavigate("ctc-new-patient-screen")
+        setIsPatientNew(true)
+        createNewFileAndNavigate("ctc.VisitType")
     }
 
     const goToUpdateFile = () => navigation.navigate("ctc-new-patient-screen")
@@ -139,7 +147,7 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
 
     return (
         <Screen preset="scroll" title="Scan QR Code">
-            <Spacer size={20}/>
+            <Spacer size={20} />
             <Row>
                 <Col md={12}>
                     <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
@@ -233,7 +241,7 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
                 </Button>
             </View>
 
-            <Spacer size={20}/>
+            <Spacer size={20} />
         </Screen>
     )
 })

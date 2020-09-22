@@ -7,12 +7,16 @@ import Dashboard from "../screens/ctc-workflow/Dashboard"
 import VisitType from "../screens/ctc-workflow/VisitType"
 import ScanQRCode from "../screens/ctc-workflow/ScanQRCode"
 import PatientVisit from "../screens/ctc-workflow/PatientVisist"
+import PatientNewVisit from "../screens/ctc-workflow/PatientNewVisit"
+import { useRoute } from "@react-navigation/native"
+import { useRouteStore } from "../stores"
 
 type CTCParamList = {
     "ctc.Dashboard": undefined
     "ctc.VisitType": undefined
     "ctc.ScanQRCode": undefined
-    "ctc.PatientVisit":undefined
+    "ctc.PatientVisit": undefined
+    "ctc.PatientNewVisit": undefined
     "application-components": undefined
 }
 
@@ -20,6 +24,8 @@ const Stack = createNativeStackNavigator<CTCParamList>()
 
 const CTCNavigator = () => {
     // console.log("Rendering CTC Stack")
+    const routeStore = useRouteStore()
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -33,6 +39,7 @@ const CTCNavigator = () => {
             <Stack.Screen name="ctc.VisitType" component={VisitType} />
             <Stack.Screen name="ctc.ScanQRCode" component={ScanQRCode} />
             <Stack.Screen name="ctc.PatientVisit" component={PatientVisit} />
+            <Stack.Screen name="ctc.PatientNewVisit" component={PatientNewVisit} />
         </Stack.Navigator>
     )
 }

@@ -69,7 +69,8 @@
     "reactotron-mst": "^3.1.1",
     "reactotron-react-native": "^5.0.0",
     "validate.js": "0.13.1",
-    "zustand": "^3.1.2"
+    "zustand": "^3.1.2",
+    "zustand-persist": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
