@@ -27,7 +27,13 @@ const VisitType: React.FC = () => {
             <Spacer size={20} />
             <Text size="h5">What is the purpose of your patients visit to the clinic today?</Text>
 
+            
             <Spacer size={30} />
+            
+            {/* 
+            if other down options are to be included, then navigation has to be removed in these two cards
+            instead would have means to apply style on it if selected otherwise leave as it is
+            navigation to be done by the next button  */}
 
             <Card style={styles.buttonCard}>
                 <TouchableOpacity onPress={() => navigation.navigate("ctc-assessment-screen")}>

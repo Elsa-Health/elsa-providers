@@ -139,6 +139,7 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
 
     return (
         <Screen preset="scroll" title="Scan QR Code">
+            <Spacer size={20}/>
             <Row>
                 <Col md={12}>
                     <Text>Please scan the QR code on the patient’s CTC ID card.</Text>
@@ -187,7 +188,7 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
                     </Text>
                 </Col>
             </Row>
-          
+
             <View style={styles.actionButtonsContainer}>
                 {!fileExists ? (
                     <>
@@ -231,6 +232,8 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
                     </Text>
                 </Button>
             </View>
+
+            <Spacer size={20}/>
         </Screen>
     )
 })

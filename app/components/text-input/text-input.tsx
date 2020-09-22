@@ -6,10 +6,10 @@ import React from "react"
 
 import { View } from "react-native"
 import { TextInput as PaperTextInput } from "react-native-paper"
-import { Text } from "../components"
+import { Text } from "../"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color, style as styles } from "../theme"
+import { color, style as styles } from "../../theme"
 
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 import { TextInputsProps } from "./text-input.props"

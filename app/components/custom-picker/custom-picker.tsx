@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
 })
 
-const CustomPicker = React.memo(CustomPickerNoMemo, (prevProps, nextProps) => {
+export const CustomPicker = React.memo(CustomPickerNoMemo, (prevProps, nextProps) => {
     return prevProps.selectedValue === nextProps.selectedValue
 })
 

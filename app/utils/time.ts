@@ -25,7 +25,7 @@ export function getFormattedDate(): string {
     const year = d.getFullYear()
     const date = d.getDate()
     const monthName = months[d.getMonth()]
-    console.log(monthName)
+
     // const dayName = days[d.getDay()]
     return `${date} ${monthName} ${year}`
 }
