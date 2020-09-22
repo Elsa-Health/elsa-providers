@@ -48,10 +48,17 @@ const VisitType: React.FC = () => {
                 navigation.navigate("ctc.PatientVisit")
             }
         }
+        if (isMedication) {
+            // is there a need to register a patient if is new is thre for medication ony?
 
-        // IF ITS MEDICATION NAVIGATE TO ADHRENCE SCREENS DIRECTLY 
+            navigation.navigate("ctc.AdherenceAssess", {
+                mode: "medication-only",
+                adherence: true,
+            })
+        }
+
+        // IF ITS MEDICATION NAVIGATE TO ADHRENCE SCREENS DIRECTLY
         // CODES TO BE HERE
-
     }
 
     console.log("Testing zustand state : ", isPatientNew)

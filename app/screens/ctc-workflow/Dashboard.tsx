@@ -87,8 +87,9 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
             <FAB
                 style={styles.actionButton}
                 icon="plus"
-                onPress={() => navigation.navigate("ctc-qrcode-scan-screen")}
+                onPress={() => navigation.navigate("ctc.ScanQRCode")}
             />
+            
         </>
     )
 })

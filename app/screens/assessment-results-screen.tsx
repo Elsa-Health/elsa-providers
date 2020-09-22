@@ -157,7 +157,8 @@ export const DiseaseDistribution: React.FC<{
                     labels,
                     datasets: [{ data }],
                 }}
-                width={width - 20}
+                // this is for tablet only width
+                width={width - 92}
                 height={height}
                 yAxisLabel=""
                 fromZero
