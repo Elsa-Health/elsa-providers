@@ -46,7 +46,7 @@ export interface TextProps extends TextProperties {
     /**
      * Colors the text can take
      */
-    color?: "white" | "primary" | "gray" | "angry"
+    color?: "white" | "primary" | "gray" | "angry" | "default"
 
     /**
      * Whether the text is italic or not

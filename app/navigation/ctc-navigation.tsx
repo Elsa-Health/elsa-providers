@@ -33,7 +33,7 @@ const Stack = createNativeStackNavigator<CTCParamList>()
 
 const CTCNavigator = () => {
     // console.log("Rendering CTC Stack")
-    const routeStore = useRouteStore()
+    // const routeStore = useRouteStore()
 
     return (
         <Stack.Navigator

@@ -41,6 +41,8 @@ const VisitType: React.FC = () => {
             ToastAndroid.show("Please select a visit type", ToastAndroid.SHORT)
             return
         }
+
+        // FIXME: What is going on here?
         if (isFullCheck) {
             if (isPatientNew) {
                 navigation.navigate("ctc.PatientNewVisit")
@@ -61,7 +63,6 @@ const VisitType: React.FC = () => {
         // CODES TO BE HERE
     }
 
-    console.log("Testing zustand state : ", isPatientNew)
 
     return (
         <Screen preset="scroll" title="Type of Visit">
