@@ -16,7 +16,7 @@ interface CardProps {
     title?: string
     titleSize?: TextProps["size"]
     leftIcon?: string
-    right?: string
+    right?: string | React.Component
     collapsible?: boolean
 }
 

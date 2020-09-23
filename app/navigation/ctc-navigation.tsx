@@ -12,7 +12,10 @@ import AdherenceAssess from "../screens/ctc-workflow/AdherenceAssess"
 import AdherenceSummary from "../screens/ctc-workflow/AdherenceSummary"
 import MedicationOnlyVisit from "../screens/ctc-workflow/MedicationOnlyVisit"
 import MedicationVisit from "../screens/ctc-workflow/MedicationVisit"
-import Counseling from '../screens/ctc-workflow/Counseling'
+import Counseling from "../screens/ctc-workflow/Counseling"
+import PatientFile from "../screens/ctc-workflow/PatientFile"
+import ManagePatientVisit from "../screens/ctc-workflow/ManagePatientVisit"
+
 import { useRouteStore } from "../stores"
 
 type CTCParamList = {
@@ -25,7 +28,9 @@ type CTCParamList = {
     "ctc.AdherenceSummary": undefined
     "ctc.MedicationOnlyVisit": undefined
     "ctc.MedicationVisit": undefined
-    "ctc.Counseling":undefined
+    "ctc.Counseling": undefined
+    "ctc.PatientFile": undefined
+    "ctc.ManagePatientVisit":undefined
     "application-components": undefined
 }
 
@@ -54,8 +59,10 @@ const CTCNavigator = () => {
             <Stack.Screen name="ctc.MedicationOnlyVisit" component={MedicationOnlyVisit} />
             <Stack.Screen name="ctc.MedicationVisit" component={MedicationVisit} />
             <Stack.Screen name="ctc.Counseling" component={Counseling} />
+            <Stack.Screen name="ctc.PatientFile" component={PatientFile} />
+            <Stack.Screen name="ctc.ManagePatientVisit" component={ManagePatientVisit} />
         </Stack.Navigator>
     )
-} 
+}
 
 export { CTCNavigator }

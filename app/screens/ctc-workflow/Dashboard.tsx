@@ -50,7 +50,8 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                         icon={<FileSearching width="130" height="130" />}
                         actionText="Create or Update File"
                         description="Register a new patient or update a patient file to include test information and/or diagnoses. See recommendations and next steps about the patient."
-                        route="ctc-patient-file-screen"
+                        route="ctc.ScanQRCode"
+                        routeParams={{ destination: "ctc.PatientFile" }}
                     />
 
                     <DashboardItem
@@ -89,7 +90,6 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                 icon="plus"
                 onPress={() => navigation.navigate("ctc.ScanQRCode")}
             />
-            
         </>
     )
 })

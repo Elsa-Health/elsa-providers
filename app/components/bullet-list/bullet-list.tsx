@@ -6,7 +6,8 @@ import { Text } from "../../components"
 interface BulletListProps {
     items: string[]
     id: string
-    textSize?: string
+    textSize?: string,
+    
 }
 
 const BulletList: React.FC<BulletListProps> = ({ items = [], id, textSize = "h5" }) => {
@@ -15,7 +16,10 @@ const BulletList: React.FC<BulletListProps> = ({ items = [], id, textSize = "h5"
             {items.map((item, index) => (
                 <View style={styles.listItem} key={`bullet-list-item__${id}-${index}`}>
                     <Icon size={12} name="lens" style={styles.bulletIcon} />
-                    <Text size={textSize}>{item}</Text>
+                    <View>
+                        <Text size={textSize}>{item}</Text>
+                        <Text size={textSize} color="gray">{item}</Text>
+                    </View>
                 </View>
             ))}
         </View>

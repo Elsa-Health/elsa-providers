@@ -9,7 +9,7 @@ import {
     Alert,
     ToastAndroid,
 } from "react-native"
-import { ParamListBase, useNavigation } from "@react-navigation/native"
+import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Button, ActivityIndicator } from "react-native-paper"
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
@@ -46,7 +46,11 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     const resetVisitStore = useVisitStore((state) => state.resetVisitStore)
     const { setIsPatientNew, isPatientNew } = useRouteStore()
 
-    console.log("Zustand state : ", setIsPatientNew, " ", isPatientNew)
+    const route = useRoute()
+    const destination = route.params.destination
+
+    console.log("WHay is adesination : ", destination)
+
     useEffect(() => {
         setScanComplete(false)
     }, [])
@@ -72,8 +76,6 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
     }
 
     const createNewFileAndNavigate = (route: string) => {
-        
-
         const api = new Api()
 
         return api
@@ -197,49 +199,65 @@ const CtcQrcodeScanScreen: React.FunctionComponent<CtcQrcodeScanScreenProps> = o
                 </Col>
             </Row>
 
-            <View style={styles.actionButtonsContainer}>
-                {!fileExists ? (
-                    <>
-                        <Button
-                            mode="outlined"
-                            onPress={registerNewFile}
-                            style={styles.actionButtons}
-                            uppercase={false}
-                        >
-                            <Text color="primary" size="h6">
-                                Register Patient
-                            </Text>
-                        </Button>
-                        <Spacer horizontal size={44} />
-                    </>
-                ) : (
-                    // FIXME: This should maybe only show when the patient file is not completed
-                    <>
-                        <Button
-                            mode="outlined"
-                            onPress={goToUpdateFile}
-                            style={styles.actionButtons}
-                            uppercase={false}
-                        >
-                            <Text color="primary" size="h6">
-                                Update Patient File
-                            </Text>
-                        </Button>
-                        <Spacer horizontal size={44} />
-                    </>
-                )}
+            <Spacer size={20} />
+            {destination && destination === "ctc.PatientFile" ? (
+                <View style={{ flexDirection: "row-reverse" }}>
+                    <Button
+                        onPress={() => navigation.navigate("ctc.PatientFile")}
+                        style={styles.actionButtons}
+                        uppercase={false}
+                        mode="contained"
+                    >
+                        <Text size="h6" color="white">
+                            Continue
+                        </Text>
+                    </Button>
+                </View>
+            ) : (
+                <View style={styles.actionButtonsContainer}>
+                    {!fileExists ? (
+                        <>
+                            <Button
+                                mode="outlined"
+                                onPress={registerNewFile}
+                                style={styles.actionButtons}
+                                uppercase={false}
+                            >
+                                <Text color="primary" size="h6">
+                                    Register Patient
+                                </Text>
+                            </Button>
+                            <Spacer horizontal size={44} />
+                        </>
+                    ) : (
+                        // FIXME: This should maybe only show when the patient file is not completed
+                        <>
+                            <Button
+                                mode="outlined"
+                                onPress={goToUpdateFile}
+                                style={styles.actionButtons}
+                                uppercase={false}
+                            >
+                                <Text color="primary" size="h6">
+                                    Update Patient File
+                                </Text>
+                            </Button>
+                            <Spacer horizontal size={44} />
+                        </>
+                    )}
 
-                <Button
-                    onPress={continueWithVisit}
-                    style={styles.actionButtons}
-                    uppercase={false}
-                    mode="contained"
-                >
-                    <Text size="h6" color="white">
-                        Continue with Visit
-                    </Text>
-                </Button>
-            </View>
+                    <Button
+                        onPress={continueWithVisit}
+                        style={styles.actionButtons}
+                        uppercase={false}
+                        mode="contained"
+                    >
+                        <Text size="h6" color="white">
+                            Continue with Visit
+                        </Text>
+                    </Button>
+                </View>
+            )}
 
             <Spacer size={20} />
         </Screen>
