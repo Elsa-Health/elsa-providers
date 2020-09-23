@@ -37,5 +37,5 @@ export interface TextInputsProps extends TextInputProps {
     warning: boolean
 
     value: string
-    onChangeText: () => {}
+    onChangeText: () => any
 }

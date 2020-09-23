@@ -87,7 +87,7 @@ export const PatientVisit: React.FunctionComponent<PatientVisitProps> = () => {
             {/* The first part of patient visit */}
             {displayIndex === 0 && (
                 <View>
-                    <Card leftIcon="person" title="Patient Information">
+                    <Card leftIcon="account" title="Patient Information">
                         <Row>
                             <Col md={6}>
                                 <TextInput
@@ -208,7 +208,7 @@ export const PatientVisit: React.FunctionComponent<PatientVisitProps> = () => {
                         <Spacer size={12} />
                     </Card>
                     <Spacer size={12} />
-                    <Card leftIcon="healing" title="Known Co-Morbidities">
+                    <Card leftIcon="bandage" title="Known Co-Morbidities">
                         <Text size="h5">
                             Please indicate any known conditions the patient has at the time of this
                             visit:
@@ -221,7 +221,7 @@ export const PatientVisit: React.FunctionComponent<PatientVisitProps> = () => {
                     </Card>
 
                     <Spacer size={12} />
-                    <Card leftIcon="healing" title="ARV Treatment & Co-Medications">
+                    <Card leftIcon="pharmacy" title="ARV Treatment & Co-Medications">
                         <Row>
                             <Col md={12}>
                                 <RadioQuestion
@@ -352,7 +352,6 @@ export const PatientVisit: React.FunctionComponent<PatientVisitProps> = () => {
                             <Button
                                 onPress={() => {
                                     // Go to signs and simptoms page
-                                
                                 }}
                                 label="Next"
                                 labelSize="h6"

@@ -2,11 +2,10 @@ import React from "react"
 import { Pressable, StyleSheet, View, ViewStyle } from "react-native"
 import { Card as PaperCard } from "react-native-paper"
 import { color } from "../../theme"
-import DashboardItem from "../dashboard-item/dashboard-item"
 import { Text } from "../text/text"
 
-// import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
-import MaterialIcon from "react-native-vector-icons/MaterialIcons"
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
+// import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 
 import { TextProps } from "../text/text.props"
 import { TouchableOpacity } from "react-native-gesture-handler"

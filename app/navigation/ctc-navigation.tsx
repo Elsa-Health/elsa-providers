@@ -38,7 +38,7 @@ const Stack = createNativeStackNavigator<CTCParamList>()
 
 const CTCNavigator = () => {
     // console.log("Rendering CTC Stack")
-    const routeStore = useRouteStore()
+    // const routeStore = useRouteStore()
 
     return (
         <Stack.Navigator
@@ -46,7 +46,7 @@ const CTCNavigator = () => {
                 headerShown: false,
                 gestureEnabled: true,
             }}
-            initialRouteName="ctc.Dashboard"
+            initialRouteName="application-components"
         >
             <Stack.Screen name="application-components" component={ApplicationComponentsScreen} />
             <Stack.Screen name="ctc.Dashboard" component={Dashboard} />

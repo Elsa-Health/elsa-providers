@@ -21,6 +21,8 @@ const symptomsNetwork = [
     ["dysuria", "frequent micturation"],
 ]
 
+export const symptomsList: string[] = _.uniq(_.flatten(symptomsNetwork))
+
 export const symptomDurationOptions = [
     { label: "1 day", value: 1 },
     { label: "2 days", value: 2 },
@@ -89,38 +91,102 @@ export function getRelatedSymptoms(presentSymptoms: string[], relatedCount: numb
     ).splice(0, relatedCount)
 }
 
-export const symptomDependencies = [
-    {
-        name: "cough",
-        symptom: "cough",
-        attributes: ["duration", "type", "sputum color", "time of day"],
-        duration: 1,
-        type: null,
-        "sputum color": null,
-        "time of day": null,
-        attributeOptions: {
-            // NOTE: Are durations a must for everything??
-            // duration: {
-            //     type: "picker",
-            //     options: symptomDurationOptions,
-            //     defaultValue: symptomDurationOptions[0].value,
-            // },
-            type: {
-                type: "radio",
-                options: ["dry", "productive"],
-                defaultValue: null,
+interface SymptomDependency {
+    name: string
+    symptom: string
+    attributes: string[]
+    duration: number
+    attributeOptions: any
+    visibilityRules: [string, string, "equalsTo" | "notEqualsTo", string][]
+}
+
+export const symptomDependencies: SymptomDependency[] = _.concat(
+    [
+        {
+            name: "cough",
+            symptom: "cough",
+            attributes: ["type", "sputum color", "when"],
+            duration: 1,
+            type: null,
+            "sputum color": null,
+            when: [],
+            attributeOptions: {
+                type: {
+                    type: "radio",
+                    options: ["dry", "productive"],
+                    defaultValue: null,
+                },
+                "sputum color": {
+                    type: "radio",
+                    options: ["yellow", "green", "red", "clear", "white"],
+                    default: null,
+                },
+                when: {
+                    type: "checkbox",
+                    options: ["morning", "afternoon", "night"],
+                    defaultValue: [],
+                },
             },
-            "sputum color": {
-                type: "radio",
-                options: ["yellow", "green", "red", "clear", "white"],
-                default: null,
-            },
-            "time of day": {
-                type: "checkbox",
-                options: ["morning", "afternoon", "night"],
-                defaultValue: [],
-            },
+            visibilityRules: [["sputum color", "type", "equalsTo", "productive"]],
         },
-        visibilityRules: [["sputum color", "type", "equalsTo", "productive"]],
-    },
-]
+        {
+            name: "fever",
+            symptom: "fever",
+            attributes: ["grade"],
+            duration: 1,
+            grade: null,
+            attributeOptions: {
+                grade: {
+                    type: "radio",
+                    options: ["low grade", "high grade"],
+                    defaultValue: null,
+                },
+            },
+            visibilityRules: [],
+        },
+        {
+            name: "vomiting",
+            symptom: "vomiting",
+            attributes: ["content"],
+            content: [],
+            attributeOptions: {
+                content: {
+                    type: "checkbox",
+                    options: ["food", "bile", "blood"],
+                    defaultValue: [],
+                },
+            },
+            visibilityRules: [],
+        },
+        {
+            name: "abdominal pain",
+            symptom: "abdominal pain",
+            attributes: ["content", "when"],
+            content: [],
+            when: [],
+            attributeOptions: {
+                content: {
+                    type: "checkbox",
+                    options: ["epigastric", "umbilical", "hypogastric"],
+                    defaultValue: [],
+                },
+                when: {
+                    type: "checkbox",
+                    options: ["before meals", "after meals"],
+                    defaultValue: [],
+                },
+            },
+            visibilityRules: [["when", "content", "includes", "epigastric"]],
+        },
+    ],
+    _.differenceWith(symptomsList, ["fever", "cough", "vomiting", "abdominal pain"]).map(
+        (symptom) => ({
+            name: symptom,
+            symptom,
+            attributes: [],
+            duration: 1,
+            visibilityRules: [],
+            attributeOptions: [],
+        }),
+    ),
+)
