@@ -97,10 +97,10 @@ const VisitType: React.FC = () => {
                         }}
                     >
                         <View style={styles.cardContent}>
-                            <Text size="h4" color={isFullCheck ? "white" : null}>
+                            <Text size="h4" color={isFullCheck ? "white" : "primary"}>
                                 Full Checkup
                             </Text>
-                            <Text size="h6" color={isFullCheck ? "white" : null}>
+                            <Text size="h6" color={isFullCheck ? "white" : "primary"}>
                                 (Patient has symptoms or complaints)
                             </Text>
                         </View>
@@ -126,10 +126,10 @@ const VisitType: React.FC = () => {
                         }}
                     >
                         <View style={styles.cardContent}>
-                            <Text size="h4" color={isMedication ? "white" : null}>
+                            <Text size="h4" color={isMedication ? "white" : "primary"}>
                                 Medication Only
                             </Text>
-                            <Text size="h6" color={isMedication ? "white" : null}>
+                            <Text size="h6" color={isMedication ? "white" :"primary"}>
                                 (Patient does not have symptoms or complaints)
                             </Text>
                         </View>
