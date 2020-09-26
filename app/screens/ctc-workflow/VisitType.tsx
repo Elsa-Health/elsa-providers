@@ -129,7 +129,7 @@ const VisitType: React.FC = () => {
                             <Text size="h4" color={isMedication ? "white" : "primary"}>
                                 Medication Only
                             </Text>
-                            <Text size="h6" color={isMedication ? "white" :"primary"}>
+                            <Text size="h6" color={isMedication ? "white" : "primary"}>
                                 (Patient does not have symptoms or complaints)
                             </Text>
                         </View>
