@@ -2,12 +2,10 @@ name: CI
 on:
   push:
     branches:
-      - master
       - dev
       - test/**
   pull_request:
     branches:
-      - master
       - dev
       - test/**
   
