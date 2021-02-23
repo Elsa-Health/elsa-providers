@@ -36,7 +36,7 @@ export interface TextProps extends TextProperties {
     /**
      * One of the different sizes of text.
      */
-    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "small" | "default"
+    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "small" | "default"
 
     /**
      * One of the different alignments of text.
@@ -57,4 +57,12 @@ export interface TextProps extends TextProperties {
      * Whether the text is bold or not
      */
     bold?: boolean
+
+    /**
+     * Set the letter spacing
+     */
+    letterSpacing?: number
+
+    //    line height
+    lineHeight?: number
 }

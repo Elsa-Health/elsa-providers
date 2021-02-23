@@ -23,7 +23,7 @@ import CustomPicker from "../components/custom-picker/custom-picker"
 import { Text } from "../components/text/text"
 import {
     BOOLEAN_OPTIONS,
-    ARV_STAGES,
+    WHO_STAGES,
     COMEDICATIONS,
     MEDICATIONSLIST,
     ARVCOMBINATIONREGIMENS,
@@ -154,7 +154,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
     //     combination: "ARV Combination Program",
     //     functionalStage: "working",
     //     conditions: [],
-    //     currentARVUse: false,
+    //     currentARTUse: false,
     //     additionalMedication: false,
     //     coMedications: [],
     //     deliveryDate: null,
@@ -285,7 +285,7 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
 
                     <Col md={6} colStyles={style.contentTextVerticalSpacing}>
                         <CustomPicker
-                            options={pickerOptionsFromList(ARV_STAGES)}
+                            options={pickerOptionsFromList(WHO_STAGES)}
                             label="WHO Clinical Stage"
                             labelSize="h6"
                             defaultFirstItem="WHO Clinical Stage"
@@ -355,11 +355,11 @@ export const CtcPatientAssessmentScreen: React.FunctionComponent<CtcPatientAsses
                     </Col>
 
                     <RadioQuestion
-                        id="currentARVUse"
-                        onPress={(val) => setState({ currentARVUse: val as boolean })}
+                        id="currentARTUse"
+                        onPress={(val) => setState({ currentARTUse: val as boolean })}
                         orientation="vertical"
                         options={BOOLEAN_OPTIONS}
-                        value={state.currentARVUse}
+                        value={state.currentARTUse}
                         question="Is the patient taking ARVs at the time of this visit?"
                     />
 

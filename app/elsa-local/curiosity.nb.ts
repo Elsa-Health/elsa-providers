@@ -8,8 +8,34 @@ interface NBItemDistributions {
     [symptom: string]: number
 }
 
+export type diseaseName =
+    | "urinary tract infection"
+    | "human papilomavirus (HPV)"
+    | "bacterial vaginosis"
+    | "chlamydia"
+    | "gonorrhea"
+    | "trichomoniasis"
+    | "cryptococcal meningitis"
+    | "bacterial meningitis"
+    | "tuberculosis meningitis"
+    | "toxoplasmosis"
+    | "hepatitis b"
+    | "pnuemocystis pneumonia"
+    | "pneumonia"
+    | "tuberculosis"
+    | "gastritis"
+    | "gastroenteritis"
+    | "malaria"
+    | "influenza"
+    | "coryza"
+    | "tonsillitis"
+    | "laryngitis"
+    | "bronchitis"
+
+type abc = diseaseName[]
+
 interface CuriosityNBMapping {
-    [key: string]: NBItemDistributions
+    [key: diseaseName]: NBItemDistributions
 }
 
 interface GenderDistributionMap {
@@ -40,15 +66,27 @@ const maleOnlySymptoms: string[] = [
     "painful scrotal swelling",
     "inflamed foreskin",
     "penis opening discomfort",
+    "testicular pain",
+    "testicular swelling",
+    "penile discharge",
+    "msm",
 ]
 
 const femaleOnlySymptoms: string[] = [
     "abdominal pain",
     "vaginal itching",
+    "vaginal discharge",
     "vaginal inflammation",
+    "postcoital bleeding",
+    "menorrhagia",
+    "abnormal vaginal bleending",
     "dyspareunia",
     "curd like vaginal discharge",
+    "white vaginal discharge",
+    "fishy vaginal discharge",
     "foul smelling vaginal discharge",
+    "foul vaginal discharge",
+    "yellow vaginal discharge",
     "metrorrhagia",
 ]
 
@@ -59,23 +97,23 @@ function onlyUnique(value, index, self): boolean {
 const flatten = (list: any[]) => list.reduce((acc, val) => acc.concat(val), [])
 
 export const curiosityMappings: CuriosityNBMapping = {
-    // "urinary tract infection": {
-    //     dysuria: 96,
-    //     "frequent micturation": 95,
-    //     "pelvic pain": 50,
-    //     "back pain": 55,
-    //     nausea: 25,
-    //     vomiting: 20,
-    //     fever: 50,
-    //     fatigue: 30,
-    // },
-    "candidiasis - vaginal yeast infection": {
-        "vaginal itching": 90,
-        "vaginal inflammation": 90,
-        "curd like vaginal discharge": 95,
-        dyspareunia: 50,
-        "prolonged use of antibiotics": 80,
+    "urinary tract infection": {
+        dysuria: 96,
+        "frequent micturation": 95,
+        "pelvic pain": 50,
+        "back pain": 55,
+        nausea: 25,
+        vomiting: 20,
+        fever: 50,
+        fatigue: 30,
     },
+    // "candidiasis - vaginal yeast infection": {
+    //     "vaginal itching": 90,
+    //     "vaginal inflammation": 90,
+    //     "curd like vaginal discharge": 95,
+    //     dyspareunia: 50,
+    //     "prolonged use of antibiotics": 80,
+    // },
     "human papilomavirus (HPV)": {
         "genital warts": 85,
     },
@@ -92,43 +130,54 @@ export const curiosityMappings: CuriosityNBMapping = {
     //     "pus filled painful sores": 80,
     //     "genital itching": 80,
     // },
-    // "bacterial vaginosis": {
-    //     "vaginal itching": 85,
-    //     "genital discharge": 85,
-    //     dysuria: 90,
-    //     "fishy vaginal discharge": 98,
-    // },
-    // chlamydia: {
-    //     "genital discharge": 90,
-    //     "abdominal pain": 80,
-    //     "painful scrotal swelling": 85,
-    //     dysuria: 55,
-    //     dyspareunia: 45,
-    //     "penis opening discomfort": 45,
-    // },
-    // gonorrhea: {
-    //     "genital discharge": 90,
-    //     "painful scrotal swelling": 65,
-    //     "inflamed foreskin": 60,
-    //     "painful joints": 50,
-    //     dyspareunia: 40,
-    //     dysuria: 75,
-    //     metrorrhagia: 50,
-    //     "swollen lymph nodes": 40,
-    //     fever: 25,
-    //     "frequent micturation": 15,
-    //     "sore throat": 15,
-    // },
-    // trichomoniasis: {
-    //     "foul smelling vaginal discharge": 98,
-    //     "genital itching": 55,
-    //     dysuria: 55,
-    //     metrorrhagia: 60,
-    //     "abdominal pain": 40,
-    //     dyspareunia: 44,
-    //     "genital inflammation": 50,
-    //     "frequent micturation": 65,
-    // },
+    "bacterial vaginosis": {
+        "vaginal itching": 85,
+        "white vaginal discharge": 80,
+        "vaginal discharge": 85,
+        dysuria: 90, // extra
+        "fishy vaginal discharge": 98,
+    },
+    chlamydia: {
+        "genital discharge": 90,
+        "abdominal pain": 80,
+        "painful scrotal swelling": 85,
+        dysuria: 55,
+        dyspareunia: 45,
+        "penis opening discomfort": 45,
+    },
+    gonorrhea: {
+        "vaginal discharge": 90,
+        menorrhagia: 75,
+        // "abnormal vaginal bleeding": 70,
+        metrorrhagia: 50,
+        dysuria: 65,
+        "pelvic pain": 5,
+        "testicular pain": 50,
+        "testicular swelling": 50,
+
+        // "painful scrotal swelling": 65,
+        // "inflamed foreskin": 60,
+        // "painful joints": 50,
+        // dyspareunia: 40,
+        // "swollen lymph nodes": 40,
+        // fever: 25,
+        // "frequent micturation": 15,
+        // "sore throat": 15,
+    },
+    trichomoniasis: {
+        "vaginal discharge": 40,
+        "foul vaginal discharge": 98,
+        "postcoital bleeding": 20,
+        dysuria: 55,
+        "yellow vaginal discharge": 40,
+        "penile discharge": 50,
+        "abdominal pain": 20,
+        "genital itching": 55,
+        // metrorrhagia: 60,
+        // dyspareunia: 44,
+        // "genital inflammation": 50,
+        // "frequent micturation": 65,
+    },
     // syphilis: {
     //     "painless sore on genitals or mouth": 95,
     //     "copper penny rash": 98,
@@ -155,13 +204,59 @@ export const curiosityMappings: CuriosityNBMapping = {
         cough: 3,
         dyspnoea: 1,
         "skin rash": 1,
-        "visual loss": 80,
-        "hearing loss": 80,
+        "visual impairment": 80,
+        "hearing impairment": 80,
         lethargy: 80,
         confusion: 60,
         "altered mental status": 80,
         "focal neurological deficit": 50,
         "diastolic hypertension": 40,
+    },
+    "bacterial meningitis": {
+        fever: 99,
+        // malaise: 80,
+        headache: 99,
+        "stiff neck": 100,
+        photophobia: 40,
+        vomiting: 90,
+        coma: 90,
+        // cough: 3,
+        // dyspnoea: 1,
+        // "skin rash": 1,
+        "visual impairment": 80,
+        "hearing impairment": 80,
+        lethargy: 80,
+        confusion: 60,
+        "altered mental status": 80,
+        "focal neurological deficit": 50,
+        // "diastolic hypertension": 40,
+    },
+    "tuberculosis meningitis": {
+        "altered mental status": 90,
+        cough: 80,
+        fever: 75,
+        "low grade fever": 75,
+        vomiting: 80,
+        "weight loss": 90,
+        headache: 98,
+        "loss of consiousness": 70,
+        coma: 80,
+        "stiff neck": 100,
+        paralysis: 70,
+        "motor paralysis": 90,
+        "cranial nerve palsy": 90,
+        "abnormal posturing": 95,
+        // malaise: 80,
+        lethargy: 90,
+        "history of tb": 53,
+        // photophobia: 40,
+        // dyspnoea: 1,
+        // "skin rash": 1,
+        // "visual impairment": 80,
+        // "hearing impairment": 80,
+        // confusion: 60,
+        // "focal neurological deficit": 50,
+        // "diastolic hypertension": 40,
     },
     toxoplasmosis: {
         headache: 80,
@@ -173,17 +268,17 @@ export const curiosityMappings: CuriosityNBMapping = {
         confusion: 30,
         "altered mental status": 50,
         "focal neurological deficit": 90,
-        "decreased visual acuity": 80,
+        "blurred vision": 80,
     },
     "hepatitis b": {
         fever: 40,
         fatigue: 60,
-        "dark coloured urine": 60,
+        "dark urine": 60,
         "clay coloured stools": 10,
         nausea: 20,
         vomiting: 20,
-        "yellow eyes": 80,
-        // jaundice: 5,
+        // "yellow eyes": 80,
+        jaundice: 80,
         msm: 40,
         "multiple sexual partners": 30,
     },
@@ -195,14 +290,129 @@ export const curiosityMappings: CuriosityNBMapping = {
         chills: 50,
         "chest pain": 80,
         tachypnoea: 60,
-        "hypoxia after extertion": 74,
+        "hypoxia after exertion": 74,
+    },
+    pneumonia: {
+        fever: 95,
+        cough: 95,
+        "productive cough": 80,
+        "chest pain": 50,
+        dyspnoea: 85,
+    },
+    // FIXME: Add support for durations of symptoms
+    tuberculosis: {
+        cough: 98,
+        "productive cough": 80,
+        "night sweats": 85,
+        fever: 85,
+        "weight loss": 80,
+        "chest pain": 55,
+        malaise: 80,
+        dyspnoea: 55,
+    },
+    gastritis: {
+        "burning epigastric pain": 90,
+        "epigastric pain before meals": 30,
+        "epigastric pain after meals": 30,
+        vomiting: 25,
+    },
+    gastroenteritis: {
+        "abdominal pain": 76,
+        diarrhoea: 89,
+        vomiting: 81,
+        nausea: 93,
+        fever: 60,
+        "sore throat": 10,
+        cough: 10,
+        rhinorrhea: 10,
+        seizures: 10,
+        irritability: 90, // infants
+        dehydration: 10,
+        confusion: 10,
+        "abdominal tenderness": 70,
+    },
+    malaria: {
+        // TODO: low bp < 50 systollic and deep laboured breathing
+        fever: 98,
+        "high grade fever": 85,
+        headache: 75,
+        vomiting: 85,
+        chills: 80,
+        // weak and unable to move
+        convulsions: 50,
+        lethargy: 80,
+        hypoglycemia: 50,
+        coma: 30,
+        anaemia: 80, // pallor
+        "weight loss": 75,
+        jaundice: 50,
+        "dark urine": 50,
+    },
+    // "acute watery diarrhoea": {
+
+    // },
+    coryza: {
+        chills: 50,
+        fatigue: 45,
+        cough: 50,
+        sneezing: 99,
+        myalgia: 80,
+        rhinorrhea: 99.5,
+        "sore throat": 50,
+        headache: 15,
+        "loss of appetite": 40,
+        "loss of smell": 80,
+        fever: 50,
+        "low grade fever": 50,
+    },
+    influenza: {
+        fatigue: 85,
+        myalgia: 80,
+        rhinorrhea: 92,
+        "sore throat": 50,
+        diarrhoea: 30, // sometimes for children
+        headache: 80,
+        chills: 80,
+        fever: 85,
+        "high grade fever": 85,
+    },
+    tonsillitis: {
+        fever: 90,
+        "high grade fever": 80,
+        "sore throat": 85,
+        "difficulty swallowing": 89,
+        hoarseness: 50,
+        fatigue: 50,
+        cough: 50, // indicates viral
+        halitosis: 50,
+        "swollen lymph nodes": 45,
+        "white patches on tonsils": 80, // indicates bacterial
+    },
+    laryngitis: {
+        hoarseness: 90,
+        "voice loss": 80,
+        "sore throat": 50,
+        cough: 50,
+        "dry cough": 50,
+        "difficulty swallowing": 80,
+        "tender anterior neck": 85,
+    },
+    bronchitis: {
+        cough: 90,
+        "productive cough": 90,
+        fatigue: 75,
+        "chest pain": 50,
+        "sore throat": 45,
+        headache: 45,
+        "nasal congestion": 50,
+        dyspnoea: 40,
     },
 }
 
 // type Disease = keyof typeof curiosityMappings;
 // const disease: Disease = "";
 
-const diagnosesList: string[] = Object.keys(curiosityMappings)
+export const diagnosesList: string[] = Object.keys(curiosityMappings)
 
 const p_diagnoses: DiseaseProbabilities = {}
 diagnosesList.forEach((diagnosis: string) => (p_diagnoses[diagnosis] = 50))
@@ -227,7 +437,7 @@ interface CalculateResults {
  */
 export function calculate(
     observations: Observations = {},
-    sex: Sex,
+    sex: Sex = "female",
     alpha = 0.1,
     diseaseName: string | undefined = undefined,
 ): { [disease: string]: number } {
@@ -386,7 +596,7 @@ export function getDiseaseEffects(diseaseName: string, sex: Sex | undefined): st
 
 export function getRelevantNextQuestions(
     nodes: string[] = [],
-    language: "eng" | "sw" = "eng",
+    language: "en" | "sw" = "en",
 ): string[] {
     console.log("relevant", nodes)
     return nodes.map((nodeName) => getQuestion(nodeName, language))

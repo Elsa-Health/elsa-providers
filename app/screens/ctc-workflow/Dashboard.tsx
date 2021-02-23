@@ -1,37 +1,42 @@
 import * as React from "react"
-import { observer } from "mobx-react-lite"
-import { ViewStyle, TouchableOpacity, View, Image, StyleSheet } from "react-native"
-import { ParamListBase, useNavigation } from "@react-navigation/native"
+import { View, StyleSheet } from "react-native"
+import { ParamListBase, useFocusEffect, useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen } from "../../components"
-import { color, style, md } from "../../theme"
-import { Card, Button, FAB, Text } from "react-native-paper"
-import Process from "../../assets/icons/process.svg"
+import { color, md } from "../../theme"
+import { FAB } from "react-native-paper"
 import DrugsNurse from "../../assets/icons/drugs-nurse.svg"
 import DataExtraction from "../../assets/icons/data-extraction.svg"
 import FileSearching from "../../assets/icons/file_searching.svg"
 import Analytics from "../../assets/icons/business_analytics.svg"
 import DashboardItem from "../../components/dashboard-item/dashboard-item"
+import { useAdherenceStore, useVisitStore } from "../../models/ctc-store"
+import { useSystemSymptomStore } from "../../models/symptoms-store"
 
 export interface DashboardScreenProps {
     navigation: NativeStackNavigationProp<ParamListBase>
 }
 
-const ROOT: ViewStyle = {
-    flex: 1,
-}
-
-const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props) => {
-    // const { someStore } = useStores()
+const Dashboard: React.FunctionComponent<DashboardScreenProps> = () => {
+    const [resetPatientFile, resetVisitStore] = useVisitStore((state) => [
+        state.resetPatientFile,
+        state.resetVisitStore,
+    ])
+    const resetAdheranceStore = useAdherenceStore((state) => state.resetAdheranceStore)
+    const resetSystemSymptomsStore = useSystemSymptomStore((state) => state.resetSystemSymptomsStore)
     const navigation = useNavigation()
 
-    // determine previleges and give the approprivate route
-    // for the dashboard item
-    const getRoute = () => {
-        // other codes here
-        // return "client-present"
-        // return "".toString()
-    }
+    // Ensure that the global state that contains private information is cleared.
+    // This is a redundancy to guarantee that everyone going through the dashboard never see a previous patient
+    useFocusEffect(
+        React.useCallback(() => {
+            resetPatientFile()
+            resetVisitStore()
+            resetAdheranceStore()
+            resetSystemSymptomsStore()
+            // return () => unsubscribe();
+        }, []),
+    )
 
     return (
         <>
@@ -42,7 +47,7 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                         icon={<DrugsNurse width="130" height="130" />}
                         actionText="Begin New Assessment"
                         description="Assess your patients’ symptoms to understand more about their health and receive valuable insights for next steps to take."
-                        route="ctc.ScanQRCode"
+                        route="ctc.VisitType"
                     />
 
                     <DashboardItem
@@ -51,7 +56,7 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                         actionText="Create or Update File"
                         description="Register a new patient or update a patient file to include test information and/or diagnoses. See recommendations and next steps about the patient."
                         route="ctc.ScanQRCode"
-                        routeParams={{ destination: "ctc.PatientFile" }}
+                        routeParams={{ nextRouteName: "ctc.PatientFile" }}
                     />
 
                     <DashboardItem
@@ -59,7 +64,7 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                         icon={<Analytics width="130" height="130" />}
                         actionText="Assess Adherence"
                         description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
-                        route="ctc-patient-adherence-audit"
+                        route="ctc.AdherenceAssessment"
                         routeParams={{ mode: "adherence" }}
                     />
 
@@ -68,31 +73,31 @@ const Dashboard: React.FunctionComponent<DashboardScreenProps> = observer((props
                         icon={<DataExtraction width="130" height="130" />}
                         actionText="Assess Risk of Drug Resistance"
                         description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
-                        route="client-present"
+                        // route="client-present"
                     />
 
                     <DashboardItem
                         title="Elsa Library"
                         actionText="Visit Elsa Library"
                         description="The Elsa Library provides information about common illnesses, recommendations for next steps, and prevention strategies."
-                        route="disease-library"
+                        // route="disease-library"
                     />
                     <DashboardItem
                         title="Feedback/ Report Problem"
                         actionText="Report Problem/ Feedback"
                         description="Please provide feedback about your experience to help improve the Elsa Health Assistant."
-                        route="feedback"
+                        route="ctc.Feedback"
                     />
                 </View>
             </Screen>
             <FAB
                 style={styles.actionButton}
                 icon="plus"
-                onPress={() => navigation.navigate("ctc.ScanQRCode")}
+                onPress={() => navigation.navigate("ctc.VisitType")}
             />
         </>
     )
-})
+}
 
 const styles = StyleSheet.create({
     actionButton: {

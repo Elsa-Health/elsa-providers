@@ -16,6 +16,8 @@ export interface TextInputsProps extends TextInputProps {
      */
     label?: string
 
+    labelTx?: string
+
     /**
      * Optional container style overrides useful for margins & padding.
      */
@@ -25,7 +27,6 @@ export interface TextInputsProps extends TextInputProps {
      * Optional style overrides for the input.
      */
 
-    keyboardType?: any // to be fiex
     multiline?: boolean
     rows?: number
 
@@ -33,9 +34,9 @@ export interface TextInputsProps extends TextInputProps {
      * Text below the input as warning or error
      */
     notification?: string
-    error: boolean
-    warning: boolean
+    error?: boolean
+    warning?: boolean
 
-    value: string
-    onChangeText: () => any
+    value?: string
+    onChangeText?: (text: string) => any
 }

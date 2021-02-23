@@ -8,21 +8,13 @@ import { color, style as styles } from "../../theme"
 
 import MaterialIcon from "react-native-vector-icons/MaterialIcons"
 import { TextInputsProps } from "./text-input.props"
-
-function Icon({ name, color, size, style }) {
-    return (
-        <MaterialIcon
-            name={name}
-            size={size}
-            color={color}
-            style={[{ height: size, width: size }, style]}
-        />
-    )
-}
+import { useLocale } from "../../models/language"
+import { translate } from "../../i18n"
 
 export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
     const {
         label = "",
+        labelTx,
         placeholder = "",
         style,
         title,
@@ -35,6 +27,7 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
         error,
         warning,
         onChangeText,
+        ...rest
     } = props
     // const [isErrorOrWarning, setIsErrorOrWarning] = useState(false)
     const themeColor = (() => {
@@ -42,6 +35,10 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
         if (warning) return color.warning
         return color.primary
     })()
+
+    const locale = useLocale((state) => state.locale)
+
+    const labelText = translate(labelTx, { locale }) || label
 
     return (
         <View>
@@ -51,16 +48,14 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
                 </View>
             )}
             <PaperTextInput
-                label={label}
+                label={labelText}
                 placeholder={placeholder}
-                // value={state.telephone}
                 onChangeText={onChangeText}
                 mode="outlined"
                 keyboardType={keyboardType}
                 multiline={multiline}
                 numberOfLines={rows}
-                // placeholder="Namba ya simu"
-                style={[!multiline && styles.input, { borderColor: themeColor }, style]}
+                style={[{ borderColor: themeColor }, style]}
                 // option to show the them color
 
                 underlineColor="transparent"
@@ -73,6 +68,7 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
                             ? { primary: themeColor, text: color.primary }
                             : { primary: color.primary },
                 }}
+                {...rest}
             />
 
             {/* optional if would love to display error message */}
@@ -84,7 +80,12 @@ export const TextInput: React.FunctionComponent<TextInputsProps> = (props) => {
                         color: warning ? color.warning : color.error,
                     }}
                 >
-                    <MaterialIcon name="info" style={{ marginTop: 100 }} size={12} color={themeColor} />
+                    <MaterialIcon
+                        name="info"
+                        style={{ marginTop: 100 }}
+                        size={12}
+                        color={themeColor}
+                    />
                     {notification}
                 </Text>
             ) : null}

@@ -10,10 +10,19 @@ import { palette } from "../../theme/palette"
 interface NotificationProps {
     variation: "info" | "warning" | "danger" | "note"
     title?: string
+    visible?: boolean
+    marginVertical?: Number
     onPress?: () => any
 }
 
-const Notification: React.FC<NotificationProps> = ({ variation, title, onPress, children }) => {
+const Notification: React.FC<NotificationProps> = ({
+    variation,
+    title,
+    visible,
+    marginVertical,
+    onPress,
+    children,
+}) => {
     const backgroundColor = (() => {
         switch (variation) {
             case "info":
@@ -62,8 +71,9 @@ const Notification: React.FC<NotificationProps> = ({ variation, title, onPress, 
                 padding: 14,
                 paddingVertical: 18,
                 backgroundColor: backgroundColor,
+                display: visible ? "flex" : "none",
                 //  opacity:0.1
-                marginVertical: 6,
+                marginVertical: marginVertical || 8,
             }}
         >
             <Row
@@ -80,11 +90,13 @@ const Notification: React.FC<NotificationProps> = ({ variation, title, onPress, 
                     </Text>
                 )}
             </Row>
-            <Row>
-                <Col md={12} colStyles={{ marginTop: 5 }}>
-                    {children}
-                </Col>
-            </Row>
+            {children && (
+                <Row>
+                    <Col md={12} colStyles={{ marginTop: 5 }}>
+                        {children}
+                    </Col>
+                </Row>
+            )}
         </TouchableOpacity>
     )
 }

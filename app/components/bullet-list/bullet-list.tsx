@@ -18,7 +18,7 @@ const BulletList: React.FC<BulletListProps> = ({ items = [], id, textSize = "h5"
                     <Icon size={12} name="lens" style={styles.bulletIcon} />
                     <View>
                         <Text size={textSize}>{item}</Text>
-                        <Text size={textSize} color="gray">{item}</Text>
+                        {/* <Text size={textSize} color="gray">{item}</Text> */}
                     </View>
                 </View>
             ))}

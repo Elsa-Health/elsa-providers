@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { color } from "./color"
-import { md } from "./stylesResponsive"
+import { md, sm, xs } from "./stylesResponsive"
 
 const styles = StyleSheet.create({
     contentTextVerticalSpacing: {
@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
     },
 
     headerTextContentVerticalSpacing: {
-        marginTop: 8,
+        marginTop: sm || xs ? 4 : 8,
     },
 
     input: {
-        height: 60,
+        height: 70,
         width: "100%",
         backgroundColor: "#E5E5E5",
         color: "#A8A8A8",
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         color: "white",
     },
     mainContainerPadding: {
-        paddingHorizontal: md ? 36 : 12,
+        paddingHorizontal: md ? 36 : 18,
     },
 })
 
@@ -73,9 +73,9 @@ export const style = {
     headerTextContentVerticalSpacing: styles.headerTextContentVerticalSpacing,
     mainContainerPadding: styles.mainContainerPadding,
     multiSelect: {
-        item: { paddingVertical: 16 },
+        item: { paddingVertical: 14 },
         selectToggle: {
-            backgroundColor: "#F3F3F3",
+            backgroundColor: "#E5E5E5",
             borderColor: "#A8A8A8",
             borderWidth: 1,
             borderRadius: 2,
@@ -85,7 +85,7 @@ export const style = {
         },
         itemText: {
             color: color.text,
-            fontSize: 18,
+            fontSize: sm ? 14 : 18,
             fontWeight: "normal",
         },
         selectedItemText: {

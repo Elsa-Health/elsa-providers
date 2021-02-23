@@ -1,6 +1,8 @@
-import { ViewStyle } from "react-native"
+import { Dimensions, ViewStyle } from "react-native"
 import { isNil } from "ramda"
 import { color } from "../../theme"
+
+const { height } = Dimensions.get("window")
 
 /**
  * All screen keyboard offsets.
@@ -27,6 +29,7 @@ export const presets = {
             backgroundColor: color.background,
             flex: 1,
             height: "100%",
+            minHeight: height,
         } as ViewStyle,
         inner: {
             justifyContent: "flex-start",

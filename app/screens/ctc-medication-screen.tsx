@@ -24,19 +24,19 @@ const CTCMedication: React.FC = () => {
 
     // const [state, setState] = React.useState({
     //     dispensedMedications: [],
-    //     arvDecision: labelToValue(ARVRECOMMENDATIONOPTIONS[0]),
-    //     arvDecisionReason: "",
+    //     ARTDecision: labelToValue(ARVRECOMMENDATIONOPTIONS[0]),
+    //     ARTDecisionReason: "",
     // })
 
     const updateARVDecision = (decision: string) =>
-        setState({ arvDecision: labelToValue(decision) })
-    const updateARVDecisionReson = (reason: string) => setState({ arvDecisionReason: reason })
+        setState({ ARTDecision: labelToValue(decision) })
+    const updateARVDecisionReson = (reason: string) => setState({ ARTDecisionReason: reason })
 
     const submit = () => {
         navigation.goBack()
     }
 
-    // console.warn(labelToValue(ARVRECOMMENDATIONOPTIONS[1]), state.arvDecision)
+    // console.warn(labelToValue(ARVRECOMMENDATIONOPTIONS[1]), state.ARTDecision)
     return (
         <Screen preset="scroll" title="Medication">
             <Text>
@@ -101,7 +101,7 @@ const CTCMedication: React.FC = () => {
                     <CustomPicker
                         options={pickerOptionsFromList(ARVRECOMMENDATIONOPTIONS)}
                         onChange={updateARVDecision}
-                        selectedValue={state.arvDecision}
+                        selectedValue={state.ARTDecision}
                         // defaultFirstItem="Choose from list"
                         labelSize="h6"
                         // defaultFirstItemValue={ARVRECOMMENDATIONOPTIONS[1]}
@@ -109,14 +109,14 @@ const CTCMedication: React.FC = () => {
                     />
                 </View>
 
-                <View key={state.arvDecision} style={{ marginTop: 16 }}>
+                <View key={state.ARTDecision} style={{ marginTop: 16 }}>
                     {/* <CustomPicker
-                        options={ARVRECOMMENDATIONREASONS[state.arvDecision].map((option) => ({
+                        options={ARVRECOMMENDATIONREASONS[state.ARTDecision].map((option) => ({
                             value: option,
                             label: option,
                         }))}
                         onChange={updateARVDecisionReson}
-                        selectedValue={state.arvDecisionReason}
+                        selectedValue={state.ARTDecisionReason}
                         defaultFirstItem="Choose from list"
                         labelSize="h6"
                         label="What is the reason for this decision?"
@@ -135,9 +135,9 @@ const CTCMedication: React.FC = () => {
                         expandDropDowns
                         chipsPosition="top"
                         onSelectedItemsChange={(items) =>
-                            setState({ ...state, arvDecisionReason: items })
+                            setState({ ...state, ARTDecisionReason: items })
                         }
-                        selectedItems={state.arvDecisionReason}
+                        selectedItems={state.ARTDecisionReason}
                     />
                 </View>
 

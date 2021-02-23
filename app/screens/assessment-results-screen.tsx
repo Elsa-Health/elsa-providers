@@ -5,7 +5,7 @@ import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, sm, xs } from "../theme"
 
 const { width } = Dimensions.get("window")
 
@@ -150,16 +150,20 @@ export const DiseaseDistribution: React.FC<{
             <BarChart
                 style={{
                     backgroundColor: color.palette.white,
+                    marginLeft: sm ? -12 : 0,
                     // paddingHorizontal: 0,
                     // marginHorizontal: 0,
                 }}
                 data={{
-                    labels,
-                    datasets: [{ data }],
+                    labels: [...labels],
+                    datasets: [
+                        { data },
+                        // { data: [100], color: () => "rgba(26, 255, 146, 1)" },
+                    ],
                 }}
-                // this is for tablet only width
-                width={width - 92}
+                width={sm ? width - 35 : width - 92}
                 height={height}
+                yLabelsOffset={10}
                 yAxisLabel=""
                 fromZero
                 yAxisSuffix="%"
@@ -169,16 +173,17 @@ export const DiseaseDistribution: React.FC<{
                     backgroundColor: "white",
                     backgroundGradientFrom: "#fff",
                     backgroundGradientTo: "#fff",
-                    decimalPlaces: 2,
-                    barPercentage: 1.6,
+                    decimalPlaces: sm ? 1 : 2,
+                    barPercentage: sm ? 1.1 : 1.6,
+                    data: [{ data }],
                     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 }}
                 verticalLabelRotation={0}
             />
             {!hideMessage && !!dx && (
-                <Text size="h5" style={{ marginTop: -30 }}>
-                    It is most likely that your patient has{" "}
-                    <Text size="h5" style={{ color: color.primary }}>
+                <Text tx="conditionDistribution.description" size={sm ? "h6" : "h5"} style={{ marginTop: sm ? -15 : -30 }}>
+                    The most likely condition is{" "}
+                    <Text size={sm ? "h6" : "h5"} style={{ color: color.primary }}>
                         {_.upperFirst(dx.name)}
                     </Text>
                 </Text>

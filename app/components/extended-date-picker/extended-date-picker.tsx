@@ -1,10 +1,12 @@
 import React from "react"
 import CustomPicker from "../custom-picker/custom-picker"
 import { Row, Col, Text } from "../"
+import _ from "lodash"
 // import { Text } from "../text/text"
 
 import { YEAR_NUMBERS, DAY_NUMBERS, MONTH_NAMES } from "../../common/constants"
 import { isValidDate, pickerOptionsFromList, getMonthNumber, getYearsTo } from "../../common/utils"
+import moment from "moment"
 
 interface ExtendedDatePickerProps {
     onDateSet: (date: Date) => any
@@ -19,16 +21,20 @@ const ExtendedDatePickerNoMemo: React.FC<ExtendedDatePickerProps> = ({
     defaultDate,
     futureOnly = false,
 }) => {
-    const validDefalt = isValidDate(defaultDate)
+    const validDefault = isValidDate(defaultDate)
+    const dateofMonth = validDefault ? moment(defaultDate).utcOffset("+3").date() : 1
+
     const [state, setState] = React.useState({
-        date: validDefalt ? defaultDate.getDate() : 1,
-        month: validDefalt ? defaultDate.getMonth() : 0,
-        year: validDefalt ? defaultDate.getFullYear() : new Date().getFullYear(),
+        date: dateofMonth,
+        month: validDefault ? new Date(defaultDate).getMonth() : 0,
+        year: validDefault ? new Date(defaultDate).getFullYear() : new Date().getFullYear(),
     })
 
     React.useEffect(() => {
         const dateProposal = `${state.month + 1}/${state.date}/${state.year}`
-        const isValid = isValidDate(new Date(dateProposal))
+
+        // FIXME: the dates are currently stored as UCT time ... not EAT ... FIX THIS!!
+        const isValid = isValidDate(new Date(state.year, state.month, state.date))
         if (isValid) {
             onDateSet(new Date(dateProposal))
         }
@@ -45,8 +51,10 @@ const ExtendedDatePickerNoMemo: React.FC<ExtendedDatePickerProps> = ({
                     defaultFirstItem="Month"
                     defaultFirstItemValue=""
                     accessibilityLabel="Month"
-                    selectedValue={MONTH_NAMES[state.month].toLowerCase()}
-                    onChange={(v) => setState((state) => ({ ...state, month: getMonthNumber(v) }))}
+                    selectedValue={MONTH_NAMES[state.month]?.toLowerCase()}
+                    onChange={(v) => {
+                        setState((state) => ({ ...state, month: getMonthNumber(v) }))
+                    }}
                 />
             </Col>
 
@@ -57,7 +65,10 @@ const ExtendedDatePickerNoMemo: React.FC<ExtendedDatePickerProps> = ({
                     defaultFirstItemValue=""
                     accessibilityLabel="Day"
                     selectedValue={state.date}
-                    onChange={(v) => setState((state) => ({ ...state, date: +v }))}
+                    onChange={(v) => {
+                        // console.warn("Date: ", v)
+                        setState((state) => ({ ...state, date: +v }))
+                    }}
                 />
             </Col>
 

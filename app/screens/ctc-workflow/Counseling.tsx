@@ -1,108 +1,160 @@
 import React from "react"
 import { Screen } from "../../components/screen/screen"
-import { Card, Notification, Text } from "../../components"
+import { Card, Notification, Text, Checkbox, Button } from "../../components"
 import { View } from "react-native"
 import _ from "lodash"
-import BulletList from "../../components/bullet-list/bullet-list"
-import { Divider, Button } from "react-native-paper"
 import SectionedMultiSelect from "react-native-sectioned-multi-select"
-import { MEDICATIONSLIST, COUNSELINGTOPICS } from "../../common/constants"
+import { COUNSELINGTOPICS } from "../../common/constants"
 import { style } from "../../theme"
+import shallow from "zustand/shallow"
 import { useNavigation } from "@react-navigation/native"
-import { useVisitStore } from "../../models/ctc-store"
+import {
+    AdherenceAudit,
+    adherenceAuditVariables,
+    useAdherenceStore,
+    useVisitStore,
+} from "../../models/ctc-store"
 import Spacer from "../../components/spacer/spacer"
+import { adherenceCategoryDescription, adherenceScoreToCategory } from "./AssessmentSummary"
 
-const counselingTopics = COUNSELINGTOPICS.sort().map((topic) => ({
-    label: topic,
-    value: topic,
-    name: topic,
-    id: _.kebabCase(topic),
-}))
+const topicImportances: Partial<adherenceAuditVariables>[] = [
+    "shareDrugs",
+    "understandRegimen",
+    "frequentAlcoholUse",
+    "education", //
+    "sideEffects",
+    "employed",
+]
 
-const Counseling: React.FC = () => {
+const otherCounselingTopics = ["Disease progression", "Disclosure of HIV status"]
+
+const Counseling: React.FC = ({ route }) => {
     const navigation = useNavigation()
     const state = useVisitStore((state) => state.visit)
     const setState = useVisitStore((state) => state.updateVisit)
 
+    const adherence = useAdherenceStore()
+
+    const principalComponents: string[] = [
+        adherence.shareDrugs ? "Drug sharing with friends and family" : null,
+        adherence.understandRegimen ? null : "Review ART regimen requirements",
+        adherence.frequentAlcoholUse ? "Reducing alcohol intake" : null,
+        adherence.sideEffects ? "Managing Side Effects" : null,
+        adherence.employed ? "Looking for employment" : null,
+    ].filter((pc) => pc !== null)
+
+    const toggleCounseling = (topic: string) => {
+        if (state.counseling.includes(topic)) {
+            setState({ counseling: state.counseling.filter((counsel) => counsel !== topic) })
+        } else {
+            setState({ counseling: [...state.counseling, topic] })
+        }
+    }
+
     const submit = () => {
         navigation.goBack()
     }
+
+    const counselingTopics = [...COUNSELINGTOPICS, ...principalComponents, ...otherCounselingTopics]
+        .sort()
+        .map((topic) => ({
+            label: topic,
+            value: topic,
+            name: topic,
+            id: _.kebabCase(topic),
+        }))
+
+    let risk = 0.0
+
+    if (route.params?.risk) {
+        risk = Number((route.params?.risk * 100).toFixed(2))
+    }
+
     return (
         <Screen preset="scroll" title="Counseling">
-            <Spacer size={20} />
-            {/* <Text>Based on the assessment, we recommend the following topics for counseling.</Text> */}
-
-            {/* <Spacer size={20} /> */}
-            <Card leftIcon="list-alt" title=" Enhanced Adherence Counseling">
-                <View style={{}}>
-                    {/* determine the notification to render before */}
-                    <Notification
-                        title="Your patients risk of non-adherence is 75%."
-                        variation="danger"
-                    >
-                        <Text size="h6">
-                            This means that your patient is at a high risk of non-adherence or loss
-                            to follow up.
-                        </Text>
-                    </Notification>
-
-                    <Spacer size={12} />
-                    <Text size="h6" style={{}}>
-                        The main things to focus on during counseling to improve adherence of the
-                        patient are:
+            <Card
+                marginVertical={20}
+                leftIcon="format-list-bulleted"
+                title="Enhanced Adherence Counseling"
+            >
+                <Notification
+                    title={`Your patients risk of non-adherence is ${risk}%.`}
+                    variation={risk > 70 ? "danger" : "info"}
+                    visible={true}
+                >
+                    <Text size="h6">
+                        {adherenceCategoryDescription[adherenceScoreToCategory(risk / 100)]}
                     </Text>
-                    <BulletList
-                        items={[
-                            "Managing Side Effects",
-                            "Drug sharing with family or friends",
-                            "Job seeking",
-                        ]}
-                        textSize="h6"
-                        id="counseling-topics"
-                    />
+                </Notification>
+
+                <Spacer size={10} />
+                <Text size="h5">
+                    Focus on the following during adherence counseling. Please tick the topics you
+                    discuss.
+                </Text>
+                <View style={{ paddingLeft: 30, marginVertical: 10 }}>
+                    {principalComponents.map((pc) => (
+                        <View key={pc}>
+                            <Checkbox
+                                text={pc}
+                                onToggle={() => toggleCounseling(pc)}
+                                value={state.counseling.includes(pc)}
+                            />
+                            <Spacer size={10} />
+                        </View>
+                    ))}
+
+                    {/* <Checkbox text="Drug sharing with friends or family" /> */}
                 </View>
             </Card>
-            <Spacer size={16} />
-            <Card leftIcon="list-alt" title=" Other Counseling">
-                <Text>These topics are also recommended for counseling:</Text>
-                <BulletList
-                    items={["Progression of disease", "Disclosure"]}
-                    id="counseling-topics"
-                    textSize="h6"
+
+            <Card marginVertical={10} leftIcon="format-list-bulleted" title="Other Counseling">
+                <Text size="h5">
+                    These topics are also recommended for counseling. Please tick the topics you
+                    discussed
+                </Text>
+                <View style={{ paddingLeft: 30, marginVertical: 10 }}>
+                    {otherCounselingTopics.map((topic) => (
+                        <View key={topic}>
+                            <Checkbox
+                                text={topic}
+                                onToggle={() => toggleCounseling(topic)}
+                                value={state.counseling.includes(topic)}
+                            />
+                            <Spacer size={10} />
+                        </View>
+                    ))}
+                    {/* <Checkbox onToggle={() => toggleCounseling("DiseasePr")} text="Disease progression" value={true} />
+                    <Spacer size={10} />
+                    <Checkbox text="Disclosure of HIV status" /> */}
+                </View>
+                <Spacer size={10} />
+                <Text size="h5" style={{}}>
+                    Are there additional topics of counseling that you provided during this visit?
+                </Text>
+
+                {/* FIXME: This onSelectedItemsChange returns the id of the items ... this should be changed to the name */}
+                <SectionedMultiSelect
+                    items={counselingTopics}
+                    uniqueKey="id"
+                    // subKey="children"
+                    selectText="Choose the treatments dispensed..."
+                    styles={style.multiSelect}
+                    chipsPosition="top"
+                    onSelectedItemsChange={(items) => setState({ counseling: items })}
+                    selectedItems={state.counseling}
                 />
             </Card>
-            <Spacer size={16} />
-            <Card leftIcon="list-alt" title="Counseling Offered">
-                <View>
-                    <Text>
-                        Please select which types of counseling you provided during this visit:
-                    </Text>
-                    <SectionedMultiSelect
-                        items={counselingTopics}
-                        uniqueKey="id"
-                        // subKey="children"
-                        selectText="Choose the treatments dispensed..."
-                        styles={style.multiSelect}
-                        chipsPosition="top"
-                        onSelectedItemsChange={(items) => setState({ counseling: items })}
-                        selectedItems={state.counseling}
-                    />
 
-                    <Button
-                        style={{
-                            margin: 10,
-                            marginBottom: 20,
-                            alignSelf: "flex-end",
-                            paddingHorizontal: 46,
-                            marginTop: "10%",
-                        }}
-                        onPress={submit}
-                        mode="contained"
-                    >
-                        <Text color="white">Next</Text>
-                    </Button>
-                </View>
-            </Card>
+            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                <Button
+                    contentStyle={{ marginHorizontal: 40 }}
+                    label="Next"
+                    mode="contained"
+                    onPress={submit}
+                />
+            </View>
+
             <Spacer size={20} />
         </Screen>
     )

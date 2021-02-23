@@ -37,7 +37,7 @@ const VisitType: React.FC = () => {
                     }
                 >
                     <Card.Content style={styles.cardContent}>
-                        <Text size="h4">Medication Only</Text>
+                        <Text size="h4">Medication Refill</Text>
                         <Text size="h6">(Patient does not have symptoms or complaints)</Text>
                     </Card.Content>
                 </TouchableOpacity>

@@ -11,8 +11,13 @@ const SearchAndSelectBar: React.FC<SearchAndSelectBarProps> = ({
     selectedOptions,
     toggleOption,
     hideSelectedOptions,
+    onChangeSearchString,
 }) => {
     const [searchString, setSearchString] = React.useState("")
+
+    React.useEffect(() => {
+        onChangeSearchString && onChangeSearchString(searchString)
+    }, [searchString])
     return (
         <React.Fragment>
             <Col md={12}>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import _, { lowerCase } from "lodash"
+import _, { cloneDeep, lowerCase } from "lodash"
 import { MONTH_NAMES } from "./constants"
 export function fullFormatDate(timeStamp: Date | string | number) {
     const dateObj = new Date(timeStamp)
@@ -49,6 +49,11 @@ export function pickerOptionsFromList(
 }
 
 export function isValidDate(date: any): boolean {
+    if (typeof date === "string") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore : issue with running isNaN to an instance of Date - which is not a number
+        return new Date(date) instanceof Date && !isNaN(new Date(date))
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore : issue with running isNaN to an instance of Date - which is not a number
     return date instanceof Date && !isNaN(date)
@@ -179,4 +184,67 @@ export function toggleStringFromList(text: string, list: string[]): string[] {
         return list.filter((t) => t !== text)
     }
     return [...list, text]
+}
+
+export function yearsDiff(d1, d2) {
+    const date1 = new Date(d1)
+    const date2 = new Date(d2)
+    // const yearsDiff = date2.getFullYear() - date1.getFullYear()
+    // return yearsDiff
+    return Number((date2.getTime() - date1.getTime()) / 31536000000)
+}
+
+export function monthsDiff(d1, d2) {
+    const date1 = new Date(d1)
+    const date2 = new Date(d2)
+    const years = yearsDiff(d1, d2)
+    const months = years * 12 + (date2.getMonth() - date1.getMonth())
+    return months
+}
+
+export const getNextAppointment = (patientAppointments: any[]) => {
+    // Note: if there was an error loading the appointments, it will appear as though there is no next appointment
+    if (!patientAppointments || patientAppointments.length === 0) return null
+
+    // Get all appointments that were not visited
+    const pendingAppointments = patientAppointments.filter(
+        (app) => app.appointmentAttended !== true,
+    )
+
+    // If there are no pending appointments, return null
+    if (pendingAppointments.length === 0) return null
+
+    return pendingAppointments[0]
+}
+
+export const getNextAppointmentDate = (patientAppointments: any[]) => {
+    const appointment = getNextAppointment(patientAppointments)
+    if (!appointment || !appointment.currentAppointmentDate) return null
+    return fullFormatDate(appointment.currentAppointmentDate)
+}
+
+export function shallowTypeCoerce(
+    obj: { [key: string]: any },
+    keys: string[],
+    type: string | boolean | number,
+): { [key: string]: any } {
+    const localObj = cloneDeep(obj)
+
+    if (type === "number") {
+        keys.forEach((key) => obj[key] && (obj[key] = Number(obj[key])))
+    }
+
+    if (type === "string") {
+        keys.forEach((key) => obj[key] && (obj[key] = String(obj[key])))
+    }
+
+    if (type === "boolean") {
+        keys.forEach((key) => obj[key] && (obj[key] = Boolean(obj[key])))
+    }
+
+    return localObj
+}
+
+export function calculateAge(dob: Date | string): number {
+    return isValidDate(dob) ? new Date(dob).getFullYear() - new Date().getFullYear() : 45
 }

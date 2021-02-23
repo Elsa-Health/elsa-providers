@@ -3,16 +3,23 @@ import { View, Image, StyleSheet } from "react-native"
 import { Card } from "react-native-paper"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
-import { style, md, color } from "../../theme"
+import { style, md, color, sm } from "../../theme"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../text/text"
 import Spacer from "../spacer/spacer"
 import { Button } from "../button/button"
+import { TextProps } from "../text/text.props"
 
 export interface DashboardItemProps {
     title: string
+    titleSize?: TextProps["size"]
+    titleI18nKey?: string
     description: string
+    descriptionSize?: TextProps["size"]
+    descriptionI18nKey?: string
     actionText: string
+    actionTextSize?: TextProps["size"]
+    actionI18nKey?: string
     iconSource?: any
     icon?: React.ReactNode
     route?: string
@@ -21,10 +28,14 @@ export interface DashboardItemProps {
 
 const DashboardItem: React.FC<DashboardItemProps> = ({
     title,
+    titleSize = "h5",
+    titleI18nKey,
     description,
+    descriptionSize = "default",
     iconSource,
     icon,
     actionText,
+    actionTextSize = "default",
     route,
     routeParams = {},
 }) => {
@@ -42,22 +53,23 @@ const DashboardItem: React.FC<DashboardItemProps> = ({
                     style={
                         hasIcon && {
                             flex: 3,
+                            paddingRight: 8,
                         }
                     }
                 >
-                    <Text bold size="h5">
+                    <Text tx={titleI18nKey} bold size={titleSize}>
                         {title}
                     </Text>
 
                     <Spacer size={10} />
-                    <Text>{description}</Text>
+                    <Text size={descriptionSize}>{description}</Text>
 
                     <View style={{ flexDirection: "row" }}>
                         <Button
                             onPress={navigateTo}
                             contentStyle={styles.cardAction}
                             style={{ marginLeft: -15 }}
-                            labelSize="default"
+                            labelSize={actionTextSize}
                             withArrow
                             mode="text"
                             label={actionText.toUpperCase()}
@@ -107,6 +119,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flex: 1.2,
         justifyContent: "center",
+        // marginLeft: sm ? 10 : 0,
     },
 })
 

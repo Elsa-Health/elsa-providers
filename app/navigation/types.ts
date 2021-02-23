@@ -1,8 +1,15 @@
+// type RootStackParamList = {
+//     Home: undefined;
+//     Profile: { userId: string };
+//     Feed: { sort: 'latest' | 'top' } | undefined;
+//   };
+
 export type RootParamList = {
     primaryStack: undefined
     CTCStack: undefined
     ADDOStack: undefined
     dispensaryStack: undefined
+    CWNavigator: undefined
     authStack: undefined
 }
 

@@ -14,8 +14,8 @@ import ExtendedDatePicker from "../../components/extended-date-picker/extended-d
 
 const MedicationOnlyVisit: React.FC = (props) => {
     const [state, setState] = React.useState({
-        arvDecision: "",
-        arvDecisionReason: [],
+        ARTDecision: "",
+        ARTDecisionReason: [],
     }) // medication or checkup
     const navigation = useNavigation()
 
@@ -31,7 +31,7 @@ const MedicationOnlyVisit: React.FC = (props) => {
                     <CustomPicker
                         options={pickerOptionsFromList(ARVRECOMMENDATIONOPTIONS)}
                         onChange={updateARVDecision}
-                        selectedValue={state.arvDecision}
+                        selectedValue={state.ARTDecision}
                         // defaultFirstItem="Choose from list"
                         labelSize="h6"
                         // defaultFirstItemValue={ARVRECOMMENDATIONOPTIONS[1]}
@@ -52,9 +52,9 @@ const MedicationOnlyVisit: React.FC = (props) => {
                         expandDropDowns
                         chipsPosition="top"
                         onSelectedItemsChange={(items) =>
-                            setState({ ...state, arvDecisionReason: items })
+                            setState({ ...state, ARTDecisionReason: items })
                         }
-                        selectedItems={state.arvDecisionReason}
+                        selectedItems={state.ARTDecisionReason}
                     />
                 </View>
                 <Spacer size={16} />
@@ -72,9 +72,9 @@ const MedicationOnlyVisit: React.FC = (props) => {
                         expandDropDowns
                         chipsPosition="top"
                         onSelectedItemsChange={(items) =>
-                            setState({ ...state, arvDecisionReason: items })
+                            setState({ ...state, ARTDecisionReason: items })
                         }
-                        selectedItems={state.arvDecisionReason}
+                        selectedItems={state.ARTDecisionReason}
                     />
                 </View>
                 <Spacer size={12} />

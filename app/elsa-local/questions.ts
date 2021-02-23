@@ -1,531 +1,676 @@
 // @ts-check
 
 import { respiratoryQuestions } from "../common/questions"
-
+import _, { upperFirst } from "lodash"
 interface Question {
     sw: string
-    eng: string
+    en: string
 }
 
 interface QuestionMapping {
     nodes: string[]
+    system?: string
     question: Question
 }
+
+const QNnodes = [
+    "testicular pain",
+    "testicular swelling",
+    "postcoital bleeding",
+    "penile discharge",
+    "lethargy",
+    "confusion",
+    "altered mental status",
+    "focal neurological deficit",
+    "diastolic hypertension",
+    "loss of consiousness",
+    "paralysis",
+    "motor paralysis",
+    "cranial nerve palsy",
+    "abnormal posturing",
+    "clay coloured stools",
+    "msm",
+    "multiple sexual partners",
+    "tachypnoea",
+    "hypoxia after exertion",
+    "night sweats",
+    "burning epigastric pain",
+    "epigastric pain before meals",
+    "epigastric pain after meals",
+    "irritability",
+    "dehydration",
+    "abdominal tenderness",
+    "convulsions",
+    "hypoglycemia",
+    "anaemia",
+    "white patches on tonsils",
+    "tender anterior neck",
+]
+
+// Method used to clean up text from the spreadsheet
+// text.map(textRow => textRow.split(",").map(textRowItem => textRowItem.trim())).map(textRow => ({ nodes: [textRow[1]], system: textRow[0], question: { en: textRow[textRow.length - 2], sw: textRow[textRow.length - 1] } }))
 
 const questionMaps: QuestionMapping[] = [
     {
         nodes: ["dysuria"],
-        question: {
-            eng: "Is it painful or burning when the patient urinates?",
-            sw: "Anapata maumivu au kuhisi hali ya kuungua wakati wa kukojoa?",
-        },
+        system: "Renal",
+        question: { en: "Discomfort when urinating?", sw: "Usumbufu wakati wa kukojoa?" },
     },
     {
-        nodes: ["fever"],
+        nodes: ["frequent micturation"],
+        system: "Renal",
         question: {
-            eng: "Does the patient have a fever?",
-            sw: "Anahisi homa?",
-        },
-    },
-    {
-        nodes: ["back pain"],
-        question: {
-            eng: "Doe the patient have pain in your back?",
-            sw: "Unamaumivu kwenye mgongo?",
+            en: "Urinating more frequently than normal?",
+            sw: "Kukojoa mara kwa mara kuliko kawaida?",
         },
     },
     {
         nodes: ["pelvic pain"],
-        question: {
-            eng: "Do the patient have pain in your pelvis or hips?",
-            sw: "Una maumivu kwenye nyonga?",
-        },
+        system: "Musculoskeletal",
+        question: { en: "Pain in their pelvis?", sw: "Maumivu katika pelvis yao?" },
     },
     {
-        nodes: ["frequent micturation"],
-        question: {
-            eng: "Is he/she urinating more frequently than normal?",
-            sw: "Unakojoa kila mara kuliko kawaida?",
-        },
+        nodes: ["back pain"],
+        system: "Musculoskeletal",
+        question: { en: "Back pain?", sw: "Maumivu ya mgongo?" },
     },
     {
         nodes: ["nausea"],
-        question: {
-            eng: "Is the patient nauseous?",
-            sw: "Je, anahisi kichefuchefu",
-        },
+        system: "Gastrointestinal",
+        question: { en: "Nausea or upset stomach?", sw: "Kichefuchefu au tumbo kujaa gesi?" },
     },
     {
         nodes: ["vomiting"],
-        question: {
-            eng: "Is the patient vomiting or has the patient been vomiting?",
-            sw: "Mgonjwa anatapika?",
-        },
+        system: "Gastrointestinal",
+        question: { en: "Vomitting?", sw: "Kutapika?" },
     },
-    {
-        nodes: ["fatigue"],
-        question: {
-            eng: "Does the patient feel tired or fatigued?",
-            sw: "Unahisi kuchoka au uchovu?",
-        },
-    },
-    {
-        nodes: ["vaginal itching", "genital itching"],
-        question: {
-            eng: "Does the patient have itchiness on or around their genitals?",
-            sw: "Una muwasho kwenye ama kuzunguka sehemu zako za siri?",
-        },
-    },
-    {
-        nodes: ["vaginal inflammation", "genital inflammation"],
-        question: {
-            eng: "Do you have inflammation of your genitals?",
-            sw: "Unahisi hali ya kuwaka moto kwenye sehemu za siri?",
-        },
-    },
-    {
-        nodes: ["curd like vaginal discharge"],
-        question: {
-            sw: "Kama kuna uchafu au ute unaotoka ukeni, ni mzito?",
-            eng: "If there is discharge, is it thick and/or clumpy?",
-        },
-    },
-    {
-        nodes: ["dyspareunia"],
-        question: {
-            eng: "Are you experiencing pain during sexual intercourse?",
-            sw: "Unapata maumivu wakati wa kujamiiana?",
-        },
-    },
-    {
-        nodes: ["prolonged use of antibiotics"],
-        question: {
-            sw:
-                "Unatumia dawa zozote za antibiotiki kwa muda wa kuzidi mwezi mmoja kwaajili ya ugonjwa mwingine?",
-            eng:
-                "Have you used antibiotics for a prolonged period of time because of another infection?",
-        },
-    },
+    { nodes: ["fever"], system: "Immune", question: { en: "Fever?", sw: "Homa" } },
+    { nodes: ["fatigue"], system: "", question: { en: "Fatigue?", sw: "Uchovu" } },
     {
         nodes: ["genital warts"],
-        question: {
-            eng: "Do you have any bumps or warts on or around your genitals?",
-            sw: "Una viuvimbe au vipunye kwenye au kuzunguka sehemu za siri?",
-        },
+        system: "Reproductive",
+        question: { en: "Warts on their genitals?", sw: "Viupele sehemu zao za siri?" },
     },
     {
-        nodes: ["pins and needles"],
-        question: {
-            eng: "Do you have the sensation of pins and needles anywhere in your body?",
-            sw: "Unahisi hali ya kuchomwa na sindano sehemu yoyote kwenye mwili wako?",
-        },
+        nodes: ["vaginal itching"],
+        system: "Reproductive",
+        question: { en: "Vaginal itching?", sw: "Kuwashwa uke?" },
     },
     {
-        nodes: ["genital ulcers"],
-        question: {
-            eng: "Do you have any sores or blisters on or around your genitals?",
-            sw: "Una upele au malengelenge kwenye au kuzunguka sehemu za siri?",
-        },
+        nodes: ["white vaginal discharge"],
+        system: "Reproductive",
+        question: { en: "White vaginal discharge?", sw: "Utokwaji na majimaji meupe ukeni?" },
     },
     {
-        nodes: ["mouth ulcers"],
+        nodes: ["vaginal discharge"],
+        system: "Reproductive",
         question: {
-            eng: "Do you have sores or blisters on or around your mouth?",
-            sw: "Una upele au malengelenge kwenye au kuzunguka mdomo?",
-        },
-    },
-    {
-        nodes: ["multiple vesicle lesions"],
-        question: {
-            eng: "Do you have blisters, boils, or skin nodules in different parts of your body?",
-            sw: "Umetokwa na malenge lenge, au majipu katika sehemu tofauti za mwili wako?",
-        },
-    },
-    {
-        nodes: ["pus filled painful sores"],
-        question: {
-            sw: "Una upele au malengelenge yanye usaa na maumivu?",
-            eng: "Do you have painful sores that are filled with pus?",
-        },
-    },
-    {
-        nodes: ["genital discharge", "vaginal discharge"],
-        question: {
-            eng: "Do you have abnormal genital discharge?",
-            sw: "Unatokwa na uchafu/ute usio wa kawaida sehemu za siri?",
+            en: "Abnormal discharge from the vagina?",
+            sw: "Utokwaji na majimaji kusikokuwa kwa kawaida kutoka kwenye uke?",
         },
     },
     {
         nodes: ["fishy vaginal discharge"],
+        system: "Reproductive",
         question: {
-            sw: "Uchafu/ ute unaotoka ukeni una harufu ya shombe?",
-            eng: "Does your vaginal discharge smell fishy?",
+            en: "Vaginal discharge that is fishy smelling?",
+            sw: "Maji maji Kutoka ukeni ambayo yana harufu ya samaki?",
+        },
+    },
+    {
+        nodes: ["genital discharge"],
+        system: "Reproductive",
+        question: {
+            en: "Abnormal discharge from the genitals?",
+            sw: "Utokwaji na majimaji usiokuwa wa kawaida kutoka kwenye sehemu za siri?",
         },
     },
     {
         nodes: ["abdominal pain"],
-        question: {
-            eng: "Does the patient have abdominal or stomach pain?",
-            sw: "Anapata maumivu ya tumbo?",
-        },
+        system: "Gastrointestinal",
+        question: { en: "Abdominal pain?", sw: "Maumivu ya tumbo?" },
     },
     {
         nodes: ["painful scrotal swelling"],
+        system: "Reproductive",
         question: {
-            eng: "Do you have swelling of your scrotum?",
-            sw: "Una uvimbe kwenye mfuko wa korodani?",
+            en: "Pain or swelling in their scrotum?",
+            sw: "Maumivu au uvimbe kwenye kibofu?",
+        },
+    },
+    {
+        nodes: ["dyspareunia"],
+        system: "Reproductive",
+        question: {
+            en: "Pain in their genitals during or after sexual intercourse?",
+            sw: "Maumivu katika sehemu zao za siri wakati au baada ya kujamiiana?",
         },
     },
     {
         nodes: ["penis opening discomfort"],
+        system: "Reproductive",
         question: {
-            eng: "Do you have burning or itching around the opening of the penis?",
-            sw: "Unahisi kuwashwa au hisia ya kuungua kwenye modomo wa uume?",
+            en: "Pain at the opening of the penis?",
+            sw: "Maumivu wakati wa ufunguzi wa uume?",
         },
     },
     {
-        nodes: ["inflamed foreskin"],
+        nodes: ["menorrhagia"],
+        system: "Reproductive",
         question: {
-            eng: "If not circumcised, do you have inflammation on your foreskin?",
-            sw: "Kama haujatahiriwa, unahisi kuungua kwenye govi?",
-        },
-    },
-    {
-        nodes: ["painful joints"],
-        question: {
-            eng: "Do you have painful joints?",
-            sw: "Una maumivu ya viungo?",
+            en: "Heavy periods (more than normal)?",
+            sw: "Vipindi vizito vya hedhi (zaidi ya kawaida)?",
         },
     },
     {
         nodes: ["metrorrhagia"],
+        system: "Reproductive",
+        question: { en: "Abnormal vaginal bleeding?", sw: "Damu isiyo ya kawaida ukeni?" },
+    },
+    {
+        nodes: ["testicular pain"],
+        system: "Reproductive",
+        question: { en: "Pain in the testicles", sw: "Maumivu kwenye korodani" },
+    },
+    {
+        nodes: ["testicular swelling"],
+        system: "Reproductive",
+        question: { en: "Swelling of the testicles?", sw: "Uvimbe wa korodani?" },
+    },
+    {
+        nodes: ["foul vaginal discharge"],
+        system: "Reproductive",
         question: {
-            eng: "Have you experienced abnormal bleeding between your periods?",
-            sw: "Unatokwa na damu kusiko kawaida katikati ya vipindi vya hedhi?",
+            en: "Vaginal discharge that is foul smelling?",
+            sw: "Kutokwa na uke ambayo ni harufu mbaya?",
         },
     },
     {
-        nodes: ["swollen lymph nodes"],
+        nodes: ["postcoital bleeding"],
+        system: "Reproductive",
         question: {
-            eng:
-                "Are your lymph nodes swollen? You have lymph nodes in your neck, under your armpits, and near your genitals.",
-            sw:
-                "Tezi zako zimevimba? Una tezi kwenye shingo, chini ya makwapa na karibu na sehemu zako za siri.",
+            en: "Bleeding after sexual intercourse?",
+            sw: "Kutokwa na damu baada ya kujamiiana?",
         },
     },
     {
-        nodes: ["sore throat"],
+        nodes: ["yellow vaginal discharge"],
+        system: "Reproductive",
         question: {
-            eng: "Do you have a sore or irritated throat?",
-            sw: "Una maumivu au muwasho kwenye koo?",
+            en: "Yellow vaginal discharge?",
+            sw: "Utokwaji wa majimaji ya manjano ukeni?",
         },
     },
     {
-        nodes: ["foul smelling vaginal discharge"],
+        nodes: ["penile discharge"],
+        system: "Reproductive",
         question: {
-            sw: "Uchafu/ ute unaotoka ukeni una harufu mbaya isiyo ya shombe?",
-            eng: "Does your vaginal discharge smell foul?",
+            en: "Abnormal discharge from the penis?",
+            sw: "Utokwaji majimaji usiokuwa wa kawaida kutoka kwenye uume?",
         },
     },
     {
-        nodes: ["painless sore on genitals or mouth"],
-        question: {
-            sw: "Una upele au malengelenge kwenye au kuzunguka mdomo au sehemu za siri?",
-            eng: "Do you have painless sores on your mouth or your genitals?",
-        },
-    },
-    {
-        nodes: ["copper penny rash"],
-        question: {
-            eng:
-                "Do you have any reddish or brownish rashes on your palms or the soles of your feet? They often have white centers.",
-            sw:
-                "Una vipele vyenye rangi ya damu ya mzee au inayofanana na kahawa kwenye viganja vya mikono au miguu? Mara nyingi huwa na uweupe katikati ya kipele.",
-        },
-    },
-    {
-        nodes: ["arthritis"],
-        question: {
-            sw: "Je, una ugonjwa wa viungo kuuma uitwao Arthritis?",
-            eng: "Do you have arthritis?",
-        },
-    },
-    {
-        nodes: ["weight loss"],
-        question: {
-            eng: "Is the patient experiencing weight loss or have their clothes become loose?",
-            sw: "Je amepungua uzito bila ya kutegemea?",
-        },
-    },
-    // HIV related work follows next
-    {
-        nodes: ["headache"],
-        question: {
-            eng: "Does the patient have a headache?",
-            sw: "Does the patient have a headache?",
-        },
-    },
-    {
-        nodes: ["cough"],
-        question: {
-            eng: "Does the patient have a cough?",
-            sw: "Does the patient have a cough?",
-        },
-    },
-    {
-        nodes: ["dyspnoea"],
-        question: {
-            eng:
-                "Does the patient have any difficulty breathing or any difference in the way that they breathe?",
-            sw:
-                "Does the patient have any difficulty breathing or any difference in the way that they breathe?",
-        },
-    },
-    {
-        nodes: ["diarrhoea"],
-        question: {
-            eng: "Does the patient have diarrhoea?",
-            sw: "Does the patient have diarrhoea?",
-        },
-    },
-    {
-        nodes: ["fatigue"],
-        question: {
-            eng: "Does the patient get tired very easily or more easily than ususal?",
-            sw: "Does the patient get tired very easily or more easily than ususal?",
-        },
-    },
-    {
-        nodes: ["jaundice", "yellow eyes"],
-        question: {
-            eng:
-                "Does the patient have any yellowing of the skin or eyes, or has anyone told the patient that their eyes or skin look yellow?",
-            sw:
-                "Does the patient have any yellowing of the skin or eyes, or has anyone told the patient that their eyes or skin look yellow?",
-        },
-    },
-    {
-        nodes: ["skin rash"],
-        question: {
-            eng: "Does the patient have a skin rash?",
-            sw: "Does the patient have a skin rash?",
-        },
-    },
-    {
-        nodes: ["urethral discharge"],
-        question: {
-            eng: "Does the patient have urethral discharge?",
-            sw: "Does the patient have urethral discharge?",
-        },
+        nodes: ["genital itching"],
+        system: "Reproductive",
+        question: { en: "Genital itching?", sw: "Kuwashwa sehemu za siri?" },
     },
     {
         nodes: ["malaise"],
+        system: "",
         question: {
-            eng: "Does the patient have malaise or does their body feel generally weak?",
-            sw: "Does the patient have malaise or does their body feel generally weak?",
+            en: "General discomfort or body malaise?",
+            sw: "Usumbufu wa jumla au ugonjwa wa malaise?",
         },
+    },
+    {
+        nodes: ["headache"],
+        system: "Neurological",
+        question: { en: "A headache?", sw: "Maumivu ya kichwa?" },
     },
     {
         nodes: ["stiff neck"],
-        question: {
-            eng: "Does the patient have a stiff neck?",
-            sw: "Does the patient have a stiff neck?",
-        },
+        system: "Musculoskeletal",
+        question: { en: "A stiff neck?", sw: "Shingo ngumu?" },
     },
     {
         nodes: ["photophobia"],
-        question: {
-            eng: "Does the patient feel like the lights are too bright?",
-            sw: "Does the patient feel like the lights are too bright?",
-        },
+        system: "Neurological",
+        question: { en: "Sensitivity to light?", sw: "Unyeti kwa mwanga?" },
     },
     {
         nodes: ["coma"],
+        system: "Neurological",
         question: {
-            eng: "Is the patient in a coma?",
-            sw: "Is the patient in a coma?",
+            en: "Prolonged unconciousness (in a coma)?",
+            sw: "Kupoteza fahamu kwa muda mrefu (katika coma)?",
+        },
+    },
+    { nodes: ["cough"], system: "Respiratory", question: { en: "A cough?", sw: "Kikohozi?" } },
+    {
+        nodes: ["dyspnoea"],
+        system: "Respiratory",
+        question: { en: "Difficulty breathing?", sw: "Ugumu wa kupumua" },
+    },
+    {
+        nodes: ["skin rash"],
+        system: "Integumentary",
+        question: { en: "A skin rash?", sw: "A skin rash?" },
+    },
+    {
+        nodes: ["visual impairment"],
+        system: "Ocular",
+        question: {
+            en: "Vision loss or a sudden change in their vision?",
+            sw: "Kupoteza uono au mabadiliko ya ghafla katika uono wao?",
         },
     },
     {
-        nodes: ["visual loss"],
+        nodes: ["hearing impairment"],
+        system: "Hearing",
         question: {
-            eng:
-                "Does the patient have loss of vision or do they feel that their eyesight has changed recently?",
-            sw:
-                "Does the patient have loss of vision or do they feel that their eyesight has changed recently?",
-        },
-    },
-    {
-        nodes: ["hearing loss"],
-        question: {
-            eng: "Does the patient have hearing loss or difficulty in hearing?",
-            sw: "Does the patient have hearing loss or difficulty in hearing?",
+            en: "Hearing loss or a sudden change in their hearing?",
+            sw: "Kupoteza usikivu au mabadiliko ya ghafla katika kusikia kwao?",
         },
     },
     {
         nodes: ["lethargy"],
-        question: {
-            eng:
-                "Does the patient feel like they can't or don't want to move around and work the way they used to?",
-            sw:
-                "Does the patient feel like they can't or don't want to move around and work the way they used to?",
-        },
+        system: "",
+        question: { en: "Lethargy or a lack of energy?", sw: "Ulevi au ukosefu wa nguvu?" },
     },
     {
         nodes: ["confusion"],
-        question: {
-            eng: "Is the patient confused or experience confusion?",
-            sw: "Is the patient confused or experience confusion?",
-        },
+        system: "Central Nervous System",
+        question: { en: "Confusion?", sw: "Mkanganyiko?" },
     },
     {
         nodes: ["altered mental status"],
+        system: "Central Nervous System",
         question: {
-            eng:
-                "Does the patient have an altered mental status (do they know where they are and what time it is)?",
-            sw:
-                "Does the patient have an altered mental status (do they know where they are and what time it is)?",
+            en: "A siginificant change in mental status?",
+            sw: "Mabadiliko makubwa katika hali ya akili?",
         },
     },
     {
         nodes: ["focal neurological deficit"],
-        question: {
-            eng: "Does the patient have a focal neurological deficit?",
-            sw: "Does the patient have a focal neurological deficit?",
-        },
+        system: "Central Nervous System",
+        question: { en: "Abnormal function of a body area (such as their face, arms, tongue, or eyes)?", sw: "Kazi isiyo ya kawaida ya eneo la mwili (kama vile uso, mikono, ulimi, au macho)?" },
     },
     {
         nodes: ["diastolic hypertension"],
+        system: "",
+        question: { en: "High diastolic blood pressure?", sw: "Shinikizo la damu la juu?" },
+    },
+    {
+        nodes: ["low grade fever"],
+        system: "Immune",
+        question: { en: "A low grade fever?", sw: "Homa ya kiwango cha chini?" },
+    },
+    {
+        nodes: ["weight loss"],
+        system: "",
         question: {
-            eng: "Does the patient have diastolic hypertension?",
-            sw: "Does the patient have diastolic hypertension?",
+            en: "Sudden weight loss (or have their clothes become loose)?",
+            sw: "Kupunguza uzito ghafla (au punguza nguo zao ili kuwa huru)?",
         },
     },
     {
-        nodes: ["seizures", "seizure"],
+        nodes: ["loss of consiousness"],
+        system: "Neurological",
+        question: { en: "Loss of consiousness?", sw: "Kupoteza mazungumzo?" },
+    },
+    {
+        nodes: ["paralysis"],
+        system: "Neurological",
         question: {
-            eng:
-                "Is the patient experiencing seizures ('degedege') or excessive shaking of the entire body?",
-            sw:
-                "Is the patient experiencing seizures ('degedege') or excessive shaking of the entire body?",
+            en: "Paralysis or inability to move parts of their body?",
+            sw: "Kupooza au kukosa uwezo wa kusogeza sehemu za mwili wao?",
         },
     },
+    {
+        nodes: ["motor paralysis"],
+        system: "Central Nervous System",
+        question: { en: "Loss of motor function?", sw: "Kupoteza kazi ya motor?" },
+    },
+    {
+        nodes: ["cranial nerve palsy"],
+        system: "Central Nervous System",
+        question: {
+            en: "Loss of eye function or double vision?",
+            sw: "Kupoteza kazi ya macho au kuona mara mbili?",
+        },
+    },
+    {
+        nodes: ["abnormal posturing"],
+        system: "Central Nervous System",
+        question: {
+            en: "Involuntary flexion or extension of the arms and legs?",
+            sw: "Kupunguka kwa uhiari au kupanua mikono na miguu?",
+        },
+    },
+    {
+        nodes: ["history of tb"],
+        system: "//",
+        question: { en: "A history of tuberculosis", sw: "Historia ya kifua kikuu" },
+    },
+    { nodes: ["seizures"], system: "Neurological", question: { en: "Seizures?", sw: "Mshtuko?" } },
     {
         nodes: ["dry cough"],
-        question: {
-            eng: "Does the patient have a non-productive cough?",
-            sw: "Does the patient have a non-productive cough?",
-        },
+        system: "Respiratory",
+        question: { en: "A dry cough?", sw: "Kikohozi kikavu" },
     },
     {
         nodes: ["eye pain"],
-        question: {
-            eng: "Does the patient have eye pain?",
-            sw: "Does the patient have eye pain?",
-        },
+        system: "Ocular",
+        question: { en: "Eye pain?", sw: "maumivu ya jicho" },
     },
     {
-        nodes: ["decreased visual acuity"],
-        question: {
-            eng: "Does the patient feel like they can't read things that are far away?",
-            sw: "Does the patient feel like they can't read things that are far away?",
-        },
+        nodes: ["blurred vision"],
+        system: "Ocular",
+        question: { en: "Blurred vision?", sw: "uono hafifu" },
     },
     {
-        nodes: ["dark coloured urine"],
+        nodes: ["dark urine"],
+        system: "Renal",
         question: {
-            eng: "Does the patient have dark colored urine (the color of Coca-cola)?",
-            sw: "Does the patient have dark colored urine (the color of Coca-cola)?",
+            en: "Dark-colored urine (like Coca-Cola)?",
+            sw: "Mkojo wenye rangi nyeusi (kama Coca-Cola)?",
         },
     },
     {
         nodes: ["clay coloured stools"],
+        system: "Renal",
         question: {
-            eng: "Does the patient have clay colored stool?",
-            sw: "Does the patient have clay colored stool?",
+            en: "Light-colored stool (the color of clay)?",
+            sw: "Kinyesi cha rangi iliyopauka (rangi ya udongo)?",
         },
     },
     {
-        nodes: ["chills"],
-        question: {
-            eng: "Does the patient have chills?",
-            sw: "Does the patient have chills?",
-        },
+        nodes: ["jaundice"],
+        system: "Gastrointestinal",
+        question: { en: "Yellow skin or eyes?", sw: "Ngozi ya manjano au macho?" },
     },
     {
-        nodes: ["chest pain"],
-        question: {
-            eng: "Does the patient have chest pain?",
-            sw: "Does the patient have chest pain?",
-        },
-    },
-    {
-        nodes: ["tachypneoa"],
-        question: {
-            eng: "Is the patient breathing abnormally quickly?",
-            sw: "Is the patient breathing abnormally quickly?",
-        },
-    },
-    {
-        nodes: ["hypoxia after exertion"],
-        question: {
-            eng:
-                "Does the patient find it difficult to breathe after doing simple exercises such as walking?",
-            sw:
-                "Does the patient find it difficult to breathe after doing simple exercises such as walking?",
-        },
-    },
-    {
-        nodes: ["msm"],
-        question: {
-            eng: "Does the patient identify as MSM?",
-            sw: "Does the patient identify as MSM?",
-        },
+        nodes: ["men who have sex with men"],
+        system: "//",
+        question: { en: "Je", sw: "unafanya ngono na watu wa jinsia moja?" },
     },
     {
         nodes: ["multiple sexual partners"],
+        system: "//",
         question: {
-            eng: "Is the patient in a sexual or intimate relationship with more than one partner? ",
-            sw: "Is the patient in a sexual or intimate relationship with more than one partner? ",
+            en: "Have multiple sexual partners?",
+            sw: "Je! Una washirika wengi wa ngono?",
         },
+    },
+    { nodes: ["chills"], system: "", question: { en: "Chills?", sw: "Baridi?" } },
+    {
+        nodes: ["chest pain"],
+        system: "Respiratory",
+        question: { en: "Chest pain?", sw: "Maumivu ya kifua?" },
+    },
+    {
+        nodes: ["tachypnoea"],
+        system: "Respiratory",
+        question: { en: "Fast breathing?", sw: "Kupumua haraka?" },
+    },
+    {
+        nodes: ["hypoxia after exertion"],
+        system: "Respiratory",
+        question: {
+            en: "Reduced oxygen (hypoxia) after moderate exercising",
+            sw: "Kupungua kwa oksijeni (hypoxia) baada ya mazoezi ya wastani",
+        },
+    },
+    {
+        nodes: ["productive cough"],
+        system: "Respiratory",
+        question: { en: "A productive cough?", sw: "Kikohozi zalishi?" },
+    },
+    {
+        nodes: ["night sweats"],
+        system: "",
+        question: { en: "Night sweats?", sw: "Kutokwa na jasho nyakati za usiku?" },
+    },
+    {
+        nodes: ["burning epigastric pain"],
+        system: "Gastrointestinal",
+        question: {
+            en: "Burning pain in their abdomen?",
+            sw: "Kuungua maumivu ndani ya tumbo?",
+        },
+    },
+    {
+        nodes: ["epigastric pain before meals"],
+        system: "Gastrointestinal",
+        question: { en: "Abdominal pain before meals?", sw: "Maumivu ya tumbo kabla ya kula?" },
+    },
+    {
+        nodes: ["epigastric pain after meals"],
+        system: "Gastrointestinal",
+        question: { en: "Abdominal pain after meals?", sw: "Maumivu ya tumbo baada ya kula?" },
+    },
+    {
+        nodes: ["diarrhoea"],
+        system: "Gastrointestinal",
+        question: { en: "Diarrhoea?", sw: "kuhara?" },
+    },
+    {
+        nodes: ["sore throat"],
+        system: "",
+        question: { en: "A sore throat?", sw: "Koo lenye vidonda" },
+    },
+    {
+        nodes: ["rhinorrhea"],
+        system: "Respiratory",
+        question: { en: "A runny nose?", sw: "mafua makali" },
+    },
+    {
+        nodes: ["irritability"],
+        system: "Central Nervous System",
+        question: { en: "Irritability?", sw: "Kuwashwa?" },
+    },
+    {
+        nodes: ["dehydration"],
+        system: "",
+        question: { en: "Dehydration?", sw: "Ukosefu wa maji mwilini?" },
+    },
+    {
+        nodes: ["abdominal tenderness"],
+        system: "Gastrointestinal",
+        question: { en: "Tenderness in the abdomen?", sw: "Utulivu ndani ya tumbo?" },
+    },
+    {
+        nodes: ["convulsions"],
+        system: "Central Nervous System",
+        question: {
+            en: "Machafuko (sudde",
+            sw: "harakati isiyo ya kawaida ya kiungo au ya mwili)?",
+        },
+    },
+    {
+        nodes: ["hypoglycemia"],
+        system: "",
+        question: { en: "Low blood sugar?", sw: "Sukari ya chini ya damu?" },
+    },
+    { nodes: ["anaemia"], system: "", question: { en: "Anaemia?", sw: "Upungufu wa damu?" } },
+    {
+        nodes: ["sneezing"],
+        system: "Respiratory",
+        question: { en: "Sneezing?", sw: "Kupiga chafya?" },
     },
     {
         nodes: ["myalgia"],
+        system: "Musculoskeletal",
+        question: { en: "Muscle pain?", sw: "Kupiga chafya?" },
+    },
+    {
+        nodes: ["loss of appetite"],
+        system: "",
+        question: { en: "Loss of appetite?", sw: "Kupoteza hamu ya kula?" },
+    },
+    {
+        nodes: ["loss of smell"],
+        system: "Respiratory",
+        question: { en: "Loss of smell?", sw: "Kupoteza harufu?" },
+    },
+    {
+        nodes: ["high grade fever"],
+        system: "Immune",
+        question: { en: "A high grade fever?", sw: "Homa ya kiwango cha juu?" },
+    },
+    {
+        nodes: ["difficulty swallowing"],
+        system: "Digestive",
+        question: { en: "Difficulty swallowing?", sw: "Ugumu kumeza?" },
+    },
+    {
+        nodes: ["hoarseness"],
+        system: "Digestive",
         question: {
-            eng: "Does the patient have pain or soreness in their muscles?",
-            sw: "Does the patient have pain or soreness in their muscles?",
+            en: "Hoarseness (inability to use their voice)?",
+            sw: "Hoarseness (kutokuwa na uwezo wa kutumia sauti yao)?",
         },
     },
     {
-        nodes: ["phobia"],
+        nodes: ["halitosis"],
+        system: "Digestive",
+        question: { en: "Bad breath?", sw: "Harufu mbaya kinywani?" },
+    },
+    {
+        nodes: ["swollen lymph nodes"],
+        system: "Immune",
+        question: { en: "Swollen lymph nodes?", sw: "uvimbe" },
+    },
+    {
+        nodes: ["white patches on tonsils"],
+        system: "Digestive",
+        question: { en: "White patches on their tonsils?", sw: "Vipande vyeupe kwenye toni zao?" },
+    },
+    {
+        nodes: ["voice loss"],
+        system: "",
+        question: { en: "Loss of voice?", sw: "Kupoteza sauti?" },
+    },
+    {
+        nodes: ["tender anterior neck"],
+        system: "Immune",
+        question: { en: "Tenderness in the back of the neck?", sw: "Upole nyuma ya shingo?" },
+    },
+    {
+        nodes: ["nasal congestion"],
+        system: "Respiratory",
+        question: { en: "Nasal congestion?", sw: "Msongamano ndani ya pua?" },
+    },
+    {
+        nodes: ["vaginal inflammation"],
+        system: "Reproductive",
+        question: { en: "Inflammation of the vagina?", sw: "Kuvimba kwa uke?" },
+    },
+    {
+        nodes: ["curd like vaginal discharge"],
+        system: "Reproductive",
         question: {
-            eng: "Does",
-            sw: "Does",
+            en: "Vaginal discharge that is curd-like?",
+            sw: "Kutokwa na majimaji  ukeni ambayo ni kama jibini?",
         },
     },
     {
-        nodes: ["phobia"],
+        nodes: ["prolonged use of antibiotics"],
+        system: "//",
         question: {
-            eng: "Does",
-            sw: "Does",
+            en: "Prolonged use of antibiotics?",
+            sw: "Matumizi ya muda mrefu ya antibiotics?",
         },
     },
     {
-        nodes: ["phobia"],
+        nodes: ["pins and needles"],
+        system: "Central Nervous System",
         question: {
-            eng: "Does",
-            sw: "Does",
+            en: "Feeling of pins and needles in their body?",
+            sw: "Kuhisi pini na sindano katika mwili wao?",
         },
     },
-    // ...respiratoryQuestions,
+    {
+        nodes: ["genital ulcers"],
+        system: "Reproductive",
+        question: {
+            en: "Bumps or sores around the genitals?",
+            sw: "Mabonge au vidonda karibu na sehemu za siri?",
+        },
+    },
+    {
+        nodes: ["mouth ulcers"],
+        system: "Reproductive",
+        question: {
+            en: "Bumps or sores around the mouth?",
+            sw: "Mabonge au vidonda kuzunguka mdomo?",
+        },
+    },
+    {
+        nodes: ["multiple vesicle lesions"],
+        system: "Reproductive",
+        question: {
+            en: "Multiple lesions or bumps with fluid inside of them?",
+            sw: "Vidonda vingi au matuta yenye maji ndani yao?",
+        },
+    },
+    {
+        nodes: ["pus filled painful sores"],
+        system: "Reproductive",
+        question: { en: "Pus-filled painful sores?", sw: "Vidonda vikali vilivyojazwa?" },
+    },
+    {
+        nodes: ["inflamed foreskin"],
+        system: "Reproductive",
+        question: { en: "Inflamed foreskin?", sw: "Ngozi iliyokunjamana?" },
+    },
+    {
+        nodes: ["painful joints"],
+        system: "Musculoskeletal",
+        question: { en: "Painful joints?", sw: "Viungo vyenye maumivu?" },
+    },
+    {
+        nodes: ["painless sore on genitals or mouth"],
+        system: "Reproductive",
+        question: {
+            en: "Painless sores on the genitals or the mouth?",
+            sw: "Vidonda visivyo na maumivu kwenye sehemu za siri au kinywa?",
+        },
+    },
+    {
+        nodes: ["copper penny rash"],
+        system: "Reproductive",
+        question: {
+            en: "A rose-colored rash on the palms of their hands or soles of their feet?",
+            sw: "Upele wa rangi ya waridi kwenye mitende ya mikono yao au nyayo za miguu yao?",
+        },
+    },
+    {
+        nodes: ["arthritis"],
+        system: "Musculoskeletal",
+        question: { en: "Swelling or tenderness of their joints?", sw: "Uvimbe wa viungo vyao?" },
+    },
+    {
+        nodes: ["urethral discharge"],
+        system: "Reproductive",
+        question: {
+            en: "Abnormal discharge from the urethra?",
+            sw: "Utoaji usiokuwa wa kawaida kutoka kwenye mrija wa uume",
+        },
+    },
+    {
+        nodes: ["decreased visual acuity"],
+        system: "Neurological",
+        question: { en: "Reduced ability to see?", sw: "Kupunguza uwezo wa kuona?" },
+    },
 ]
 
-export function getQuestion(nodeName: string, language: "eng" | "sw" = "eng"): string {
+export function getQuestion(nodeName: string, language: "sw" | "en" = "en"): string {
     const nodeMap = questionMaps.find((qn) => qn.nodes.includes(nodeName))
     if (nodeMap) {
-        return nodeMap.question[language]
+        return upperFirst(nodeMap.question[language])
     }
-    return nodeName
+    return _.upperFirst(nodeName)
 }
 
 // export function getNodesFromQuestion(question: string) {

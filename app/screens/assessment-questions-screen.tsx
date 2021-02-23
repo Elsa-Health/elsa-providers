@@ -64,7 +64,7 @@ export const AssessmentQuestionsScreen: React.FunctionComponent<AssessmentQuesti
                             <AssessmentQuestion
                                 key={node}
                                 symptom={node}
-                                question={getQuestion(node, "eng")}
+                                question={getQuestion(node, "en")}
                             />
                         ))}
                         <Button

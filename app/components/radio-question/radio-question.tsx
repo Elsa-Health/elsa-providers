@@ -3,7 +3,7 @@ import { SYMPTOM_PRESENCE } from "../../common/constants"
 import { View, TouchableOpacity, StyleSheet } from "react-native"
 import type { StyleObj } from "react-native/Libraries/StyleSheet/StyleSheetTypes"
 import { RadioButton } from "react-native-paper"
-import { style, color } from "../../theme"
+import { style, color, xs, sm } from "../../theme"
 import { Text } from "../text/text"
 import { TextProps } from "../text/text.props"
 
@@ -11,6 +11,7 @@ interface RadioQuestionProps {
     question: string
     boldQuestion?: boolean
     questionSize?: TextProps["size"]
+    questionTx?: string
     value?: string | boolean
     onPress: (value: string | boolean) => any
     id: string
@@ -25,11 +26,12 @@ export const RadioQuestion: React.FC<RadioQuestionProps> = React.memo(
     ({
         question,
         boldQuestion,
-        questionSize = "h5",
+        questionSize = "h6",
+        questionTx,
         value = "absent",
         onPress,
         id,
-        marginVertical = 12,
+        marginVertical = sm || xs ? 6 : 12,
         options = SYMPTOM_PRESENCE,
         orientation = "vertical",
         containerStyle,
@@ -44,7 +46,7 @@ export const RadioQuestion: React.FC<RadioQuestionProps> = React.memo(
                     containerStyle,
                 ]}
             >
-                <Text bold={boldQuestion} size={questionSize}>
+                <Text bold={boldQuestion} tx={questionTx} lineHeight={24} size={questionSize}>
                     {question}
                 </Text>
                 <View style={[style.headerTextContentVerticalSpacing, styles.optionsContainer]}>
@@ -60,14 +62,14 @@ export const RadioQuestion: React.FC<RadioQuestionProps> = React.memo(
                                 onPress={() => onPress(option.value)}
                                 color={color.primary}
                             />
-                            <Text size="h6">{option.label}</Text>
+                            <Text tx={`radioOptions.${option.label.toLowerCase()}`} size={sm ? "default" : "h6"}>{option.label}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
             </View>
         )
     },
-    (prevProps, nextProps) => prevProps.value === nextProps.value,
+    (prevProps, nextProps) => (prevProps.value === nextProps.value) && (prevProps.question === nextProps.question),
 )
 
 const styles = StyleSheet.create({
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     optionItem: {
         alignItems: "center",
         flexDirection: "row",
-        marginRight: "6%",
+        marginRight: "3%",
         // marginRight: horizontal ? "4%" : "10%",
     },
     optionsContainer: {

@@ -1,4 +1,11 @@
 import _ from "lodash"
+import {
+    symptomsBySystems,
+    symptomState,
+    SystemSymptom,
+    SystemSymptomMapping,
+    SystemSymptoms,
+} from "../../common/systemSymptoms"
 const symptomsNetwork = [
     ["fever", "cough", "headache", "chills", "vomiting", "night sweats", "ear pain"],
     ["cough", "dyspnoea", "chest pain", "fever", "wheezing", "tachypnoea", "rhinorhea", "sneezing"],
@@ -19,6 +26,7 @@ const symptomsNetwork = [
     ["halitosis", "dental pain"],
     ["ear discharge", "ear pain"],
     ["dysuria", "frequent micturation"],
+    ["stiff neck"],
 ]
 
 export const symptomsList: string[] = _.uniq(_.flatten(symptomsNetwork))
@@ -91,10 +99,16 @@ export function getRelatedSymptoms(presentSymptoms: string[], relatedCount: numb
     ).splice(0, relatedCount)
 }
 
-interface SymptomDependency {
+export interface SymptomDependency {
     name: string
     symptom: string
     attributes: string[]
+    system:
+        | "general system"
+        | "gastroentestinal system"
+        | "respiratory system"
+        | "circulatory system"
+        | "central nervous system"
     duration: number
     attributeOptions: any
     visibilityRules: [string, string, "equalsTo" | "notEqualsTo", string][]
@@ -105,20 +119,21 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
         {
             name: "cough",
             symptom: "cough",
-            attributes: ["type", "sputum color", "when"],
+            system: "respiratory",
+            attributes: ["cough type", "sputum color", "when"],
             duration: 1,
-            type: null,
+            "cough type": null,
             "sputum color": null,
             when: [],
             attributeOptions: {
-                type: {
+                "cough type": {
                     type: "radio",
-                    options: ["dry", "productive"],
+                    options: ["dry cough", "productive cough"],
                     defaultValue: null,
                 },
                 "sputum color": {
                     type: "radio",
-                    options: ["yellow", "green", "red", "clear", "white"],
+                    options: ["yellow sputum", "green sputum", "red sputum", "clear sputum", "white sputum"],
                     default: null,
                 },
                 when: {
@@ -127,18 +142,19 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
                     defaultValue: [],
                 },
             },
-            visibilityRules: [["sputum color", "type", "equalsTo", "productive"]],
+            visibilityRules: [["sputum color", "cough type", "equalsTo", "productive cough"]],
         },
         {
             name: "fever",
             symptom: "fever",
-            attributes: ["grade"],
+            attributes: ["fever grade"],
             duration: 1,
-            grade: null,
+            "fever grade": null,
+            system: "general",
             attributeOptions: {
-                grade: {
+                "fever grade": {
                     type: "radio",
-                    options: ["low grade", "high grade"],
+                    options: ["low grade fever", "high grade fever"],
                     defaultValue: null,
                 },
             },
@@ -147,10 +163,11 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
         {
             name: "vomiting",
             symptom: "vomiting",
-            attributes: ["content"],
-            content: [],
+            attributes: ["vomiting content"],
+            "vomiting content": [],
+            system: "gastroentestinal",
             attributeOptions: {
-                content: {
+                "vomiting content": {
                     type: "checkbox",
                     options: ["food", "bile", "blood"],
                     defaultValue: [],
@@ -161,13 +178,14 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
         {
             name: "abdominal pain",
             symptom: "abdominal pain",
-            attributes: ["content", "when"],
-            content: [],
+            system: "gastroentestinal",
+            attributes: ["abdominal pain type", "when"],
+            "abdominal pain type": [],
             when: [],
             attributeOptions: {
-                content: {
+                "abdominal pain type": {
                     type: "checkbox",
-                    options: ["epigastric", "umbilical", "hypogastric"],
+                    options: ["epigastric pain", "umbilical pain", "hypogastric pain"],
                     defaultValue: [],
                 },
                 when: {
@@ -190,3 +208,140 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
         }),
     ),
 )
+
+export function RENAME_findNode(systemMapping = symptomsBySystems, symptom: string) {
+    return _.flattenDeep(
+        systemMapping.map((symptomSystem) => {
+            // General mappings
+            return symptomSystem.mapping
+                .map((systemMapping) => {
+                    // inside the individual system (general, GE, Resp, etc)
+                    // systemMapping.map(systemMap => systemMap)
+                    // console.log("Recursively", recursivelyFindNode(systemMapping, symptom))
+                    return recursivelyFindNode(systemMapping, symptom)
+                })
+                .filter((node) => node !== null)
+        }),
+    )
+}
+
+// HACK: This is a hack to work with the offline naive causal modes which just map cause to effect
+export function findAllSymptomsWithValue(systemMapping: SystemSymptom, value: symptomState) {
+    const presentSymptoms = []
+    function recursivelyFindNodeByValue(systemMapping: SystemSymptom, value: string) {
+        // check if this is the node we are looking for based on the value
+        if (systemMapping.value === value) {
+            presentSymptoms.push(systemMapping.symptom)
+            // return systemMapping
+        }
+        // check if this node has children
+        if (systemMapping.children?.length > 0) {
+            // Check if the node has a matchink value or value
+            // recursivelyFindNodeByValue(systemMapping.children[0])
+            const results = systemMapping.children.map((systemMap) =>
+                recursivelyFindNodeByValue(systemMap, value),
+            )
+            const flatResults = _.flattenDeep(results)
+            if (flatResults.every((res) => res === null)) {
+                return null
+            }
+            return flatResults.find((res) => res !== null)
+        }
+        // If there are no children
+        return null
+    }
+
+    _.flattenDeep(
+        systemMapping.map((symptomSystem) => {
+            // General mappings
+            return symptomSystem.mapping
+                .map((systemMapping) => {
+                    // inside the individual system (general, GE, Resp, etc)
+                    // systemMapping.map(systemMap => systemMap)
+                    // recursivelyFindNodeByValue(systemMapping, value)
+                    // console.log("Recursively", recursivelyFindNodeByValue(systemMapping, value))
+                    // console.log(presentNodes)
+                    return recursivelyFindNodeByValue(systemMapping, value)
+                })
+                .filter((node) => node !== null)
+        }),
+    )
+
+    return presentSymptoms
+}
+
+function recursivelyFindNode(systemMapping: SystemSymptom, symptom: string) {
+    // check if this is the node we are looking for based on the symptom
+    if (systemMapping.symptom === symptom) {
+        return systemMapping
+    }
+    // check if this node has children
+    if (systemMapping.children?.length > 0) {
+        // Check if the node has a matchink symptom or value
+        // recursivelyFindNode(systemMapping.children[0])
+        const results = systemMapping.children.map((systemMap) =>
+            recursivelyFindNode(systemMap, symptom),
+        )
+        const flatResults = _.flattenDeep(results)
+        if (flatResults.every((res) => res === null)) {
+            return null
+        }
+        return flatResults.find((res) => res !== null)
+    }
+    // If there are no children
+    return null
+}
+
+export function updateSystemSymptomNode(
+    systemsList: SystemSymptomMapping[],
+    symptom: string,
+    value: symptomState,
+): any {
+    return systemsList.map((symptomSystem) => {
+        // General mappings
+        return symptomSystem.mapping.map((systemMapping) => {
+            // inside the individual system (general, GE, Resp, etc)
+            // console.log("RecFoundursively", recursivelyUpdateNode(systemMapping, symptom, value))
+            return recursivelyUpdateNode(systemMapping, symptom, value)
+        })
+    })
+}
+
+export function recursivelyUpdateNode(
+    systemMapping: SystemSymptom,
+    symptom: string,
+    value: symptomState,
+): SystemSymptom {
+    // check if this is the node we are looking for based on the symptom
+    if (systemMapping.symptom === symptom) {
+        systemMapping.value = value
+
+        // HACK: If the parent is set to absent, stringify all the children and replace all occurances of present with absent
+        // Why: So that if a parent symptom is set to absent, we want to make sure things that depend on it are also set to absent
+        if (value === "absent") {
+            systemMapping.children = JSON.parse(
+                JSON.stringify(systemMapping.children).replace(
+                    /"value":"present"/g,
+                    `"value":"absent"`,
+                ),
+            )
+        }
+
+        return systemMapping
+    }
+    // check if this node has children
+    if (systemMapping.children?.length > 0) {
+        // Check if the node has a matchink symptom or value
+        // recursivelyFindNode(systemMapping.children[0])
+        const results = systemMapping.children.map((systemMap) =>
+            recursivelyUpdateNode(systemMap, symptom, value),
+        )
+        const flatResults = _.flattenDeep(results)
+        if (flatResults.every((res) => res === null)) {
+            return null
+        }
+        return flatResults.find((res) => res !== null)
+    }
+    // If there are no children
+    return null
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Elsa | Providers</string>
+    
+    <string moduleConfig="true" name="CodePushDeploymentKey">F3bLZDYN2sBcxSdudAkw-fhcGf5F3EfA66pL0</string>
 </resources>

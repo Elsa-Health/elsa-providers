@@ -7,7 +7,7 @@ import { PrimaryNavigator } from "./primary-navigator"
 import { CTCNavigator } from "./ctc-navigation"
 import { ADDONavigator } from "./addo-navigation"
 import { dispensaryNavigator } from "./dispensary-navigation"
-import { StatusBar } from "react-native"
+import { CWNavigator } from "./child-wellbeing-navigation"
 import { authNavigator } from "./auth-navigation"
 
 const Stack = createNativeStackNavigator<RootParamList>()
@@ -17,17 +17,15 @@ const RootStack = () => {
 
     // auth here i assume
     // when authenticated and checking for appropriate permissions then showing appropriate stack
-   
+
     return (
         <Stack.Navigator
-        
             screenOptions={{
                 headerShown: false,
                 gestureEnabled: true,
-
                 stackPresentation: "modal",
             }}
-            initialRouteName="CTCStack"
+            initialRouteName="ADDOStack"
         >
             {/* Route for the Dispensary */}
             <Stack.Screen
@@ -60,6 +58,15 @@ const RootStack = () => {
             <Stack.Screen
                 name="CTCStack"
                 component={CTCNavigator}
+                options={{
+                    headerShown: false,
+                }}
+            />
+
+            {/* Route for the CTC */}
+            <Stack.Screen
+                name="CWNavigator"
+                component={CWNavigator}
                 options={{
                     headerShown: false,
                 }}

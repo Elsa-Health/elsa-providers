@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Screen, Text, Card } from "../../components"
-import { TextInput,  Button } from "react-native-paper"
+import { Screen, Text, Card, Notification } from "../../components"
+import { TextInput, Button } from "react-native-paper"
 import CustomPicker from "../../components/custom-picker/custom-picker"
 import { EDUCATION_LEVELS, educationLevels, BOOLEAN_OPTIONS } from "../../common/constants"
 import { View, StyleSheet } from "react-native"
@@ -14,13 +14,9 @@ import Spacer from "../../components/spacer/spacer"
 //     navigation: NativeStackNavigationProp<ParamListBase>
 // }
 
-// TODO :  removing all non-custom components 
-const ROOT: ViewStyle = {
-    // flex: 1,
-}
 const questionContainerStyle = { marginVertical: 15 }
 
-export const AdherenceAssess: React.FC = (props) => {
+export const AdherenceAssessment: React.FC = (props) => {
     const state = useAdherenceStore()
     const setState = useAdherenceStore((state) => state.updateAdherenceFactor)
     // const [state, setState] = React.useState({
@@ -36,18 +32,17 @@ export const AdherenceAssess: React.FC = (props) => {
 
     const mode = props.route.params?.mode ? props.route.params.mode : "complete"
 
+    console.log("Mode: ", props.route)
+
     return (
         <Screen preset="scroll" title="Adherence Assessment">
-            <Spacer size={20} />
-            <Card>
-                <Text size="h6" color="gray" italic>
-                    Please input the following information about your patient to assess the risk of
-                    non-adherence.
-                </Text>
-            </Card>
-
-            <Spacer size={12} />
-            <Card title="Adherence">
+            <Card marginVertical={20} title="Risk of Non-Adherence">
+                <Notification variation="info" title="Assessing Non-Adherence" visible={true}>
+                    <Text>
+                        This page helps to assess the patient's non-adherence to their HIV
+                        medication. Please ask the patient about the following:
+                    </Text>
+                </Notification>
                 <CustomPicker
                     selectedValue={state.education}
                     label="What is your patient's education level?"
@@ -69,7 +64,7 @@ export const AdherenceAssess: React.FC = (props) => {
                         label="Number"
                         keyboardType="number-pad"
                         value={String(
-                            state.pastMonthMissedCount > 0 ? state.pastMonthMissedCount : "",
+                            state.pastMonthMissedCount > 0 ? state.pastMonthMissedCount : "0",
                         )}
                         mode="outlined"
                         onChangeText={(text) => setState({ pastMonthMissedCount: Number(text) })}
@@ -117,7 +112,7 @@ export const AdherenceAssess: React.FC = (props) => {
                 />
 
                 <View style={{ flexDirection: "row", paddingHorizontal: 6, alignSelf: "flex-end" }}>
-                    <Button
+                    {/* <Button
                         style={styles.actionButtons}
                         mode="text"
                         uppercase={false}
@@ -136,15 +131,15 @@ export const AdherenceAssess: React.FC = (props) => {
                         }}
                     >
                         <Text color="primary">Skip</Text>
-                    </Button>
-                    <Spacer size={10} horizontal />
+                    </Button> */}
+                    {/* <Spacer size={10} horizontal /> */}
                     <Button
                         style={styles.actionButtons}
                         onPress={() => {
                             // navigate here
                             // NOTE: This passes the params from the previous route, if any to the next screen
                             // this is done so that we can force the final screen to not have the diagnoses graphs and only show results relevant to adherence audits
-                            navigation.navigate("ctc.AdherenceSummary", props.route.params)
+                            navigation.navigate("ctc.AssessmentSummary", props.route.params)
                         }}
                         mode="contained"
                         uppercase={false}
@@ -166,4 +161,4 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
 })
-export default AdherenceAssess
+export default AdherenceAssessment

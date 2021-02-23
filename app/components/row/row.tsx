@@ -6,6 +6,7 @@ import { stylesResponsive } from "../../theme"
 interface RowProps {
     rowStyles?: StyleObj
     styles?: StyleObj
+    marginVertical?: number
     justifyContent?:
         | "space-between"
         | "center"
@@ -31,6 +32,7 @@ const Row: React.FC<RowProps> = (props: any) => {
         justifyContent = "flex-start",
         alignContent = "flex-start",
         alignItems = "flex-start",
+        marginVertical = 2,
     } = props
     return (
         <View
@@ -38,7 +40,7 @@ const Row: React.FC<RowProps> = (props: any) => {
                 stylesResponsive.row,
                 rowStyles,
                 styles,
-                { justifyContent, alignContent, alignItems },
+                { justifyContent, alignContent, alignItems, marginVertical },
             ]}
         >
             {children}

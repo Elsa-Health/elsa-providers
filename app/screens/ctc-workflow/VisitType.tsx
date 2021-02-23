@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { StyleSheet, TouchableOpacity, ToastAndroid, View } from "react-native"
-import { Screen, Row, Col, Text, Button, Card } from "../../components"
+import { Screen, Row, Col, Text, Button, Card, TextInput } from "../../components"
 // import { Card } from "react-native-paper"
 import Spacer from "../../components/spacer/spacer"
 import { useNavigation } from "@react-navigation/native"
@@ -8,186 +8,239 @@ import RadioQuestion from "../../components/radio-question/radio-question"
 import CustomPicker from "../../components/custom-picker/custom-picker"
 import { useRouteStore } from "../../stores"
 import { color } from "../../theme"
+import { Divider } from "react-native-paper"
+import { getNextAppointment, getNextAppointmentDate } from "../../common/utils"
+import { useAuthenticationStore, useVisitStore } from "../../models/ctc-store"
+import _ from "lodash"
+import { Api } from "../../services/api"
 
 const binaryOptions = [
     { label: "Yes", value: true },
     { label: "No", value: false },
 ]
 
-const VisitType: React.FC = () => {
-    const [state, setState] = React.useState({
-        visitType: "medication",
-        isTransiting: false,
-        attendanceFacility: "",
-    }) // medication or checkup
+const locations = [
+    "Patandi",
+    "Mbuguni",
+    "USA RC",
+    "USA DC",
+    "Meru Regional Hospital",
+    "Kimundo",
+    "Ngoaresambu",
+    "Other",
+].map((loc) => ({ label: loc, value: loc.toLowerCase() }))
+
+const VisitType: React.FC = ({ route }) => {
+    // const [patientAppointments, setAppointments] = useVisitStore((state) => [
+    //     state.patientAppointments,
+    //     state.setAppointments,
+    // ])
+    const [visit, updateVisit] = useVisitStore((state) => [state.visit, state.updateVisit])
+    const [facilityName] = useAuthenticationStore((state) => [state.facilityName])
+    // const isPatientNew = useRouteStore((state) => state.isPatientNew)
+    // const currentAppointmentDate = getNextAppointmentDate(patientAppointments)
+    // const currentAppointmentId = getNextAppointment(patientAppointments)?.id
+
+    const [state, setState] = React.useState(
+        _.pick(visit, [
+            "visitType",
+            "isTransiting",
+            "CTCNumber",
+            "attendanceFacility",
+            "registerdFacility",
+        ]),
+    )
 
     const navigation = useNavigation()
 
-    const isPatientNew = useRouteStore((state) => state.isPatientNew)
-
     const [isFullCheck, setIsFullCheckup] = useState(false)
     const [isMedication, setIsMedication] = useState(false)
+    // const [fulfilledAppointment, setFulfilledAppointment] = useState(false)
 
-    const toggleSelection = () => {}
-    // global state for tracking new user or not / props needed
-    // transit prop/state
-    // facility of attendance
+    // nextRouteName is the name of the next route
+    const nextRouteName = route.params?.nextRouteName
 
     const next = () => {
-        // check and save everthing and go to the next page
-        // TODO :choosing route depending on previouse screens inputs
-
         if (!isFullCheck && !isMedication) {
             ToastAndroid.show("Please select a visit type", ToastAndroid.SHORT)
             return
         }
 
-        // FIXME: What is going on here?
-        if (isFullCheck) {
-            if (isPatientNew) {
-                navigation.navigate("ctc.PatientNewVisit")
-            } else {
-                navigation.navigate("ctc.PatientVisit")
-            }
-        }
-        if (isMedication) {
-            // is there a need to register a patient if is new is thre for medication ony?
+        // Update the global visit store with values set here
+        updateVisit({ ...state, attendanceFacility: facilityName })
 
-            navigation.navigate("ctc.AdherenceAssess", {
-                mode: "medication-only",
-                adherence: true,
+        if (isFullCheck) {
+            // const nextRouteName = isPatientNew ? "ctc.PatientNewVisit" : "ctc.PatientVisit"
+            navigation.navigate(nextRouteName || "ctc.ScanQRCode", {
+                nextRouteName: "ctc.PatientVisit",
             })
         }
 
-        // IF ITS MEDICATION NAVIGATE TO ADHRENCE SCREENS DIRECTLY
-        // CODES TO BE HERE
+        if (isMedication) {
+            // is there a need to register a patient if is new is thre for medication ony?
+            console.log("Is Medication")
+            // navigation.navigate(nextRouteName || "ctc.AdherenceAssessment", {
+            navigation.navigate(nextRouteName || "ctc.ScanQRCode", {
+                mode: "medication-only",
+                adherence: true,
+                nextRouteName: "ctc.AdherenceAssessment",
+            })
+        }
     }
 
+    React.useEffect(() => {
+        if (!state.isTransiting) {
+            setState((state) => ({ ...state, registerdFacility: facilityName }))
+        }
+    }, [state.isTransiting])
+
     return (
-        <Screen preset="scroll" title="Type of Visit">
+        <Screen preset="scroll" backgroundColor="white" title="Type of Visit">
             <Spacer size={20} />
-            <Card>
-                <Spacer size={20} />
 
-                <Text size="h5">
-                    What is the purpose of your patients visit to the clinic today?
-                </Text>
+            <Text size="h5">What is the purpose of your patients visit to the clinic today?</Text>
 
-                <Spacer size={30} />
+            <Spacer size={10} />
 
-                {/*
-            if other down options are to be included, then navigation has to be removed in these two cards
-            instead would have means to apply style on it if selected otherwise leave as it is
-            navigation to be done by the next button  */}
-
-                <View
-                    style={
-                        !isFullCheck
-                            ? styles.buttonCard
-                            : {
-                                  backgroundColor: color.primary,
-                              }
-                    }
+            <View
+                style={
+                    !isFullCheck
+                        ? styles.buttonCard
+                        : {
+                              backgroundColor: color.primary,
+                          }
+                }
+            >
+                <TouchableOpacity
+                    onPress={() => {
+                        setIsMedication(false)
+                        setIsFullCheckup(true)
+                        setState({ ...state, visitType: "checkup" })
+                    }}
                 >
-                    <TouchableOpacity
-                        onPress={() => {
-                            setIsMedication(false)
-                            setIsFullCheckup(true)
-                            setState({ ...state, visitType: "full" })
-                        }}
-                    >
-                        <View style={styles.cardContent}>
-                            <Text size="h4" color={isFullCheck ? "white" : null}>
-                                Full Checkup
-                            </Text>
-                            <Text size="h6" color={isFullCheck ? "white" : null}>
-                                (Patient has symptoms or complaints)
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.cardContent}>
+                        <Text size="h4" color={isFullCheck ? "white" : null}>
+                            Full Checkup
+                        </Text>
+                        <Text size="h6" color={isFullCheck ? "white" : null}>
+                            (Patient has symptoms or complaints)
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
 
-                <Spacer size={30} />
+            <Spacer size={20} />
 
-                <View
-                    style={
-                        !isMedication
-                            ? styles.buttonCard
-                            : {
-                                  backgroundColor: color.primary,
-                              }
-                    }
+            <View
+                style={
+                    !isMedication
+                        ? styles.buttonCard
+                        : {
+                              backgroundColor: color.primary,
+                          }
+                }
+            >
+                <TouchableOpacity
+                    onPress={() => {
+                        setIsFullCheckup(false)
+                        setIsMedication(true)
+                        setState({ ...state, visitType: "medication-only" })
+                    }}
                 >
-                    <TouchableOpacity
-                        onPress={() => {
-                            setIsFullCheckup(false)
-                            setIsMedication(true)
-                            setState({ ...state, visitType: "medication-only" })
-                        }}
-                    >
-                        <View style={styles.cardContent}>
-                            <Text size="h4" color={isMedication ? "white" : null}>
-                                Medication Only
-                            </Text>
-                            <Text size="h6" color={isMedication ? "white" : null}>
-                                (Patient does not have symptoms or complaints)
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.cardContent}>
+                        <Text size="h4" color={isMedication ? "white" : null}>
+                            Medication Refill
+                        </Text>
+                        <Text size="h6" color={isMedication ? "white" : null}>
+                            (Patient does not have symptoms or complaints)
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
 
-                <Spacer size={12} />
+            <Spacer size={42} />
+            <Divider />
+            {/* FIXME: this should only show when its 7 days before the expected appointment date */}
+            {/* {currentAppointmentDate && (
+                <View>
+                    <Spacer size={22} />
+                    <RadioQuestion
+                        question={`ARV appointment date: ${currentAppointmentDate}.\nAre you dispensing next round of ARV's today for that appointment?`}
+                        value={fulfilledAppointment}
+                        options={binaryOptions}
+                        // questionSize="h5"
+                        onPress={(answer: boolean) => {
+                            // console.log("Answer :  ", answer)
+                            setFulfilledAppointment(answer)
+                            // updateAppointment()
+                        }}
+                    />
+                </View>
+            )} */}
+            <Spacer size={12} />
+            <Row>
+                <Col md={12}>
+                    <RadioQuestion
+                        question="Patient on transit or visiting from another facility?"
+                        value={state.isTransiting}
+                        options={binaryOptions}
+                        // questionSize="h5"
+                        onPress={(answer: boolean) => {
+                            // console.log("Answer :  ", answer)
+                            setState({
+                                ...state,
+                                isTransiting: answer,
+                            })
+                        }}
+                    />
+                </Col>
+            </Row>
+
+            <Spacer size={12} />
+            {state.isTransiting && (
                 <Row>
                     <Col md={12}>
-                        <RadioQuestion
-                            question="Is your patient on transit or visiting from another facility"
-                            value={state.isTransiting}
-                            options={binaryOptions}
-                            onPress={(answer) => {
-                                // console.log("Answer :  ", answer)
-                                setState({
+                        <CustomPicker
+                            labelSize="h5"
+                            selectedValue={state.registerdFacility}
+                            label="If yes, which facility do they normally attend?"
+                            options={locations}
+                            onChange={(newValue) => {
+                                setState((state) => ({
                                     ...state,
-                                    isTransiting: answer,
-                                })
+                                    registerdFacility: newValue,
+                                }))
                             }}
                         />
                     </Col>
                 </Row>
+            )}
 
-                <Spacer size={12} />
-                {state.isTransiting && (
-                    <Row>
-                        <Col md={12}>
-                            <CustomPicker
-                                labelSize="h6"
-                                label="If yes, which facility do they normally attend?"
-                                options={[{ label: "Some Hospital", value: "some value" }]}
-                                onChange={() => (newValue) => {
-                                    setState({
-                                        ...state,
-                                        attendanceFacility: newValue,
-                                    })
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                )}
+            {/* If the patient is from "other" non listed facilities, just record their CTC Number */}
+            {state.isTransiting && (
+                <View>
+                    <Spacer size={12} />
+                    <TextInput
+                        label="CTC ID Number"
+                        value={state.CTCNumber}
+                        onChangeText={(val) => setState((state) => ({ ...state, CTCNumber: val }))}
+                    />
+                </View>
+            )}
 
-                <Spacer size={20} />
-                <Row>
-                    <Col md={12} colStyles={{ flexDirection: "row-reverse" }}>
-                        <Button
-                            onPress={next}
-                            label="Next"
-                            labelSize="h6"
-                            mode="contained"
-                            style={{ paddingHorizontal: 72, paddingVertical: 8 }}
-                            // withArrow={true}
-                        />
-                    </Col>
-                </Row>
-                <Spacer size={20} />
-            </Card>
+            <Spacer size={20} />
+            <Row>
+                <Col md={12} colStyles={{ flexDirection: "row-reverse" }}>
+                    <Button
+                        onPress={next}
+                        label="Next"
+                        labelSize="h6"
+                        mode="contained"
+                        style={{ paddingHorizontal: 72, paddingVertical: 8 }}
+                        // withArrow={true}
+                    />
+                </Col>
+            </Row>
             <Spacer size={20} />
         </Screen>
     )
@@ -196,6 +249,7 @@ const VisitType: React.FC = () => {
 const styles = StyleSheet.create({
     buttonCard: {
         borderColor: color.primary,
+        borderRadius: 8,
         borderWidth: 1,
     },
     cardContent: {

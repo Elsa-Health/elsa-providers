@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, ViewStyle } from "react-native"
 import { Text } from "../text/text"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import { Button as PaperButton } from "react-native-paper"
@@ -12,7 +12,11 @@ type ButtonProps = Omit<PaperButtonProps, "children" | "color"> & {
     withArrow?: boolean
     backgroundColor?: string
     labelSize?: TextProps["size"]
-    label: string
+    labelColor?: TextProps["color"]
+    label: string,
+    labelTx?: string,
+    style?: ViewStyle
+    arrowLeftSpace?: number
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -21,27 +25,38 @@ const Button: React.FC<ButtonProps> = ({
     onPress,
     label,
     labelSize = "h6",
+    labelColor,
+    labelTx,
+    style,
+    arrowLeftSpace = 40,
     ...rest
 }) => {
+    const btnLabelColor = (() => {
+        if (labelColor && typeof labelColor === "string") {
+            return labelColor
+        }
+
+        if (rest.mode === "contained" || backgroundColor) {
+            return "white"
+        }
+
+        return "primary"
+    })()
     return (
         <View style={withArrow ? styles.containerRow : styles.containerColumn}>
             <PaperButton
                 onPress={onPress}
                 uppercase={false}
-                style={backgroundColor ? { backgroundColor } : {}}
+                style={[style || {}, backgroundColor ? { backgroundColor } : {}]}
                 {...rest}
             >
-                <Text
-                    style={styles.text}
-                    color={rest.mode === "contained" || backgroundColor ? "white" : "primary"}
-                    size={labelSize}
-                >
+                <Text tx={labelTx} style={styles.text} color={btnLabelColor} size={labelSize}>
                     {label}
                 </Text>
 
                 {withArrow && (
                     <>
-                        <Spacer horizontal size={40} />{" "}
+                        <Spacer horizontal size={arrowLeftSpace} />{" "}
                         <MaterialIcon name="arrow-right" size={20} />
                     </>
                 )}

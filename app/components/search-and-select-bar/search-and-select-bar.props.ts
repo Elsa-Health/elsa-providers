@@ -3,4 +3,5 @@ export interface SearchAndSelectBarProps {
     selectedOptions: string[]
     toggleOption: Function
     hideSelectedOptions?: boolean
+    onChangeSearchString?: (str: string) => void
 }

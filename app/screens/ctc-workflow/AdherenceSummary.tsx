@@ -18,6 +18,7 @@ import { useVisitStore, useAdherenceStore } from "../../models/ctc-store"
 import ExtendedDatePicker from "../../components/extended-date-picker/extended-date-picker"
 import { getObservationsFromLists, calculate } from "../../elsa-local/curiosity.nb"
 import { useRouteStore } from "../../stores"
+import { ProgressBar } from "@react-native-community/progress-bar-android"
 
 const { width } = Dimensions.get("screen")
 
@@ -42,10 +43,7 @@ const AdherenceSummary: React.FunctionComponent<AdherenceSummaryProps> = ({ rout
         },
         {
             description: "Prescribe medication or treatments.",
-            route:
-                mode === "medication-only"
-                    ? "ctc.MedicationOnlyVisit"
-                    : "ctc.MedicationVisit",
+            route: mode === "medication-only" ? "ctc.MedicationOnlyVisit" : "ctc.MedicationVisit",
         },
         {
             description: "Offer HIV/AIDS counseling to the patient.",
@@ -255,19 +253,44 @@ const AdherenceAnalysis: React.FC<AdherenceAnalysisProps> = ({}) => {
     // TODO: Need to add loading state, and error state on a failed backend request
     const [adherenceAudit, setAdherenceAudit] = React.useState({
         mean: 0,
-        data: _.times(10, (n) => 0),
+        data: {},
+        loading: true,
     })
     const responses = useAdherenceStore()
 
-    const requestAudit = () => {
+    const requestAudit = async () => {
         const api = new Api()
 
-        const results = api.requestHIVAdherenceAudit(responses)
-        setAdherenceAudit(results)
+        const results = await api.requestHIVAdherenceAudit(responses, 64, "female")
+
+        console.log("AWAIT: ", api.requestLocalHIVAdherenceAudit(responses, 64, "female"))
+
+        const values = _.values(results)
+        const meanValue = _.sum(_.keys(results).map((result) => Number(result) * results[result]))
+        setAdherenceAudit({ data: results, mean: meanValue / _.sum(values), loading: false })
     }
     React.useEffect(() => {
+        console.warn("Mounted")
         requestAudit()
     }, [])
+
+    // const labels = [
+    //     "0",
+    //     "0.1",
+    //     "0.2",
+    //     "0.3",
+    //     "0.4",
+    //     "0.5",
+    //     "0.6",
+    //     "0.7",
+    //     "0.8",
+    //     "0.9",
+    //     "1.0",
+    // ]
+    const labels = _.keys(adherenceAudit.data).sort()
+    const graphData = labels.map((label) => adherenceAudit.data[label])
+
+    if (adherenceAudit.loading) return <ProgressBar />
     return (
         <Col md={12} marginVertical={30}>
             <Text size="h5" bold>
@@ -279,22 +302,10 @@ const AdherenceAnalysis: React.FC<AdherenceAnalysisProps> = ({}) => {
 
             <LineChart
                 data={{
-                    labels: [
-                        "0",
-                        "0.1",
-                        "0.2",
-                        "0.3",
-                        "0.4",
-                        "0.5",
-                        "0.6",
-                        "0.7",
-                        "0.8",
-                        "0.9",
-                        "1.0",
-                    ],
+                    labels,
                     datasets: [
                         {
-                            data: [0, 4, 1, 1, 3, 7, 21, 80, 50, 5, 2], //adherenceAudit.data,
+                            data: graphData, // [0, 4, 1, 1, 3, 7, 21, 80, 50, 5, 2], //adherenceAudit.data,
                             strokeWidth: 2,
                             color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
                         },

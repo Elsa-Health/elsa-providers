@@ -18,7 +18,7 @@ import { string } from "mobx-state-tree/dist/internal"
 import {
     YEAR_NUMBERS,
     DAY_NUMBERS,
-    ARV_STAGES,
+    WHO_STAGES,
     MONTH_NAMES,
     DRUG_ALLERGIES,
     MARITIAL_STATUS,
@@ -54,7 +54,7 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
             year: "",
             day: "",
             arvStage: "",
-            ARVStartDate: null,
+            ARTStartDate: null,
         })
 
         const [firstTest, setFirstTest] = React.useState({ month: "", year: "", day: "" })
@@ -596,13 +596,13 @@ export const CtcNewPatientScreen: React.FunctionComponent<CtcNewPatientScreenPro
                         <Col md={12} marginVertical={10}>
                             <ExtendedDatePicker
                                 label="Date Started on ARVs"
-                                onDateSet={(date) => setState({ ...state, ARVStartDate: date })}
+                                onDateSet={(date) => setState({ ...state, ARTStartDate: date })}
                             />
                         </Col>
 
                         <Col md={12} colStyles={style.contentTextVerticalSpacing}>
                             <CustomPicker
-                                options={pickerOptionsFromList(ARV_STAGES)}
+                                options={pickerOptionsFromList(WHO_STAGES)}
                                 defaultFirstItem="WHO Stage"
                                 accessibilityLabel="stage"
                                 selectedValue={state.arvStage}

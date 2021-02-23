@@ -14,8 +14,8 @@ import ExtendedDatePicker from "../components/extended-date-picker/extended-date
 
 const CTCMedicationOnlyRecord: React.FC = (props) => {
     const [state, setState] = React.useState({
-        arvDecision: "",
-        arvDecisionReason: [],
+        ARTDecision: "",
+        ARTDecisionReason: [],
     }) // medication or checkup
     const navigation = useNavigation()
 
@@ -28,7 +28,7 @@ const CTCMedicationOnlyRecord: React.FC = (props) => {
                 <CustomPicker
                     options={pickerOptionsFromList(ARVRECOMMENDATIONOPTIONS)}
                     onChange={updateARVDecision}
-                    selectedValue={state.arvDecision}
+                    selectedValue={state.ARTDecision}
                     // defaultFirstItem="Choose from list"
                     labelSize="h6"
                     // defaultFirstItemValue={ARVRECOMMENDATIONOPTIONS[1]}
@@ -48,9 +48,9 @@ const CTCMedicationOnlyRecord: React.FC = (props) => {
                     expandDropDowns
                     chipsPosition="top"
                     onSelectedItemsChange={(items) =>
-                        setState({ ...state, arvDecisionReason: items })
+                        setState({ ...state, ARTDecisionReason: items })
                     }
-                    selectedItems={state.arvDecisionReason}
+                    selectedItems={state.ARTDecisionReason}
                 />
             </View>
 
@@ -68,9 +68,9 @@ const CTCMedicationOnlyRecord: React.FC = (props) => {
                     expandDropDowns
                     chipsPosition="top"
                     onSelectedItemsChange={(items) =>
-                        setState({ ...state, arvDecisionReason: items })
+                        setState({ ...state, ARTDecisionReason: items })
                     }
-                    selectedItems={state.arvDecisionReason}
+                    selectedItems={state.ARTDecisionReason}
                 />
             </View>
 

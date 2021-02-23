@@ -48,6 +48,7 @@ const CustomPickerNoMemo: React.FC<CustomPickerProps> = ({
             >
                 <Picker
                     selectedValue={selectedValue}
+                    // style={{  }}
                     onValueChange={onChange}
                     accessibilityLabel={accessibilityLabel}
                     testID="customPicker"
@@ -83,8 +84,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 0.5,
         color: "rgba(0, 0, 0, 0.32)",
+        justifyContent: "center",
         paddingHorizontal: 4,
-        paddingVertical: 4,
+        // paddingVertical: "auto",
     },
 })
 
@@ -93,3 +95,7 @@ export const CustomPicker = React.memo(CustomPickerNoMemo, (prevProps, nextProps
 })
 
 export default CustomPicker
+
+// FIXME: add support for the passed in value to be an empty string or null or undefined
+// This allows the initial value to not be defined and prevent rendering any item that looks to be
+// selected incorrectly

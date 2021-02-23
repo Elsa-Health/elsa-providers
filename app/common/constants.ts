@@ -1,5 +1,6 @@
 import { getYearsFrom, daysInMonth } from "./utils"
 import _ from "lodash"
+import { treatmentSupportType } from "../models/ctc-store"
 
 export const SYMPTOM_PRESENCE = [
     { label: "Yes", value: "present" },
@@ -13,9 +14,17 @@ export const BOOLEAN_OPTIONS = [
 
 // export const DAY_NUMBERS = Array.from(Array(daysInMonth(8, 2020)), (_, i) => String(i + 1))
 export const DAY_NUMBERS = _.times(31, (n) => n + 1)
-export const YEAR_NUMBERS = getYearsFrom(1940)
+export const YEAR_NUMBERS = getYearsFrom(1900)
 
-export const ARV_STAGES = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"]
+export const WHO_STAGES = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"]
+
+export const TREATMENT_SUPPORT_TYPES: string[] = [
+    "Community group",
+    "Family",
+    "Friends",
+    "None",
+    "Partner",
+]
 
 export const SYMPTOMS: string[] = [
     "Dry cough",
@@ -58,7 +67,7 @@ export const SYMPTOMS: string[] = [
     "Chills",
     "Chest pain",
     "Tachypneoa",
-    "Hypoxia after extertion",
+    "Hypoxia after exertion",
     "Dysuria",
     "Frequent micturation",
     "Pelvic pain",
@@ -142,7 +151,7 @@ export const TESTSLIST: string[] = [
     "Viral Load",
     "CrAg",
     "Sputum GeneXpert",
-    "Chest Xray",
+    "Chest X-ray",
     "HbsAg",
     "Creatinine",
     "CT/MRI",
@@ -155,13 +164,56 @@ export const TESTSLIST: string[] = [
     "LDH",
     "Chest CT",
     "Sputum PCR",
-    "Miscroscopy ",
+    "Miscroscopy",
     "1-2-Beta-D-glucan",
     "Liver function Tests",
     "Renal Function Tests",
     "Lumbar Puncture",
-    "Full Blood Picture",
+    "Complete Blood Count",
 ].sort()
+// FIXME: Broken
+export const ADDO_TESTS_LIST: string[] = [
+    "Diazepam",
+    "Artemether/ lumefantrine (ALU)",
+    "Nasal decongestant",
+    "Nonsteroidal anti-inflammatory drugs (NSAIDS)",
+    "Oral rehydration salts",
+    "Albendazole",
+    "Deworming tablets",
+    "Gentamycin eyedrops",
+    "Ampiclox",
+    "Vitamin C",
+    "Vitamin D",
+    "Zinc",
+    "Iron Supplements",
+    "Scaboma",
+    "Fluconazole",
+    "Corticosteroids",
+    "Folic acid tabs",
+    "Cloxacillin",
+    "Erythromycin",
+    "Cetrizine",
+    "Antihistamines",
+    "Hydrocortisone cream",
+    "Acyclovir",
+    "Nyastatin oral suspension",
+    "Anti-fungal pessaries",
+    "Salicylic acid ointment",
+    "Amoxicillin",
+    "Azithromycin",
+    "Amoxicillin/Clavulanate",
+    "Clindamycin",
+    "Cephalexin",
+    "Ciprofloxacin",
+    "Metronidazole",
+    "Levofloxacin",
+    "Doxycycline",
+    "Sulfadoxine–pyrimethamine",
+    "Diuretics",
+    "Paracetamol",
+    "Acetaminophen",
+    "Ibuprofen",
+]
 
 export const MEDICATIONSNEXTSTEPS: string[] = [
     "Manage intracranial pressure",
@@ -427,3 +479,42 @@ export const ARVCOMBINATIONREGIMENS: { [regimen: string]: string[] } = {
         "3x-P = Other 3rd line",
     ],
 }
+
+export const KNOWN_CONDITIONS = [
+    "Diabetes",
+    "Hypertension",
+    "Tuberculosis",
+    "HIV Encephalopathy",
+    "Genital ulcer disease",
+    "IRIS",
+    "Karposi Saccoma",
+    "Molluscum",
+    "Osephageal candidiasis",
+    "Partoid enlargement",
+    "Pelvic inflammatory disease",
+    "Papular pruritic eruptions",
+    "Oral thrush",
+    "Vaginal thrush",
+    "Ulcer",
+    "Zoster",
+    "Pneumonia",
+    "Pneumocystis pneumonia",
+    "Dementia",
+    "Cryptococcal meningitis",
+    "Anaemia",
+    "Depression",
+    "Anxiety",
+]
+
+export const ALLERGIES = [
+    "milk",
+    "eggs",
+    "peanuts",
+    "soy",
+    "wheat",
+    "tree nuts",
+    "fish",
+    "shellfish",
+    "penicillin",
+    "latex",
+]

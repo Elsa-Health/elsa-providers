@@ -1,30 +1,123 @@
 {
-  "common": {
-      "ok": "OK!",
-      "cancel": "Cancel",
-      "back": "Back"
-  },
-  "errors": {
-      "invalidEmail": "Invalid email address."
-  },
-  "welcomeScreen": {
-      "poweredBy": "POWERED BY BOWSER",
-      "readyForLaunch": "Ready for launch.",
-      "continue": "CONTINUE"
-  },
-  "demoScreen": {
-      "howTo": "HOW TO",
-      "title": "What’s In This Stack?",
-      "tagLine": "Congratulations, you’ve got a very advanced React Native app template here.  Take advantage of this boilerplate!",
-      "reactotron": "Demo Reactotron",
-      "androidReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running, run adb reverse tcp:9090 tcp:9090 from your terminal, and reload the app.",
-      "iosReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running and reload app."
-  },
-  "storybook": {
-      "placeholder": "Placeholder",
-      "field": "Field"
-  },
-  "phoneAuthScreen": {
-      "title": "Elsa | Huduma"
-  }
+    "common": {
+        "ok": "OK!",
+        "cancel": "Cancel",
+        "back": "Back",
+        "submit": "Wasilisha",
+        "nextSteps": "Hatua Zifuatazo",
+        "patientSex": "Jinsia ya Mgonjwa",
+        "patientPregnant": "Je! Mgonjwa ana ujauzito?",
+        "patientAssessment": "Tathmini ya Mgonjwa",
+        "symptomAssessment": "Tathmini ya Dalili",
+        "age": "Umri",
+        "years": "Miaka",
+        "months": "Miezi",
+        "next": "Endelea",
+        "todaysDate": "Tarehe ya Leo",
+        "duration": "Muda"
+    },
+    "errors": {
+        "invalidEmail": "Invalid email address."
+    },
+    "welcomeScreen": {
+        "poweredBy": "POWERED BY BOWSER",
+        "readyForLaunch": "Ready for launch.",
+        "continue": "CONTINUE"
+    },
+    "demoScreen": {
+        "howTo": "HOW TO",
+        "title": "What’s In This Stack?",
+        "tagLine": "Congratulations, you’ve got a very advanced React Native app template here.  Take advantage of this boilerplate!",
+        "reactotron": "Demo Reactotron",
+        "androidReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running, run adb reverse tcp:9090 tcp:9090 from your terminal, and reload the app.",
+        "iosReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running and reload app."
+    },
+    "storybook": {
+        "placeholder": "Placeholder",
+        "field": "Field"
+    },
+    "phoneAuthScreen": {
+        "title": "Elsa | Huduma"
+    },
+    "authenticator": {
+        "subtitle": "Tafadhali skani kodi iliyoko kwenye kitambulisho chako."
+    },
+    "language": "Lugha",
+    "dashboardScreen": {
+        "addo": {
+            "subTitle": "Tumchunguze mgonjwa wako \n pamoja",
+            "note": "Noti: Mfumo wa Elsa haupaswi kutumiwa katika dharura ya kiafya.  Tafadhali mpeleke mgonjwa wako hospitalini mara moja."
+        },
+
+        "newAssessment": {
+            "title": "Hudumia mteja mwingine",
+            "description": "Dadisi dalili za mteja wako ili kuelewa zaidi kuhusu afya yake",
+            "action": "Chunguza"
+        },
+
+        "actions": {
+            "beginAssessment": "Anza Tathmini",
+            "feedback": "Maoni / Ripoti Tatizo"
+        }
+    },
+    "addo": {
+        "confirmation": {
+            "title": "Hakikisha",
+            "pleaseConfirm": "Tafadhali thibitisha yafuatayo:",
+            "confirmationBody": " Je! Mgonjwa ambaye unakamilisha tathmini hii ya dalili yuko katika ADDO yako sasa / wakati wa tathmini?",
+            "presentPatient": "Mgonjwa yupo",
+            "absentPatient": "Mgonjwa hayupo"
+        },
+        "consent": {
+            "title": "Idhini ya Mgonjwa",
+            "body": {
+                "1": "Taarifa ifuatayo inaelezea mpango wa AfyaTek. Tafadhali msomee mgonjwa wako.",
+                "2": "Programu ya AfyaTek inataka kuboresha matokeo ya afya nchini Tanzania. Chombo hiki husaidia kutathmini dalili za mgonjwa na hutoa miongozo ya hatua zinazofuata.\n\nHakuna taarifa za kibinafsi zitakazokusanywa kutoka kwako wakati wa tathmini hii ya dalili. Sio lazima kushiriki katika utafiti huu ikiwa kama hutaki.\n\nIkiwa ungependa kujiondoa, unaweza kufanya hivyo wakati wowote. Ikiwa una maswali, tafadhali jisikie huru kuwasiliana nasi moja kwa moja."
+            },
+            "checkbox": "Mgonjwa au mlezi wao anakubali kushiriki na kuelewa taarifa iliyoelezwa hapo juu.",
+            "continue": "Endelea",
+            "abort": "Mgonjwa au mlezi hakubali."
+        },
+        "referYourPatient": {
+            "title": "Refer Your Patient",
+            "heading": "Mgonjwa wako ana dalili za hatari na anatakiwa kuenda hospitalini na kumuona daktari haraka iwezekanavya.",
+            "subHeading": "Tafadhali mshauri mteja aelekee kito cha afya kilichopo karibu yake.",
+            "endAssessment": "Tathmini ya mteja wako itaishia hapa.",
+            "completeAssessment": "Sitisha Tathmini"
+        },
+        "previousVisits": {
+            "title": "Mahudhurio yaliyopita",
+            "visitHistory": "Historia ya mahudhurio"
+        },
+        "patientAssessment": {
+            "title": "Tathmini ya Mgonjwa"
+        },
+        "furtherAssessment": {
+            "title": "Tathmini zaidi",
+            "subTitle": "Je! Mgonjwa wako ana dalili zozote zifuatazo au visababishi vya hatari?"
+        },
+        "assessmentSummary": {
+            "title": "Muhtasari wa Tathmini",
+            "diseaseAssessment": "Tathmini ya ugonjwa",
+            "nextStepsSubtitle": "Kulingana na hali inaonekana hapo juu, unapaswa kuzingatia mapendekezo yafuatayo.",
+            "otherConditionsHeading": "Mapendekezo ya hali zingine zinazoweza kutokea:",
+            "recommendedMedicationsTitle": "Dawa zifuatazo hutolewa kwa ugonjwa huu:",
+            "recommendedTestsTitle": "Vipimo vifuatavyo hufanywa kwa ugonjwa huu:",
+            "conditionDecision": "Ugonjwa dhana",
+            "conditionDecisionSubTitle": "Kwa kutumia ujuzi wako pamoja na maswali yaliyoulizwa na tathmini yake iliyopo hapo juu, unadhani ni ugonjwa gani aliyokuwa nao mteja wako?"
+        }
+    },
+    "title": {
+        "welcome": "Karibu"
+    },
+    "titles": {},
+    "radioOptions": {
+        "yes": "Ndiyo",
+        "no": "Hapana",
+        "male": "Mme",
+        "female": "Mke"
+    },
+    "conditionDistribution": {
+        "description": ""
+    }
 }
