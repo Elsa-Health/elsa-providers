@@ -70,3 +70,5 @@ app/config/env.*.js
 !env.js
 
 code-push.sh
+
+*.hprof
