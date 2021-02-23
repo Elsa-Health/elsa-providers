@@ -36,7 +36,7 @@ export interface TextProps extends TextProperties {
     /**
      * One of the different sizes of text.
      */
-    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "small"
+    size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "small" | "default"
 
     /**
      * One of the different alignments of text.
@@ -46,10 +46,23 @@ export interface TextProps extends TextProperties {
     /**
      * Colors the text can take
      */
-    color?: "white" | "primary"
+    color?: "white" | "primary" | "gray" | "angry" | "default"
 
     /**
-     * Colors the text can take
+     * Whether the text is italic or not
      */
     italic?: boolean
+
+    /**
+     * Whether the text is bold or not
+     */
+    bold?: boolean
+
+    /**
+     * Set the letter spacing
+     */
+    letterSpacing?: number
+
+    //    line height
+    lineHeight?: number
 }

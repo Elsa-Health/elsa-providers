@@ -68,3 +68,7 @@ buck-out/
 # Configurations
 app/config/env.*.js
 !env.js
+
+code-push.sh
+
+*.hprof

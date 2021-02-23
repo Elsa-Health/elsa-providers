@@ -1,5 +1,5 @@
 export const palette = {
-    blue:"#4665AF",
+    blue: "#4665AF",
     black: "#1d1d1d",
     greyDarker: "#333",
     white: "#ffffff",
@@ -9,4 +9,5 @@ export const palette = {
     lightGrey: "#939AA4",
     lighterGrey: "#CDD4DA",
     angry: "#dd3333",
+    warning: "#FF8800"
 }

@@ -1,3 +1,5 @@
+// require("../app/components/text-input/text-input.story")
+// require("../app/components/input/input.story")
 require("../app/components/col/col.story")
 require("../app/components/row/row.story")
 require("../app/components/text/text.story")

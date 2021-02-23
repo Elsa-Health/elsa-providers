@@ -6,7 +6,7 @@ import { BulletItem, Button, Header, Text, Screen, Wallpaper } from "../../compo
 import { color, spacing } from "../../theme"
 import { Api } from "../../services/api"
 import { save } from "../../utils/storage"
-export const logoIgnite = require("./logo-ignite.png")
+// export const logoIgnite = require("./logo-ignite.png")
 export const heart = require("./heart.png")
 
 const FULL: ViewStyle = { flex: 1 }
@@ -148,7 +148,7 @@ export const DemoScreen: React.FunctionComponent<DemoScreenProps> = props => {
           />
           <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint`} />
         </View>
-        <Image source={logoIgnite} style={IGNITE} />
+        {/* <Image source={logoIgnite} style={IGNITE} /> */}
         <View style={LOVE_WRAPPER}>
           <Text style={LOVE} text="Made with" />
           <Image source={heart} style={HEART} />

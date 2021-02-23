@@ -1,13 +1,14 @@
 // Welcome to the main entry point of the app.
 //
 // In this file, we'll be kicking off our app or storybook.
-
+import 'react-native-gesture-handler'
 import "./i18n"
 import React, { useState, useEffect, useRef } from "react"
-import { YellowBox } from "react-native"
+import { LogBox } from "react-native"
 import { NavigationContainerRef } from "@react-navigation/native"
 import { contains } from "ramda"
 import { enableScreens } from "react-native-screens"
+import codePush, { CodePushOptions } from "react-native-code-push"
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from "react-native-safe-area-context"
 import EStyleSheet from "react-native-extended-stylesheet"
 import { Provider as PaperProvider, DefaultTheme } from "react-native-paper"
@@ -19,14 +20,16 @@ import { useBackButtonHandler } from "./navigation/use-back-button-handler"
 import { RootStore, RootStoreProvider, setupRootStore, initialUser } from "./models/root-store"
 import * as storage from "./utils/storage"
 import getActiveRouteName from "./navigation/get-active-routename"
+import { color } from "./theme"
+import { useLocale } from "./models/language"
 
 function authListener(rootStore: RootStore) {
-    auth().onAuthStateChanged(user => {
+    auth().onAuthStateChanged((user) => {
         if (user) {
             firestore()
                 .collection("providers")
                 .doc(user.uid)
-                .onSnapshot(snap => {
+                .onSnapshot((snap) => {
                     if (snap.exists) {
                         const user = { id: snap.id, ...snap.data() }
                         rootStore.account.setUser({
@@ -62,11 +65,11 @@ function authListener(rootStore: RootStore) {
 
 const theme = {
     ...DefaultTheme,
-    roundness: 2,
+    roundness: 5,
     colors: {
         ...DefaultTheme.colors,
-        primary: "#3498db",
-        accent: "#f1c40f",
+        primary: color.primary,
+        accent: color.primary, // made this wa to allow the FAB to be primary color
     },
 }
 
@@ -85,7 +88,7 @@ enableScreens()
  * Ignore some yellowbox warnings. Some of these are for deprecated functions
  * that we haven't gotten around to replacing yet.
  */
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
     "componentWillMount is deprecated",
     "componentWillReceiveProps is deprecated",
     "Require cycle:",
@@ -108,6 +111,7 @@ const App: React.FunctionComponent<{}> = () => {
     const navigationRef = useRef<NavigationContainerRef>()
     const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
     const [initialNavigationState, setInitialNavigationState] = useState()
+    const syncLocale = useLocale((state) => state.syncLocale)
 
     // CHANGE THE BOTTOM TO DETERMINE WHETHER TO PERSIST NAVIGATION STATE OR NOT
     const [isRestoringNavigationState, setIsRestoringNavigationState] = useState(false)
@@ -121,7 +125,7 @@ const App: React.FunctionComponent<{}> = () => {
      * Persist State
      */
     const routeNameRef = useRef()
-    const onNavigationStateChange = state => {
+    const onNavigationStateChange = (state) => {
         const previousRouteName = routeNameRef.current
         const currentRouteName = getActiveRouteName(state)
 
@@ -139,7 +143,10 @@ const App: React.FunctionComponent<{}> = () => {
 
     useEffect(() => {
         ;(async () => {
-            setupRootStore().then(setRootStore)
+            // setupRootStore().then(setRootStore)
+
+            // sync language
+            syncLocale()
         })()
     }, [])
 
@@ -169,26 +176,34 @@ const App: React.FunctionComponent<{}> = () => {
     //
     // You're welcome to swap in your own component to render if your boot up
     // sequence is too slow though.
-    if (!rootStore) {
-        return null
-    }
+    // if (!rootStore) {
+    //     return null
+    // }
 
-    authListener(rootStore)
+    // authListener(rootStore)
 
     // otherwise, we're ready to render the app
     return (
-        <RootStoreProvider value={rootStore}>
-            <PaperProvider theme={theme}>
-                <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-                    <RootNavigator
-                        ref={navigationRef}
-                        initialState={initialNavigationState}
-                        onStateChange={onNavigationStateChange}
-                    />
-                </SafeAreaProvider>
-            </PaperProvider>
-        </RootStoreProvider>
+        // <RootStoreProvider value={rootStore}>
+        <PaperProvider theme={theme}>
+            <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+                <RootNavigator
+                    ref={navigationRef}
+                    initialState={initialNavigationState}
+                    onStateChange={onNavigationStateChange}
+                />
+            </SafeAreaProvider>
+        </PaperProvider>
+        // </RootStoreProvider>
     )
 }
 
-export default App
+const codePushOptions: CodePushOptions = {
+    checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+    installMode: codePush.InstallMode.ON_NEXT_RESUME,
+    updateDialog: {
+        title: "Elsa Update Available",
+    },
+}
+
+export default codePush(codePushOptions)(App)

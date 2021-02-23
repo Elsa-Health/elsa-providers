@@ -1,147 +1,120 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import {
-  ViewStyle, View,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-} from "react-native"
+import { ViewStyle, View, StyleSheet, Platform, TouchableOpacity } from "react-native"
 import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
-import { Screen, Header } from "../components"
-import Icon from "react-native-vector-icons/MaterialIcons"
+import { Screen, Header, Text, TextInput, Button, Row } from "../components"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
-import { AssessmentQuestion } from './assessment-questions-screen'
-// import { useStores } from "../models/root-store"
 import { color, style } from "../theme"
-import { TextInput, Button, Text } from "react-native-paper"
-
+import RadioQuestion from "../components/radio-question/radio-question"
+import { BOOLEAN_OPTIONS } from "../common/constants"
+import Spacer from "../components/spacer/spacer"
+import _ from "lodash"
 
 export interface FeedbackScreenProps {
-  navigation: NativeStackNavigationProp<ParamListBase>
+    navigation: NativeStackNavigationProp<ParamListBase>
 }
 
-
-const ROOT: ViewStyle = {
-
+interface StarRatingsProps {
+    maxRating: number
+    rating: number
+    starSize?: number
+    onChange: (rating: number) => any
 }
 
-interface RatingState {
-  Default_Rating: number
-  Max_Rating: number
-}
-
-// to be re-written as functional component
-
-class Rating extends React.Component<{}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Default_Rating: 1,
-      Max_Rating: 5,
-    };
-  }
-
-  UpdateRating(key) {
-    this.setState({ Default_Rating: key });
-  }
-  render() {
-    let React_Native_Rating_Bar = [];
-    //Array to hold the filled or empty Stars
-    for (var i = 1; i <= this.state.Max_Rating; i++) {
-      React_Native_Rating_Bar.push(
-        <TouchableOpacity
-          activeOpacity={0.7}
-          key={i}
-          onPress={this.UpdateRating.bind(this, i)}>
-          <Icon name={i <= this.state.Default_Rating ? "star" : "star-border"} style={{ fontSize: 40 }} color={color.primary} />
-        </TouchableOpacity>
-      );
-    }
+const StarRatings: React.FC<StarRatingsProps> = ({
+    maxRating = 5,
+    rating = 4,
+    starSize = 40,
+    onChange,
+}) => {
     return (
-      <View style={[styles.childView, style.contentTextVerticalSpacing]}>{React_Native_Rating_Bar}</View>
-    );
-  }
+        <Row>
+            {_.times(maxRating, (i) => (
+                <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={`star-rating__${i + 1}`}
+                    onPress={() => onChange(i + 1)}
+                >
+                    <Icon
+                        name={i + 1 <= rating ? "star" : "star-outline"}
+                        size={starSize}
+                        color={color.primary}
+                    />
+                </TouchableOpacity>
+            ))}
+        </Row>
+    )
 }
 
-export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = observer((props) => {
-  // const { someStore } = useStores()
-  return (
+export const FeedbackScreen: React.FunctionComponent<FeedbackScreenProps> = (props) => {
+    // const { someStore } = useStores()
+    const [feedback, setFeedback] = React.useState({
+        error: false,
+        description: "",
+        notes: "",
+        rating: 4,
+    })
 
-    <Screen style={ROOT} preset="scroll" title="Feedback">
-      <View style={{ padding: 10 }}>
-        <Text style={style.bodyContent}>If you would like to provide feedback or report an error, please do so here.</Text>
-        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]} >Overall, what is your experience with the application.</Text>
-        <Rating />
-        <AssessmentQuestion question="Are you reporting an error or problem?" />
-        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>Please describe your error or problem.</Text>
-        <TextInput
-          placeholder="Start typing..."
-          mode="flat"
-          multiline={true}
-          numberOfLines={4}
-          value={""}
-          onChangeText={text => { }}
-          underlineColor="transparent"
-          style={[style.headerTextContentVerticalSpacing]}
-          theme={{ colors: { primary: color.primary } }}
-        />
+    const submit = () => console.log(feedback)
+    return (
+        <Screen preset="scroll" title="Feedback">
+            <Spacer size={25} />
+            <Text size="h6">Overall, what is your experience with the Elsa Health Assistant?</Text>
+            <Row justifyContent="space-around" marginVertical={20}>
+                <StarRatings
+                    rating={feedback.rating}
+                    onChange={(rating) => setFeedback((state) => ({ ...state, rating }))}
+                    maxRating={5}
+                    starSize={50}
+                />
+            </Row>
+            <RadioQuestion
+                question="Do you have an error or a problem?"
+                options={BOOLEAN_OPTIONS}
+                questionSize="h6"
+                id="error"
+                value={feedback.error}
+                onPress={(val) => setFeedback((state) => ({ ...state, error: val as boolean }))}
+            />
+            {/* <AssessmentQuestion question="Are you reporting an error or problem?" /> */}
+            {feedback.error && (
+                <View style={{ marginVertical: 10 }}>
+                    {/* <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}> */}
+                    <Text>Please describe your error or problem.</Text>
+                    <TextInput
+                        placeholder="Start typing..."
+                        multiline={true}
+                        numberOfLines={4}
+                        value={feedback.description}
+                        autoCorrect={false}
+                        onChangeText={(text) =>
+                            setFeedback((state) => ({ ...state, description: text }))
+                        }
+                    />
+                </View>
+            )}
 
-        <Text style={[style.bodyContent, style.contentTextVerticalSpacing]}>Please add any additional notes.</Text>
-        <TextInput
-          placeholder="Start typing..."
-          mode="flat"
-          multiline={true}
-          numberOfLines={4}
-          value={""}
-          onChangeText={text => { }}
-          underlineColor="transparent"
-          style={[style.headerTextContentVerticalSpacing]}
-          theme={{ colors: { primary: color.primary } }}
-        />
+            <Spacer size={10} />
+            <Text>Please add any additional notes.</Text>
+            <TextInput
+                placeholder="Start typing..."
+                multiline={true}
+                numberOfLines={4}
+                autoCorrect={false}
+                value={feedback.notes}
+                onChangeText={(text) => setFeedback((state) => ({ ...state, notes: text }))}
+            />
 
-        <View style={style.contentTextVerticalSpacing}>
-          <Button
-            style={[style.buttonFilled, { paddingHorizontal: 46, alignSelf: "flex-end" }]}
-            uppercase={false}
-            onPress={() => { }}
-          ><Text style={style.buttonText}>Submit</Text></Button>
-        </View>
-      </View>
-    </Screen>
-  )
-})
-
-
-const styles = StyleSheet.create({
-
-  childView: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  button: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginTop: 30,
-    padding: 15,
-    backgroundColor: '#8ad24e',
-  },
-  StarImage: {
-    width: 40,
-    height: 40,
-    resizeMode: 'cover',
-  },
-  textStyle: {
-    textAlign: 'center',
-    fontSize: 23,
-    color: '#000',
-    marginTop: 15,
-  },
-  textStyleSmall: {
-    textAlign: 'center',
-    fontSize: 16,
-
-    color: '#000',
-    marginTop: 15,
-  },
-});
+            <Spacer size={25} />
+            <Button
+                style={{ paddingHorizontal: 46, paddingVertical: 5, alignSelf: "flex-end" }}
+                onPress={submit}
+                uppercase={false}
+                mode="contained"
+                label="Next"
+            />
+        </Screen>
+    )
+}

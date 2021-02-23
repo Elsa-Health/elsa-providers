@@ -7,7 +7,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../../../sort-arrow-sprite.png);
@@ -29,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>11/13</span>
             </div>
         
             
@@ -135,7 +136,22 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,15 +216,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -221,6 +250,7 @@ import { presets } from "./text.presets"
 import { TextProps } from "./text.props"
 import { translate } from "../../i18n"
 import { mergeAll, flatten } from "ramda"
+import { color } from "../../theme"
 &nbsp;
 const styles = EStyleSheet.create({
     h1: {
@@ -233,13 +263,16 @@ const styles = EStyleSheet.create({
         fontSize: "2rem",
     },
     h4: {
-        fontSize: "2rem",
+        fontSize: "1.6rem",
     },
     h5: {
         fontSize: "1.4rem",
     },
     h6: {
         fontSize: "1.2rem",
+    },
+    small: {
+        fontSize: "0.8rem",
     },
     default: {
         fontSize: "1rem",
@@ -258,6 +291,12 @@ const styles = EStyleSheet.create({
     },
     white: {
         color: "white",
+    },
+    primary: {
+        color: color.primary,
+    },
+    italic: {
+        fontStyle: "italic",
     },
 })
 &nbsp;
@@ -278,6 +317,7 @@ export function Text(props: TextProps) {
         size = "default",
         align = "left",
         color = "default",
+        italic,
         ...rest
     } = props
 &nbsp;
@@ -288,7 +328,10 @@ export function Text(props: TextProps) {
     const style = mergeAll(flatten([presets[preset] || <span class="branch-1 cbranch-no" title="branch not covered" >presets.default,</span> styleOverride]))
 &nbsp;
     return (
-        &lt;ReactNativeText {...rest} style={[style, styles[color], styles[size], styles[align]]}&gt;
+        &lt;ReactNativeText
+            {...rest}
+            style={[style, styles[color], styles[size], styles[align], italic &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >styles.italic]</span>}
+        &gt;
             {content}
         &lt;/ReactNativeText&gt;
     )
@@ -300,7 +343,7 @@ export function Text(props: TextProps) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 11 2020 12:41:15 GMT+0300 (East Africa Time)
+                at Tue Aug 18 2020 22:53:01 GMT+0300 (East Africa Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -5,7 +5,8 @@ import { presets } from "./text.presets"
 import { TextProps } from "./text.props"
 import { translate } from "../../i18n"
 import { mergeAll, flatten } from "ramda"
-import { color } from "../../theme"
+import { color, sm, xs } from "../../theme"
+import { useLocale } from "../../models/language"
 
 const styles = EStyleSheet.create({
     h1: {
@@ -26,11 +27,15 @@ const styles = EStyleSheet.create({
     h6: {
         fontSize: "1.2rem",
     },
+    h7: {
+        fontSize: "0.9rem",
+    },
     small: {
         fontSize: "0.8rem",
     },
     default: {
-        fontSize: "1rem",
+        // lineHeight: 16,
+        fontSize: sm ? "0.95rem" : "1.09rem",
     },
     left: {
         textAlign: "left",
@@ -50,8 +55,21 @@ const styles = EStyleSheet.create({
     primary: {
         color: color.primary,
     },
+    gray: {
+        color: color.dim,
+    },
+    angry: {
+        color: color.error,
+    },
     italic: {
-        fontStyle: "italic",
+        // fontStyle: "italic",
+        fontFamily: "AvenirLTStd-LightOblique",
+    },
+    bold: {
+        fontFamily: "AvenirLTStd-Heavy",
+    },
+    boldItalic: {
+        fontFamily: "AvenirLTStd-HeavyOblique",
     },
 })
 
@@ -64,7 +82,6 @@ export function Text(props: TextProps) {
     // grab the props
     const {
         preset = "default",
-        tx,
         txOptions,
         text,
         children,
@@ -73,19 +90,46 @@ export function Text(props: TextProps) {
         align = "left",
         color = "default",
         italic,
+        bold,
+        letterSpacing = 0,
+        lineHeight = 0,
+        tx,
         ...rest
     } = props
 
+    const locale = useLocale((state) => state.locale)
+
     // figure out which content to use
-    const i18nText = tx && translate(tx, txOptions)
+    const i18nText = tx && translate(tx, { locale, ...txOptions })
     const content = i18nText || text || children
 
     const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
+    const fontFormat = () => {
+        if (bold && italic) {
+            return "AvenirLTStd-HeavyOblique"
+        }
+        if (bold) {
+            return "AvenirLTStd-Heavy"
+        }
+        if (italic) {
+            return "AvenirLTStd-Oblique"
+        }
+        return "AvenirLTStd-Roman"
+    }
 
     return (
         <ReactNativeText
             {...rest}
-            style={[style, styles[color], styles[size], styles[align], italic && styles.italic]}
+            style={[
+                style,
+                styles[color],
+                styles[size],
+                styles[align],
+                { fontFamily: fontFormat(), letterSpacing },
+                lineHeight > 0 && { lineHeight },
+                // italic && styles.italic,
+                // bold && styles.bold,
+            ]}
         >
             {content}
         </ReactNativeText>

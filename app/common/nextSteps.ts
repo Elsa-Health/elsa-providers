@@ -1,3 +1,4 @@
+import _ from "lodash"
 interface Translation {
     sw: string
     eng: string
@@ -194,9 +195,9 @@ const nextSteps: NextSteps[] = [
         },
         step: {
             eng:
-                "It's important to give your voice a break, especially if you are experiencing voice loss or hoarsness. Take time to relax your vocal cords until your condition improves.",
+                "It's important to give your voice a break, especially if you are experiencing voice loss or hoarseness. Take time to relax your vocal cords until your condition improves.",
             sw:
-                "It's important to give your voice a break, especially if you are experiencing voice loss or hoarsness. Take time to relax your vocal cords until your condition improves.",
+                "It's important to give your voice a break, especially if you are experiencing voice loss or hoarseness. Take time to relax your vocal cords until your condition improves.",
         },
     },
     {
@@ -228,10 +229,124 @@ const nextSteps: NextSteps[] = [
 ]
 
 export function getStep(name: string): NextSteps[] {
-    return nextSteps.filter(st => st.conditions.includes(name))
+    return nextSteps.filter((st) => st.conditions.includes(name))
 }
 
 export function getMultiStep(names: string[]): NextSteps[] {
     // @ts-ignore
-    return _.uniqBy(_.flatten(names.map(name => getStep(name))), "title.eng")
+    return _.uniqBy(_.flatten(names.map((name) => getStep(name))), "title.eng")
+}
+
+const testRecommendations = {
+    "cryptococcal meningitis": [
+        "CrAG",
+        "Albumin",
+        "FBP",
+        "CT/MRI",
+        "Lumbar puncture",
+        "CSF culture",
+        "Microscopy of CSF (India Ink Staining)",
+        "CD4",
+    ],
+    toxoplasmosis: ["CD4", "Anti-toxoplasma", "CT/MRI"],
+    "pneumocystis pneumonia": [
+        "CD4",
+        "LDH",
+        "Chest X Ray",
+        "Chest CT",
+        "Sputum PCR",
+        "Miscroscopy ",
+        "1-2-Beta-D-glucan",
+    ],
+    tuberculosis: ["Sputum smear microscopy", "Chest X Ray", "Sputum PCR"],
+    pneumonia: ["Complete Blood Count", "Blood culture", "C-Reactive Protein (CRP)", "Arterial Blood Gas", "CHEST X-ray"],
+}
+
+export function getTests(conditions: string[]): string[] {
+    return _.uniq(
+        _.flattenDeep(conditions.map((condition) => testRecommendations[condition] || [])),
+    )
+}
+
+interface MedicationListItem {
+    condition: string
+    title: string
+    options: {
+        medication: string
+        concentration?: string
+        days?: number
+        dailyFrequency?: number
+    }[]
+}
+
+export const medicationsList: MedicationListItem[] = [
+    {
+        condition: "hepatitis b",
+        title: "To treat Hepatitis B",
+        options: [
+            {
+                medication: "Tenofovir",
+                concentration: "300mg",
+                days: 12,
+                dailyFrequency: 3,
+            },
+            {
+                medication: "Lamivudine",
+            },
+        ],
+    },
+    {
+        condition: "cough",
+        title: "To treat cough",
+        options: [
+            {
+                medication: "Liquid cough medicine",
+            },
+        ],
+    },
+    {
+        condition: "pain",
+        title: "To treat pain",
+        options: [
+            {
+                medication: "Paracetamol",
+                concentration: "300mg",
+            },
+        ],
+    },
+    {
+        condition: "cryptococcal meningitis",
+        title: "To treat Cryptococcal Meningitis",
+        options: [
+            {
+                medication: "Manage Intracranial Pressure",
+            },
+            {
+                medication:
+                    "1 week of Amphotericin B + Flucytosine, followed by 9 weeks of fluconazole. Follow this with a low dose fluconazole for one year until CD4 > 100.",
+            },
+        ],
+    },
+    {
+        condition: "pneumocystis pneumonia",
+        title: "To treat Pneumocystis Pneumonia",
+        options: [
+            {
+                medication: "Trimethoprim IV",
+                days: 21,
+                dailyFrequency: 3,
+                concentration: "15-20mg",
+            },
+            {
+                medication: "Sulfamethoxale IV",
+                days: 21,
+                dailyFrequency: 3,
+                concentration: "75-100mg",
+            },
+        ],
+    },
+]
+
+export function getTreatments(conditions: string[]): MedicationListItem[] {
+    return medicationsList.filter((medicationObj) => conditions.includes(medicationObj.condition))
 }
