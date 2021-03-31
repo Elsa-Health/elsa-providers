@@ -144,7 +144,7 @@
       "/e2e"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-native|@react-navigation|@storybook|@react-native-community|vasern)"
+      "node_modules/(?!(jest-)?react-native|react-native|(@react-native|react-native)/|@react-navigation|@storybook|@react-native-community|vasern)"
     ]
   },
   "prettier": {
