@@ -166,6 +166,7 @@ exports[`Storyshots Button Style Presets 1`] = `
                   >
                     <Text
                       numberOfLines={1}
+                      selectable={false}
                       style={
                         Array [
                           Object {
@@ -211,7 +212,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                             undefined,
                             Object {
                               "fontFamily": "AvenirLTStd-Roman",
+                              "letterSpacing": 0,
                             },
+                            false,
                           ]
                         }
                       />
@@ -364,6 +367,7 @@ exports[`Storyshots Button Style Presets 1`] = `
                   >
                     <Text
                       numberOfLines={1}
+                      selectable={false}
                       style={
                         Array [
                           Object {
@@ -409,7 +413,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                             undefined,
                             Object {
                               "fontFamily": "AvenirLTStd-Roman",
+                              "letterSpacing": 0,
                             },
+                            false,
                           ]
                         }
                       />
@@ -573,6 +579,7 @@ exports[`Storyshots Button Style Presets 1`] = `
                   >
                     <Text
                       numberOfLines={1}
+                      selectable={false}
                       style={
                         Array [
                           Object {
@@ -618,7 +625,9 @@ exports[`Storyshots Button Style Presets 1`] = `
                             undefined,
                             Object {
                               "fontFamily": "AvenirLTStd-Roman",
+                              "letterSpacing": 0,
                             },
+                            false,
                           ]
                         }
                       />
@@ -756,41 +765,58 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                 }
               }
             >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "borderColor": "#EB9918",
-                    "borderRadius": 1,
-                    "borderWidth": 1,
-                    "height": 16,
-                    "justifyContent": "center",
-                    "marginTop": 2,
-                    "width": 16,
-                  }
-                }
-              />
               <Text
-                numberOfLines={1}
+                allowFontScaling={false}
                 style={
                   Array [
                     Object {
-                      "color": "#333",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
+                      "color": "#4665AF",
+                      "fontSize": 24,
                     },
-                    undefined,
-                    undefined,
                     undefined,
                     Object {
-                      "fontFamily": "AvenirLTStd-Roman",
+                      "fontFamily": "Material Design Icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
                     },
+                    Object {},
                   ]
                 }
               >
-                Toggle me
+                󰄱
               </Text>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              >
+                <Text
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "flexWrap": "wrap",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                        "letterSpacing": 0,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Toggle me
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -891,51 +917,58 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                 }
               }
             >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "borderColor": "#EB9918",
-                    "borderRadius": 1,
-                    "borderWidth": 1,
-                    "height": 16,
-                    "justifyContent": "center",
-                    "marginTop": 2,
-                    "width": 16,
-                  }
-                }
-              >
-                <View
-                  style={
-                    Object {
-                      "backgroundColor": "#4665AF",
-                      "height": 12,
-                      "width": 12,
-                    }
-                  }
-                />
-              </View>
               <Text
-                numberOfLines={1}
+                allowFontScaling={false}
                 style={
                   Array [
                     Object {
-                      "color": "#333",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
+                      "color": "#4665AF",
+                      "fontSize": 24,
                     },
-                    undefined,
-                    undefined,
                     undefined,
                     Object {
-                      "fontFamily": "AvenirLTStd-Roman",
+                      "fontFamily": "Material Design Icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
                     },
+                    Object {},
                   ]
                 }
               >
-                Always on
+                󰄲
               </Text>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              >
+                <Text
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "flexWrap": "wrap",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                        "letterSpacing": 0,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Always on
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -1036,41 +1069,58 @@ exports[`Storyshots Checkbox Behaviour 1`] = `
                 }
               }
             >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "borderColor": "#EB9918",
-                    "borderRadius": 1,
-                    "borderWidth": 1,
-                    "height": 16,
-                    "justifyContent": "center",
-                    "marginTop": 2,
-                    "width": 16,
-                  }
-                }
-              />
               <Text
-                numberOfLines={1}
+                allowFontScaling={false}
                 style={
                   Array [
                     Object {
-                      "color": "#333",
-                      "fontFamily": "Montserrat",
-                      "fontSize": 15,
-                      "paddingLeft": 8,
+                      "color": "#4665AF",
+                      "fontSize": 24,
                     },
-                    undefined,
-                    undefined,
                     undefined,
                     Object {
-                      "fontFamily": "AvenirLTStd-Roman",
+                      "fontFamily": "Material Design Icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
                     },
+                    Object {},
                   ]
                 }
               >
-                Always off
+                󰄱
               </Text>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              >
+                <Text
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "color": "#333",
+                        "flexWrap": "wrap",
+                        "fontFamily": "Montserrat",
+                        "fontSize": 15,
+                        "paddingLeft": 8,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                      Object {
+                        "fontFamily": "AvenirLTStd-Roman",
+                        "letterSpacing": 0,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Always off
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -1202,41 +1252,58 @@ exports[`Storyshots Checkbox Styling 1`] = `
                   }
                 }
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "#EB9918",
-                      "borderRadius": 1,
-                      "borderWidth": 1,
-                      "height": 16,
-                      "justifyContent": "center",
-                      "marginTop": 2,
-                      "width": 16,
-                    }
-                  }
-                />
                 <Text
-                  numberOfLines={0}
+                  allowFontScaling={false}
                   style={
                     Array [
                       Object {
-                        "color": "#333",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "paddingLeft": 8,
+                        "color": "#4665AF",
+                        "fontSize": 24,
                       },
-                      undefined,
-                      undefined,
                       undefined,
                       Object {
-                        "fontFamily": "AvenirLTStd-Roman",
+                        "fontFamily": "Material Design Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
                       },
+                      Object {},
                     ]
                   }
                 >
-                  We’re an App Design & Development Team. Experts in mobile & web technologies. We create beautiful, functional mobile apps and websites. 
+                  󰄱
                 </Text>
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={0}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "flexWrap": "wrap",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "paddingLeft": 8,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "fontFamily": "AvenirLTStd-Roman",
+                          "letterSpacing": 0,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    We’re an App Design & Development Team. Experts in mobile & web technologies. We create beautiful, functional mobile apps and websites. 
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -1342,41 +1409,58 @@ exports[`Storyshots Checkbox Styling 1`] = `
                   }
                 }
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "#EB9918",
-                      "borderRadius": 1,
-                      "borderWidth": 1,
-                      "height": 16,
-                      "justifyContent": "center",
-                      "marginTop": 2,
-                      "width": 16,
-                    }
-                  }
-                />
                 <Text
-                  numberOfLines={1}
+                  allowFontScaling={false}
                   style={
                     Array [
                       Object {
-                        "color": "#333",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "paddingLeft": 8,
+                        "color": "#4665AF",
+                        "fontSize": 24,
                       },
-                      undefined,
-                      undefined,
                       undefined,
                       Object {
-                        "fontFamily": "AvenirLTStd-Roman",
+                        "fontFamily": "Material Design Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
                       },
+                      Object {},
                     ]
                   }
                 >
-                  Hello there!
+                  󰄱
                 </Text>
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "flexWrap": "wrap",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "paddingLeft": 8,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "fontFamily": "AvenirLTStd-Roman",
+                          "letterSpacing": 0,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    Hello there!
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -1479,41 +1563,58 @@ exports[`Storyshots Checkbox Styling 1`] = `
                   }
                 }
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "green",
-                      "borderRadius": 10,
-                      "borderWidth": 4,
-                      "height": 20,
-                      "justifyContent": "center",
-                      "marginTop": 2,
-                      "width": 60,
-                    }
-                  }
-                />
                 <Text
-                  numberOfLines={1}
+                  allowFontScaling={false}
                   style={
                     Array [
                       Object {
-                        "color": "#333",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "paddingLeft": 8,
+                        "color": "#4665AF",
+                        "fontSize": 24,
                       },
-                      undefined,
-                      undefined,
                       undefined,
                       Object {
-                        "fontFamily": "AvenirLTStd-Roman",
+                        "fontFamily": "Material Design Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
                       },
+                      Object {},
                     ]
                   }
                 >
-                  Outline is the box frame
+                  󰄱
                 </Text>
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "flexWrap": "wrap",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "paddingLeft": 8,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "fontFamily": "AvenirLTStd-Roman",
+                          "letterSpacing": 0,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    Outline is the box frame
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -1616,41 +1717,58 @@ exports[`Storyshots Checkbox Styling 1`] = `
                   }
                 }
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "#EB9918",
-                      "borderRadius": 1,
-                      "borderWidth": 1,
-                      "height": 16,
-                      "justifyContent": "center",
-                      "marginTop": 2,
-                      "width": 16,
-                    }
-                  }
-                />
                 <Text
-                  numberOfLines={1}
+                  allowFontScaling={false}
                   style={
                     Array [
                       Object {
-                        "color": "#333",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "paddingLeft": 8,
+                        "color": "#4665AF",
+                        "fontSize": 24,
                       },
-                      undefined,
-                      undefined,
                       undefined,
                       Object {
-                        "fontFamily": "AvenirLTStd-Roman",
+                        "fontFamily": "Material Design Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
                       },
+                      Object {},
                     ]
                   }
                 >
-                  Fill er up
+                  󰄱
                 </Text>
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "flexWrap": "wrap",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "paddingLeft": 8,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "fontFamily": "AvenirLTStd-Roman",
+                          "letterSpacing": 0,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    Fill er up
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -1753,41 +1871,58 @@ exports[`Storyshots Checkbox Styling 1`] = `
                   }
                 }
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "borderColor": "#b443c9",
-                      "borderRadius": 1,
-                      "borderWidth": 25,
-                      "height": 16,
-                      "justifyContent": "center",
-                      "marginTop": 2,
-                      "width": 16,
-                    }
-                  }
-                />
                 <Text
-                  numberOfLines={1}
+                  allowFontScaling={false}
                   style={
                     Array [
                       Object {
-                        "color": "#333",
-                        "fontFamily": "Montserrat",
-                        "fontSize": 15,
-                        "paddingLeft": 8,
+                        "color": "#4665AF",
+                        "fontSize": 24,
                       },
-                      undefined,
-                      undefined,
                       undefined,
                       Object {
-                        "fontFamily": "AvenirLTStd-Roman",
+                        "fontFamily": "Material Design Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
                       },
+                      Object {},
                     ]
                   }
                 >
-                  Check it twice
+                  󰄱
                 </Text>
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#333",
+                          "flexWrap": "wrap",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "paddingLeft": 8,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "fontFamily": "AvenirLTStd-Roman",
+                          "letterSpacing": 0,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    Check it twice
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -2052,7 +2187,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2082,7 +2219,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2112,7 +2251,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2143,7 +2284,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2252,7 +2395,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2282,7 +2427,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2313,7 +2460,9 @@ exports[`Storyshots FormRow Assembled 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2455,7 +2604,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2474,7 +2625,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2584,7 +2737,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2695,7 +2850,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2714,7 +2871,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2824,7 +2983,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -2933,7 +3094,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -3042,7 +3205,9 @@ exports[`Storyshots FormRow Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -3181,7 +3346,9 @@ exports[`Storyshots FormRow Styling 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -3307,28 +3474,20 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={
-                  Object {
-                    "elevation": 1,
-                    "shadowColor": "#000",
-                    "shadowOffset": Object {
-                      "height": 2,
-                      "width": 0,
-                    },
-                  }
-                }
+                style={Object {}}
               >
                 <View
                   style={
                     Object {
                       "flexDirection": "row-reverse",
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 12,
                     }
                   }
                 >
                   <Text
                     allowFontScaling={false}
+                    onPress={[Function]}
                     style={
                       Array [
                         Object {
@@ -3354,11 +3513,11 @@ exports[`Storyshots Header Behavior 1`] = `
                       "alignItems": "center",
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
-                      "marginBottom": 16,
+                      "marginBottom": 4,
                       "marginLeft": 8,
                       "marginRight": 8,
                       "paddingBottom": 8,
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 0,
                     }
                   }
@@ -3382,14 +3541,18 @@ exports[`Storyshots Header Behavior 1`] = `
                       style={
                         Array [
                           Object {
-                            "color": "#000000",
-                            "fontFamily": "System",
-                            "fontWeight": "400",
-                            "textAlign": "left",
+                            "color": "#333",
+                            "fontFamily": "Montserrat",
+                            "fontSize": 15,
                           },
+                          undefined,
+                          undefined,
+                          undefined,
                           Object {
-                            "fontSize": 24,
+                            "fontFamily": "AvenirLTStd-Roman",
+                            "letterSpacing": 0,
                           },
+                          false,
                         ]
                       }
                     >
@@ -3495,28 +3658,20 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={
-                  Object {
-                    "elevation": 1,
-                    "shadowColor": "#000",
-                    "shadowOffset": Object {
-                      "height": 2,
-                      "width": 0,
-                    },
-                  }
-                }
+                style={Object {}}
               >
                 <View
                   style={
                     Object {
                       "flexDirection": "row-reverse",
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 12,
                     }
                   }
                 >
                   <Text
                     allowFontScaling={false}
+                    onPress={[Function]}
                     style={
                       Array [
                         Object {
@@ -3542,11 +3697,11 @@ exports[`Storyshots Header Behavior 1`] = `
                       "alignItems": "center",
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
-                      "marginBottom": 16,
+                      "marginBottom": 4,
                       "marginLeft": 8,
                       "marginRight": 8,
                       "paddingBottom": 8,
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 0,
                     }
                   }
@@ -3614,6 +3769,7 @@ exports[`Storyshots Header Behavior 1`] = `
                         >
                           <Text
                             numberOfLines={1}
+                            selectable={false}
                             style={
                               Array [
                                 Object {
@@ -3659,7 +3815,9 @@ exports[`Storyshots Header Behavior 1`] = `
                                   undefined,
                                   Object {
                                     "fontFamily": "AvenirLTStd-Roman",
+                                    "letterSpacing": 0,
                                   },
+                                  false,
                                 ]
                               }
                             />
@@ -3680,14 +3838,18 @@ exports[`Storyshots Header Behavior 1`] = `
                       style={
                         Array [
                           Object {
-                            "color": "#000000",
-                            "fontFamily": "System",
-                            "fontWeight": "400",
-                            "textAlign": "left",
+                            "color": "#333",
+                            "fontFamily": "Montserrat",
+                            "fontSize": 15,
                           },
+                          undefined,
+                          undefined,
+                          undefined,
                           Object {
-                            "fontSize": 24,
+                            "fontFamily": "AvenirLTStd-Roman",
+                            "letterSpacing": 0,
                           },
+                          false,
                         ]
                       }
                     >
@@ -3793,28 +3955,20 @@ exports[`Storyshots Header Behavior 1`] = `
               }
             >
               <View
-                style={
-                  Object {
-                    "elevation": 1,
-                    "shadowColor": "#000",
-                    "shadowOffset": Object {
-                      "height": 2,
-                      "width": 0,
-                    },
-                  }
-                }
+                style={Object {}}
               >
                 <View
                   style={
                     Object {
                       "flexDirection": "row-reverse",
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 12,
                     }
                   }
                 >
                   <Text
                     allowFontScaling={false}
+                    onPress={[Function]}
                     style={
                       Array [
                         Object {
@@ -3840,11 +3994,11 @@ exports[`Storyshots Header Behavior 1`] = `
                       "alignItems": "center",
                       "flexDirection": "row",
                       "justifyContent": "flex-start",
-                      "marginBottom": 16,
+                      "marginBottom": 4,
                       "marginLeft": 8,
                       "marginRight": 8,
                       "paddingBottom": 8,
-                      "paddingHorizontal": 12,
+                      "paddingHorizontal": 10,
                       "paddingTop": 0,
                     }
                   }
@@ -3868,14 +4022,18 @@ exports[`Storyshots Header Behavior 1`] = `
                       style={
                         Array [
                           Object {
-                            "color": "#000000",
-                            "fontFamily": "System",
-                            "fontWeight": "400",
-                            "textAlign": "left",
+                            "color": "#333",
+                            "fontFamily": "Montserrat",
+                            "fontSize": 15,
                           },
+                          undefined,
+                          undefined,
+                          undefined,
                           Object {
-                            "fontSize": 24,
+                            "fontFamily": "AvenirLTStd-Roman",
+                            "letterSpacing": 0,
                           },
+                          false,
                         ]
                       }
                     >
@@ -3945,6 +4103,7 @@ exports[`Storyshots Header Behavior 1`] = `
                         >
                           <Text
                             numberOfLines={1}
+                            selectable={false}
                             style={
                               Array [
                                 Object {
@@ -3990,7 +4149,9 @@ exports[`Storyshots Header Behavior 1`] = `
                                   undefined,
                                   Object {
                                     "fontFamily": "AvenirLTStd-Roman",
+                                    "letterSpacing": 0,
                                   },
+                                  false,
                                 ]
                               }
                             />
@@ -4341,7 +4502,10 @@ exports[`Storyshots Row Style Presets 1`] = `
                   undefined,
                   undefined,
                   Object {
+                    "alignContent": "flex-start",
+                    "alignItems": "flex-start",
                     "justifyContent": "flex-start",
+                    "marginVertical": 2,
                   },
                 ]
               }
@@ -5181,7 +5345,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5289,7 +5455,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5308,7 +5476,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5416,7 +5586,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5524,7 +5696,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5544,7 +5718,9 @@ exports[`Storyshots Text Passing Content 1`] = `
                       undefined,
                       Object {
                         "fontFamily": "AvenirLTStd-Roman",
+                        "letterSpacing": 0,
                       },
+                      false,
                     ]
                   }
                 >
@@ -5684,7 +5860,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5704,7 +5882,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5730,7 +5910,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5749,7 +5931,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5858,7 +6042,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -5967,7 +6153,9 @@ exports[`Storyshots Text Style Presets 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6110,7 +6298,9 @@ exports[`Storyshots Text Styling 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6130,7 +6320,9 @@ exports[`Storyshots Text Styling 1`] = `
                       undefined,
                       Object {
                         "fontFamily": "AvenirLTStd-Roman",
+                        "letterSpacing": 0,
                       },
+                      false,
                     ]
                   }
                 >
@@ -6269,7 +6461,9 @@ exports[`Storyshots TextField Labelling 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6394,7 +6588,9 @@ exports[`Storyshots TextField Labelling 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6538,7 +6734,9 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6580,7 +6778,9 @@ exports[`Storyshots TextField Ref Forwarding 1`] = `
                   undefined,
                   Object {
                     "fontFamily": "AvenirLTStd-Roman",
+                    "letterSpacing": 0,
                   },
+                  false,
                 ]
               }
             >
@@ -6718,7 +6918,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6763,7 +6965,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6887,7 +7091,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -6928,7 +7134,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                   undefined,
                   Object {
                     "fontFamily": "AvenirLTStd-Roman",
+                    "letterSpacing": 0,
                   },
+                  false,
                 ]
               }
             >
@@ -7036,7 +7244,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                     undefined,
                     Object {
                       "fontFamily": "AvenirLTStd-Roman",
+                      "letterSpacing": 0,
                     },
+                    false,
                   ]
                 }
               >
@@ -7077,7 +7287,9 @@ exports[`Storyshots TextField Style Overrides 1`] = `
                   undefined,
                   Object {
                     "fontFamily": "AvenirLTStd-Roman",
+                    "letterSpacing": 0,
                   },
+                  false,
                 ]
               }
             >
