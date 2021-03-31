@@ -173,6 +173,8 @@ exports[`Storyshots Button Style Presets 1`] = `
                             "color": "#000000",
                             "fontFamily": "System",
                             "fontWeight": "400",
+                          },
+                          Object {
                             "textAlign": "left",
                           },
                           Array [
@@ -374,6 +376,8 @@ exports[`Storyshots Button Style Presets 1`] = `
                             "color": "#000000",
                             "fontFamily": "System",
                             "fontWeight": "400",
+                          },
+                          Object {
                             "textAlign": "left",
                           },
                           Array [
@@ -586,6 +590,8 @@ exports[`Storyshots Button Style Presets 1`] = `
                             "color": "#000000",
                             "fontFamily": "System",
                             "fontWeight": "400",
+                          },
+                          Object {
                             "textAlign": "left",
                           },
                           Array [
@@ -3776,6 +3782,8 @@ exports[`Storyshots Header Behavior 1`] = `
                                   "color": "#000000",
                                   "fontFamily": "System",
                                   "fontWeight": "400",
+                                },
+                                Object {
                                   "textAlign": "left",
                                 },
                                 Array [
@@ -4110,6 +4118,8 @@ exports[`Storyshots Header Behavior 1`] = `
                                   "color": "#000000",
                                   "fontFamily": "System",
                                   "fontWeight": "400",
+                                },
+                                Object {
                                   "textAlign": "left",
                                 },
                                 Array [

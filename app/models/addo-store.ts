@@ -6,7 +6,7 @@ type Diagnosis = {
     name: string
 }
 
-type VisitState = {
+export type VisitState = {
     sex: "male" | "female"
     recentVisit: boolean
     similarPresentation: boolean
