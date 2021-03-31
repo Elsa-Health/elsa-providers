@@ -345,6 +345,7 @@ type AuthenticationStoreState = {
     telephone: string
     city: string
     role: "none" | "clinician" | "clinical officer" | "nurse"
+    id: string
     setAuthenticated: (authStatus: boolean, name: any) => any
 }
 
@@ -357,6 +358,7 @@ const useAuthenticationStore = create<AuthenticationStoreState>((set) => ({
     telephone: "",
     city: "",
     role: "none",
+    id: "", // providerID
     setAuthenticated: (authStatus: boolean, updates: any) =>
         set((state) => ({ ...state, authenticated: authStatus, ...updates })),
 }))

@@ -1,13 +1,16 @@
 import { useNavigation } from "@react-navigation/native"
-import React from "react"
-import { View } from "react-native"
+import React, { useState } from "react"
+import { View, Alert } from "react-native"
 import SectionedMultiSelect from "react-native-sectioned-multi-select"
+import _ from "lodash"
 import { ADDO_TESTS_LIST, MEDICATIONSLIST, TESTSLIST } from "../../common/constants"
 import { pickerOptionsFromList } from "../../common/utils"
 import { Screen, Text, Checkbox, Card, TextInput, Button } from "../../components"
 import Spacer from "../../components/spacer/spacer"
-import { useVisitStore } from "../../models/addo-store"
+import { useVisitStore, VisitState } from "../../models/addo-store"
 import { style } from "../../theme"
+import { saveADDOVisit } from "./api"
+import { useAuthenticationStore } from "../../models/ctc-store"
 
 const AssessmentFeedback: React.FC = () => {
     const navigation = useNavigation()
@@ -28,6 +31,41 @@ const AssessmentFeedback: React.FC = () => {
         state.recommendations,
         state.updateVisit,
     ])
+    const [loading, setLoading] = useState(false)
+
+    const submitPatient = () => {
+        if (loading) {
+            return Alert.alert("Please wait while loading")
+        }
+        const visitState = _.omit(useVisitStore.getState(), [
+            "updateVisit",
+            "setDiagnoses",
+            "resetVisit",
+        ]) as VisitState
+
+        const {
+            facilityName,
+            facilityId,
+            firstName,
+            lastName,
+            id: providerId,
+        } = useAuthenticationStore.getState()
+        const providerName = `${firstName} ${lastName}`
+
+        setLoading(true)
+        saveADDOVisit(visitState, providerId, providerName, facilityId, facilityName)
+            .then((res) => {
+                setLoading(false)
+                // NEXT: should replace route instead of just navigate to it (??)
+                navigation.navigate("addo.Dashboard")
+            })
+            .catch((error) => {
+                setLoading(false)
+                Alert.alert("There has been an Error. Please check your network and try again.")
+                // NEXT: Must add error logging mechanism
+                console.log("Error: ", error)
+            })
+    }
     return (
         <Screen preset="scroll" title="Assessment Feedback">
             <Spacer size={20} />
@@ -120,13 +158,13 @@ const AssessmentFeedback: React.FC = () => {
 
             <Spacer size={20} />
 
-                <Button
+            <Button
                 style={{ paddingHorizontal: 46, paddingVertical: 5, alignSelf: "flex-end" }}
-                onPress={() => navigation.navigate("addo.Dashboard")}
-                    label="Next"
-                    labelSize="default"
-                    mode="contained"
-                />
+                onPress={submitPatient}
+                label={loading ? "Loading ..." : "Next"}
+                labelSize="default"
+                mode="contained"
+            />
         </Screen>
     )
 }

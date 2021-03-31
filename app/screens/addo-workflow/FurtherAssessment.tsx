@@ -150,7 +150,10 @@ const FurtherQuestions: React.FC = () => {
                 present.push(symptom)
             }
         })
-        updateVisit({ absentSymptoms: absent, presentSymptoms: present })
+        updateVisit({
+            absentSymptoms: _.uniq(absent),
+            presentSymptoms: _.uniq(present),
+        })
     }
 
     // console.log("observations: ", observationState)
