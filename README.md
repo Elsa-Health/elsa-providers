@@ -1,6 +1,7 @@
 # providers
 
-[![CircleCI](https://circleci.com/gh/infinitered/ignite-bowser.svg?style=svg)](https://circleci.com/gh/infinitered/ignite-bowser)
+![CI](https://github.com/Elsa-Health/elsa-providers/workflows/CI/badge.svg?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/Elsa-Health/elsa-providers/badge.svg?branch=master)](https://coveralls.io/github/Elsa-Health/elsa-providers?branch=dev)
 
 ## The latest and greatest boilerplate for Infinite Red opinions
 
