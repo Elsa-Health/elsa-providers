@@ -6,7 +6,7 @@ on:
       - test/**
   pull_request:
     branches:
-      - main
+      - master
       - dev
       - test/**
   
