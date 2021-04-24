@@ -29,6 +29,10 @@ export const color = {
      */
     primary: palette.blue,
     /**
+     * The white color.
+     */
+    white: palette.white,
+    /**
      * The main tinting color, but darker.
      */
     primaryDarker: palette.orangeDarker,
@@ -48,6 +52,10 @@ export const color = {
      * Error messages and icons.
      */
     error: palette.angry,
+    /**
+     * Warning messages and icons.
+     */
+    warning: palette.warning,
 
     /**
      * Storybook background for Text stories, or any stories where
@@ -61,4 +69,6 @@ export const color = {
      * white background
      */
     storybookTextColor: palette.black,
+
+    offWhiteBackground: palette.offWhite,
 }

@@ -5,7 +5,7 @@ import { ParamListBase } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "react-native-screens/native-stack"
 import { Screen, Text, Header } from "../components"
 import { useStores } from "../models/root-store"
-import { color } from "../theme"
+import { color, sm, xs } from "../theme"
 
 const { width } = Dimensions.get("window")
 
@@ -54,7 +54,7 @@ const dummyNextSteps = [
 // TODO: on back press, go back to home page.
 
 export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsScreenProps> = observer(
-    props => {
+    (props) => {
         const { assessment } = useStores()
         const topDiagnoses = assessment.topDiagnoses(4)
 
@@ -88,9 +88,11 @@ export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsS
                     <View style={{ marginTop: 20 }}>
                         <Button
                             mode="contained"
-                            onPress={() => props.navigation.navigate("hospital-recommendation", {
-                                symptoms: assessment.patient.symptoms
-                            })}
+                            onPress={() =>
+                                props.navigation.navigate("hospital-recommendation", {
+                                    symptoms: assessment.patient.symptoms,
+                                })
+                            }
                             style={{ marginVertical: 6 }}
                         >
                             <Text color="white">Refer to hospital</Text>
@@ -111,6 +113,7 @@ export const AssessmentResultsScreen: React.FunctionComponent<AssessmentResultsS
 
 const data = {
     labels: ["Pneumonia", "Tuberculosis", "Sinusitis", "COPD"],
+    // labels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
     datasets: [
         {
             data: [90, 35, 15, 9],
@@ -129,53 +132,66 @@ const chartConfig = {
     barPercentage: 0.5,
 }
 
-const DiseaseDistribution: React.FC<{ diagnoses: any[] }> = ({ diagnoses }) => {
+export const DiseaseDistribution: React.FC<{
+    diagnoses: any[]
+    height?: number
+    hideMessage?: boolean
+}> = ({ diagnoses, height = 220, hideMessage = false }) => {
     const labels = []
     const data = []
-    diagnoses.forEach(diag => {
+    diagnoses.forEach((diag) => {
         labels.push(diag.name)
         data.push(diag.p)
     })
 
     const dx = _.sortBy(diagnoses, ["p"]).reverse()[0]
     return (
-        <View style={{ marginVertical: 10, marginBottom: 14 }}>
+        <View style={{ marginVertical: 10, marginBottom: -14 }}>
             <BarChart
                 style={{
                     backgroundColor: color.palette.white,
+                    marginLeft: sm ? -12 : 0,
                     // paddingHorizontal: 0,
                     // marginHorizontal: 0,
                 }}
                 data={{
-                    labels,
-                    datasets: [{ data }],
+                    labels: [...labels],
+                    datasets: [
+                        { data },
+                        // { data: [100], color: () => "rgba(26, 255, 146, 1)" },
+                    ],
                 }}
-                width={width - 20}
-                height={220}
+                width={sm ? width - 35 : width - 92}
+                height={height}
+                yLabelsOffset={10}
                 yAxisLabel=""
                 fromZero
                 yAxisSuffix="%"
+                showValuesOnTopOfBars
                 horizontalLabelRotation={0}
                 chartConfig={{
                     backgroundColor: "white",
                     backgroundGradientFrom: "#fff",
                     backgroundGradientTo: "#fff",
-                    decimalPlaces: 1,
-                    barPercentage: 1,
+                    decimalPlaces: sm ? 1 : 2,
+                    barPercentage: sm ? 1.1 : 1.6,
+                    data: [{ data }],
                     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 }}
                 verticalLabelRotation={0}
             />
-            {!!dx && (
-                <Text size="h6" style={{ marginTop: 10 }}>
-                    Based on the information provided the most likely condition is{" "}
-                    {_.upperFirst(dx.name)}
+            {!hideMessage && !!dx && (
+                <Text tx="conditionDistribution.description" size={sm ? "h6" : "h5"} style={{ marginTop: sm ? -15 : -30 }}>
+                    The most likely condition is{" "}
+                    <Text size={sm ? "h6" : "h5"} style={{ color: color.primary }}>
+                        {_.upperFirst(dx.name)}
+                    </Text>
                 </Text>
             )}
 
-            <Text size="h6" style={{ marginTop: 10, fontWeight: "bold" }}>
+            {/* <Text size="h6" style={{ marginTop: 10, fontWeight: "bold" }}>
                 The patients risk of COVID-19 is HIGH. Refer Patient.
-            </Text>
+            </Text> */}
         </View>
     )
 }

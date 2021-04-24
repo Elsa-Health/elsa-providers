@@ -36,6 +36,8 @@ const initialAssessment = {
         },
     },
     nextNodes: ["here"],
+    qrcodeScanComplete:false,
+    qrcode:""
 }
 
 const initialCenters = {

@@ -3,6 +3,7 @@ import { Api } from "../../services/api"
 import firestore from "@react-native-firebase/firestore"
 import auth from "@react-native-firebase/auth"
 import _ from "lodash"
+import { type } from "ramda"
 
 interface Assesment {
     providerID: string
@@ -115,11 +116,22 @@ export const AssessmentModel = types
         diagnoses: types.frozen({}),
         reachedDiagnosis: types.boolean,
         nextNodes: types.array(types.string),
+
+        //Two extra values to be used during initial assessment 
+        qrcodeScanComplete:types.boolean,
+        qrcode:types.string
     })
     .actions(self => ({
         setNextNodes(nextNodes: string[] = []) {
             // @ts-ignore
             self.nextNodes = nextNodes
+        },
+        setQrCodeComplete(status:boolean=false){
+            self.qrcodeScanComplete=status
+        }
+        ,
+        setQrCode(qrcode:string=""){
+            self.qrcode=qrcode
         },
         setDiagnoses(diagnoses = {}) {
             self.diagnoses = diagnoses

@@ -12,3 +12,4 @@ const fallback = { languageTag: "en", isRTL: false }
 const { languageTag } =
     RNLocalize.findBestAvailableLanguage(Object.keys(i18n.translations)) || fallback
 i18n.locale = languageTag
+// RNLocalize.

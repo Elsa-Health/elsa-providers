@@ -1,5 +1,5 @@
 import { TextStyle } from "react-native"
-import { color, typography } from "../../theme"
+import { color, typography, md } from "../../theme"
 
 /**
  * All text will start off looking like this.
@@ -7,7 +7,7 @@ import { color, typography } from "../../theme"
 const BASE: TextStyle = {
   fontFamily: typography.primary,
   color: color.text,
-  fontSize: 15,
+  fontSize: md ? 18 : 15,
 }
 
 /**
