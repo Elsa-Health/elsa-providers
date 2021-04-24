@@ -36,7 +36,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Test React Native Code
-        run: yarn test --ci --coverage --maxWorkers=2
+        run: npm test --ci --coverage --maxWorkers=2
 
       - uses: eskatos/gradle-command-action@v1
         env:
