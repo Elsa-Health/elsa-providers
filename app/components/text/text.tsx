@@ -7,6 +7,7 @@ import { translate } from "../../i18n"
 import { mergeAll, flatten } from "ramda"
 import { color, sm, xs } from "../../theme"
 import { useLocale } from "../../models/language"
+import _ from "lodash"
 
 const styles = EStyleSheet.create({
     h1: {
@@ -78,9 +79,8 @@ const styles = EStyleSheet.create({
  *
  * This component is a HOC over the built-in React Native one.
  */
-export function Text(props: TextProps) {
-    // grab the props
-    const {
+export const Text: React.FC<TextProps> = React.memo(
+    ({
         preset = "default",
         txOptions,
         text,
@@ -95,43 +95,51 @@ export function Text(props: TextProps) {
         lineHeight = 0,
         tx,
         ...rest
-    } = props
+    }) => {
+        const locale = useLocale((state) => state.locale)
 
-    const locale = useLocale((state) => state.locale)
+        // figure out which content to use
+        const i18nText = tx && translate(tx, { locale, ...txOptions })
+        const content = i18nText || text || children
 
-    // figure out which content to use
-    const i18nText = tx && translate(tx, { locale, ...txOptions })
-    const content = i18nText || text || children
-
-    const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
-    const fontFormat = () => {
-        if (bold && italic) {
-            return "AvenirLTStd-HeavyOblique"
+        const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
+        const fontFormat = () => {
+            if (bold && italic) {
+                return "AvenirLTStd-HeavyOblique"
+            }
+            if (bold) {
+                return "AvenirLTStd-Heavy"
+            }
+            if (italic) {
+                return "AvenirLTStd-Oblique"
+            }
+            return "AvenirLTStd-Roman"
         }
-        if (bold) {
-            return "AvenirLTStd-Heavy"
-        }
-        if (italic) {
-            return "AvenirLTStd-Oblique"
-        }
-        return "AvenirLTStd-Roman"
-    }
 
-    return (
-        <ReactNativeText
-            {...rest}
-            style={[
-                style,
-                styles[color],
-                styles[size],
-                styles[align],
-                { fontFamily: fontFormat(), letterSpacing },
-                lineHeight > 0 && { lineHeight },
-                // italic && styles.italic,
-                // bold && styles.bold,
-            ]}
-        >
-            {content}
-        </ReactNativeText>
-    )
-}
+        return (
+            <ReactNativeText
+                {...rest}
+                style={[
+                    style,
+                    styles[color],
+                    styles[size],
+                    styles[align],
+                    { fontFamily: fontFormat(), letterSpacing },
+                    lineHeight > 0 && { lineHeight },
+                    // italic && styles.italic,
+                    // bold && styles.bold,
+                ]}
+            >
+                {content}
+            </ReactNativeText>
+        )
+    },
+    (prevProps, nextProps) => {
+        return (
+            prevProps.tx === nextProps.tx &&
+            prevProps.text === nextProps.text &&
+            _.isEqual(prevProps.style, nextProps.style) &&
+            prevProps.color === nextProps.color
+        )
+    },
+)

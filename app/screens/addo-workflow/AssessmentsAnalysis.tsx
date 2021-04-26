@@ -13,33 +13,33 @@ const { width } = Dimensions.get("screen")
 const assessmentAnalysisReport = [
     {
         condition: "Pneumonia",
-        expert: 922,
-        dispenser: 800,
-        agreability: 655,
+        expert: 0,
+        dispenser: 0,
+        agreability: 0,
     },
     {
         condition: "Tonsilitis",
-        expert: 122,
-        dispenser: 73,
-        agreability: 55,
+        expert: 0,
+        dispenser: 0,
+        agreability: 0,
     },
     {
         condition: "Bronchitis",
-        expert: 122,
-        dispenser: 80,
-        agreability: 65,
+        expert: 0,
+        dispenser: 0,
+        agreability: 0,
     },
     {
         condition: "Tuberculosis",
-        expert: 52,
-        dispenser: 8,
-        agreability: 3,
+        expert: 0,
+        dispenser: 0,
+        agreability: 0,
     },
     {
         condition: "Malaria",
-        expert: 422,
-        dispenser: 600,
-        agreability: 355,
+        expert: 0,
+        dispenser: 0,
+        agreability: 0,
     },
 ]
 
@@ -54,7 +54,7 @@ const AssessmentAnalysis: React.FunctionComponent<AssessmentAnalysisProps> = ({ 
     return (
         <Screen preset="scroll" title="Assessment Summary">
             <Spacer size={20} />
-            <Text size="h4">Hi, Lucy!</Text>
+            <Text size="h4">Habari!</Text>
             <Spacer size={5} />
             <Text>We're happy you are here. Lets check how things are going.</Text>
 
@@ -139,7 +139,7 @@ const AssessmentChartBar: React.FC<AssessmentChartBarProps> = ({
             <View
                 style={{
                     height: 40,
-                    flex: countBar,
+                    flex: count === 0 ? 0 : countBar,
                     backgroundColor: barColor,
                     justifyContent: "center",
                 }}
@@ -150,7 +150,7 @@ const AssessmentChartBar: React.FC<AssessmentChartBarProps> = ({
                     </Text>
                 )}
             </View>
-            <View style={{ height: 40, flex: 100 - countBar, justifyContent: "center" }}>
+            <View style={{ height: 40, flex: count === 0 ? 1 : 100 - countBar, justifyContent: "center" }}>
                 {countBar <= 50 && (
                     <Text color="default" style={{ alignSelf: "flex-start" }}>
                         {" "}

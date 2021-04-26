@@ -37,6 +37,7 @@
     "@react-navigation/stack": "^5.14.3",
     "@testing-library/react-native": "^7.2.0",
     "@types/react-native-vector-icons": "^6.4.6",
+    "@welldone-software/why-did-you-render": "^6.1.1",
     "apisauce": "^2.0.1",
     "axios": "^0.21.1",
     "bayesian-logistic-regressor": "^0.1.0",
@@ -69,7 +70,7 @@
     "react-native-reanimated": "^2.0.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-safe-area-view": "1.1.1",
-    "react-native-screens": "^2.18.1",
+    "react-native-screens": "^3.0.0",
     "react-native-sectioned-multi-select": "renrizzolo/react-native-sectioned-multi-select#185/head",
     "react-native-splash-screen": "3.2.0",
     "react-native-sticky-parallax-header": "^0.4.0",
@@ -93,11 +94,11 @@
     "@storybook/react-native-server": "^5.3.23",
     "@testing-library/jest-native": "^4.0.1",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^26.0.21",
+    "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",
     "@types/ramda": "0.27.39",
     "@types/react": "17.0.3",
-    "@types/react-native": "^0.64.0",
+    "@types/react-native": "^0.64.2",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -147,7 +148,11 @@
       "node_modules/(?!(jest-)?react-native|react-native|(@react-native|react-native)/|@react-navigation|@storybook|@react-native-community|vasern)"
     ],
     "collectCoverage": true,
-    "coverageReporters": ["json", "html", "lcov"]
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ]
   },
   "prettier": {
     "printWidth": 100,

@@ -25,7 +25,14 @@ const useSystemSymptomStore = create<SystemSymptomStore>((set) => ({
             // console.log(JSON.stringify(_state, null, 2))
             return { ...state, systemsSymptoms: _state }
         }),
-    resetSystemSymptomsStore: () => set(() => ({ systemsSymptoms: [...symptomsBySystems] })),
+    resetSystemSymptomsStore: () => {
+        set((state) => {
+            const updatedReset = JSON.parse(
+                JSON.stringify(symptomsBySystems).replace("present", "absent"),
+            )
+            return {  ...state, systemsSymptoms: [...updatedReset] }
+        })
+    },
 }))
 
 export { useSymptomFeatures, useSystemSymptomStore }

@@ -29,12 +29,17 @@ const PatientConsent: React.FC = () => {
             </Text>
             <Spacer size={14} />
             <Text size="default" tx="addo.consent.body.2" lineHeight={20}>
-                The AfyaTek program is seeking to improve health outcomes in Tanzania. This tool
-                helps assess patient symptoms and provide guidelines for next steps. {`\n\n`}No
-                personally identifying information will be collected from you during this symptom
-                assessment. You do not have to participate in this study if you do not want to.{" "}
+                The AfyaTek program seeks to improve health outcomes in Tanzania. The tool I am
+                using is called the Elsa Health Assistant.{`\n\n`}
+                As a part of the Afya-Tek program, the tool is being evaluated to see whether it can
+                be used to assist a dispenser while interacting with their clients and help them
+                better understand what the client is suffering from.
+                {`\n\n`}No personally identifying information will be collected from you during this
+                symptom assessment. You do not have to participate in this study if you do not want
+                to.
                 {`\n\n`}If you would like to withdraw, you are able to do so at any time. If you
-                have questions, please feel free to contact us directly.
+                have questions, please feel free to contact us directly. {`\n`}Contact information:
+                info@inspiredideas.io or +255756922868
             </Text>
             <Spacer size={10} />
             <View>
@@ -57,7 +62,7 @@ const PatientConsent: React.FC = () => {
             />
             <Spacer size={5} />
             <Button
-                onPress={() => navigation.goBack()}
+                onPress={navigation.goBack}
                 mode="outlined"
                 labelSize="default"
                 labelTx="addo.consent.abort"
@@ -66,5 +71,7 @@ const PatientConsent: React.FC = () => {
         </Screen>
     )
 }
+
+PatientConsent.whyDidYouRender = true
 
 export default PatientConsent
