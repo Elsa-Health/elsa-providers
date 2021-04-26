@@ -9,19 +9,22 @@ const { width, height } = Dimensions.get("window")
 
 const ConfirmPatientPresence: React.FC = () => {
     const navigation = useNavigation()
+    const goToConsent = React.useCallback(() => navigation.navigate("addo.PatientConsent"), [])
     return (
         <Screen preset="scroll" titleTx="addo.confirmation.title" title="Confirmation">
             <PatientConfirmationImg style={{ marginVertical: height / 15, alignSelf: "center" }} />
-            <Text bold tx="addo.confirmation.pleaseConfirm">Please confirm the following:</Text>
+            <Text bold tx="addo.confirmation.pleaseConfirm">
+                Please confirm the following:
+            </Text>
             <Spacer size={20} />
-            <Text tx="addo.confirmation.confirmationBody" >
+            <Text tx="addo.confirmation.confirmationBody">
                 Is the patient for whom you are completing this symptom assessment present in your
                 ADDO now/during the time of this assessment?
             </Text>
 
             <Spacer size={30} />
             <Button
-                onPress={() => navigation.navigate("addo.PatientConsent")}
+                onPress={goToConsent}
                 mode="contained"
                 labelSize="default"
                 labelTx="addo.confirmation.presentPatient"
@@ -29,7 +32,7 @@ const ConfirmPatientPresence: React.FC = () => {
             />
             <Spacer size={5} />
             <Button
-                onPress={() => navigation.goBack()}
+                onPress={navigation.goBack}
                 mode="outlined"
                 labelSize="default"
                 labelTx="addo.confirmation.absentPatient"
@@ -38,5 +41,7 @@ const ConfirmPatientPresence: React.FC = () => {
         </Screen>
     )
 }
+
+ConfirmPatientPresence.whyDidYouRender = true
 
 export default ConfirmPatientPresence

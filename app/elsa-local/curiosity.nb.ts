@@ -147,9 +147,9 @@ export const curiosityMappings: CuriosityNBMapping = {
     },
     gonorrhea: {
         "vaginal discharge": 90,
-        menorrhagia: 75,
+        menorrhagia: 85,
         // "abnormal vaginal bleeding": 70,
-        metrorrhagia: 50,
+        metrorrhagia: 60,
         dysuria: 65,
         "pelvic pain": 5,
         "testicular pain": 50,
@@ -194,7 +194,7 @@ export const curiosityMappings: CuriosityNBMapping = {
     // },
     // HIV
     "cryptococcal meningitis": {
-        fever: 99,
+        fever: 79,
         malaise: 80,
         headache: 99,
         "stiff neck": 100,
@@ -334,18 +334,18 @@ export const curiosityMappings: CuriosityNBMapping = {
     malaria: {
         // TODO: low bp < 50 systollic and deep laboured breathing
         fever: 98,
-        "high grade fever": 85,
-        headache: 75,
+        "high grade fever": 95,
+        headache: 85,
         vomiting: 85,
-        chills: 80,
+        chills: 90,
         // weak and unable to move
         convulsions: 50,
-        lethargy: 80,
-        hypoglycemia: 50,
+        lethargy: 85,
+        hypoglycemia: 60,
         coma: 30,
-        anaemia: 80, // pallor
+        anaemia: 85, // pallor
         "weight loss": 75,
-        jaundice: 50,
+        jaundice: 80,
         "dark urine": 50,
     },
     // "acute watery diarrhoea": {

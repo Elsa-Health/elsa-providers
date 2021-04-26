@@ -157,7 +157,9 @@ export const DiseaseDistribution: React.FC<{
                 data={{
                     labels: [...labels],
                     datasets: [
-                        { data },
+                        {
+                            data,
+                        },
                         // { data: [100], color: () => "rgba(26, 255, 146, 1)" },
                     ],
                 }}
@@ -181,7 +183,11 @@ export const DiseaseDistribution: React.FC<{
                 verticalLabelRotation={0}
             />
             {!hideMessage && !!dx && (
-                <Text tx="conditionDistribution.description" size={sm ? "h6" : "h5"} style={{ marginTop: sm ? -15 : -30 }}>
+                <Text
+                    tx="conditionDistribution.description"
+                    size={sm ? "h6" : "h5"}
+                    style={{ marginTop: sm ? -15 : -30 }}
+                >
                     The most likely condition is{" "}
                     <Text size={sm ? "h6" : "h5"} style={{ color: color.primary }}>
                         {_.upperFirst(dx.name)}

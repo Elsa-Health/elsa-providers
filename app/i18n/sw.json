@@ -14,7 +14,8 @@
         "months": "Miezi",
         "next": "Endelea",
         "todaysDate": "Tarehe ya Leo",
-        "duration": "Muda"
+        "duration": "Muda",
+        "dangerCheck": "Dalili Hatari"
     },
     "errors": {
         "invalidEmail": "Invalid email address."
@@ -69,10 +70,10 @@
             "absentPatient": "Mgonjwa hayupo"
         },
         "consent": {
-            "title": "Idhini ya Mgonjwa",
+            "title": "AfyaTek - Idhini ya Mgonjwa",
             "body": {
                 "1": "Taarifa ifuatayo inaelezea mpango wa AfyaTek. Tafadhali msomee mgonjwa wako.",
-                "2": "Programu ya AfyaTek inataka kuboresha matokeo ya afya nchini Tanzania. Chombo hiki husaidia kutathmini dalili za mgonjwa na hutoa miongozo ya hatua zinazofuata.\n\nHakuna taarifa za kibinafsi zitakazokusanywa kutoka kwako wakati wa tathmini hii ya dalili. Sio lazima kushiriki katika utafiti huu ikiwa kama hutaki.\n\nIkiwa ungependa kujiondoa, unaweza kufanya hivyo wakati wowote. Ikiwa una maswali, tafadhali jisikie huru kuwasiliana nasi moja kwa moja."
+                "2": "Programu ya AfyaTek inataka kuboresha matokeo ya afya nchini Tanzania. Kifaa ninachotumia kinaitwa Msaidizi wa Afya wa Elsa. \n\nKama sehemu ya mpango wa Afya-Tek, kifaa hiki kinakaguliwa ili kuona ikiwa kinaweza kutumika kumsaidia mtoa huduma ya afya wakati akiwahudumia wateja wake na kumsaidia kuelewa vizuri mteja anaugua nini.\n\nHakuna taarifa za kibinafsi zitakazokusanywa kutoka kwako wakati wa tathmini hii ya dalili. Sio lazima kushiriki katika utafiti huu ikiwa kama hutaki.\n\nIkiwa ungependa kujiondoa, unaweza kufanya hivyo wakati wowote. Ikiwa una maswali, tafadhali jisikie huru kuwasiliana nasi moja kwa moja.\nMawasiliano ya habari: info@inspiredideas.io au +255756922868"
             },
             "checkbox": "Mgonjwa au mlezi wao anakubali kushiriki na kuelewa taarifa iliyoelezwa hapo juu.",
             "continue": "Endelea",
@@ -105,6 +106,14 @@
             "recommendedTestsTitle": "Vipimo vifuatavyo hufanywa kwa ugonjwa huu:",
             "conditionDecision": "Ugonjwa dhana",
             "conditionDecisionSubTitle": "Kwa kutumia ujuzi wako pamoja na maswali yaliyoulizwa na tathmini yake iliyopo hapo juu, unadhani ni ugonjwa gani aliyokuwa nao mteja wako?"
+        },
+        "assessmentFeedback": {
+            "title": "Hatua Zilizofuata",
+            "subtitle": "Nimetoa muongozo ufuatao:",
+            "hospitalReferredText": "Nimempa rufaa ya kuenda kituo \ncha afya",
+            "labReferredText": "Nimpa rufaa ya kuenda maabara",
+            "dispensedMedication": "Nimetoa dawa zifuatazo:",
+            "additionalRecommendations": "Mengine nilioshauri"
         }
     },
     "title": {

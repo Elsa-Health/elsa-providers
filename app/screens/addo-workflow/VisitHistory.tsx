@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigation } from "@react-navigation/native"
-import { View, Dimensions } from "react-native"
+import { View, Dimensions, StyleSheet } from "react-native"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import { Button, Checkbox, Row, Screen, Text } from "../../components"
 import Spacer from "../../components/spacer/spacer"
@@ -38,7 +38,9 @@ const VisitHistory: React.FC = () => {
         shallow,
     )
 
-    const submit = () => navigation.navigate("addo.PatientIntake")
+    const submit = React.useCallback(() => navigation.navigate("addo.PatientIntake"), [])
+
+    console.log("Rendered")
 
     return (
         <Screen title="Previous Visits" titleTx="addo.previousVisits.title" preset="scroll">
@@ -49,7 +51,7 @@ const VisitHistory: React.FC = () => {
 
             <Row>
                 <MaterialIcon
-                    style={{ marginRight: 10 }}
+                    style={styles.icon}
                     size={28}
                     color={color.primary}
                     name={"history"}
@@ -115,5 +117,9 @@ const VisitHistory: React.FC = () => {
         </Screen>
     )
 }
+
+const styles = StyleSheet.create({
+    icon: { marginRight: 10 },
+})
 
 export default VisitHistory

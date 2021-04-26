@@ -28,7 +28,7 @@ export type VisitState = {
     recommendations: string
     dispenserDifferentialDiagnosis: string
     updateVisit: (updates: any) => any
-    setDiagnoses: (diagnoses: any[]) => any
+    setDiagnoses: (diagnosis: any[]) => any
     resetVisit: () => any
 }
 // expert opinions
@@ -60,7 +60,7 @@ const initialVisit: Omit<VisitState, "updateVisit" | "setDiagnoses" | "resetVisi
 const useVisitStore = create<VisitState>((set, get) => ({
     ...initialVisit,
     updateVisit: (updates) => set((state) => ({ ...state, ...updates })),
-    setDiagnoses: (diagnoses) => set((state) => ({ ...state, diagnoses })),
+    setDiagnoses: (diagnosis) => set((state) => ({ ...state, diagnosis })),
     resetVisit: () =>
         set((state) => ({
             ...state,

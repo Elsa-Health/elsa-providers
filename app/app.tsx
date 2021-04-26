@@ -1,7 +1,8 @@
 // Welcome to the main entry point of the app.
 //
 // In this file, we'll be kicking off our app or storybook.
-import 'react-native-gesture-handler'
+import "./common/wdyr"
+import "react-native-gesture-handler"
 import "./i18n"
 import React, { useState, useEffect, useRef } from "react"
 import { LogBox } from "react-native"
@@ -206,4 +207,6 @@ const codePushOptions: CodePushOptions = {
     },
 }
 
-export default codePush(codePushOptions)(App)
+const CodePushedApp = __DEV__ ? App : codePush(codePushOptions)(App);
+
+export default CodePushedApp

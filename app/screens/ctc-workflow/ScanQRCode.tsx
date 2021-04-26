@@ -319,13 +319,15 @@ export const CodeScannerView: React.FC<CodeScannerViewProps> = ({ onScan }) => (
         onRead={(e) => onScan(e.data)}
         showMarker={true}
         // flashMode={RNCamera.Constants.FlashMode.torch}
-        cameraProps={{ flashMode: "on" }}
+        cameraProps={{ flashMode: "on", autoFocus: "on" }}
         containerStyle={styles.scannerContainer}
         cameraStyle={styles.cameraStyle}
         reactivate
         reactivateTimeout={1000}
         markerStyle={{
             borderColor: color.primary,
+            width: width - 40,
+            height: (height / 1.5) / 2
         }}
     />
 )
