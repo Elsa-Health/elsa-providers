@@ -138,9 +138,9 @@ android {
         applicationId "com.elsa.providers"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 3
         multiDexEnabled true
-        versionName "0.1.1"
+        versionName "0.1.3"
         missingDimensionStrategy 'react-native-camera', 'general' 
     }
     splits {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { ToastAndroid } from "react-native"
 import { Button, Screen, Text } from "../../components"
 import Spacer from "../../components/spacer/spacer"
@@ -42,6 +42,8 @@ const CTCAuthenticator = () => {
             authStore.setAuthenticated(false, {})
         }
     }
+
+    
 
 
     return (

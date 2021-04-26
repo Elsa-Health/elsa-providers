@@ -26,6 +26,9 @@ const symptomsNetwork = [
     ["halitosis", "dental pain"],
     ["ear discharge", "ear pain"],
     ["dysuria", "frequent micturation"],
+    ["vaginal itching", "white vaginal discharge", "vaginal discharge", "dysuria", "fishy vaginal discharge"],
+    ["vaginal discharge", "menorrhagia", "metrorrhagia", "dysuria", "pelvic pain", "testicular pain", "testicular swelling"],
+    ["skin rash", "skin patches", "pruritis"],
     ["stiff neck"],
 ]
 

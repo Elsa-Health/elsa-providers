@@ -1,9 +1,14 @@
-import { useNavigation } from "@react-navigation/native"
+import { StackActions, useNavigation } from "@react-navigation/native"
 import React, { useState } from "react"
 import { View, Alert } from "react-native"
 import SectionedMultiSelect from "react-native-sectioned-multi-select"
 import _ from "lodash"
-import { ADDO_TESTS_LIST, MEDICATIONSLIST, TESTSLIST } from "../../common/constants"
+import {
+    ADDO_MEDICATIONS_LIST,
+    ADDO_TESTS_LIST,
+    MEDICATIONSLIST,
+    TESTSLIST,
+} from "../../common/constants"
 import { pickerOptionsFromList } from "../../common/utils"
 import { Screen, Text, Checkbox, Card, TextInput, Button } from "../../components"
 import Spacer from "../../components/spacer/spacer"
@@ -11,6 +16,7 @@ import { useVisitStore, VisitState } from "../../models/addo-store"
 import { style } from "../../theme"
 import { saveADDOVisit } from "./api"
 import { useAuthenticationStore } from "../../models/ctc-store"
+import { useSystemSymptomStore } from "../../models/symptoms-store"
 
 const AssessmentFeedback: React.FC = () => {
     const navigation = useNavigation()
@@ -31,12 +37,16 @@ const AssessmentFeedback: React.FC = () => {
         state.recommendations,
         state.updateVisit,
     ])
+    const resetSystemSymptomsStore = useSystemSymptomStore(
+        (state) => state.resetSystemSymptomsStore,
+    )
     const [loading, setLoading] = useState(false)
 
     const submitPatient = () => {
         if (loading) {
             return Alert.alert("Please wait while loading")
         }
+        setLoading(true)
         const visitState = _.omit(useVisitStore.getState(), [
             "updateVisit",
             "setDiagnoses",
@@ -52,25 +62,28 @@ const AssessmentFeedback: React.FC = () => {
         } = useAuthenticationStore.getState()
         const providerName = `${firstName} ${lastName}`
 
-        setLoading(true)
         saveADDOVisit(visitState, providerId, providerName, facilityId, facilityName)
             .then((res) => {
-                setLoading(false)
+                // setLoading(false)
+                resetSystemSymptomsStore() // reset the patient visit
                 // NEXT: should replace route instead of just navigate to it (??)
-                navigation.navigate("addo.Dashboard")
+                // navigation.dispatch(StackActions.replace("addo.Dashboard"))
+                // navigation.navigate("addo.Dashboard")
             })
             .catch((error) => {
-                setLoading(false)
-                Alert.alert("There has been an Error. Please check your network and try again.")
+                // setLoading(false)
+                // Alert.alert("There has been an Error. Please check your network and try again.")
                 // NEXT: Must add error logging mechanism
                 console.log("Error: ", error)
             })
+
+        navigation.dispatch(StackActions.replace("addo.Dashboard"))
     }
     return (
-        <Screen preset="scroll" title="Assessment Feedback">
+        <Screen preset="scroll" titleTx="addo.assessmentFeedback.title" title="Assessment Feedback">
             <Spacer size={20} />
 
-            <Text size="default" bold>
+            <Text size="default" tx="addo.assessmentFeedback.subtitle" bold>
                 I provided the following recommendations:
             </Text>
             <Spacer size={20} />
@@ -79,6 +92,8 @@ const AssessmentFeedback: React.FC = () => {
                     rtl
                     value={referred}
                     onToggle={() => setState({ referred: !referred })}
+                    multiline
+                    tx="addo.assessmentFeedback.hospitalReferredText"
                     text="Referred to the nearest health facility"
                 ></Checkbox>
             </Card>
@@ -93,6 +108,7 @@ const AssessmentFeedback: React.FC = () => {
                         })
                     }
                     text="Referred to a laboratory for testing"
+                    tx="addo.assessmentFeedback.labReferredText"
                 ></Checkbox>
 
                 {referredForTesting && (
@@ -125,15 +141,18 @@ const AssessmentFeedback: React.FC = () => {
                         })
                     }
                     text="Dispensed medication to the patient"
+                    tx="addo.assessmentFeedback.dispensedMedication"
                 ></Checkbox>
                 {prescribedMedications && (
                     <SectionedMultiSelect
-                        items={pickerOptionsFromList(MEDICATIONSLIST).map(({ label, value }) => ({
-                            label,
-                            value,
-                            name: label,
-                            id: value,
-                        }))}
+                        items={pickerOptionsFromList(ADDO_MEDICATIONS_LIST).map(
+                            ({ label, value }) => ({
+                                label,
+                                value,
+                                name: label,
+                                id: value,
+                            }),
+                        )}
                         uniqueKey="id"
                         // subKey="children"
                         selectText="Choose the treatments dispensed..."
@@ -146,7 +165,9 @@ const AssessmentFeedback: React.FC = () => {
             </Card>
 
             <Card>
-                <Text>Additional recommendations to the patient</Text>
+                <Text tx="addo.assessmentFeedback.additionalRecommendations">
+                    Additional recommendations to the patient
+                </Text>
                 <TextInput
                     multiline
                     rows={5}
@@ -162,8 +183,10 @@ const AssessmentFeedback: React.FC = () => {
                 style={{ paddingHorizontal: 46, paddingVertical: 5, alignSelf: "flex-end" }}
                 onPress={submitPatient}
                 label={loading ? "Loading ..." : "Next"}
+                disabled={loading}
                 labelSize="default"
                 mode="contained"
+                labelTx="common.next"
             />
         </Screen>
     )

@@ -21,10 +21,16 @@ const Dashboard: React.FC = () => {
         (state) => state.resetSystemSymptomsStore,
     )
 
+    const setEnglish = React.useCallback(() => setLocale("en"), [])
+    const setSwahili = React.useCallback(() => setLocale("sw"), [])
+    const goToFeedback = React.useCallback(() => navigation.navigate("addo.Feedback"), [])
+    const goToConfirmPatient = React.useCallback(() => navigation.navigate("addo.ConfirmPatientPresence"), [])
+
     // Ensure that the global state that contains private information is cleared.
     // This is a redundancy to guarantee that everyone going through the dashboard never see a previous patient
     useFocusEffect(
         React.useCallback(() => {
+            console.log("Called here")
             resetVisitStore()
             resetSystemSymptomsStore()
         }, []),
@@ -38,13 +44,19 @@ const Dashboard: React.FC = () => {
                 </Text>
             </View>
             <DoctorsImg style={{ marginVertical: height / 15, alignSelf: "center" }} />
-            <Text tx="dashboardScreen.addo.note" align="center" color="gray" style={{ lineHeight: 18 }} size="h7">
+            <Text
+                tx="dashboardScreen.addo.note"
+                align="center"
+                color="gray"
+                style={{ lineHeight: 18 }}
+                size="h7"
+            >
                 Note: The Elsa Health Assistant should not be used for emergency cases. Please refer
                 your patient to a hospital immediately.
             </Text>
             <Button
                 style={{ paddingVertical: 5, marginTop: height / 25 }}
-                onPress={() => navigation.navigate("addo.ConfirmPatientPresence")}
+                onPress={goToConfirmPatient}
                 mode="contained"
                 labelSize="default"
                 labelTx="dashboardScreen.actions.beginAssessment"
@@ -53,7 +65,7 @@ const Dashboard: React.FC = () => {
 
             <Button
                 style={{ paddingVertical: 5 }}
-                onPress={() => navigation.navigate("addo.Feedback")}
+                onPress={goToFeedback}
                 mode="text"
                 labelSize="default"
                 labelTx="dashboardScreen.actions.feedback"
@@ -66,13 +78,13 @@ const Dashboard: React.FC = () => {
                 <Button
                     mode="text"
                     label="English"
-                    onPress={() => setLocale("en")}
+                    onPress={setEnglish}
                     labelSize="default"
                     labelColor={locale === "sw" ? "gray" : "primary"}
                 />
                 <Text> &nbsp;| &nbsp;</Text>
                 <Button
-                    onPress={() => setLocale("sw")}
+                    onPress={setSwahili}
                     label="Swahili"
                     labelSize="default"
                     labelColor={locale === "en" ? "gray" : "primary"}
@@ -81,5 +93,7 @@ const Dashboard: React.FC = () => {
         </Screen>
     )
 }
+
+Dashboard.whyDidYouRender = true
 
 export default Dashboard

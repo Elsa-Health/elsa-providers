@@ -62,14 +62,20 @@ export const RadioQuestion: React.FC<RadioQuestionProps> = React.memo(
                                 onPress={() => onPress(option.value)}
                                 color={color.primary}
                             />
-                            <Text tx={`radioOptions.${option.label.toLowerCase()}`} size={sm ? "default" : "h6"}>{option.label}</Text>
+                            <Text
+                                tx={`radioOptions.${option.label.toLowerCase()}`}
+                                size={sm ? "default" : "h6"}
+                            >
+                                {option.label}
+                            </Text>
                         </TouchableOpacity>
                     ))}
                 </View>
             </View>
         )
     },
-    (prevProps, nextProps) => (prevProps.value === nextProps.value) && (prevProps.question === nextProps.question),
+    (prevProps, nextProps) =>
+        prevProps.value === nextProps.value && prevProps.question === nextProps.question && prevProps.id === nextProps.id
 )
 
 const styles = StyleSheet.create({

@@ -54,7 +54,7 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["dysuria"],
         system: "Renal",
-        question: { en: "Discomfort when urinating?", sw: "Usumbufu wakati wa kukojoa?" },
+        question: { en: "Discomfort when urinating?", sw: "Kutojisikia wakati wa kukojoa??" },
     },
     {
         nodes: ["frequent micturation"],
@@ -114,7 +114,7 @@ const questionMaps: QuestionMapping[] = [
         system: "Reproductive",
         question: {
             en: "Vaginal discharge that is fishy smelling?",
-            sw: "Maji maji Kutoka ukeni ambayo yana harufu ya samaki?",
+            sw: "Maji maji Kutoka ukeni yenye harufu ya samaki au shombe?",
         },
     },
     {
@@ -135,7 +135,7 @@ const questionMaps: QuestionMapping[] = [
         system: "Reproductive",
         question: {
             en: "Pain or swelling in their scrotum?",
-            sw: "Maumivu au uvimbe kwenye kibofu?",
+            sw: "Maumivu au uvimbe kwenye mfuko wa tezi dume?",
         },
     },
     {
@@ -151,7 +151,7 @@ const questionMaps: QuestionMapping[] = [
         system: "Reproductive",
         question: {
             en: "Pain at the opening of the penis?",
-            sw: "Maumivu wakati wa ufunguzi wa uume?",
+            sw: "Maumivu kwenye ncha ya uume?",
         },
     },
     {
@@ -159,13 +159,16 @@ const questionMaps: QuestionMapping[] = [
         system: "Reproductive",
         question: {
             en: "Heavy periods (more than normal)?",
-            sw: "Vipindi vizito vya hedhi (zaidi ya kawaida)?",
+            sw: "Kupata hedhi nzito au nyingi (zaidi ya kawaida)?",
         },
     },
     {
         nodes: ["metrorrhagia"],
         system: "Reproductive",
-        question: { en: "Abnormal vaginal bleeding?", sw: "Damu isiyo ya kawaida ukeni?" },
+        question: {
+            en: "Abnormal vaginal bleeding?",
+            sw: "Kutokwa na damu katika siku zisizo za hedhi?",
+        },
     },
     {
         nodes: ["testicular pain"],
@@ -182,7 +185,7 @@ const questionMaps: QuestionMapping[] = [
         system: "Reproductive",
         question: {
             en: "Vaginal discharge that is foul smelling?",
-            sw: "Kutokwa na uke ambayo ni harufu mbaya?",
+            sw: "Kutokwa na harufu mbaya ukeni?",
         },
     },
     {
@@ -219,7 +222,7 @@ const questionMaps: QuestionMapping[] = [
         system: "",
         question: {
             en: "General discomfort or body malaise?",
-            sw: "Usumbufu wa jumla au ugonjwa wa malaise?",
+            sw: "Kujisikia vibaya mwili mzima?",
         },
     },
     {
@@ -230,19 +233,19 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["stiff neck"],
         system: "Musculoskeletal",
-        question: { en: "A stiff neck?", sw: "Shingo ngumu?" },
+        question: { en: "A stiff neck?", sw: "Shingo kuwa ngumu?" },
     },
     {
         nodes: ["photophobia"],
         system: "Neurological",
-        question: { en: "Sensitivity to light?", sw: "Unyeti kwa mwanga?" },
+        question: { en: "Sensitivity to light?", sw: "Maumivu ya macho kwenye mwanga?" },
     },
     {
         nodes: ["coma"],
         system: "Neurological",
         question: {
             en: "Prolonged unconciousness (in a coma)?",
-            sw: "Kupoteza fahamu kwa muda mrefu (katika coma)?",
+            sw: "Kupoteza fahamu kwa muda mrefu (coma)?",
         },
     },
     { nodes: ["cough"], system: "Respiratory", question: { en: "A cough?", sw: "Kikohozi?" } },
@@ -254,7 +257,7 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["skin rash"],
         system: "Integumentary",
-        question: { en: "A skin rash?", sw: "A skin rash?" },
+        question: { en: "A skin rash?", sw: "Upele kwenye ngozi?" },
     },
     {
         nodes: ["visual impairment"],
@@ -293,7 +296,10 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["focal neurological deficit"],
         system: "Central Nervous System",
-        question: { en: "Abnormal function of a body area (such as their face, arms, tongue, or eyes)?", sw: "Kazi isiyo ya kawaida ya eneo la mwili (kama vile uso, mikono, ulimi, au macho)?" },
+        question: {
+            en: "Abnormal function of a body area (such as their face, arms, tongue, or eyes)?",
+            sw: "Kazi isiyo ya kawaida ya eneo la mwili (kama vile uso, mikono, ulimi, au macho)?",
+        },
     },
     {
         nodes: ["diastolic hypertension"],
@@ -310,7 +316,7 @@ const questionMaps: QuestionMapping[] = [
         system: "",
         question: {
             en: "Sudden weight loss (or have their clothes become loose)?",
-            sw: "Kupunguza uzito ghafla (au punguza nguo zao ili kuwa huru)?",
+            sw: "Kupungua uzito bila kutarajia?",
         },
     },
     {
@@ -417,8 +423,8 @@ const questionMaps: QuestionMapping[] = [
         nodes: ["hypoxia after exertion"],
         system: "Respiratory",
         question: {
-            en: "Reduced oxygen (hypoxia) after moderate exercising",
-            sw: "Kupungua kwa oksijeni (hypoxia) baada ya mazoezi ya wastani",
+            en: "Reduced oxygen (hypoxia) after moderate exercising?",
+            sw: "Kupungua kwa oksijeni baada ya mazoezi ya wastani/kawaida?",
         },
     },
     {
@@ -436,7 +442,7 @@ const questionMaps: QuestionMapping[] = [
         system: "Gastrointestinal",
         question: {
             en: "Burning pain in their abdomen?",
-            sw: "Kuungua maumivu ndani ya tumbo?",
+            sw: "Maumivu kama ya kuungua ndani ya tumbo?",
         },
     },
     {
@@ -483,8 +489,8 @@ const questionMaps: QuestionMapping[] = [
         nodes: ["convulsions"],
         system: "Central Nervous System",
         question: {
-            en: "Machafuko (sudde",
-            sw: "harakati isiyo ya kawaida ya kiungo au ya mwili)?",
+            en: "Convulsions (sudden, irregular movement of a limb or of the body)?",
+            sw: "Machafuko (ghafla, harakati isiyo ya kawaida ya kiungo au ya mwili)?",
         },
     },
     {
@@ -501,7 +507,7 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["myalgia"],
         system: "Musculoskeletal",
-        question: { en: "Muscle pain?", sw: "Kupiga chafya?" },
+        question: { en: "Muscle pain?", sw: "Maumivu ya misuli?" },
     },
     {
         nodes: ["loss of appetite"],
@@ -521,14 +527,14 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["difficulty swallowing"],
         system: "Digestive",
-        question: { en: "Difficulty swallowing?", sw: "Ugumu kumeza?" },
+        question: { en: "Difficulty swallowing?", sw: "Ugumu au kushindwa kumeza?" },
     },
     {
         nodes: ["hoarseness"],
         system: "Digestive",
         question: {
             en: "Hoarseness (inability to use their voice)?",
-            sw: "Hoarseness (kutokuwa na uwezo wa kutumia sauti yao)?",
+            sw: "Kubadilika au kukwaruza kwa sauti?",
         },
     },
     {
@@ -544,7 +550,7 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["white patches on tonsils"],
         system: "Digestive",
-        question: { en: "White patches on their tonsils?", sw: "Vipande vyeupe kwenye toni zao?" },
+        question: { en: "White patches on their tonsils?", sw: "Vipande vyeupe kwenye tezi zao?" },
     },
     {
         nodes: ["voice loss"],
@@ -554,24 +560,24 @@ const questionMaps: QuestionMapping[] = [
     {
         nodes: ["tender anterior neck"],
         system: "Immune",
-        question: { en: "Tenderness in the back of the neck?", sw: "Upole nyuma ya shingo?" },
+        question: { en: "Tenderness in the back of the neck?", sw: "Maumivu unapobonyeza nyuma ya shingo?" },
     },
     {
         nodes: ["nasal congestion"],
         system: "Respiratory",
-        question: { en: "Nasal congestion?", sw: "Msongamano ndani ya pua?" },
+        question: { en: "Nasal congestion?", sw: "Pua kuziba?" },
     },
     {
         nodes: ["vaginal inflammation"],
         system: "Reproductive",
-        question: { en: "Inflammation of the vagina?", sw: "Kuvimba kwa uke?" },
+        question: { en: "Inflammation of the vagina?", sw: "Hisia ya uvimbejoto katika uke?" },
     },
     {
         nodes: ["curd like vaginal discharge"],
         system: "Reproductive",
         question: {
             en: "Vaginal discharge that is curd-like?",
-            sw: "Kutokwa na majimaji  ukeni ambayo ni kama jibini?",
+            sw: "Kutokwa na majimaji ukeni yanayofanana na maziwa ya mgando?",
         },
     },
     {
@@ -579,7 +585,7 @@ const questionMaps: QuestionMapping[] = [
         system: "//",
         question: {
             en: "Prolonged use of antibiotics?",
-            sw: "Matumizi ya muda mrefu ya antibiotics?",
+            sw: "Matumizi ya muda mrefu ya antibiotiki?",
         },
     },
     {
