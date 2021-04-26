@@ -226,20 +226,20 @@ export const getNextAppointmentDate = (patientAppointments: any[]) => {
 export function shallowTypeCoerce(
     obj: { [key: string]: any },
     keys: string[],
-    type: string | boolean | number,
+    type: "string" | "boolean" | "number",
 ): { [key: string]: any } {
     const localObj = cloneDeep(obj)
 
     if (type === "number") {
-        keys.forEach((key) => obj[key] && (obj[key] = Number(obj[key])))
+        keys.forEach((key) => localObj[key] && (localObj[key] = +localObj[key]))
     }
 
     if (type === "string") {
-        keys.forEach((key) => obj[key] && (obj[key] = String(obj[key])))
+        keys.forEach((key) => localObj[key] && (localObj[key] = String(localObj[key])))
     }
 
     if (type === "boolean") {
-        keys.forEach((key) => obj[key] && (obj[key] = Boolean(obj[key])))
+        keys.forEach((key) => localObj[key] !== undefined && (localObj[key] = Boolean(+localObj[key])))
     }
 
     return localObj

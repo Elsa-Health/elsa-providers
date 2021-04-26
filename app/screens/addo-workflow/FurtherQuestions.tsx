@@ -14,7 +14,7 @@ import { SystemSymptomMapping } from "../../common/systemSymptoms"
 import { findAllSymptomsWithValue } from "../../components/symptoms-picker/symptomsNetwork"
 import QuestionsAssessment from "../../components/questions-assessment/questions-assessment"
 import Spacer from "../../components/spacer/spacer"
-import { Button, Col, Row, Screen, Text, withPreventDoubleClick } from "../../components"
+import { Button, Col, Row, Screen, Text } from "../../components"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack/lib/typescript/src/types"
 import RadioQuestion from "../../components/radio-question/radio-question"
@@ -152,7 +152,5 @@ const FurtherQuestions: React.FC = (props: any) => {
         </Screen>
     )
 }
-
-// const DebouncedButton = withPreventDoubleClick(Button)
 
 export default FurtherQuestions

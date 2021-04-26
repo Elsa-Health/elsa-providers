@@ -12,7 +12,6 @@ import { Text } from "../text/text"
 import {
     findAllSymptomsWithValue,
     getRelatedSymptoms,
-    RENAME_findNode,
     symptomDependencies,
     SymptomDependency,
     symptomDurationOptions,
@@ -179,6 +178,7 @@ const SymptomsPicker: React.FC<SymptomsPickerProps> = React.memo(() => {
                         {relatedSymptoms.map((symptom) => (
                             <Chip
                                 key={symptom}
+                                accessibilityLabel="symptom-chip"
                                 onPress={() =>
                                     setSelectedSymptoms(_.uniq([...selectedSymptoms, symptom]))
                                 }
@@ -260,9 +260,6 @@ const SymptomFeatures: React.FC<SymptomFeaturesProps> = React.memo(
 
         // FIXME: Potentially do the update at this level, instead of the above level
         // FIXME: Find way to pass state down here so that they listen to the same state
-        // console.log("FOUND: ", symptomDependency, RENAME_findNode(symptom))
-
-        // console.warn("Finding things", RENAME_findNode(symptom))
 
         const { visibilityRules, attributeOptions, attributes } = symptomDependency
         // console.log("Symptom features: ", JSON.stringify(symptomFeatures, null, 2))
@@ -376,6 +373,7 @@ const SymptomFeatureOptionButton: React.FC<SymptomFeatureOptionButtonProps> = Re
         return (
             <TouchableOpacity
                 activeOpacity={0.5}
+                testID="featureOptionButton"
                 onPress={() => onPress(attribute, value)}
                 style={[styles.attributeButton, isActive && styles.activeAttributeButton]}
             >
@@ -435,4 +433,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export { SymptomsPicker }
+export { SymptomsPicker, SymptomFeatureOptionButton, SymptomFeatures, getOperation }
