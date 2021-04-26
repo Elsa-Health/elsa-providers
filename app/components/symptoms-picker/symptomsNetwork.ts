@@ -26,6 +26,9 @@ const symptomsNetwork = [
     ["halitosis", "dental pain"],
     ["ear discharge", "ear pain"],
     ["dysuria", "frequent micturation"],
+    ["vaginal itching", "white vaginal discharge", "vaginal discharge", "dysuria", "fishy vaginal discharge"],
+    ["vaginal discharge", "menorrhagia", "metrorrhagia", "dysuria", "pelvic pain", "testicular pain", "testicular swelling"],
+    ["skin rash", "skin patches", "pruritis"],
     ["stiff neck"],
 ]
 
@@ -209,21 +212,6 @@ export const symptomDependencies: SymptomDependency[] = _.concat(
     ),
 )
 
-export function RENAME_findNode(systemMapping = symptomsBySystems, symptom: string) {
-    return _.flattenDeep(
-        systemMapping.map((symptomSystem) => {
-            // General mappings
-            return symptomSystem.mapping
-                .map((systemMapping) => {
-                    // inside the individual system (general, GE, Resp, etc)
-                    // systemMapping.map(systemMap => systemMap)
-                    // console.log("Recursively", recursivelyFindNode(systemMapping, symptom))
-                    return recursivelyFindNode(systemMapping, symptom)
-                })
-                .filter((node) => node !== null)
-        }),
-    )
-}
 
 // HACK: This is a hack to work with the offline naive causal modes which just map cause to effect
 export function findAllSymptomsWithValue(systemMapping: SystemSymptom, value: symptomState) {
@@ -270,27 +258,28 @@ export function findAllSymptomsWithValue(systemMapping: SystemSymptom, value: sy
     return presentSymptoms
 }
 
-function recursivelyFindNode(systemMapping: SystemSymptom, symptom: string) {
-    // check if this is the node we are looking for based on the symptom
-    if (systemMapping.symptom === symptom) {
-        return systemMapping
-    }
-    // check if this node has children
-    if (systemMapping.children?.length > 0) {
-        // Check if the node has a matchink symptom or value
-        // recursivelyFindNode(systemMapping.children[0])
-        const results = systemMapping.children.map((systemMap) =>
-            recursivelyFindNode(systemMap, symptom),
-        )
-        const flatResults = _.flattenDeep(results)
-        if (flatResults.every((res) => res === null)) {
-            return null
-        }
-        return flatResults.find((res) => res !== null)
-    }
-    // If there are no children
-    return null
-}
+// TOMBSTONE: Apr 26 2021
+// function recursivelyFindNode(systemMapping: SystemSymptom, symptom: string) {
+//     // check if this is the node we are looking for based on the symptom
+//     if (systemMapping.symptom === symptom) {
+//         return systemMapping
+//     }
+//     // check if this node has children
+//     if (systemMapping.children?.length > 0) {
+//         // Check if the node has a matchink symptom or value
+//         // recursivelyFindNode(systemMapping.children[0])
+//         const results = systemMapping.children.map((systemMap) =>
+//             recursivelyFindNode(systemMap, symptom),
+//         )
+//         const flatResults = _.flattenDeep(results)
+//         if (flatResults.every((res) => res === null)) {
+//             return null
+//         }
+//         return flatResults.find((res) => res !== null)
+//     }
+//     // If there are no children
+//     return null
+// }
 
 export function updateSystemSymptomNode(
     systemsList: SystemSymptomMapping[],

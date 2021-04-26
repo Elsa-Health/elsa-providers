@@ -1,12 +1,13 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import _ from "lodash"
 import { calculate, diagnosesList, getObservationsFromLists } from "../../elsa-local/curiosity.nb"
 import { useVisitStore } from "../../models/addo-store"
 import { Button, Card, Col, Notification, Row, Screen, Text } from "../../components"
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import Spacer from "../../components/spacer/spacer"
 import { DiseaseDistribution } from ".."
 import { Divider } from "react-native-paper"
-import { BackHandler, View } from "react-native"
+import { BackHandler, View, TouchableOpacity } from "react-native"
 import { color, style } from "../../theme"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import BulletList from "../../components/bullet-list/bullet-list"
@@ -31,48 +32,55 @@ const diagnosisOptions = diagnosesList.sort().map((key, index) => {
     }
 })
 
-console.log("options, ", diagnosisOptions)
-
 const AssessmentSummary: React.FC = () => {
     const navigation = useNavigation()
     const translateChoice = useLocale((state) => state.translateChoice)
+    const [viewMode, setViewMode] = useState<"bar" | "text">("text")
     const [
         presentSymptoms,
         absentSymptoms,
         dispenserDifferentialDiagnosis,
+        setDiagnoses,
         setState,
     ] = useVisitStore((state) => [
         state.presentSymptoms,
         state.absentSymptoms,
         state.dispenserDifferentialDiagnosis,
+        state.setDiagnoses,
         state.updateVisit,
     ])
+    const [diagnosesLikelihoods, setDiagnosesLikelihoods] = React.useState<any[]>([])
 
-    useFocusEffect(
-        React.useCallback(() => {
-            const onBackPress = () => true
+    // useFocusEffect(
+    //     React.useCallback(() => {
+    //         const onBackPress = () => true
 
-            BackHandler.addEventListener("hardwareBackPress", onBackPress)
+    //         BackHandler.addEventListener("hardwareBackPress", onBackPress)
 
-            return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
-        }, []),
-    )
+    //         return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+    //     }, []),
+    // )
 
-    const causeLikelihoods = calculate(
-        getObservationsFromLists(presentSymptoms, absentSymptoms),
-        "male",
-    )
+    useEffect(() => {
+        const causeLikelihoods = calculate(
+            getObservationsFromLists(presentSymptoms, absentSymptoms),
+            "male",
+        )
 
-    const diagnosesLikelihoods = _.sortBy(
-        _.map(causeLikelihoods, (value, key) => ({
-            diag: key,
-            name: _.upperFirst(key),
-            p: value.toFixed(2),
-        })),
-        ["p"],
-    )
-        .reverse()
-        .slice(0, 10)
+        const diagnosesLikelihoods = _.sortBy(
+            _.map(causeLikelihoods, (value, key) => ({
+                diag: key,
+                name: _.upperFirst(key),
+                p: value.toFixed(2),
+            })),
+            ["p"],
+        )
+            .reverse()
+            .slice(0, 10)
+
+        setDiagnosesLikelihoods(diagnosesLikelihoods)
+        setDiagnoses(diagnosesLikelihoods)
+    }, [])
 
     const diagnosesNextSteps = diagnosesLikelihoods.map((likelihood) =>
         getDiagnosisNextSteps(likelihood.diag),
@@ -83,6 +91,7 @@ const AssessmentSummary: React.FC = () => {
         : getRiskLevel(diagnosesNextSteps, diagnosesLikelihoods)
 
     console.log(riskLevel)
+    if (diagnosesLikelihoods.length < 3) return <View />
     return (
         <Screen preset="scroll" titleTx="addo.assessmentSummary.title" title="Assessment Summary">
             {/* <Card title="Disease Assesment"> */}
@@ -91,8 +100,56 @@ const AssessmentSummary: React.FC = () => {
                 Disease Assessment
             </Text>
             <Spacer size={15} />
+            {viewMode === "text" ? (
+                <Card containerStyle={{ paddingVertical: 10 }}>
+                    <TouchableOpacity
+                        style={{
+                            position: "absolute",
+                            right: 10,
+                            padding: 10,
+                            paddingTop: 5,
+                        }}
+                        onPress={() => setViewMode("bar")}
+                    >
+                        <MaterialIcon name="chart-bar" size={25} />
+                    </TouchableOpacity>
+                    <Text
+                        size="h4"
+                        text={`${diagnosesLikelihoods?.[0].name}: ${diagnosesLikelihoods?.[0].p}%`}
+                    />
+                    <Spacer size={20} />
+                    <Text
+                        size="h4"
+                        text={`${diagnosesLikelihoods?.[1].name}: ${diagnosesLikelihoods?.[1].p}%`}
+                    />
+                    <Spacer size={20} />
+                    <Text
+                        size="h4"
+                        text={`${diagnosesLikelihoods?.[2].name}: ${diagnosesLikelihoods?.[2].p}%`}
+                    />
+                </Card>
+            ) : null}
+            {viewMode === "bar" ? (
+                <Card containerStyle={{ paddingVertical: 15 }}>
+                    <TouchableOpacity
+                        style={{
+                            position: "absolute",
+                            right: 10,
+                            padding: 10,
+                            paddingTop: 5,
+                        }}
+                        onPress={() => setViewMode("text")}
+                        hitSlop={{ bottom: 10, right: 10, left: 10, top: 10 }}
+                    >
+                        <MaterialIcon name="text-subject" size={25} />
+                    </TouchableOpacity>
+                    <DiseaseDistribution
+                        height={300}
+                        diagnoses={diagnosesLikelihoods?.slice(0, 3)}
+                    />
+                </Card>
+            ) : null}
 
-            <DiseaseDistribution height={300} diagnoses={diagnosesLikelihoods.slice(0, 3)} />
             <Spacer size={25} />
             <Notification
                 visible={true}
@@ -118,9 +175,9 @@ const AssessmentSummary: React.FC = () => {
                 <Spacer size={5} />
 
                 <DiseaseNextStepCard
-                    title={diagnosesLikelihoods[0].name}
+                    title={diagnosesLikelihoods?.[0].name}
                     collapsible={false}
-                    nextSteps={diagnosesNextSteps[0]}
+                    nextSteps={diagnosesNextSteps?.[0]}
                 />
             </View>
 
@@ -133,14 +190,14 @@ const AssessmentSummary: React.FC = () => {
                     Recommendations for other possible conditions:
                 </Text>
                 <DiseaseNextStepCard
-                    title={diagnosesLikelihoods[1].name}
+                    title={diagnosesLikelihoods?.[1].name}
                     collapsible={true}
-                    nextSteps={diagnosesNextSteps[1]}
+                    nextSteps={diagnosesNextSteps?.[1]}
                 />
                 <DiseaseNextStepCard
-                    title={diagnosesLikelihoods[2].name}
+                    title={diagnosesLikelihoods?.[2].name}
                     collapsible={true}
-                    nextSteps={diagnosesNextSteps[2]}
+                    nextSteps={diagnosesNextSteps?.[2]}
                 />
             </View>
 

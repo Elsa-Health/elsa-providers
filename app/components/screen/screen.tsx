@@ -66,7 +66,7 @@ function ScreenWithScrolling(props: ScreenProps) {
             />
             <View style={[preset.outer, backgroundStyle, insetStyle]}>
                 {props.title === "auth" ? null : (
-                    <View
+                    <View testID="headerContainer"
                         style={{ height: md ? "auto" : 80, backgroundColor: "white", elevation: 4 }}
                     >
                         <Header headerTx={props.titleTx} headerText={props.title} />

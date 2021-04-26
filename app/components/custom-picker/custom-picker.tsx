@@ -51,6 +51,7 @@ const CustomPickerNoMemo: React.FC<CustomPickerProps> = ({
                     // style={{  }}
                     onValueChange={onChange}
                     accessibilityLabel={accessibilityLabel}
+                    focusable
                     testID="customPicker"
                     mode="dialog"
                 >

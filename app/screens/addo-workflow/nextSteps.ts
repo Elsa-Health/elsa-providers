@@ -41,13 +41,8 @@ const nextSteps: NextStep[] = [
         triageLevel: "refer immediately",
         triageDescription: "Refer the patient to a health facility immediately.",
         refer: true,
-        medications: [
-            "Chest X-Ray (CXR)",
-            "Full Blood Picture (FBP)",
-            "GeneXpert",
-            "Sputum Culture",
-        ],
-        tests: [],
+        medications: [],
+        tests: ["Chest X-Ray (CXR)", "Full Blood Picture (FBP)", "GeneXpert", "Sputum Culture"],
         recommendations: "",
     },
     {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { Screen, Text, Button, Row, Col } from "../../components"
 import _ from "lodash"
@@ -36,9 +36,9 @@ const FurtherQuestions: React.FC = () => {
         (state) => state.systemsSymptoms,
     )
     const navigation = useNavigation()
-    // console.log(visit)
     const [observationState, setObservationState] = React.useState({})
     const [interestingSymptoms, setInterestingSymptoms] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
 
     // Store the assessment stack for navigation
     const [assessmentStack, setAssessmentStack] = React.useState<string[][]>([])
@@ -51,7 +51,6 @@ const FurtherQuestions: React.FC = () => {
                 const _assessmentStack = _.cloneDeep(assessmentStack)
                 const poppedSymptoms = _assessmentStack.pop()
                 const newAssessmentStack = _assessmentStack.splice(0, _assessmentStack.length - 1)
-                // console.log("Back pressed: ", newAssessmentStack.length)
                 if (newAssessmentStack.length === 0) {
                     // disableSelectionMode()
                     // console.log("back pressed")
@@ -88,9 +87,10 @@ const FurtherQuestions: React.FC = () => {
                 }
             }
 
-            BackHandler.addEventListener("hardwareBackPress", onBackPress)
+            // FIXME: NEXT: fix back navigation errors!
+            // BackHandler.addEventListener("hardwareBackPress", onBackPress)
 
-            return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+            // return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
         }, [assessmentStack, interestingSymptoms]),
     )
 
@@ -133,9 +133,16 @@ const FurtherQuestions: React.FC = () => {
         }
     }, [interestingSymptoms])
 
-    const submitObservations = () => {
+    const submitObservations = React.useCallback(() => {
+        console.log("Submitting observations")
+        if (loading) {
+            return
+        }
+        setLoading(true)
+        // setTimeout(() => {
         const present = [...presentSymptoms]
         const absent = [...absentSymptoms]
+        console.log("Symptoms: ", JSON.stringify(observationState, null, 2))
         _.keys(observationState).forEach((symptom) => {
             if (observationState[symptom] === "absent") {
                 // if the symptom is present, remove it from the present symptoms and add it to the absent symptoms
@@ -150,14 +157,18 @@ const FurtherQuestions: React.FC = () => {
                 present.push(symptom)
             }
         })
+
+        console.log("Updating results: ", present, observationState)
         updateVisit({
             absentSymptoms: _.uniq(absent),
             presentSymptoms: _.uniq(present),
         })
-    }
+        setTimeout(() => setLoading(false), 100)
+        // }, 500)
+    }, [presentSymptoms, absentSymptoms, observationState])
 
     // console.log("observations: ", observationState)
-    console.log("interestingSymptoms: ", interestingSymptoms)
+    console.log("interestingSymptoms: ", interestingSymptoms, presentSymptoms)
 
     return (
         <Screen preset="scroll" titleTx="addo.furtherAssessment.title" title="Further Assessment">
@@ -179,14 +190,27 @@ const FurtherQuestions: React.FC = () => {
             </Row>
             {/* <Row justifyContent="flex-end"> */}
             {/* <Col md={12} colStyles={{ alignContent: "flex-end" }}> */}
+            {/* {loading ? (
+                <Button
+                    style={{ paddingHorizontal: 46, paddingVertical: 5, alignSelf: "flex-end" }}
+                    disabled={true}
+                    uppercase={false}
+                    mode="contained"
+                    label={loading ? "..." : "Next"}
+                    labelTx="common.next"
+                />
+            ) : ( */}
             <Button
                 style={{ paddingHorizontal: 46, paddingVertical: 5, alignSelf: "flex-end" }}
                 onPress={submitObservations}
+                disabled={loading}
                 uppercase={false}
                 mode="contained"
-                label="Next"
+                label={loading ? "..." : "Next"}
                 labelTx="common.next"
             />
+            {/* )} */}
+
             {/* </Col> */}
             {/* </Row> */}
         </Screen>

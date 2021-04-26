@@ -1,4 +1,5 @@
 import React from "react"
+import { StyleSheet } from "react-native"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import { Row, Text } from ".."
 import { fullFormatDate } from "../../common/utils"
@@ -19,15 +20,21 @@ const VisitDate: React.FC = () => (
     >
         <Row>
             <MaterialIcon
-                style={{ marginRight: 10 }}
+                style={styles.icon}
                 size={28}
                 color={color.primary}
                 name={"calendar-today"}
             />
-            <Text tx="common.todaysDate" bold size="h6">Today's Date</Text>
+            <Text tx="common.todaysDate" bold size="h6">
+                Today's Date
+            </Text>
         </Row>
         <Text text={fullFormatDate(new Date())} size="default" />
     </Row>
 )
 
-export default VisitDate
+const styles = StyleSheet.create({
+    icon: { marginRight: 10 },
+})
+
+export default React.memo(VisitDate)

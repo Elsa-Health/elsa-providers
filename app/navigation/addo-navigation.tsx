@@ -7,6 +7,7 @@ import {
     DrawerItem,
 } from "@react-navigation/drawer"
 import { ApplicationComponentsScreen, FeedbackScreen } from "../screens"
+import Orientation from "react-native-orientation-locker"
 import ConfirmPatientPresence from "../screens/addo-workflow/ConfirmPatientPresence"
 import ElsaLogo from "../assets/elsa-logo.svg"
 import { Linking, View, Dimensions, Alert } from "react-native"
@@ -18,6 +19,7 @@ import Dashboard from "../screens/addo-workflow/Dashboard"
 import PatientConsent from "../screens/addo-workflow/PatientConsent"
 import PatientIntake from "../screens/addo-workflow/PatientIntake"
 import FurtherAssessment from "../screens/addo-workflow/FurtherAssessment"
+import FurtherQuestions from "../screens/addo-workflow/FurtherQuestions"
 import AssessmentSummary from "../screens/addo-workflow/AssessmentSummary"
 import AssessmentFeedback from "../screens/addo-workflow/AssessmentFeedback"
 import ReferPatient from "../screens/addo-workflow/ReferPatient"
@@ -56,8 +58,38 @@ type CTCParamList = {
 
 const Stack = createNativeStackNavigator<CTCParamList>()
 
+const ADDOAssessmentNavigator = () => {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false,
+                gestureEnabled: true,
+            }}
+            initialRouteName="addo.Dashboard"
+        >
+            <Stack.Screen name="addo.Dashboard" component={Dashboard} />
+            <Stack.Screen name="addo.ConfirmPatientPresence" component={ConfirmPatientPresence} />
+            <Stack.Screen name="addo.PatientConsent" component={PatientConsent} />
+            <Stack.Screen name="addo.PatientIntake" component={PatientIntake} />
+            <Stack.Screen name="addo.VisitHistory" component={VisitHistory} />
+            {/* <Stack.Screen name="addo.FurtherAssessment" component={FurtherAssessment} /> */}
+            <Stack.Screen name="addo.FurtherAssessment" component={FurtherQuestions} />
+            <Stack.Screen name="addo.AssessmentSummary" component={AssessmentSummary} />
+            <Stack.Screen name="addo.AssessmentFeedback" component={AssessmentFeedback} />
+            <Stack.Screen name="addo.FeedbackScreen" component={FeedbackScreen} />
+            <Stack.Screen name="addo.ReferPatient" component={ReferPatient} />
+        </Stack.Navigator>
+    )
+}
+
 const ADDONavigator = () => {
     const authStore = useAuthenticationStore()
+
+    // Set all views to portrait mode
+    useEffect(() => {
+        console.log("Setting View")
+        Orientation.lockToPortrait()
+    }, [])
 
     if (!authStore.authenticated) {
         return (
@@ -90,16 +122,7 @@ const ADDONavigator = () => {
             )}
             edgeWidth={150}
         >
-            <Drawer.Screen name="addo.Dashboard" component={Dashboard} />
-            <Drawer.Screen name="addo.ConfirmPatientPresence" component={ConfirmPatientPresence} />
-            <Drawer.Screen name="addo.PatientConsent" component={PatientConsent} />
-            <Drawer.Screen name="addo.PatientIntake" component={PatientIntake} />
-            <Drawer.Screen name="addo.VisitHistory" component={VisitHistory} />
-            <Drawer.Screen name="addo.FurtherAssessment" component={FurtherAssessment} />
-            <Drawer.Screen name="addo.AssessmentSummary" component={AssessmentSummary} />
-            <Drawer.Screen name="addo.AssessmentFeedback" component={AssessmentFeedback} />
-            <Drawer.Screen name="addo.FeedbackScreen" component={FeedbackScreen} />
-            <Drawer.Screen name="addo.ReferPatient" component={ReferPatient} />
+            <Drawer.Screen name="addo.Dashboard" component={ADDOAssessmentNavigator} />
             <Drawer.Screen name="addo.AssessmentAnalysis" component={AssessmentAnalysis} />
             <Drawer.Screen
                 name="addo.ConditionAssessmentAnalysis"
@@ -155,7 +178,8 @@ const CustomDrawerContent = (props) => {
                         </Text>
                     </View>
                 )}
-                onPress={() => props.navigation.navigate("addo.FeedbackScreen")}
+                // FIXME:
+                onPress={() => props.navigation.navigate("addo.Dashboard")}
             />
             <DrawerItem
                 label={({ focused, color }) => (

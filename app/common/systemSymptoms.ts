@@ -125,21 +125,21 @@ const GISymptoms: SystemSymptoms = [
                 symptom: "vomiting content",
                 children: [
                     {
-                        symptom: "food",
+                        symptom: "vomiting food",
                         name: "Food",
                         value: "absent",
                         system: "gastroentestinal",
                         children: [],
                     },
                     {
-                        symptom: "bile",
+                        symptom: "vomiting bile",
                         name: "Bile",
                         value: "absent",
                         system: "gastroentestinal",
                         children: [],
                     },
                     {
-                        symptom: "blood",
+                        symptom: "vomiting blood",
                         name: "Blood",
                         value: "absent",
                         system: "gastroentestinal",
