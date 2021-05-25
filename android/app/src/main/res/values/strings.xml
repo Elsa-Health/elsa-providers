@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ElsaDiseaseIdentifier</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">IUH5oQpBEdp1n8YVU26oa85EWbQAiwUON0bny</string>
+</resources>
