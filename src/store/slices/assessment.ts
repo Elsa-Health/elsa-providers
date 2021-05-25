@@ -84,6 +84,10 @@ export const {
 	toggleSex,
 	updateMonths,
 	updateYears,
+	toggleDispenserDifferentialDiagnoses,
 	reset,
 } = assessmentSlice.actions;
+export { initialState as initialAssessmentSlice };
 export default assessmentSlice.reducer;
+
+// FIXME: add a work around for non-selected symptoms

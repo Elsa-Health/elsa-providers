@@ -6,7 +6,7 @@ describe ("Conditional Likelihoods Chart", () => {
     test("Render check", () => {
         const {getByTestId} = render(<ConditionLikelihoodsChart data={[]}/>)
 
-        expect(getByTestId("conditionallikelyhoodschart")).toBeDefined();
+        expect(getByTestId("ConditionLikelihoodsChart")).toBeDefined();
 
     })
 })

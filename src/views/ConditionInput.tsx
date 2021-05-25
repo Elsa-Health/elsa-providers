@@ -3,6 +3,7 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import { Searchbar, Text, Button, Chip } from "react-native-paper";
 import { conditions } from "../common/conditions";
+import { toggleList } from "../common/utils";
 
 // NEXT: support showing the most common conditions to allow for easily selecting the items
 const ConditionInput = () => {
@@ -11,11 +12,12 @@ const ConditionInput = () => {
 	const [differentials, setDifferentials] = React.useState<string[]>([]);
 
 	const toggleCondition = (condition: string) => {
-		if (differentials.includes(condition)) {
-			setDifferentials((cond) => cond.filter((c) => c !== condition));
-		} else {
-			setDifferentials((cond) => [...cond, condition]);
-		}
+		setDifferentials((cond) => toggleList(cond, condition))
+		// if (differentials.includes(condition)) {
+		// 	setDifferentials((cond) => cond.filter((c) => c !== condition));
+		// } else {
+		// 	setDifferentials((cond) => [...cond, condition]);
+		// }
 	};
 
 	const onChangeSearch = (query: string) => setSearchQuery(query);

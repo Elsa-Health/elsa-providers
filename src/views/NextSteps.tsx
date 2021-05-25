@@ -294,4 +294,5 @@ const NextStepAction: React.FC<NextStepActionProps> = ({
 	</View>
 );
 
-export { NextSteps };
+// NextStepsStateReducer name made unatractively long, to prevent accidental imports
+export { NextSteps, reducer as nextStepsStateReducer };
