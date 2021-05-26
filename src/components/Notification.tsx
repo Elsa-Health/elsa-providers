@@ -7,8 +7,10 @@ import { primary, palette } from "../colors";
 import { human } from "react-native-typography";
 import { adjustColor } from "../common/utils";
 
+export type VariationType = "info" | "warning" | "danger" | "note"
+
 interface NotificationProps {
-	variation: "info" | "warning" | "danger" | "note";
+	variation: VariationType;	
 	title?: string;
 	visible?: boolean;
 	marginVertical?: number;
