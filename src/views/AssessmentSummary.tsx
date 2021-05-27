@@ -41,7 +41,8 @@ const AssessmentSummary: React.FC<AssessmentSummaryProps> = () => {
 		symptoms: selectedSymptoms,
 	})
 		.map((a) => ({ ...a, similarity: +(a.similarity * 100).toFixed(1) }))
-		.sort((a, b) => b.similarity - a.similarity);
+		.sort((a, b) => b.similarity - a.similarity)
+		.slice(0, 3);
 
 	return (
 		<ScrollView contentContainerStyle={{ padding: 10 }}>

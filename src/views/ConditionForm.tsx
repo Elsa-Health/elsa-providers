@@ -6,7 +6,11 @@ import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import { Checkbox, Text, Button, Divider } from "react-native-paper";
 import { orange, primary } from "../colors";
 import { Spacer } from "../components/Spacer";
-import { RouteProp, useIsFocused, useNavigation } from "@react-navigation/native";
+import {
+	RouteProp,
+	useIsFocused,
+	useNavigation,
+} from "@react-navigation/native";
 import { ConditionLikelihoodsChart } from "../components/ConditionLikelihoodsChart";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
@@ -58,9 +62,8 @@ type ConditionFormProps = {
 const ConditionForm: React.FC<ConditionFormProps> = ({ route, navigation }) => {
 	// const navigation = useNavigation();
 	const dispatch = useDispatch();
-	const selectedSymptoms: RootState["assessment"]["selectedSymptoms"] = useSelector<RootState>(
-		(state) => state.assessment.selectedSymptoms
-	);
+	const selectedSymptoms: RootState["assessment"]["selectedSymptoms"] =
+		useSelector<RootState>((state) => state.assessment.selectedSymptoms);
 	const conditions = route?.params?.conditions;
 	const isFocused = useIsFocused();
 
@@ -93,10 +96,10 @@ const ConditionForm: React.FC<ConditionFormProps> = ({ route, navigation }) => {
 		symptoms: selectedSymptoms,
 	})
 		.map((a) => ({ ...a, similarity: +(a.similarity * 100).toFixed(1) }))
-		.sort((a, b) => b.similarity - a.similarity);
+		.sort((a, b) => b.similarity - a.similarity)
+		.slice(0, 3);
 
 	console.log(selectedSymptoms);
-
 
 	if (!isFocused) {
 		return <View />;
