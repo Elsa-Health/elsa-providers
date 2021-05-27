@@ -18,8 +18,8 @@ import _ from "lodash";
 
 type AssessmentSummaryProps = {};
 
-const AssessmentSummary: React.FC<AssessmentSummaryProps> = () => {
-	const navigation = useNavigation();
+const AssessmentSummary: React.FC<AssessmentSummaryProps> = ({navigation}: any) => {
+	//const navigation = useNavigation();
 	const selectedSymptoms: RootState["assessment"]["selectedSymptoms"] =
 		useSelector<RootState>((state) => state.assessment.selectedSymptoms);
 	const [finalConditions, setFinalConditions] = useState<string[]>([]);

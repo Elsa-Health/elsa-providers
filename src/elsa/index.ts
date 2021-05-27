@@ -172,10 +172,10 @@ function euclidean_similarity(
 		a.map((x, idx) => b[idx] + x)
 	);
 
-	console.log(sum);
+	// console.log(sum);
 	const likelihood = sum.map((s) => s / populationSize);
 
-	console.log(_.sum(likelihood) / likelihood.length);
+	// console.log(_.sum(likelihood) / likelihood.length);
 
 	const s = likelihood
 		.map((l, idx) => {
@@ -279,7 +279,7 @@ function withUncertainities(object, key: string, groups = 5, n = 1000, func) {
 function getConditionEffects(conditionName: string) {
 	const sanitizedName = _.camelCase(conditionName) as condition;
 
-	console.log("sanitizedName", sanitizedName);
+	// console.log("sanitizedName", sanitizedName);
 
 	return mapping[sanitizedName];
 }
