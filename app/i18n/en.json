@@ -1,0 +1,55 @@
+{
+    "common": {
+        "ok": "OK!",
+        "cancel": "Cancel",
+        "back": "Back"
+    },
+    "errors": {
+        "invalidEmail": "Invalid email address."
+    },
+    "welcomeScreen": {
+        "poweredBy": "POWERED BY BOWSER",
+        "readyForLaunch": "Ready for launch.",
+        "continue": "CONTINUE"
+    },
+    "demoScreen": {
+        "howTo": "HOW TO",
+        "title": "What’s In This Stack?",
+        "tagLine": "Congratulations, you’ve got a very advanced React Native app template here.  Take advantage of this boilerplate!",
+        "reactotron": "Demo Reactotron",
+        "androidReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running, run adb reverse tcp:9090 tcp:9090 from your terminal, and reload the app.",
+        "iosReactotronHint": "If this doesn't work, ensure the Reactotron desktop app is running and reload app."
+    },
+    "storybook": {
+        "placeholder": "Placeholder",
+        "field": "Field"
+    },
+    "phoneAuthScreen": {
+        "title": "Elsa Health Assistant"
+    },
+    "authenticator": {
+        "subtitle": "Please scan the QR code on your ID card."
+    },
+    "language": "Language",
+    "dashboardScreen": {
+        "addo": {
+            "subTitle": "Let's assess your patient \n together",
+            "note": "Note: The Elsa Health Assistant should not be used for emergency cases. Please refer your patient to a hospital immediately."
+        },
+
+        
+        "newAssessment": {
+            "title": "New Patient Assessment",
+            "description": "Assess your patients’ symptoms to understand more about their health.",
+            "action": "Assessment"
+        },
+
+        "actions": {
+            "beginAssessment": "Begin Assessment",
+            "feedback": "Feedback / Problem"
+        }
+    },
+    "title": {
+        "welcome": "Welcome"
+    }
+}
