@@ -4,28 +4,129 @@ import { bernoulli } from "./bernoulli";
 const mapping = {
 	malaria: {
 		fever: 0.95,
-		jaundice: 0.75,
-		vomiting: 0.4,
+		jaundice: 0.4,
+		vomiting: 0.8,
 		headache: 0.6,
-		chills: 0.75,
+		chills: 0.7,
+		lethargy: 0.85,
+		pallor: 0.8,
+		weightLoss: 0.8,
+		// anaemia: 0.5,
+		// coma: 0.2,
+		// convulsions: 0.4
+		// hypoglycemia: 0.5
+		// hypotension: 0.4
+		// labouredBreathing: 0.25
+		// unableToFeed: 0.8
+		bodyWeakness: 0.85,
+		darkUrine: 0.4,
 	},
 	gastritis: {
-		vomiting: 0.6,
-		abdominalPain: 0.5,
-		nausea: 0.9,
+		vomiting: 0.5,
+		abdominalPain: 0.95,
+		// abdominalPainRadiateToBack: 0.2,
+		abdominalTenderness: 0.5,
+		epigastricPain: 0.95,
+		hematemesis: 0.3,
+		nausea: 0.6,
 	},
 	gastroenteritis: {
+		// dehydration: 0.7,
+		// abdominalGuarding: 0.2,
+		// confusion: 0.1,
+		// irritable: 0.9,
+		seizures: 0.1,
+		soreThroat: 0.1,
+		rhinorrhea: 0.1,
+		cough: 0.1,
 		vomiting: 0.9,
-		abdominalPain: 0.5,
-		diarrhoea: 0.8,
-		nausea: 0.9,
+		abdominalTenderness: 0.7,
+		abdominalPain: 0.85,
+		diarrhoea: 0.9,
+		fever: 0.6,
+		nausea: 0.93,
+	},
+	pneumonia: {
+		chestPain: 0.7,
+		cough: 0.95,
+		productiveCough: 0.95,
+		crackles: 0.9,
+		dyspnoea: 0.95,
+		fever: 0.95,
+		// intercostalDrawing: 0.65,
+		nasalCongestion: 0.25,
+		// nasalFlaring: 0.25,
+		tachypnea: 0.95,
+	},
+	tuberculosis: {
+		chestPain: 0.5,
+		cough: 0.95,
+		productiveCough: 0.95,
+		dyspnoea: 0.5,
+		fever: 0.9,
+		hypopnea: 0.5,
+		malaise: 0.9,
+		nightSweats: 0.9,
+		tachypnea: 0.5,
+		weightLoss: 0.9,
+	},
+	asthma: {
+		barrelChest: 0.25,
+		chestTightness: 0.92,
+		cough: 0.9,
+		dyspnoea: 0.9,
+		tachypnea: 0.4,
+		wheezing: 0.95,
+	},
+	coryza: {},
+	sinusitis: {},
+	anaemia: {},
+	malnutririon: {},
+	urinaryTractInfection: {},
+	laryngitis: {
+		difficultySwallowing: 0.8,
+		voiceLoss: 0.85,
+		soreThroat: 0.75,
+		tenderAnteriorNeck: 0.85,
+		voiceHoarseness: 0.85,
+	},
+	tonsilitis: {},
+	septicemia: {},
+	tineaCorporis: {},
+	tineaNigra: {},
+	scabies: {
+		impetigo: 0.2,
+		papules: 0.98,
+		// extremityPapules: 0.98,
+		// genitalPapules: 0.98,
+		pruritus: 1.0,
+		// pruritusWorseAtNight: 0.9,
+		skinBurrows: 0.75,
+		skinCrusts: 0.15,
+	},
+	typhoid: {},
+	cholera: {},
+	otitisMedia: {
+		earPain: 0.95,
+		earDischarge: 0.3,
+		fever: 0.4,
+		headache: 0.3,
+	},
+	conjunctivitis: {
+		eyeDischarge: 0.98,
+		fever: 0.25,
+		itcyEyes: 0.8,
+		redEyes: 0.8,
+		rhinorrhea: 0.3,
+		soreThroat: 0.3,
+		swollenEyes: 0.8,
 	},
 };
 
 export type conditionMapping = typeof mapping;
 export type condition = keyof conditionMapping;
 
-function rescaleMapping(mapping: { [key: string]: any }): {
+export function rescaleMapping(mapping: { [key: string]: any }): {
 	[key: string]: any;
 } {
 	const res = {};
@@ -33,7 +134,7 @@ function rescaleMapping(mapping: { [key: string]: any }): {
 	return res;
 }
 
-function simulate(
+export function simulate(
 	condition: condition,
 	n: number,
 	rescaler?: (mapping: conditionMapping) => any
@@ -87,7 +188,7 @@ function euclidean_similarity(
 		.filter((a) => a !== undefined)
 		.map((l) => l * l);
 
-	console.log(_.sum(s.map((s) => 1 - s)) / s.length);
+	// console.log(_.sum(s.map((s) => 1 - s)) / s.length);
 
 	return 1 - (Math.sqrt(s.reduce((a, b) => a + b, 0)) || 1);
 }
@@ -168,13 +269,6 @@ function symptomAssessment(patient: Simulation, n = 1000, penalty = -0.1) {
 	);
 }
 
-function withUncertainities(object, key: string, groups = 5, n = 1000, func) {
-	const groupSimulations = _.times(groups, (g) => func(object, n));
-	const result = _.omit(object, [key]);
-	// groupSimulations.reduce
-	// TODO: fix
-}
-
 function getConditionEffects(conditionName: string) {
 	const sanitizedName = _.camelCase(conditionName) as condition;
 
@@ -197,11 +291,12 @@ const patient: Simulation = {
 	samples: [[1, 1, 1]],
 };
 
-console.log(symptomAssessment(patient));
+// console.log(symptomAssessment(patient));
 
 export {
 	mapping as conditionEffects,
 	getConditionEffects,
 	humanFriendlyVariableName,
 	symptomAssessment,
+	euclidean_similarity
 };
