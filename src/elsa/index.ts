@@ -126,7 +126,7 @@ const mapping = {
 export type conditionMapping = typeof mapping;
 export type condition = keyof conditionMapping;
 
-function rescaleMapping(mapping: { [key: string]: any }): {
+export function rescaleMapping(mapping: { [key: string]: any }): {
 	[key: string]: any;
 } {
 	const res = {};
@@ -134,7 +134,7 @@ function rescaleMapping(mapping: { [key: string]: any }): {
 	return res;
 }
 
-function simulate(
+export function simulate(
 	condition: condition,
 	n: number,
 	rescaler?: (mapping: conditionMapping) => any
@@ -188,7 +188,7 @@ function euclidean_similarity(
 		.filter((a) => a !== undefined)
 		.map((l) => l * l);
 
-	console.log(_.sum(s.map((s) => 1 - s)) / s.length);
+	// console.log(_.sum(s.map((s) => 1 - s)) / s.length);
 
 	return 1 - (Math.sqrt(s.reduce((a, b) => a + b, 0)) || 1);
 }
@@ -269,13 +269,6 @@ function symptomAssessment(patient: Simulation, n = 1000, penalty = -0.1) {
 	);
 }
 
-function withUncertainities(object, key: string, groups = 5, n = 1000, func) {
-	const groupSimulations = _.times(groups, (g) => func(object, n));
-	const result = _.omit(object, [key]);
-	// groupSimulations.reduce
-	// TODO: fix
-}
-
 function getConditionEffects(conditionName: string) {
 	const sanitizedName = _.camelCase(conditionName) as condition;
 
@@ -298,11 +291,12 @@ const patient: Simulation = {
 	samples: [[1, 1, 1]],
 };
 
-console.log(symptomAssessment(patient));
+// console.log(symptomAssessment(patient));
 
 export {
 	mapping as conditionEffects,
 	getConditionEffects,
 	humanFriendlyVariableName,
 	symptomAssessment,
+	euclidean_similarity
 };
