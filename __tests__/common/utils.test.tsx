@@ -35,10 +35,9 @@ describe("Utils", () => {
 	});
 
 	describe("authentication", () => {
-		test("to succeed", async () => {
+		test("to succeed", () => {
 			const QR_DATA = "3|ID|FN|LN|ROLE|TELE|FCN|CITY|FCNID"
-			const info = await authenticate(QR_DATA);
-			expect(info).toStrictEqual({
+			expect(authenticate(QR_DATA)).resolves.toStrictEqual({
 				version: "3",
 				id: "ID",
 				firstName: "FN",
