@@ -29,6 +29,7 @@ const ConditionInput = () => {
 	return (
 		<ScrollView testID="ConditionalInputScrollView" contentContainerStyle={{ padding: 10 }}>
 			<Searchbar
+				testID="condInputSearchInput"
 				placeholder="Search Conditions"
 				onChangeText={onChangeSearch}
 				value={searchQuery}
@@ -45,6 +46,7 @@ const ConditionInput = () => {
 				{differentials.map((cond) => (
 					<Chip
 						key={cond}
+						testID={`condInputChipFor${cond}`}
 						icon="close"
 						onPress={() => toggleCondition(cond)}
 						style={{ marginRight: 5, marginBottom: 5 }}
@@ -74,6 +76,7 @@ const ConditionInput = () => {
 									? "contained"
 									: "outlined"
 							}
+							testID={`condInputButtonFor${condition}`}
 							key={condition}
 							onPress={() => toggleCondition(condition)}
 							style={{ margin: 4, padding: 8 }}
@@ -84,7 +87,7 @@ const ConditionInput = () => {
 			</View>
 
 			<View style={{ marginTop: 15 }}>
-				<Button onPress={next} mode="contained">
+				<Button onPress={next} testID="condInputNextButton" mode="contained">
 					Next
 				</Button>
 			</View>

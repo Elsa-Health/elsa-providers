@@ -107,7 +107,7 @@ const ConditionForm: React.FC<ConditionFormProps> = ({ route, navigation }) => {
 
 	if (conditions.length === 0) return <Text>No Condition is selected</Text>;
 	return (
-		<ScrollView contentContainerStyle={{ padding: 10 }}>
+		<ScrollView testID="conditionFormView" contentContainerStyle={{ padding: 10 }}>
 			{conditions.map((condition) => {
 				const conditionEffectsMap = getConditionEffects(condition);
 				// console.log("a", conditionEffectsMap);
