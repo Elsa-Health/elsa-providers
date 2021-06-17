@@ -1,5 +1,9 @@
 import {
 	adjustColor,
+	authenticate,
+	AuthInfoMap,
+	ERROR_MESSAGE,
+	fieldNames,
 	labelToValue,
 	pickerOptionsFromList,
 	toggleList,
@@ -29,4 +33,30 @@ describe("Utils", () => {
 			testList.length + 1
 		);
 	});
+
+	describe("authentication", () => {
+		test("to succeed", async () => {
+			const QR_DATA = "3|ID|FN|LN|ROLE|TELE|FCN|CITY|FCNID"
+			const info = await authenticate(QR_DATA);
+			expect(info).toStrictEqual({
+				version: "3",
+				id: "ID",
+				firstName: "FN",
+				lastName: "LN",
+				role: "ROLE",
+				telephone: "TELE",
+				facilityName: "FCN",
+				facilityId: "FCNID",
+				city: "CITY"
+			});
+		});
+
+		test("to fail", () => {
+			const QR_DATA = "3|ID|FN|LN|ROLE|TELE|FCN|FCNID";
+
+			// NEXT: checks for the 2 types of error... potentially one thrown by _ and another the ERROR_MESSAGE
+			expect(authenticate(QR_DATA)).rejects.toThrowError();
+		});
+	})
+
 });

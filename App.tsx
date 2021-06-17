@@ -27,6 +27,7 @@ import { AssessmentSummary } from "./src/views/AssessmentSummary";
 import { NextSteps } from "./src/views/NextSteps";
 import { orange, primary } from "./src/colors";
 import { condition } from "./src/elsa";
+import { authenticate } from "./src/common/utils";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,10 @@ export type RootStackParamList = {
 	ConditionForm: { conditions: condition[] };
 };
 
+function QRWithAuthenticator() {
+	return <QRAuthenticator authenticate={authenticate} />;
+}
+
 const App = () => {
 	return (
 		<Provider store={store}>
@@ -58,7 +63,7 @@ const App = () => {
 								title: "Scan Your Card",
 								headerShown: false,
 							}}
-							component={QRAuthenticator}
+							component={QRWithAuthenticator}
 						/>
 						<Stack.Screen
 							name="PatientDemographics"

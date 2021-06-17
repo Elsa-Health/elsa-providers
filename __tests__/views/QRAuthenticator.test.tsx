@@ -9,23 +9,58 @@ import store from "../../src/store";
 import { QRAuthenticator } from "../../src/views/QRAuthenticator";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { AuthInfoMap } from "../../src/common/utils";
+// import { authenticate } from "../../src/common/utils";
 
 const Stack = createStackNavigator();
 
-it("renders correctly", () => {
-	renderer.create(
-		<Provider store={store}>
-			<NavigationContainer>
-				<Stack.Navigator>
-					<Stack.Screen
-						name="QRAuthenticator"
-						component={() => <QRAuthenticator />}
-						initialParams={{
-							conditions: [],
-						}}
-					/>
-				</Stack.Navigator>
-			</NavigationContainer>
-		</Provider>
-	);
+describe("QR Authenticator", function () {
+	it("Renders correctly", () => {
+		renderer.create(
+			<Provider store={store}>
+				<NavigationContainer>
+					<Stack.Navigator>
+						<Stack.Screen
+							name="QRAuthenticator"
+							component={() => (
+								<QRAuthenticator
+									authenticate={async (_str) =>
+										({} as AuthInfoMap)
+									}
+								/>
+							)}
+							initialParams={{
+								conditions: [],
+							}}
+						/>
+					</Stack.Navigator>
+				</NavigationContainer>
+			</Provider>
+		);
+	});
+
+	it("Scanner reads properly", () => {
+		const mockAuthFn = jest.fn();
+
+		renderer.create(
+			<Provider store={store}>
+				<NavigationContainer>
+					<Stack.Navigator>
+						<Stack.Screen
+							name="QRAuthenticator"
+							component={() => (
+								<QRAuthenticator authenticate={mockAuthFn} />
+							)}
+							initialParams={{
+								conditions: [],
+							}}
+						/>
+					</Stack.Navigator>
+				</NavigationContainer>
+			</Provider>
+		);
+
+		// Check if there is successful scanning
+		// ---
+	});
 });

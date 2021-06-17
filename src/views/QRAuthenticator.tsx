@@ -15,61 +15,49 @@ import _ from "lodash";
 import { login, logout } from "../store/slices/authentication";
 // import { getFacilityById } from "../facilities";
 import { Screen } from "../components/screen";
+import { useCallback } from "react";
+import { authenticate as AuthUtilFn } from '../common/utils';
 
-type QRAuthenticatorProps = {};
+type QRAuthenticatorProps = {
+	authenticate: typeof AuthUtilFn;
+};
 
-const QRAuthenticator: React.FC<QRAuthenticatorProps> = () => {
+const QRAuthenticator: React.FC<QRAuthenticatorProps> = ({ authenticate }) => {
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
-	const onSuccess = (e: BarCodeReadEvent) => {
-		const { data } = e;
-		const fieldNames = [
-			"version",
-			"id",
-			"firstName",
-			"lastName",
-			"role",
-			"telephone",
-			"facilityName",
-			"city",
-			"facilityId",
-		];
-		const QRInfo = data.split("|");
-		const info: { [key: string]: string } = {};
-		fieldNames.forEach((name, idx) => (info[name] = QRInfo[idx]));
-		console.log(data);
-		if (
-			Array.isArray(QRInfo) &&
-			QRInfo.length === fieldNames.length &&
-			info.facilityName &&
-			info.version &&
-			info.facilityId
-		) {
-			// NEXT: get the GPS location of the user at the moment of sign in.
-			dispatch(
-				login({
-					loggedIn: true,
-					lat: 0,
-					lng: 0,
-					name: info.firstName,
-					uid: info.id,
+	const onSuccess = useCallback(
+		(e: BarCodeReadEvent) => {
+			authenticate(e.data)
+				.then((info) => {
+					// NEXT: get the GPS location of the user at the moment of sign in.
+					dispatch(
+						login({
+							loggedIn: true,
+							lat: 0,
+							lng: 0,
+							name: info.firstName,
+							uid: info.id,
+						})
+					);
+					ToastAndroid.show(
+						"Welcome " +
+							_.upperFirst(info.firstName) +
+							" " +
+							_.upperFirst(info.lastName),
+						ToastAndroid.SHORT
+					);
+					// Replace current stack with the MainNavigator
+					return navigation.dispatch(
+						StackActions.replace("PatientDemographics", {})
+					);
 				})
-			);
-			ToastAndroid.show(
-				"Welcome " +
-					_.upperFirst(info.firstName) +
-					" " +
-					_.upperFirst(info.lastName),
-				ToastAndroid.SHORT
-			);
-			// Replace current stack with the MainNavigator
-			return navigation.dispatch(
-				StackActions.replace("PatientDemographics", {})
-			);
-		}
-		ToastAndroid.show("Please scan a valid QR code", 3000);
-		logout();
-	};
+				.catch((err: Error) => {
+					ToastAndroid.show(err.message, 3000);
+					dispatch(logout());
+				});
+		},
+		[authenticate, dispatch, navigation]
+	);
 	return (
 		// <View>
 		<QRCodeScanner

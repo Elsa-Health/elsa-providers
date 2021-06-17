@@ -99,7 +99,7 @@ const ConditionForm: React.FC<ConditionFormProps> = ({ route, navigation }) => {
 		.sort((a, b) => b.similarity - a.similarity)
 		.slice(0, 3);
 
-	console.log(selectedSymptoms);
+	// console.log(selectedSymptoms);
 
 	if (!isFocused) {
 		return <View />;

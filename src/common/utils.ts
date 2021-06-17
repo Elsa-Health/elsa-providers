@@ -37,3 +37,55 @@ export function toggleList(list: any[], value: any): any[] {
 		return [...list, value];
 	}
 }
+
+type FieldName =
+	| "version"
+	| "id"
+	| "firstName"
+	| "lastName"
+	| "role"
+	| "telephone"
+	| "facilityName"
+	| "city"
+	| "facilityId";
+
+// Exported for tests
+export const fieldNames: FieldName[] = [
+	"version",
+	"id",
+	"firstName",
+	"lastName",
+	"role",
+	"telephone",
+	"facilityName",
+	"city",
+	"facilityId",
+];
+
+export type AuthInfoMap = { [key in FieldName]: string };
+export const ERROR_MESSAGE = "Please scan a valid QR code";
+
+export function authenticate(data: string): Promise<AuthInfoMap> {
+	return new Promise((resolve, reject) => {
+		try {
+			const QRInfo = data.split("|");
+			const info = _.zipObject(fieldNames, QRInfo) as AuthInfoMap;
+			// console.log(data);
+			if (
+				Array.isArray(QRInfo) &&
+				QRInfo.length === fieldNames.length &&
+				info.facilityName &&
+				info.version &&
+				info.facilityId
+			) {
+				// NEXT: get the GPS location of the user at the moment of sign in.
+				resolve(info);
+			}
+
+			throw new Error(ERROR_MESSAGE);
+		} catch (err) {
+			// reject with the message
+			reject(err);
+		}
+	});
+}
