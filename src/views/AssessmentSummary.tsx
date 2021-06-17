@@ -18,6 +18,11 @@ import _ from "lodash";
 
 type AssessmentSummaryProps = {};
 
+/**
+ * TODO: Unable to fix untill the Assesment screen is fixed.
+ * How?
+ * 	selectedSysmptoms dont render properly
+ */
 const AssessmentSummary: React.FC<AssessmentSummaryProps> = ({navigation}: any) => {
 	//const navigation = useNavigation();
 	const selectedSymptoms: RootState["assessment"]["selectedSymptoms"] =
