@@ -7,19 +7,22 @@ import renderer from 'react-test-renderer'
 
 describe("Notification", () => {
     test("renders correctly", () => {
+        const variations: VariationType[] = [ "danger", "info", "note", "warning" ]
         const mockOnPress = jest.fn()
 
-		renderer.create(
-			<Notification
-				variation={"info"}
-                title={"title"}
-                visible={true}
-                marginVertical={20}
-                onPress={mockOnPress}
-            >
-                <View />
-            </Notification>
-        )
+        variations.forEach(variation => {
+            renderer.create(
+                <Notification
+                    variation={variation}
+                    title={"title"}
+                    visible={true}
+                    marginVertical={20}
+                    onPress={mockOnPress}
+                >
+                    <View />
+                </Notification>
+            )
+        });
     })
 })
 
