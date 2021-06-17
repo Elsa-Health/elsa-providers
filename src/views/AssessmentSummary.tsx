@@ -45,7 +45,7 @@ const AssessmentSummary: React.FC<AssessmentSummaryProps> = ({navigation}: any) 
 		.slice(0, 3);
 
 	return (
-		<ScrollView contentContainerStyle={{ padding: 10 }}>
+		<ScrollView testID="assesssmentSummaryView" contentContainerStyle={{ padding: 10 }}>
 			<View>
 				<ConditionLikelihoodsChart
 					data={assessment.map((a) => ({
@@ -213,7 +213,7 @@ const AssessmentSummary: React.FC<AssessmentSummaryProps> = ({navigation}: any) 
 			</View>
 
 			<View style={{ marginTop: 20 }}>
-				<Button onPress={next} mode="contained">
+				<Button onPress={next} testID="asSumNextButton" mode="contained">
 					Next
 				</Button>
 			</View>

@@ -21,28 +21,24 @@ it("renders correctly", () => {
 	);
 });
 
-describe("Testing the Assessment summary", () => {
-	test("The page renders", () =>{
-		const {getByText} = render(
-		<Provider store={store}>
-			<AssessmentSummary />
-		</Provider>
+describe("Testing the AssessmentSummary View", () => {
+	test("renders", () =>{
+		const {getByTestId} = render(
+			<Provider store={store}>
+				<AssessmentSummary />
+			</Provider>
 		)
 
-		const textComp = getByText("Your Decisions")
+		const textComp = getByTestId("assesssmentSummaryView")
 		expect(textComp).toBeTruthy()
 	})
 
-	test("Next Navigation", () => {
-
+	test("can navigate to NextSteps View", () => {
 		const Stack = createStackNavigator();
-
-		const {getByText} = render(
+		const { getByTestId } = render(
 			<Provider store={store}>
-			<PaperProvider>
-				<StatusBar barStyle={"light-content"} backgroundColor="white" />
 				<NavigationContainer>
-					<Stack.Navigator initialRouteName="QRAuthenticator">
+					<Stack.Navigator>
 						<Stack.Screen
 							name="AssessmentSummary"
 							options={{ title: "Assessment Summary" }}
@@ -55,14 +51,14 @@ describe("Testing the Assessment summary", () => {
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>
-			</PaperProvider>
-		</Provider>
-			)
-	
-			const button = getByText("Next")
-			fireEvent.press(button)
+			</Provider>
+		);
 
-			const headerText = getByText(/I provided the following recommendations:/)
-			expect(headerText).toBeTruthy();
+		const button = getByTestId("asSumNextButton")
+		fireEvent.press(button)
+
+		const headerText = getByTestId("nextStepsView")
+		expect(headerText).toBeTruthy();
 	})
+
 })

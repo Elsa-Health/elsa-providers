@@ -13,6 +13,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import {ConditionInput} from "../../src/views/ConditionInput"
 import { createStackNavigator } from "@react-navigation/stack";
 
+jest.useFakeTimers();
+
 describe("Patient Demographics", () => {
 	test("renders correctly", () => {
 		renderer.create(
@@ -22,12 +24,47 @@ describe("Patient Demographics", () => {
 		);
 	});
 
-	test("Next Navigation", () => {
+	/**
+	 * Can choose sex
+	 * Expect when one is selected, the others are deselected
+	 */
+	describe("can choose sex", () => {
+		test("male", () => {
+			const { getByTestId } = render(
+				<Provider store={store}>
+					<PatientDemographics />
+				</Provider>
+			);
 
+			const pressable = getByTestId("pdTouchableMaleChoice");
+			fireEvent.press(pressable);
+
+			// check store
+			const { assessment } = store.getState();
+			expect(assessment.sex).toBe("male");
+		});
+
+		test("female", () => {
+			const { getByTestId } = render(
+				<Provider store={store}>
+					<PatientDemographics />
+				</Provider>
+			);
+
+			const pressable = getByTestId("pdTouchableFemaleChoice");
+			fireEvent.press(pressable);
+
+			// check store
+			const { assessment } = store.getState();
+			expect(assessment.sex).toBe("female");
+		});
+	});
+
+	test("can navigate to next screen", () => {
 		const Stack = createStackNavigator();
-
-		const {getByText} = render(
-		<Provider store={store}>
+		
+		const { getByTestId } = render(
+			<Provider store={store}>
 				<NavigationContainer>
 					<Stack.Navigator initialRouteName="QRAuthenticator">
 						<Stack.Screen
@@ -42,14 +79,36 @@ describe("Patient Demographics", () => {
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>
-		</Provider>
-		)
+			</Provider>
+		);
 
-		// const button = getByText(/Next/)
-		// 	fireEvent.press(button)
+		// choose male
+		const CHOSEN_SEX = "male"
+		const pressable = getByTestId("pdTouchableMaleChoice");
+		fireEvent.press(pressable);
 
-		// 	const headerText = getByText(/Search Conditions/)
-		// 	expect(headerText).toBeTruthy();
-	})
-})
+		// adding 
+		const YEARS = 23;
+		fireEvent.changeText(getByTestId("pdYearsInput"), YEARS);
+
+		const MONTHS = 2;
+		fireEvent.changeText(getByTestId("pdMonthInput"), MONTHS);
+
+		const button = getByTestId("pdNextButton");
+		fireEvent.press(button);
+
+		// changed view to Conditional Input Screen
+		const headerText = getByTestId("ConditionalInputScrollView");
+		expect(headerText).toBeTruthy();
+
+		// Check to see the state
+		const { assessment } = store.getState();
+		const { sex, years, months } = assessment;
+		expect({ sex, years, months }).toEqual({
+			sex: CHOSEN_SEX,
+			years: YEARS,
+			months: MONTHS,
+		});
+	});
+});
 

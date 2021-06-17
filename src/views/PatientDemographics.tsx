@@ -20,8 +20,8 @@ const { width, height } = Dimensions.get("window");
 
 type PatientDemographicsProps = {};
 
-const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
-	const navigation = useNavigation();
+const PatientDemographics: React.FC<PatientDemographicsProps> = ({ navigation }) => {
+	// const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const state: RootState["assessment"] = useSelector<RootState>(
 		(state) => state.assessment
@@ -52,6 +52,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
 						backgroundColor:
 							state.sex === "female" ? primary : "transparent",
 					}}
+					testID="pdTouchableFemaleChoice"
 					onPress={() => {
 						dispatch(toggleSex("female"));
 						// setState({ type: "update-sex", payload: "female" });
@@ -84,6 +85,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
 						backgroundColor:
 							state.sex === "male" ? primary : "transparent",
 					}}
+					testID="pdTouchableMaleChoice"
 					onPress={
 						() => dispatch(toggleSex("male"))
 						// setState({ type: "update-sex", payload: "male" })
@@ -112,6 +114,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
 					label="Years"
 					mode="outlined"
 					keyboardType="number-pad"
+					testID="pdYearsInput"
 					onChangeText={
 						(text) => dispatch(updateYears(+text))
 						// setState({ type: "update-years", payload: +text })
@@ -123,6 +126,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
 					label="Months"
 					mode="outlined"
 					keyboardType="number-pad"
+					testID="pdMonthInput"
 					onChangeText={
 						(text) => dispatch(updateMonths(+text))
 						// setState({ type: "update-months", payload: +text })
@@ -132,7 +136,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = () => {
 			</View>
 
 			<View style={{ marginTop: 20 }}>
-				<Button onPress={next} mode="contained">
+				<Button onPress={next} mode="contained" testID="pdNextButton">
 					<Text style={{ color: "white" }}>Next</Text>
 				</Button>
 			</View>

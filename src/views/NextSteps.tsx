@@ -117,7 +117,7 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 		return navigation.dispatch(StackActions.popToTop());
 	};
 	return (
-		<ScrollView contentContainerStyle={{ padding: 10 }}>
+		<ScrollView testID="nextStepsView" contentContainerStyle={{ padding: 10 }}>
 			<Text style={{ fontWeight: "bold" }}>
 				I provided the following recommendations:
 			</Text>

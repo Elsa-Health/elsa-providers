@@ -27,7 +27,7 @@ const ConditionInput = () => {
 	};
 
 	return (
-		<ScrollView contentContainerStyle={{ padding: 10 }}>
+		<ScrollView testID="ConditionalInputScrollView" contentContainerStyle={{ padding: 10 }}>
 			<Searchbar
 				placeholder="Search Conditions"
 				onChangeText={onChangeSearch}
