@@ -13,13 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NextSteps } from "../../src/views/NextSteps";
 
-it("renders correctly", () => {
-	renderer.create(
-		<Provider store={store}>
-			<AssessmentSummary />
-		</Provider>
-	);
-});
+jest.useFakeTimers();
 
 describe("Testing the AssessmentSummary View", () => {
 	test("renders", () =>{

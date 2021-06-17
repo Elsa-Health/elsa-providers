@@ -1,16 +1,14 @@
 import "react-native";
 import React from "react";
-import { fireEvent, render } from "@testing-library/react-native"
+import { fireEvent, render, cleanup } from "@testing-library/react-native"
 
 // Note: test renderer must be required after react-native.
 import renderer from "react-test-renderer";
 import { Provider } from "react-redux";
-import { Provider as PaperProvider, DefaultTheme } from "react-native-paper";
 import store from "../../src/store";
 import { PatientDemographics } from "../../src/views/PatientDemographics";
-import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import {ConditionInput} from "../../src/views/ConditionInput"
+import { ConditionInput } from "../../src/views/ConditionInput"
 import { createStackNavigator } from "@react-navigation/stack";
 
 jest.useFakeTimers();
@@ -112,3 +110,4 @@ describe("Patient Demographics", () => {
 	});
 });
 
+afterEach(cleanup);

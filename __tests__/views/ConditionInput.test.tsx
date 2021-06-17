@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent, render, cleanup } from "@testing-library/react-native";
 
 // Note: test renderer must be required after react-native.
 import renderer from "react-test-renderer";
@@ -10,8 +10,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ConditionInput } from "../../src/views/ConditionInput";
 import { NavigationContainer } from "@react-navigation/native";
 import { ConditionForm } from "../../src/views/ConditionForm";
-import { NextSteps } from "../../src/views/NextSteps";
 import { conditions } from "../../src/common/conditions";
+
+afterEach(cleanup);
 
 describe ("ConditionInput", () => {
 	const Stack = createStackNavigator();
