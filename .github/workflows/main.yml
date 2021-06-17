@@ -29,10 +29,10 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+        run: yarn install
 
       - name: Test React Native Code
-        run: npm run test --ci --coverage
+        run: yarn test --ci --coverage --silent
 
       - name: Test Coveralls GitHub Action
         uses: coverallsapp/github-action@v1.1.2
