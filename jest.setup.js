@@ -8,3 +8,11 @@ jest.mock("@react-navigation/native", () => ({
 		params: {},
 	}),
 }));
+
+// jest.mock("react-native", () => ({
+// 	...jest.requireActual("react-native"),
+// 	InteractionManager: {
+// 		...jest.requireActual("react-native").InteractionManager,
+// 		clearInteractionHandle: jest.fn(),
+// 	},
+// }));
