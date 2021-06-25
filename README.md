@@ -10,7 +10,7 @@ The application supports English and Swahili and has been tested with users acro
 
 ## Badges
 
-![build](https://github.com/Elsa-Health/elsa-providers/workflows/build/badge.svg?branch=dev) ![test](https://github.com/Elsa-Health/elsa-providers/workflows/CI/badge.svg?branch=dev) <a href='https://coveralls.io/github/Elsa-Health/elsa-providers'><img src='https://coveralls.io/repos/github/Elsa-Health/elsa-providers/badge.svg' alt='Coverage Status' /></a>
+![build](https://github.com/Elsa-Health/elsa-providers/workflows/build/badge.svg) ![test](https://github.com/Elsa-Health/elsa-providers/workflows/CI/badge.svg) <a href='https://coveralls.io/github/Elsa-Health/elsa-providers'><img src='https://coveralls.io/repos/github/Elsa-Health/elsa-providers/badge.svg' alt='Coverage Status' /></a>
 
 ## Installation
 
