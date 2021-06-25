@@ -2,13 +2,12 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { ConditionLikelihoodsChart } from "../../src/components/ConditionLikelihoodsChart";
 
-jest.useFakeTimers();
+// jest.useFakeTimers();
 
-describe("Conditional Likelihoods Chart", () => {
-	test("Render check", () => {
-		const { getByTestId } = render(
-			<ConditionLikelihoodsChart data={[{ y: 10, x: "Malaria" }]} />
-		);
+describe ("Conditional Likelihoods Chart", () => {
+    test("Render check", () => {
+        // expect(1).toBe(1)
+        const {getByTestId} = render(<ConditionLikelihoodsChart data={[]}/>)
 
 		expect(getByTestId("ConditionLikelihoodsChart")).toBeDefined();
 	});

@@ -16,6 +16,7 @@ const Stack = createStackNavigator();
 
 describe("QR Authenticator", function () {
 	it("Renders correctly", () => {
+		const mockAuthFn = jest.fn();
 		renderer.create(
 			<Provider store={store}>
 				<NavigationContainer>
@@ -24,9 +25,7 @@ describe("QR Authenticator", function () {
 							name="QRAuthenticator"
 							component={() => (
 								<QRAuthenticator
-									authenticate={async (_str) =>
-										({} as AuthInfoMap)
-									}
+									authenticate={mockAuthFn}
 								/>
 							)}
 							initialParams={{
