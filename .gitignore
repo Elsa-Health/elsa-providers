@@ -61,3 +61,6 @@ buck-out/
 coverage/
 
 code-push.sh
+
+# Large file as a result of bundleRelease
+*.hprof
