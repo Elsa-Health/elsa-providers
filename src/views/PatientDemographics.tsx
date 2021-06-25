@@ -32,7 +32,7 @@ const PatientDemographics: React.FC<PatientDemographicsProps> = ({ navigation })
 	};
 
 	return (
-		<View style={{ padding: 10, marginTop: height / 32 }}>
+		<View testID="patientDemographicsView" style={{ padding: 10, marginTop: height / 32 }}>
 			{/* NEXT: Add nice icons for picking the patient sex */}
 			<View
 				style={{

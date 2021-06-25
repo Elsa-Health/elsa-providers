@@ -15,7 +15,7 @@ type demography = {
 	sex: sex;
 };
 
-const initialState: SliceState = {
+export const initialState: SliceState = {
 	sex: "male",
 	years: 0,
 	months: 0,

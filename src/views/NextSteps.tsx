@@ -125,18 +125,20 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 			<Spacer size={22} />
 
 			<NextStepAction
+				testID="nsaRefferedHealthFacility"
 				onToggle={() => setState({ type: "toggle-referred" })}
 				status={state.referred ? "checked" : "unchecked"}
 				text="Referred to the nearest health facility"
 			/>
 
 			<NextStepAction
+				testID="nsaRefferedToLab"
 				onToggle={() => setState({ type: "toggle-testing" })}
 				status={state.referredForTesting ? "checked" : "unchecked"}
 				text="Referred to a laboratory for testing"
 			>
 				{state.referredForTesting && (
-					<View style={{ marginTop: 20 }}>
+					<View testID="nsaRefferedToLabChildView" style={{ marginTop: 20 }}>
 						<View
 							style={{ flexDirection: "row", flexWrap: "wrap" }}
 						>
@@ -149,6 +151,7 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 									<ToggleButton
 										label={investigation}
 										key={investigation}
+										testID={`nsa.${investigation}.ToggleButton`}
 										onPress={() =>
 											setState({
 												type: "update-investigation",
@@ -167,12 +170,13 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 			</NextStepAction>
 
 			<NextStepAction
+				testID="nsaDispensedMedication"
 				onToggle={() => setState({ type: "toggle-medication" })}
 				status={state.prescribedMedications ? "checked" : "unchecked"}
 				text="Dispensed medication to the patient"
 			>
 				{state.prescribedMedications && (
-					<View style={{ marginTop: 20 }}>
+					<View testID="nsaDispensedMedicationChildView" style={{ marginTop: 20 }}>
 						<View
 							style={{ flexDirection: "row", flexWrap: "wrap" }}
 						>
@@ -185,6 +189,7 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 									<ToggleButton
 										label={medication}
 										key={medication}
+										testID={`nsa.medication.${medication}.ToggleButton`}
 										onPress={() =>
 											setState({
 												type: "update-prescription",
@@ -216,7 +221,7 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 			</View>
 
 			<View style={{ marginTop: 20 }}>
-				<Button onPress={next} mode="contained">
+				<Button onPress={next} testID="nsNextButton" mode="contained">
 					Complete
 				</Button>
 			</View>
@@ -225,12 +230,14 @@ const NextSteps: React.FC<NextStepsProps> = () => {
 };
 
 type ToggleButtonProps = {
+	testID?: string
 	label: string;
 	status: "active" | "inactive";
 	onPress: () => void;
 };
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({
+	testID,
 	label,
 	status,
 	onPress,
@@ -247,6 +254,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 				borderRadius: 7,
 				backgroundColor: active ? primary : "transparent",
 			}}
+			testID={testID}
 			onPress={onPress}
 		>
 			<Text style={[active ? { color: "white" } : { color: "black" }]}>
@@ -259,12 +267,14 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 // FIXME: Add the tests and medications list
 
 type NextStepActionProps = {
+	testID?: string;
 	text: string;
 	status: "checked" | "unchecked";
 	onToggle: () => void;
 };
 
 const NextStepAction: React.FC<NextStepActionProps> = ({
+	testID,
 	text = "",
 	status,
 	onToggle,
@@ -279,6 +289,7 @@ const NextStepAction: React.FC<NextStepActionProps> = ({
 		}}
 	>
 		<TouchableOpacity
+			testID={testID}
 			onPress={onToggle}
 			style={{
 				flexDirection: "row",
@@ -287,7 +298,7 @@ const NextStepAction: React.FC<NextStepActionProps> = ({
 			}}
 		>
 			<Text style={human.body}>{text}</Text>
-			<Checkbox status={status} />
+			<Checkbox status={status} testID={`${testID}.checkBox`} />
 		</TouchableOpacity>
 
 		{children}
@@ -295,4 +306,8 @@ const NextStepAction: React.FC<NextStepActionProps> = ({
 );
 
 // NextStepsStateReducer name made unatractively long, to prevent accidental imports
-export { NextSteps, reducer as nextStepsStateReducer };
+export {
+	NextSteps,
+	reducer as nextStepsStateReducer,
+	initialState as initialNextStepsState,
+};
