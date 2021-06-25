@@ -98,14 +98,17 @@ function reducer(state: State, action: Action): State {
 	}
 }
 
-type NextStepsProps = {};
+type NextStepsProps = {
+	// navigation?: any;
+};
 
-const NextSteps: React.FC<NextStepsProps> = () => {
-	const navigation = useNavigation();
+const NextSteps: React.FC<NextStepsProps> = (/*{ navigation }*/) => {
+	const navigation = useNavigation()
 	const dispatch = useDispatch();
 	const [state, setState] = useReducer(reducer, initialState);
 
 	const next = () => {
+		console.log("NAVIGATION:", navigation);
 		// TODO: add method to store the data into DB
 		dispatch(reset());
 		navigation.dispatch(
