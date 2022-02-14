@@ -1,3 +1,5 @@
+> ## Hey there! We've created a monolithic repo, slowly combining all Elsa Health's Open Source Projects. New repository link https://github.com/Elsa-Health/mammoth
+
 ![ELSA HEALTH](https://www.elsa.health/elsa-logo.png)
 
 # Elsa Health Assistant for Providers
